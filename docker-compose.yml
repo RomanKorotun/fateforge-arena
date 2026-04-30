@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    image: node_image_prod
+    container_name: node_container_prod
+    environment:
+      - PORT=${BACKEND_PORT_INTERNAL}
+    ports:
+      - "${BACKEND_PORT_EXTERNAL}:${BACKEND_PORT_INTERNAL}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres_container_prod
+    restart: on-failure
+    ports:
+      - "5440:5432"
+    environment:
+      POSTGRES_USER: roman_prod
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: my_db
+    volumes:
+      - pg-data-prod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "roman_prod", "-d", "my_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pg-data-prod:
