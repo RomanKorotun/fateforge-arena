@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 import { AppConfigModule } from './core/config/config.module';
 import { PrismaModule } from './core/prisma/prisma.module';
@@ -9,6 +11,9 @@ import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+    }),
     AppConfigModule,
     PrismaModule,
     RedisModule,

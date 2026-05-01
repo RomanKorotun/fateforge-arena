@@ -14,8 +14,8 @@ import {
 import type { Request, Response } from 'express';
 
 import { SignupUseCase } from '../application/signup/signup.usecase';
-import { SignupDto } from './dto/signup.dto';
-import { SigninDto } from './dto/signin.dto';
+import { SignupRequestDto } from './dto/signup/signup-request.dto';
+import { SigninRequestDto } from './dto/signin/signin.request.dto';
 import { SigninUseCase } from '../application/signin/signin.usecase';
 import { RequestMetadataService } from './services/request-metadata.service';
 import { AuthCookieService } from './services/auth-cookie-service';
@@ -28,8 +28,17 @@ import { GetUserSessionsResponseMapper } from './mappers/get-sessions-response.m
 import { RevokeUserSessionUseCase } from '../application/revoke-user-session/revore-user-session.usecase';
 import { RevokeUserSessionsUseCase } from '../application/revoke-user-sessions/revoke-user-sessions';
 import { SignoutUseCase } from '../application/signout/signout.usecase';
-import { RestoreUserDto } from './dto/restore-user.dto';
 import { RestoreUserUseCase } from '../application/restore-user/restore-user.usecase';
+import { SignupSwagger } from './swagger/signup.swagger';
+import { SignupSuccessResponseDto } from './dto/signup/signup-success-response.dto';
+import { SigninSwagger } from './swagger/signin.swagger';
+import { SigninSuccessResponseDto } from './dto/signin/signin-success-response.dto';
+import { SignoutSuccessResponseDto } from './dto/signout/signout-success-response.dto';
+import { SignoutSwagger } from './swagger/signout.swagger';
+import { MeSwagger } from './swagger/me.swagger';
+import { RestoreUserRequestDto } from './dto/restore/restore-user.request.dto';
+import { RestoreSwagger } from './swagger/restore.swagger';
+import { GetUserSessionsSwagger } from './swagger/get-user-sessions.swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -46,19 +55,23 @@ export class AuthController {
   ) {}
 
   // Реєстрація нового користувача
+  @SignupSwagger()
   @Post('signup')
-  async signup(@Body() dto: SignupDto) {
+  async signup(
+    @Body() dto: SignupRequestDto,
+  ): Promise<SignupSuccessResponseDto> {
     return await this.signupUseCase.execute(dto);
   }
 
   // Авторизація користувача: перевіряє дані, створює сесію та встановлює токен в кукі
+  @SigninSwagger()
   @HttpCode(HttpStatus.OK)
   @Post('signin')
   async signin(
-    @Body() dto: SigninDto,
+    @Body() dto: SigninRequestDto,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<SigninSuccessResponseDto> {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
     const { accessToken, user } = await this.signinUseCase.execute({
       ...dto,
@@ -70,12 +83,14 @@ export class AuthController {
   }
 
   // відновлення видаленого акаунта користувача
+  @RestoreSwagger()
   @Post('restore')
-  async restore(@Body() dto: RestoreUserDto) {
+  async restore(@Body() dto: RestoreUserRequestDto) {
     return this.restoreUserUseCase.execute(dto);
   }
 
   // Отримати профіль поточного автентифікованого користувача
+  @MeSwagger()
   @UseGuards(JwtAuthGuard)
   @Get('me')
   me(@CurrentUser() user: AuthUser) {
@@ -83,6 +98,7 @@ export class AuthController {
   }
 
   // Отримання всіх активних сесій поточного користувача (по userId з JWT)
+  @GetUserSessionsSwagger()
   @UseGuards(JwtAuthGuard)
   @Get('sessions')
   async getUserSessions(@Req() req: AuthRequest) {
@@ -119,13 +135,14 @@ export class AuthController {
   }
 
   // Завершення автентифікованої сесії
+  @SignoutSwagger()
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @Post('signout')
   async signout(
     @Req() req: AuthRequest,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<SignoutSuccessResponseDto> {
     const response = await this.signoutUseCase.execute({
       sessionId: req.user.sessionId,
       userId: req.user.id,

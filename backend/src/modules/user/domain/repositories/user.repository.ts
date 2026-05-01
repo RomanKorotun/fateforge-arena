@@ -22,6 +22,11 @@ export type UpdateUserData = Partial<{
   lastLoginAt: Date;
 }>;
 
+export interface UpdateAvatar {
+  userId: string;
+  avatar: string;
+}
+
 export interface IUserRepository {
   createUser(data: CreateUserData): Promise<UserEntity>;
   findByEmail(email: string): Promise<UserEntity | null>;
@@ -29,4 +34,5 @@ export interface IUserRepository {
   updateLastSignin(data: UpdateLastSigninData): Promise<void>;
   updateUser(userId: string, data: UpdateUserData): Promise<UserEntity>;
   findAllUsers(params: FindAllUsersData): Promise<UserEntity[]>;
+  updateAvatar(data: UpdateAvatar): Promise<void>;
 }

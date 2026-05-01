@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+
 import type { ISessionRepository } from '../../domain/repositories/session.repository';
 import { SESSION_REPOSITORY } from '../../domain/repositories/session.repository.token';
 

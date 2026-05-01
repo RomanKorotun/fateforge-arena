@@ -16,9 +16,19 @@ export class PrismaAddressRepository implements IAddressRepository {
     userId: string,
     data: AddAddressData,
   ): Promise<AddressEntity> {
-    const address = await this.prisma.address.create({
-      data: { userId, ...data },
+    const address = await this.prisma.address.upsert({
+      where: {
+        userId,
+      },
+      update: {
+        ...data,
+      },
+      create: {
+        userId,
+        ...data,
+      },
     });
+
     return PrismaAddressMapper.toDomain(address);
   }
 }

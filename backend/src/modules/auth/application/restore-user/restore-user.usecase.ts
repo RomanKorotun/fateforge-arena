@@ -4,6 +4,7 @@ import { RestoreUserCommand } from './restore-user.command';
 import { PasswordHashService } from '../../../../core/security/services/password-hash.service';
 import type { IUserRepository } from '../../../user/domain/repositories/user.repository';
 import { USER_REPOSITORY } from '../../../user/domain/repositories/user.repository.token';
+import { UserRoleMapper } from '../../../user/application/mappers/user-role.mapper';
 
 @Injectable()
 export class RestoreUserUseCase {
@@ -38,9 +39,9 @@ export class RestoreUserUseCase {
     });
 
     return {
-      id: restoredUser.id,
-      email: restoredUser.email,
       username: restoredUser.username,
+      email: restoredUser.email,
+      role: UserRoleMapper.toApi(restoredUser.role),
       restored: true,
     };
   }

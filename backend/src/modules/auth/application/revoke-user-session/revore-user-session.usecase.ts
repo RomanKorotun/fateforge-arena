@@ -1,4 +1,5 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
+
 import { RevokeUserSessionCommand } from './revore-user-session.command';
 import type { ISessionRepository } from '../../domain/repositories/session.repository';
 import { SESSION_REPOSITORY } from '../../domain/repositories/session.repository.token';
@@ -14,7 +15,7 @@ export class RevokeUserSessionUseCase {
     const sessionKey = `session:${sessionId}`;
     const session = await this.sessionRepository.getSession(sessionKey);
     if (!session) {
-      throw new ForbiddenException()
+      throw new ForbiddenException();
     }
     await this.sessionRepository.deleteSession(command);
     return {

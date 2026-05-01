@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import type {
   FindAllUsersData,
   IUserRepository,
+  UpdateAvatar,
 } from '../../../domain/repositories/user.repository';
 import { UserEntity } from '../../../domain/entities/user.entity';
 import { CreateUserData } from '../../../domain/types/create-user.data';
@@ -14,13 +15,20 @@ import { UpdateLastSigninData } from '../../../domain/types/update-last-signin.d
 export class PrismaUserRepository implements IUserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  // створення користувача
+  // створення користувача + профілю
   async createUser(data: CreateUserData): Promise<UserEntity> {
     const user = await this.prisma.user.create({
       data: {
         username: data.username,
         email: data.email,
         password: data.password,
+        profile: {
+          create: {
+            rating: 0,
+            level: 0,
+            balance: 0,
+          },
+        },
       },
     });
     return PrismaUserMapper.toDomain(user);
@@ -82,5 +90,19 @@ export class PrismaUserRepository implements IUserRepository {
     });
 
     return users.map(PrismaUserMapper.toDomain);
+  }
+
+  // оновлює аватар користувача (оновлює аватар в таблиці Profile через таблицю User)
+  async updateAvatar({ userId, avatar }: UpdateAvatar): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        profile: {
+          update: {
+            avatar,
+          },
+        },
+      },
+    });
   }
 }

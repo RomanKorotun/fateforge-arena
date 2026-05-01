@@ -32,7 +32,7 @@ export class SigninUseCase {
     const user = await this.userRepository.findByEmail(command.email);
 
     if (!user) {
-      throw new UnauthorizedException('Email або password не вірні');
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const passwordCompare = await this.passwordHashService.compare(
@@ -82,11 +82,11 @@ export class SigninUseCase {
 
     await this.sessionRepository.addSessionIndex(user.id, sessionId);
 
-   await this.userRepository.updateLastSignin({
+    await this.userRepository.updateLastSignin({
       userId: user.id,
       ip: command.ip,
-  });
-    
+    });
+
     return {
       accessToken,
       user: {

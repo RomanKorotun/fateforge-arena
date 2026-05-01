@@ -1,12 +1,18 @@
 import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
-import { PASSWORD_REGEX } from '../../../../common/constants/regex.constants';
+import { PASSWORD_REGEX } from '../../../../../common/constants/regex.constants';
 
-export class RestoreUserDto {
+export class RestoreUserRequestDto {
+  @ApiProperty({
+    description: 'Email користувача',
+    example: 'test@gmail.com',
+  })
   @IsNotEmpty({ message: 'Поле email не може бути пустим' })
   @IsEmail({}, { message: 'Поле email містить не вірний формат' })
   email!: string;
 
+  @ApiProperty({ description: 'Пароль користувача', example: 'R1234567' })
   @IsNotEmpty({ message: 'Поле password не може бути пустим' })
   @Matches(PASSWORD_REGEX, {
     message:
