@@ -1,7 +1,7 @@
-import { User, Profile, Address } from 'prisma/generated';
+import { User } from 'prisma/generated';
 import { UserEntity } from '../../../domain/entities/user.entity';
-import { PrismaProfileMapper } from './prisma-profile.mapper';
-import { PrismaAddressMapper } from './prisma-address.mapper';
+import { UserEntityWithPassword } from '../../../domain/entities/user-with-password.type';
+import { UserRole } from '../../../domain/enums/user-role.enum';
 
 export class PrismaUserMapper {
   static toDomain(user: User): UserEntity {
@@ -9,8 +9,7 @@ export class PrismaUserMapper {
       user.id,
       user.username,
       user.email,
-      user.password,
-      user.role,
+      user.role as UserRole,
       user.lastLoginIP,
       user.lastLoginAt,
       user.isBanned,
@@ -21,27 +20,12 @@ export class PrismaUserMapper {
     );
   }
 
-  static toDomainWithRelations(
-    user: User & {
-      profile: Profile | null;
-      address: Address | null;
-    },
-  ): UserEntity {
-    return new UserEntity(
-      user.id,
-      user.username,
-      user.email,
-      user.password,
-      user.role,
-      user.lastLoginIP,
-      user.lastLoginAt,
-      user.isBanned,
-      user.banEndAt,
-      user.isDeleted,
-      user.deletedAt,
-      user.createdAt,
-      user.profile ? PrismaProfileMapper.toDomain(user.profile) : null,
-      user.address ? PrismaAddressMapper.toDomain(user.address) : null,
-    );
+  static toDomainWithPassword(user: User): UserEntityWithPassword {
+    const base = this.toDomain(user);
+
+    return {
+      ...base,
+      password: user.password,
+    };
   }
 }

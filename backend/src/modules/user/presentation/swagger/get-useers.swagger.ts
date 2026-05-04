@@ -5,6 +5,7 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+
 import { GetUsersSuccessResponseDto } from '../dto/get-users/get-users-success-response.dto';
 import { GetUsersUnauthorizedResponseDto } from '../dto/get-users/get-users-unauthorized-response.dto';
 
@@ -15,7 +16,7 @@ export const GetUserSwagger = () => {
     ApiOperation({
       summary: 'Отримати список користувачів',
       description:
-        'Повертає список користувачів з обмеженою публічною інформацією (username, дата створення, профіль з рейтингом та рівнем, адреса). Використовується для відображення рейтингу та статистики.',
+        'Повертає список користувачів з обмеженою публічною інформацією (username, дата створення, профіль з рейтингом та адреса). Використовується для відображення рейтингу та статистики.',
     }),
 
     ApiOkResponse({

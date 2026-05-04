@@ -4,10 +4,7 @@ export class MeUnauthorizedResponseDto {
   @ApiProperty({ description: 'Статус відповіді', example: 401 })
   status!: number;
 
-  @ApiProperty({
-    description: 'Текст помилки',
-    example: 'Unauthorized',
-  })
+  @ApiProperty({ description: 'Текст помилки', example: 'Unauthorized' })
   message!: string;
 
   @ApiProperty({

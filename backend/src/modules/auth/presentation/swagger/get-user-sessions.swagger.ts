@@ -6,7 +6,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { GetUserSessionsResponseDto } from '../dto/get-user-sessions/get-user-sessions-response';
+import { GetUserSessionsSuccessResponseDto } from '../dto/get-user-sessions/get-user-sessions-success-response';
 import { GetUserSessionsUnauthorizedResponseDto } from '../dto/get-user-sessions/get-user-sessions-unauthorized-response.dto';
 
 export const GetUserSessionsSwagger = () => {
@@ -20,7 +20,7 @@ export const GetUserSessionsSwagger = () => {
     }),
 
     ApiOkResponse({
-      type: GetUserSessionsResponseDto,
+      type: GetUserSessionsSuccessResponseDto,
       isArray: true,
       description: 'Список сесій користувача',
     }),

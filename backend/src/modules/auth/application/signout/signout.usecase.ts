@@ -10,8 +10,8 @@ export class SignoutUseCase {
     @Inject(SESSION_REPOSITORY)
     private readonly sessionRepository: ISessionRepository,
   ) {}
-  async execute(command: SignoutCommand) {
-    await this.sessionRepository.deleteSession(command);
+  async execute({ sessionId, userId }: SignoutCommand) {
+    await this.sessionRepository.deleteSession({ sessionId, userId });
     return { message: 'Signout success' };
   }
 }

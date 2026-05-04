@@ -13,7 +13,9 @@ export class SignupUseCase {
     private readonly passwordHashService: PasswordHashService,
   ) {}
   async execute(command: SignupCommand) {
-    const exists = await this.userRepository.findByEmail(command.email);
+    const exists = await this.userRepository.findByEmailWithPassword(
+      command.email,
+    );
 
     if (exists) {
       throw new ConflictException(

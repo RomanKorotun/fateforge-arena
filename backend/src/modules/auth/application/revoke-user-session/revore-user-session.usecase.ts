@@ -3,6 +3,7 @@ import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { RevokeUserSessionCommand } from './revore-user-session.command';
 import type { ISessionRepository } from '../../domain/repositories/session.repository';
 import { SESSION_REPOSITORY } from '../../domain/repositories/session.repository.token';
+import { buildSessionKey } from '../../../../common/helpers/session-key.helper';
 
 @Injectable()
 export class RevokeUserSessionUseCase {
@@ -10,16 +11,17 @@ export class RevokeUserSessionUseCase {
     @Inject(SESSION_REPOSITORY)
     private readonly sessionRepository: ISessionRepository,
   ) {}
-  async execute(command: RevokeUserSessionCommand) {
-    const { sessionId } = command;
-    const sessionKey = `session:${sessionId}`;
-    const session = await this.sessionRepository.getSession(sessionKey);
-    if (!session) {
+  async execute({ sessionId, userId }: RevokeUserSessionCommand) {
+    const session = await this.sessionRepository.getSession(sessionId);
+
+    if (!session || session.userId !== userId) {
       throw new ForbiddenException();
     }
-    await this.sessionRepository.deleteSession(command);
+
+    await this.sessionRepository.deleteSession({ sessionId, userId });
+
     return {
-      sessionId: command.sessionId,
+      sessionId,
       status: 'revoked',
     };
   }

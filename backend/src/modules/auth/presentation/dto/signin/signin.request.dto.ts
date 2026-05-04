@@ -4,10 +4,7 @@ import { PASSWORD_REGEX } from '../../../../../common/constants/regex.constants'
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SigninRequestDto {
-  @ApiProperty({
-    description: 'Email користувача',
-    example: 'test@gmail.com',
-  })
+  @ApiProperty({ description: 'Email користувача', example: 'test@gmail.com' })
   @IsNotEmpty({ message: 'Поле email не може бути пустим' })
   @IsEmail({}, { message: 'Поле email містить не вірний формат' })
   email!: string;

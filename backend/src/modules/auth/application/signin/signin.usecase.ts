@@ -12,11 +12,11 @@ import { TokenService } from '../../../../core/security/services/token.service';
 import type { ISessionRepository } from '../../domain/repositories/session.repository';
 import { SESSION_TTL_SECONDS } from '../../../../common/constants/session.constants';
 import { SessionEntity } from '../../domain/entities/session.entity';
-import { UserRoleMapper } from '../../../user/application/mappers/user-role.mapper';
 import { JwtPayload } from '../../../../common/types/jwt-payload.type';
 import { USER_REPOSITORY } from '../../../user/domain/repositories/user.repository.token';
 import type { IUserRepository } from '../../../user/domain/repositories/user.repository';
 import { SESSION_REPOSITORY } from '../../domain/repositories/session.repository.token';
+import { buildSessionKey } from '../../../../common/helpers/session-key.helper';
 
 @Injectable()
 export class SigninUseCase {
@@ -28,15 +28,15 @@ export class SigninUseCase {
     private readonly sessionRepository: ISessionRepository,
   ) {}
 
-  async execute(command: SigninCommand) {
-    const user = await this.userRepository.findByEmail(command.email);
+  async execute({ email, password, ip, device }: SigninCommand) {
+    const user = await this.userRepository.findByEmailWithPassword(email);
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
     const passwordCompare = await this.passwordHashService.compare(
-      command.password,
+      password,
       user.password,
     );
 
@@ -45,36 +45,28 @@ export class SigninUseCase {
     }
 
     if (user.isDeleted) {
-      throw new UnauthorizedException({
-        code: 'ACCOUNT_DELETED',
-        canRestore: true,
-      });
+      throw new UnauthorizedException('ACCOUNT_DELETED');
     }
 
     if (user.isBanned) {
-      throw new ForbiddenException({
-        message: 'Користувач заблокований',
-        code: 'ACCOUNT_BLOCKED',
-      });
+      throw new ForbiddenException('ACCOUNT_BLOCKED');
     }
 
     const sessionId = randomUUID();
 
-    const payload: JwtPayload = {
-      id: user.id,
-      role: user.role,
-      sessionId,
-    };
+    const payload: JwtPayload = { id: user.id, role: user.role, sessionId };
 
     const accessToken = this.tokenService.generate(payload);
 
-    const key = `session:${sessionId}`;
+    const key = buildSessionKey(sessionId);
+
+    const { browser, os, type } = device;
 
     const session: SessionEntity = {
       sessionId,
       userId: user.id,
-      ip: command.ip,
-      device: command.device,
+      ip,
+      device: { browser, os, type },
       createdAt: new Date().toISOString(),
     };
 
@@ -82,9 +74,9 @@ export class SigninUseCase {
 
     await this.sessionRepository.addSessionIndex(user.id, sessionId);
 
-    await this.userRepository.updateLastSignin({
-      userId: user.id,
-      ip: command.ip,
+    await this.userRepository.updateUser(user.id, {
+      lastLoginIP: ip,
+      lastLoginAt: new Date(),
     });
 
     return {
@@ -92,7 +84,7 @@ export class SigninUseCase {
       user: {
         username: user.username,
         email: user.email,
-        role: UserRoleMapper.toApi(user.role),
+        role: user.role,
       },
     };
   }

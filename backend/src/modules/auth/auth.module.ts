@@ -12,7 +12,7 @@ import { AuthCookieService } from './presentation/services/auth-cookie-service';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { FindSessionsByUserIdUseCase } from './application/find-sessions-by-user-id/find-sessions-by-user-id.usecase';
 import { RevokeUserSessionUseCase } from './application/revoke-user-session/revore-user-session.usecase';
-import { RevokeUserSessionsUseCase } from './application/revoke-user-sessions/revoke-user-sessions';
+import { RevokeUserSessionsUseCase } from './application/revoke-user-sessions/revoke-user-sessions.usecase';
 import { SignoutUseCase } from './application/signout/signout.usecase';
 import { SESSION_REPOSITORY } from './domain/repositories/session.repository.token';
 import { RestoreUserUseCase } from './application/restore-user/restore-user.usecase';

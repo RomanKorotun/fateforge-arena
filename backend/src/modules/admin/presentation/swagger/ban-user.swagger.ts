@@ -2,6 +2,7 @@ import { applyDecorators } from '@nestjs/common';
 import {
   ApiCookieAuth,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiUnauthorizedResponse,
@@ -10,6 +11,7 @@ import {
 import { BanUserSuccessResponseDto } from '../dto/ban-user/ban-user-success-response.dto';
 import { BanUserUnauthorizedResponseDto } from '../dto/ban-user/ban-user-unauthorized-response.dto';
 import { BanUserForbiddenResponseDto } from '../dto/ban-user/ban-user-forbidden-response.dto';
+import { BanUserNotFoundResponseDto } from '../dto/ban-user/ban-user-not-found-response.dto';
 
 export const BanUserSwagger = () => {
   return applyDecorators(
@@ -30,6 +32,11 @@ export const BanUserSwagger = () => {
       type: BanUserUnauthorizedResponseDto,
       description:
         'Користувач не авторизований (відсутній або недійсний accessToken)',
+    }),
+
+    ApiNotFoundResponse({
+      type: BanUserNotFoundResponseDto,
+      description: 'Користувача з вказаним ID не знайдено',
     }),
 
     ApiForbiddenResponse({

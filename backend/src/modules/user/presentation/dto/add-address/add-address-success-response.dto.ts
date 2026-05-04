@@ -1,43 +1,24 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AddAddressSuccessResponseDto {
-  @ApiProperty({ description: 'Імʼя', example: 'Roman' })
+  @ApiProperty({ description: 'Імʼя', example: 'Bill' })
   firstName!: string;
 
-  @ApiProperty({ description: 'Прізвище', example: 'Korotun' })
+  @ApiProperty({ description: 'Прізвище', example: 'Gates' })
   lastName!: string;
 
-  @ApiProperty({ description: 'Номер телефону', example: '+380639579765' })
+  @ApiProperty({ description: 'Номер телефону', example: '+380501234567' })
   phoneNumber!: string;
 
-  @ApiProperty({
-    description: 'Основна адреса',
-    example: 'вул. Київська, 247',
-  })
-  address!: string;
-
-  @ApiProperty({
-    description: 'Індекс',
-    example: '56489',
-  })
+  @ApiProperty({ description: 'Індекс', example: '02000' })
   postalCode!: string;
 
-  @ApiProperty({
-    description: 'Місто',
-    example: 'Brovary',
-  })
+  @ApiProperty({ description: 'Основна адреса', example: 'вул. Шевченка, 12' })
+  address!: string;
+
+  @ApiProperty({ description: 'Місто', example: 'Kyiv' })
   city!: string;
 
-  @ApiProperty({
-    description: 'Додаткова адреса (може бути null)',
-    example: null,
-    nullable: true,
-  })
-  address2!: string | null;
-
-  @ApiProperty({
-    description: 'Країна',
-    example: 'Ukraine',
-  })
+  @ApiProperty({ description: 'Країна', example: 'Ukraine' })
   country!: string;
 }

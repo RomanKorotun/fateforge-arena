@@ -12,14 +12,14 @@ export class GetAllUsersUseCase {
     private readonly userRepository: IUserRepository,
   ) {}
 
-  async execute({ page, limit, isBanned }: GetAllUsersCommand) {
+  async execute({ page, limit, isBanned, isDeleted }: GetAllUsersCommand) {
     const skip = (page - 1) * limit;
-    const users = await this.userRepository.findAllUsers({
+    return await this.userRepository.findAllUsers({
       skip,
       limit,
       role: UserRole.USER,
       isBanned,
+      isDeleted,
     });
-    return users.map(({ password, ...rest }) => rest);
   }
 }

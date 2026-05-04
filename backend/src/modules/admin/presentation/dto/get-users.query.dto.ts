@@ -18,4 +18,11 @@ export class GetAdminUsersQueryDto {
   @IsBoolean()
   @IsOptional()
   isBanned?: boolean;
+
+  @Transform(({ value }) =>
+    value === undefined ? undefined : value === 'true',
+  )
+  @IsBoolean()
+  @IsOptional()
+  isDeleted?: boolean;
 }

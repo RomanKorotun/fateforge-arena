@@ -4,10 +4,9 @@ export interface AddAddressCommand {
     firstName: string;
     lastName: string;
     phoneNumber: string;
-    address: string;
     postalCode: string;
+    address: string;
     city: string;
-    address2?: string;
-    country?: string;
+    country: string;
   };
 }

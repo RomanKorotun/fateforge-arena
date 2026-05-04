@@ -1,25 +1,32 @@
+import { UserEntityWithPassword } from '../entities/user-with-password.type';
 import { UserEntity } from '../entities/user.entity';
-import { CreateUserData } from '../types/create-user.data';
-import { UpdateLastSigninData } from '../types/update-last-signin.data';
+import { UserRole } from '../enums/user-role.enum';
+
+export interface CreateUserData {
+  username: string;
+  email: string;
+  password: string;
+}
 
 export interface FindAllUsersData {
   skip: number;
   limit: number;
-  role?: number;
+  role?: UserRole;
   isBanned?: boolean;
+  isDeleted?: boolean;
 }
 
 export type UpdateUserData = Partial<{
   username: string;
   email: string;
   password: string;
+  role: UserRole;
+  lastLoginIP: string;
+  lastLoginAt: Date;
   isBanned: boolean;
   banEndAt: Date | null;
   isDeleted: boolean;
   deletedAt: Date | null;
-  role: number;
-  lastLoginIP: string;
-  lastLoginAt: Date;
 }>;
 
 export interface UpdateAvatar {
@@ -29,9 +36,10 @@ export interface UpdateAvatar {
 
 export interface IUserRepository {
   createUser(data: CreateUserData): Promise<UserEntity>;
-  findByEmail(email: string): Promise<UserEntity | null>;
+  findByEmailWithPassword(
+    email: string,
+  ): Promise<UserEntityWithPassword | null>;
   findById(id: string): Promise<UserEntity | null>;
-  updateLastSignin(data: UpdateLastSigninData): Promise<void>;
   updateUser(userId: string, data: UpdateUserData): Promise<UserEntity>;
   findAllUsers(params: FindAllUsersData): Promise<UserEntity[]>;
   updateAvatar(data: UpdateAvatar): Promise<void>;

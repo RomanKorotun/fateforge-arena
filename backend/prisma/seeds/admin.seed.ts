@@ -1,8 +1,8 @@
-import 'dotenv/config'; 
+import 'dotenv/config';
 import argon2 from 'argon2';
 import { PrismaPg } from '@prisma/adapter-pg';
 
-import { PrismaClient } from '../generated/client.js';
+import { PrismaClient, UserRole } from '../generated/client.js';
 
 function getEnvOrThrow(name: string): string {
   const value = process.env[name];
@@ -34,7 +34,7 @@ async function main() {
       username: adminUsername,
       email: adminEmail,
       password: hashedPassword,
-      role: 2,
+      role: UserRole.ADMIN,
     },
   });
 }

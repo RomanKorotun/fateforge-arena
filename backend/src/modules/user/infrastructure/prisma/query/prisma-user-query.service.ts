@@ -1,35 +1,13 @@
-// import { Injectable } from '@nestjs/common';
-
-// import { PrismaService } from '../../../../../core/prisma/prisma.service';
-// import { PrismaUserMapper } from '../mappers/prisma-user.mapper';
-
-// @Injectable()
-// export class UserQueryService {
-//   constructor(private readonly prisma: PrismaService) {}
-
-//   async getFullUserProfileById(id: string) {
-//     const user = await this.prisma.user.findUnique({
-//       where: { id },
-//       include: {
-//         profile: true,
-//         address: true,
-//       },
-//     });
-
-//     if (!user) return null;
-//     return PrismaUserMapper.toDomainWithRelations(user);
-//   }
-// }
-
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../../core/prisma/prisma.service';
+import { UserRole } from '../../../../../../prisma/generated';
 
 @Injectable()
 export class UserQueryService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // Повний профіль залогіненого користувача
+  // Ппрофіль залогіненого користувача
   async getFullUserProfileById(id: string) {
     return await this.prisma.user.findUnique({
       where: { id },
@@ -43,18 +21,6 @@ export class UserQueryService {
             avatar: true,
           },
         },
-        address: {
-          select: {
-            firstName: true,
-            lastName: true,
-            phoneNumber: true,
-            address: true,
-            address2: true,
-            city: true,
-            country: true,
-            postalCode: true,
-          },
-        },
       },
     });
   }
@@ -62,7 +28,7 @@ export class UserQueryService {
   // Список користувачів з обмеженою інформацією (для рейтингу/статистики)
   async getPublicUsers() {
     return this.prisma.user.findMany({
-      where: { role: 1 },
+      where: { role: UserRole.USER },
       select: {
         username: true,
         createdAt: true,

@@ -12,7 +12,7 @@ export class BanUserUnauthorizedResponseDto {
 
   @ApiProperty({
     description: 'URL на який був зроблений запит',
-    example: '/api/admin/users/:id/ban',
+    example: '/api/admin/users/{id}/ban',
   })
   url!: string;
 

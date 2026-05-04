@@ -7,10 +7,14 @@ export interface AddAddressData {
   address: string;
   postalCode: string;
   city: string;
-  address2?: string;
-  country?: string;
+  country: string;
 }
 
 export interface IAddressRepository {
-  addAddress(userId: string, data: AddAddressData): Promise<AddressEntity>;
+  createAddress(userId: string, data: AddAddressData): Promise<AddressEntity>;
+  updateAddress(
+    userId: string,
+    data: Partial<AddAddressData>,
+  ): Promise<AddressEntity>;
+  getAddress(userId: string): Promise<AddressEntity | null>;
 }

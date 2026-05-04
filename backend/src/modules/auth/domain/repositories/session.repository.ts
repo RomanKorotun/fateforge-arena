@@ -12,14 +12,11 @@ export interface ISessionRepository {
   // Додавання sessionId у множину сесій користувача (індексація)
   addSessionIndex(userId: string, sessionId: string): Promise<void>;
 
-  // Отримання всіх sessionId користувача
-  getUserSessionIds(userId: string): Promise<string[]>;
-
   // Отримання всіх активних сесій користувача (повні обʼєкти SessionEntity)
   getUserSessions(userId: string): Promise<SessionEntity[]>;
 
   // Отримання однієї сесії по ключу Redis (session:{id})
-  getSession(sessionKey: string): Promise<SessionEntity | null>;
+  getSession(sessionId: string): Promise<SessionEntity | null>;
 
   // Видалення конкретної сесії користувача (revoke session)
   deleteSession(data: DeleteSessionData): Promise<void>;

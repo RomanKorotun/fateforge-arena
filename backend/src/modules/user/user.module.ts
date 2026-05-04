@@ -9,9 +9,11 @@ import { UserQueryService } from './infrastructure/prisma/query/prisma-user-quer
 import { AddAddressUseCase } from './application/use-cases/add-address/add-address.usecase';
 import { ADDRESS_REPOSITORY } from './domain/repositories/address.repository.token';
 import { PrismaAddressRepository } from './infrastructure/prisma/repositories/prisma-address.repository';
-import { getMeUseCase } from './application/use-cases/get-user/get-me.usecase';
+import { getMeUseCase } from './application/use-cases/get-me/get-me.usecase';
 import { GetUsersUseCase } from './application/use-cases/get-users/get-users.usecase';
 import { UploadAvatarUseCase } from './application/use-cases/upload-avatar/upload-avatar.usecase';
+import { GetAddressUseCase } from './application/use-cases/get-address/get-address.usecase';
+import { UpdateAddressUseCase } from './application/use-cases/update-address/update-address.usecase';
 
 @Module({
   imports: [PrismaModule],
@@ -21,6 +23,8 @@ import { UploadAvatarUseCase } from './application/use-cases/upload-avatar/uploa
     getMeUseCase,
     GetUsersUseCase,
     AddAddressUseCase,
+    GetAddressUseCase,
+    UpdateAddressUseCase,
     UploadAvatarUseCase,
     UserQueryService,
     { provide: USER_REPOSITORY, useClass: PrismaUserRepository },

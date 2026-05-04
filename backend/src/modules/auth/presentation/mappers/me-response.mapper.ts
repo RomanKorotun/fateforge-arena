@@ -1,4 +1,3 @@
-import { UserRoleMapper } from '../../../user/application/mappers/user-role.mapper';
 import { AuthUser } from '../../../../common/types/auth-request';
 
 export const MeResponseMapper = {
@@ -6,7 +5,7 @@ export const MeResponseMapper = {
     return {
       username: user.username,
       email: user.email,
-      role: UserRoleMapper.toApi(user.role),
+      role: user.role,
     };
   },
 };

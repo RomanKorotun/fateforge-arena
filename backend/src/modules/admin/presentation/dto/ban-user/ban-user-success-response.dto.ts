@@ -7,10 +7,7 @@ export class BanUserSuccessResponseDto {
   })
   id!: string;
 
-  @ApiProperty({
-    description: 'Імʼя користувача',
-    example: 'poseydon',
-  })
+  @ApiProperty({ description: 'Імʼя користувача', example: 'poseydon' })
   username!: string;
 
   @ApiProperty({
@@ -19,10 +16,7 @@ export class BanUserSuccessResponseDto {
   })
   email!: string;
 
-  @ApiProperty({
-    description: 'Чи забанений користувач',
-    example: true,
-  })
+  @ApiProperty({ description: 'Чи забанений користувач', example: true })
   isBanned!: boolean;
 
   @ApiProperty({

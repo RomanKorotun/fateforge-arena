@@ -1,1 +1,4 @@
-export const SESSION_TTL_SECONDS = 7 * 24 * 60 * 60;
+export const SESSION_TTL_SECONDS = parseInt(
+  process.env.ACCESS_TOKEN_TIME ?? '604800',
+  10,
+);

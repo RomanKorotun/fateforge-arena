@@ -4,18 +4,12 @@ import { ApiProperty } from '@nestjs/swagger';
 import { PASSWORD_REGEX } from '../../../../../common/constants/regex.constants';
 
 export class SignupRequestDto {
-  @ApiProperty({
-    description: "Ім'я користувача",
-    example: 'Roman',
-  })
+  @ApiProperty({ description: "Ім'я користувача", example: 'Test' })
   @IsNotEmpty({ message: 'Поле username не може бути пустим' })
   @IsString({ message: 'Поле username повинно бути рядком' })
   username!: string;
 
-  @ApiProperty({
-    description: 'Email користувача',
-    example: 'test@gmail.com',
-  })
+  @ApiProperty({ description: 'Email користувача', example: 'test@gmail.com' })
   @IsNotEmpty({ message: 'Поле email не може бути пустим' })
   @IsEmail({}, { message: 'Поле email містить не вірний формат' })
   email!: string;

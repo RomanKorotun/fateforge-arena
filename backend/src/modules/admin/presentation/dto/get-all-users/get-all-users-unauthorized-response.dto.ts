@@ -4,10 +4,7 @@ export class GetAllUsersUnauthorizedResponseDto {
   @ApiProperty({ description: 'Статус відповіді', example: 401 })
   status!: number;
 
-  @ApiProperty({
-    description: 'Текст помилки',
-    example: 'Invalid credentials',
-  })
+  @ApiProperty({ description: 'Текст помилки', example: 'Invalid credentials' })
   message!: string;
 
   @ApiProperty({

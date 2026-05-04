@@ -1,6 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiForbiddenResponse,
   ApiOkResponse,
   ApiOperation,
   ApiUnauthorizedResponse,
@@ -9,6 +10,7 @@ import {
 import { SigninSuccessResponseDto } from '../dto/signin/signin-success-response.dto';
 import { SigninUnauthorizedResponseDto } from '../dto/signin/signin-unauthorized-response.dto';
 import { SigninBadRequestResponseDto } from '../dto/signin/signin-bad-request-response.dto';
+import { SigninForbiddenResponseDto } from '../dto/signin/signin-forbidden-response.dto';
 
 export const SigninSwagger = () => {
   return applyDecorators(
@@ -23,7 +25,11 @@ export const SigninSwagger = () => {
     }),
     ApiUnauthorizedResponse({
       type: SigninUnauthorizedResponseDto,
-      description: 'Невірний email або пароль. Доступ заборонено.',
+      description: 'Invalid credentials. Доступ заборонено.',
+    }),
+    ApiForbiddenResponse({
+      type: SigninForbiddenResponseDto,
+      description: 'Акаунт заблокований. Доступ заборонено.',
     }),
     ApiBadRequestResponse({
       type: SigninBadRequestResponseDto,

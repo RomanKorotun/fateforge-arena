@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { UserQueryService } from '../../../../user/infrastructure/prisma/query/prisma-user-query.service';
+import { UserQueryService } from '../../../infrastructure/prisma/query/prisma-user-query.service';
 
 @Injectable()
 export class getMeUseCase {

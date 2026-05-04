@@ -16,10 +16,7 @@ export class GetAllUsersSuccessResponseDto {
   })
   email!: string;
 
-  @ApiProperty({
-    description: 'Роль користувача',
-    example: 'USER',
-  })
+  @ApiProperty({ description: 'Роль користувача', example: 'USER' })
   role!: string;
 
   @ApiProperty({
@@ -36,10 +33,7 @@ export class GetAllUsersSuccessResponseDto {
   })
   lastLoginAt!: Date | null;
 
-  @ApiProperty({
-    description: 'Чи забанений користувач',
-    example: false,
-  })
+  @ApiProperty({ description: 'Чи забанений користувач', example: false })
   isBanned!: boolean;
 
   @ApiProperty({
@@ -49,10 +43,7 @@ export class GetAllUsersSuccessResponseDto {
   })
   banEndAt!: Date | null;
 
-  @ApiProperty({
-    description: 'Чи видалений користувач',
-    example: false,
-  })
+  @ApiProperty({ description: 'Чи видалений користувач', example: false })
   isDeleted!: boolean;
 
   @ApiProperty({

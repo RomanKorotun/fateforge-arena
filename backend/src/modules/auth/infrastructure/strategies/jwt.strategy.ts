@@ -34,9 +34,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(req: Request, payload: JwtPayload) {
     const { id, sessionId } = payload;
 
-    const sessionKey = `session:${sessionId}`;
-
-    const session = await this.sessionRepository.getSession(sessionKey);
+    const session = await this.sessionRepository.getSession(sessionId);
 
     if (!session) {
       throw new UnauthorizedException();
@@ -48,11 +46,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException();
     }
 
+    if (user.isDeleted) {
+      throw new UnauthorizedException('ACCOUNT_DELETED');
+    }
+
     if (user.isBanned) {
-      throw new ForbiddenException({
-        message: 'USER_BLOCKED',
-        code: 'USER_BLOCKED',
-      });
+      throw new ForbiddenException('ACCOUNT_BLOCKED');
     }
 
     return {

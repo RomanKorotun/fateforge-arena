@@ -21,6 +21,7 @@ import { UnBanUserUseCase } from '../application/un-ban-user/un-ban-user.usecase
 import { GetAllUsersSwagger } from './swagger/get-all-users.swagger';
 import { BanUserSwagger } from './swagger/ban-user.swagger';
 import { UnBanUserSwagger } from './swagger/un-ban-user.swagger';
+import { ParseUuidPipe } from '../../../common/pipes/parse-uuid.pipe';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.ADMIN)
@@ -43,16 +44,16 @@ export class AdminController {
   @BanUserSwagger()
   @Patch('users/:id/ban')
   async banUser(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('id', new ParseUuidPipe()) id: string,
     @Body() dto: BanUserDto,
   ) {
-    return this.banUserUseCase.execute({ id, data: dto });
+    return await this.banUserUseCase.execute({ id, data: dto });
   }
 
   // зняття бану з користувача (доступно лише для адміна)
   @UnBanUserSwagger()
   @Patch('users/:id/unban')
-  async unBanUser(@Param('id', ParseUUIDPipe) id: string) {
-    return this.unBanUserUseCase.execute(id);
+  async unBanUser(@Param('id', new ParseUuidPipe()) id: string) {
+    return await this.unBanUserUseCase.execute(id);
   }
 }

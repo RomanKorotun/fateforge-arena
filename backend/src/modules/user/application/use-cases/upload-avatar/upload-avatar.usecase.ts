@@ -11,12 +11,12 @@ export class UploadAvatarUseCase {
     private readonly userRepository: IUserRepository,
   ) {}
 
-  async execute(command: UploadAvatarCommand) {
-    await this.userRepository.updateAvatar(command);
+  async execute({ userId, avatar }: UploadAvatarCommand) {
+    await this.userRepository.updateAvatar({ userId, avatar });
 
     return {
-      avatarUrl: `/avatars/${command.avatar}`,
-      filename: command.avatar,
+      avatarUrl: `/avatars/${avatar}`,
+      filename: avatar,
     };
   }
 }

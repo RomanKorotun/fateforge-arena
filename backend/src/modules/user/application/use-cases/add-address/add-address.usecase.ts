@@ -12,6 +12,6 @@ export class AddAddressUseCase {
   ) {}
 
   async execute({ userId, data }: AddAddressCommand) {
-    return await this.addressRepository.addAddress(userId, data);
+    return await this.addressRepository.createAddress(userId, data);
   }
 }

@@ -12,23 +12,42 @@ import { PrismaAddressMapper } from '../mappers/prisma-address.mapper';
 export class PrismaAddressRepository implements IAddressRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async addAddress(
+  // додати адресу користувача
+  async createAddress(
     userId: string,
     data: AddAddressData,
   ): Promise<AddressEntity> {
-    const address = await this.prisma.address.upsert({
-      where: {
-        userId,
-      },
-      update: {
-        ...data,
-      },
-      create: {
+    const address = await this.prisma.address.create({
+      data: {
         userId,
         ...data,
       },
     });
+    return PrismaAddressMapper.toDomain(address);
+  }
 
+  // оновити адресу користувача
+  async updateAddress(
+    userId: string,
+    data: Partial<AddAddressData>,
+  ): Promise<AddressEntity> {
+    const address = await this.prisma.address.update({
+      where: { userId },
+      data: {
+        ...data,
+      },
+    });
+    return PrismaAddressMapper.toDomain(address);
+  }
+
+  // отримати адресу користувача
+  async getAddress(userId: string): Promise<AddressEntity | null> {
+    const address = await this.prisma.address.findUnique({
+      where: { userId },
+    });
+    if (!address) {
+      return null;
+    }
     return PrismaAddressMapper.toDomain(address);
   }
 }

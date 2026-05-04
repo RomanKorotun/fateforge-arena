@@ -7,11 +7,10 @@ export class PrismaAddressMapper {
       address.firstName,
       address.lastName,
       address.phoneNumber,
-      address.address,
       address.postalCode,
+      address.address,
       address.city,
-      address.address2 ?? null,
-      address.country ?? null,
+      address.country,
     );
   }
 }

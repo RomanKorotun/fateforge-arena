@@ -32,7 +32,6 @@ export class GetUsersSuccessResponseDto {
   @ApiProperty({
     description: 'Адреса користувача',
     type: AddressDto,
-    nullable: true,
   })
-  address!: AddressDto | null;
+  address!: AddressDto;
 }

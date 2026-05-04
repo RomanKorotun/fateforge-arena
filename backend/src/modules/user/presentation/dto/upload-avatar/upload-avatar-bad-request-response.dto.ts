@@ -1,10 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UploadAvatarBadRequestResponseDto {
-  @ApiProperty({
-    description: 'Статус відповіді',
-    example: 400,
-  })
+  @ApiProperty({ description: 'Статус відповіді', example: 400 })
   status!: number;
 
   @ApiProperty({

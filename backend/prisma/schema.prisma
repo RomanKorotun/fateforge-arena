@@ -10,66 +10,71 @@ datasource db {
 
 
 
+enum UserRole {
+  USER
+  ADMIN
+  @@schema("users")
+}
+
 model User {
-  id            String    @id @default(uuid()) @map("id") // унікальний ID користувача
-  username      String    @unique @map("username") // логін користувача
-  email         String    @unique @map("email") // email користувача
-  password      String    @map("password") // пароль користувача
-  isBanned      Boolean   @default(false) @map("is_banned") // чи заблокований користувач
-  isDeleted     Boolean   @default(false) @map("is_deleted") //чи видалений (soft delete)
-  role          Int       @default(1) // роль (1-USER, 2-ADMIN)
-  createdAt     DateTime  @default(now()) @map("created_at") // дата створення 
-  updatedAt     DateTime  @updatedAt @map("updated_at") // дата оновлення
-  banEndAt      DateTime? @map("ban_end_at") // дата завершення бану (якщо є)
-  lastLoginIP   String?   @map("last_login_ip") // IP останнього входу (якщо був)
-  lastLoginAt   DateTime? @map("last_login_at") // дата останнього входу (якщо був)
-  deletedAt     DateTime? @map("deleted_at") // дата видалення (якщо soft delete)
-  profile       Profile?  // 1–1 зв’язок з профілем
-  address       Address?  // 1–1 зв’язок з адресою
+  id            String    @id @default(uuid()) @map("id")
+  username      String    @unique 
+  email         String    @unique
+  password      String 
+  role          UserRole  @default(USER)
+  lastLoginIP   String?   @map("last_login_ip")                                 // IP останнього входу (якщо був)
+  lastLoginAt   DateTime? @map("last_login_at")                                 // дата останнього входу (якщо був)
+  isBanned      Boolean   @default(false)                                       // чи заблокований користувач
+  banEndAt      DateTime? @map("ban_end_at")                                    // дата завершення бану (якщо є)
+  isDeleted     Boolean   @default(false) @map("is_deleted")                    // чи видалений (soft delete)
+  deletedAt     DateTime? @map("deleted_at")                                    // дата видалення (якщо soft delete)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at") 
+  profile       Profile?  
+  address       Address?  
 
-  @@index([username])     // швидкий пошук по username
-  @@index([email])        // швидкий пошук по email
-  @@index([createdAt])    // сортування/фільтр по даті створення
-  @@index([lastLoginIP])  // пошук по IP
+  @@index([username])    
+  @@index([email])       
+  @@index([createdAt])    
+  @@index([lastLoginIP])  
 
-  @@map("user")           // назва таблиці в БД
-  @@schema("users")       // назва схеми в БД в якій буде розміщена таблиця
+  @@map("user")           
+  @@schema("users")       
 }
 
 model Profile {
-  userId        String    @id @map("user_id") // PK = FK (1–1 зв’язок з Users)
-  rating        Int       @map("rating") // рейтинг користувача
-  balance       Decimal   @default(0) @map("balance") @db.Decimal(18, 6) // баланс
-  level         Int       @default(0) @map("level") // рівень користувача
-  createdAt     DateTime  @default(now()) @map("created_at") // дата створення
-  updatedAt     DateTime  @updatedAt @map("updated_at") // дата оновлення
-  avatar        String?   @map("avatar") // аватар користувача (якщо є)
-  user          User     @relation(fields: [userId], references: [id]) // зв’язок з Users
+  userId        String    @id @map("user_id")                                    // PK = FK (1–1 зв’язок з Users)
+  rating        Int                                                              // рейтинг користувача
+  balance       Decimal   @default(0) @db.Decimal(18, 6)                         // баланс
+  level         Int       @default(0) // рівень користувача
+  createdAt     DateTime  @default(now()) @map("created_at")                     // дата створення
+  updatedAt     DateTime  @updatedAt @map("updated_at")                          // дата оновлення
+  avatar        String?                                                          // аватар користувача (якщо є)
+  user          User     @relation(fields: [userId], references: [id])           // зв’язок з Users
 
-  @@index([rating])       // індекс для рейтингу
-  @@index([level])        // індекс для рівня
+  @@index([rating])      
+  @@index([level])        
 
-  @@map("profile")        // назва таблиці
-  @@schema("users")       // назва схеми в БД в якій буде розміщена таблиця
+  @@map("profile")       
+  @@schema("users")      
 }
 
 model Address {
-  userId         String    @id @map("user_id") // PK = FK (1–1 з Users)
-  firstName      String    @map("first_name") // ім’я
-  lastName       String    @map("last_name") // прізвище
-  phoneNumber    String    @map("phone_number") // телефон
-  address        String    @map("address") // основна адреса
-  postalCode     String    @map("postal_code") // поштовий індекс
-  city           String    @map("city") // місто
-  createdAt      DateTime  @default(now()) @map("created_at") // дата створення
-  updatedAt      DateTime  @updatedAt @map("updated_at") // дата оновлення
-  address2       String?   @map("address2") // додаткова адреса (якщо є)
-  country        String?   @map("country") // країна (якщо є)
-  user           User     @relation(fields: [userId], references: [id]) // зв’язок з Users
+  userId         String    @id @map("user_id")                                   // PK = FK (1–1 з Users)
+  firstName      String    @map("first_name")                                    // ім’я
+  lastName       String    @map("last_name")                                     // прізвище
+  phoneNumber    String    @map("phone_number")                                  // телефон
+  postalCode     String    @map("postal_code")                                   // поштовий індекс
+  address        String                                                          // основна адреса
+  city           String                                                          // місто
+  country        String                                                          // країна (якщо є)
+  createdAt      DateTime  @default(now()) @map("created_at")                    // дата створення
+  updatedAt      DateTime  @updatedAt @map("updated_at")                         // дата оновлення
+  user           User     @relation(fields: [userId], references: [id])          // зв’язок з Users
 
-  @@index([country])       // пошук по країні
-  @@index([city])          // пошук по місту
+  @@index([country])       
+  @@index([city])          
 
-  @@map("address")         // назва таблиці
-  @@schema("users")        // назва схеми в БД в якій буде розміщена таблиця
+  @@map("address")         
+  @@schema("users")        
 }

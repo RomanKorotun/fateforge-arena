@@ -26,19 +26,20 @@ import { MeResponseMapper } from './mappers/me-response.mapper';
 import { FindSessionsByUserIdUseCase } from '../application/find-sessions-by-user-id/find-sessions-by-user-id.usecase';
 import { GetUserSessionsResponseMapper } from './mappers/get-sessions-response.mapper';
 import { RevokeUserSessionUseCase } from '../application/revoke-user-session/revore-user-session.usecase';
-import { RevokeUserSessionsUseCase } from '../application/revoke-user-sessions/revoke-user-sessions';
+import { RevokeUserSessionsUseCase } from '../application/revoke-user-sessions/revoke-user-sessions.usecase';
 import { SignoutUseCase } from '../application/signout/signout.usecase';
 import { RestoreUserUseCase } from '../application/restore-user/restore-user.usecase';
 import { SignupSwagger } from './swagger/signup.swagger';
-import { SignupSuccessResponseDto } from './dto/signup/signup-success-response.dto';
 import { SigninSwagger } from './swagger/signin.swagger';
-import { SigninSuccessResponseDto } from './dto/signin/signin-success-response.dto';
 import { SignoutSuccessResponseDto } from './dto/signout/signout-success-response.dto';
 import { SignoutSwagger } from './swagger/signout.swagger';
 import { MeSwagger } from './swagger/me.swagger';
 import { RestoreUserRequestDto } from './dto/restore/restore-user.request.dto';
 import { RestoreSwagger } from './swagger/restore.swagger';
 import { GetUserSessionsSwagger } from './swagger/get-user-sessions.swagger';
+import { RevokeUserSessionSwagger } from './swagger/revoke-user-session.swagger';
+import { RevokeUserSessionsSwagger } from './swagger/revoke-user-sessions.swagger';
+import { ParseUuidPipe } from '../../../common/pipes/parse-uuid.pipe';
 
 @Controller('auth')
 export class AuthController {
@@ -57,9 +58,7 @@ export class AuthController {
   // Реєстрація нового користувача
   @SignupSwagger()
   @Post('signup')
-  async signup(
-    @Body() dto: SignupRequestDto,
-  ): Promise<SignupSuccessResponseDto> {
+  async signup(@Body() dto: SignupRequestDto) {
     return await this.signupUseCase.execute(dto);
   }
 
@@ -71,7 +70,7 @@ export class AuthController {
     @Body() dto: SigninRequestDto,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<SigninSuccessResponseDto> {
+  ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
     const { accessToken, user } = await this.signinUseCase.execute({
       ...dto,
@@ -84,9 +83,10 @@ export class AuthController {
 
   // відновлення видаленого акаунта користувача
   @RestoreSwagger()
+  @HttpCode(HttpStatus.OK)
   @Post('restore')
   async restore(@Body() dto: RestoreUserRequestDto) {
-    return this.restoreUserUseCase.execute(dto);
+    return await this.restoreUserUseCase.execute(dto);
   }
 
   // Отримати профіль поточного автентифікованого користувача
@@ -112,17 +112,21 @@ export class AuthController {
   }
 
   // Відкликання (revoke) конкретної сесії користувача
+  @RevokeUserSessionSwagger()
   @UseGuards(JwtAuthGuard)
-  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('sessions/:id/revoke')
-  async revokeUserSession(@Req() req: AuthRequest, @Param('id') id: string) {
-    return this.revokeUserSessionUseCase.execute({
+  async revokeUserSession(
+    @Req() req: AuthRequest,
+    @Param('id', new ParseUuidPipe()) id: string,
+  ) {
+    return await this.revokeUserSessionUseCase.execute({
       sessionId: id,
       userId: req.user.id,
     });
   }
 
   // Відкликання всіх активних сесій користувача
+  @RevokeUserSessionsSwagger()
   @UseGuards(JwtAuthGuard)
   @Delete('sessions/revoke-all')
   async revokeUserSessions(

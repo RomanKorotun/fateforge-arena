@@ -4,10 +4,7 @@ export class GetAllUsersForbiddenResponseDto {
   @ApiProperty({ description: 'Статус відповіді', example: 403 })
   status!: number;
 
-  @ApiProperty({
-    description: 'Текст помилки',
-    example: 'Access denied',
-  })
+  @ApiProperty({ description: 'Текст помилки', example: 'Access denied' })
   message!: string;
 
   @ApiProperty({

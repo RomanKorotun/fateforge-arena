@@ -7,12 +7,9 @@ export class SignupSuccessResponseDto {
   })
   id!: string;
 
-  @ApiProperty({ description: 'Ім"я користувача', example: 'Roman' })
+  @ApiProperty({ description: 'Ім"я користувача', example: 'Test' })
   username!: string;
 
-  @ApiProperty({
-    description: 'Email користувача',
-    example: 'test@gmail.com',
-  })
+  @ApiProperty({ description: 'Email користувача', example: 'test@gmail.com' })
   email!: string;
 }

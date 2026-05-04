@@ -4,15 +4,12 @@ export class UnBanUserUnauthorizedResponseDto {
   @ApiProperty({ description: 'Статус відповіді', example: 401 })
   status!: number;
 
-  @ApiProperty({
-    description: 'Текст помилки',
-    example: 'Invalid credentials',
-  })
+  @ApiProperty({ description: 'Текст помилки', example: 'Invalid credentials' })
   message!: string;
 
   @ApiProperty({
     description: 'URL на який був зроблений запит',
-    example: '/api/admin/users/:id/unban',
+    example: '/api/admin/users/{id}/unban',
   })
   url!: string;
 

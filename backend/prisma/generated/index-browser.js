@@ -125,15 +125,15 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   email: 'email',
   password: 'password',
-  isBanned: 'isBanned',
-  isDeleted: 'isDeleted',
   role: 'role',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  banEndAt: 'banEndAt',
   lastLoginIP: 'lastLoginIP',
   lastLoginAt: 'lastLoginAt',
-  deletedAt: 'deletedAt'
+  isBanned: 'isBanned',
+  banEndAt: 'banEndAt',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ProfileScalarFieldEnum = {
@@ -151,13 +151,12 @@ exports.Prisma.AddressScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   phoneNumber: 'phoneNumber',
-  address: 'address',
   postalCode: 'postalCode',
+  address: 'address',
   city: 'city',
+  country: 'country',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  address2: 'address2',
-  country: 'country'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -174,7 +173,10 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.UserRole = exports.$Enums.UserRole = {
+  USER: 'USER',
+  ADMIN: 'ADMIN'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',

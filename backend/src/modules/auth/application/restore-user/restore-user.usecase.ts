@@ -4,7 +4,6 @@ import { RestoreUserCommand } from './restore-user.command';
 import { PasswordHashService } from '../../../../core/security/services/password-hash.service';
 import type { IUserRepository } from '../../../user/domain/repositories/user.repository';
 import { USER_REPOSITORY } from '../../../user/domain/repositories/user.repository.token';
-import { UserRoleMapper } from '../../../user/application/mappers/user-role.mapper';
 
 @Injectable()
 export class RestoreUserUseCase {
@@ -14,7 +13,9 @@ export class RestoreUserUseCase {
   ) {}
 
   async execute(command: RestoreUserCommand) {
-    const user = await this.userRepository.findByEmail(command.email);
+    const user = await this.userRepository.findByEmailWithPassword(
+      command.email,
+    );
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
@@ -41,7 +42,7 @@ export class RestoreUserUseCase {
     return {
       username: restoredUser.username,
       email: restoredUser.email,
-      role: UserRoleMapper.toApi(restoredUser.role),
+      role: restoredUser.role,
       restored: true,
     };
   }

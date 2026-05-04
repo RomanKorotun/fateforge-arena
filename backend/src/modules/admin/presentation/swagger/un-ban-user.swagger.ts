@@ -2,6 +2,7 @@ import { applyDecorators } from '@nestjs/common';
 import {
   ApiCookieAuth,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiUnauthorizedResponse,
@@ -10,6 +11,7 @@ import {
 import { UnBanUserSuccessResponseDto } from '../dto/un-ban-user/un-ban-user-success-response.dto';
 import { UnBanUserUnauthorizedResponseDto } from '../dto/un-ban-user/un-ban-user-unauthorized-response.dto';
 import { UnBanUserForbiddenResponseDto } from '../dto/un-ban-user/un-ban-user-forbidden-response.dto';
+import { UnBanUserNotFoundResponseDto } from '../dto/un-ban-user/un-ban-user-not-found-response.dto';
 
 export const UnBanUserSwagger = () => {
   return applyDecorators(
@@ -30,6 +32,11 @@ export const UnBanUserSwagger = () => {
       type: UnBanUserUnauthorizedResponseDto,
       description:
         'Користувач не авторизований (відсутній або недійсний accessToken)',
+    }),
+
+    ApiNotFoundResponse({
+      type: UnBanUserNotFoundResponseDto,
+      description: 'Користувача з вказаним ID не знайдено',
     }),
 
     ApiForbiddenResponse({

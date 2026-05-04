@@ -1,5 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
@@ -10,6 +11,7 @@ import {
 
 import { UploadAvatarSuccessResponseDto } from '../dto/upload-avatar/upload-avatar-success-response.dto';
 import { UploadAvatarUnauthorizedResponseDto } from '../dto/upload-avatar/upload-avatar-unauthorized-response.dto';
+import { UploadAvatarBadRequestResponseDto } from '../dto/upload-avatar/upload-avatar-bad-request-response.dto';
 
 export const UploadAvatarSwagger = () => {
   return applyDecorators(
@@ -30,7 +32,7 @@ export const UploadAvatarSwagger = () => {
           avatar: {
             type: 'string',
             format: 'binary',
-            description: 'Файл аватара (jpg, png, webp)',
+            description: 'Файл аватара',
           },
         },
         required: ['avatar'],
@@ -40,6 +42,12 @@ export const UploadAvatarSwagger = () => {
     ApiOkResponse({
       type: UploadAvatarSuccessResponseDto,
       description: 'Аватар успішно завантажено',
+    }),
+
+    ApiBadRequestResponse({
+      type: UploadAvatarBadRequestResponseDto,
+      description:
+        'Некоректний файл аватара або помилка валідації (відсутній файл, неправильний формат або перевищено розмір)',
     }),
 
     ApiUnauthorizedResponse({
