@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  schemas  = ["public", "users"]
+  schemas  = ["public", "users", "roulette"]
 }
 
 
@@ -30,8 +30,11 @@ model User {
   deletedAt     DateTime? @map("deleted_at")                                    // дата видалення (якщо soft delete)
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at") 
+  
   profile       Profile?  
-  address       Address?  
+  address       Address?
+  gameSessions  GameSession[]
+  bets          RouletteBet[]
 
   @@index([username])    
   @@index([email])       
@@ -44,13 +47,13 @@ model User {
 
 model Profile {
   userId        String    @id @map("user_id")                                    // PK = FK (1–1 зв’язок з Users)
+  user          User      @relation(fields: [userId], references: [id])           // зв’язок з Users
   rating        Int                                                              // рейтинг користувача
   balance       Decimal   @default(0) @db.Decimal(18, 6)                         // баланс
   level         Int       @default(0) // рівень користувача
   createdAt     DateTime  @default(now()) @map("created_at")                     // дата створення
   updatedAt     DateTime  @updatedAt @map("updated_at")                          // дата оновлення
   avatar        String?                                                          // аватар користувача (якщо є)
-  user          User     @relation(fields: [userId], references: [id])           // зв’язок з Users
 
   @@index([rating])      
   @@index([level])        
@@ -61,6 +64,7 @@ model Profile {
 
 model Address {
   userId         String    @id @map("user_id")                                   // PK = FK (1–1 з Users)
+  user           User      @relation(fields: [userId], references: [id])         // зв’язок з Users
   firstName      String    @map("first_name")                                    // ім’я
   lastName       String    @map("last_name")                                     // прізвище
   phoneNumber    String    @map("phone_number")                                  // телефон
@@ -70,11 +74,45 @@ model Address {
   country        String                                                          // країна (якщо є)
   createdAt      DateTime  @default(now()) @map("created_at")                    // дата створення
   updatedAt      DateTime  @updatedAt @map("updated_at")                         // дата оновлення
-  user           User     @relation(fields: [userId], references: [id])          // зв’язок з Users
 
   @@index([country])       
   @@index([city])          
 
   @@map("address")         
   @@schema("users")        
+}
+model GameSession {
+  id           String   @id @default(uuid())             
+  userId       String                                                                // UUID користувача, який створив сесію
+  user         User     @relation(fields: [userId], references: [id])                // Зв’язок із таблицею Users
+  serverSeed   String                                                                // Секретний seed від сервера (для Provably Fair)
+  serverHash   String                                                                // Хеш від serverSeed, який показується клієнту
+  clientSeed   String                                                                // Seed від клієнта (користувача)
+  nonce        Int      @default(0)                                                  // Лічильник спінів у межах цієї сесії
+  isActive     Boolean  @default(true)                                               // Чи активна сесія (true поки не закрита)
+  createdAt    DateTime @default(now()) @map("created_at")                           // Дата створення
+  
+  bets         RouletteBet[]                                                         // Масив ставок, пов’язаних із цією сесією
+
+  @@map("game_session")                                 
+  @@schema("roulette")                                  
+}
+
+model RouletteBet {
+  id             String       @id @default(uuid())        
+  gameSessionId  String       @map("game_session_id")                                // UUID сесії, до якої належить ставка
+  gameSession    GameSession  @relation(fields: [gameSessionId], references: [id])   // Зв’язок із GameSession
+  userId         String                                                              // UUID користувача, який зробив ставку
+  user           User         @relation(fields: [userId], references: [id])          // Зв’язок із Users
+  betType        String       @map("bet_type")                                       // Тип ставки (STRAIGHT, RED, BLACK)
+  betValue       Int?         @map("bet_value")                                      // Конкретне число (для STRAIGHT), може бути null
+  amount         Int                                                                 // Сума ставки
+  winningNumber  Int          @map("winning_number")                                 // Число, яке випало на рулетці
+  payoutAmount   Int          @map("payout_amount")                                  // Скільки виплачено (0 якщо програш)
+  isWin          Boolean      @map("is_win")                                         // Чи виграв користувач
+  nonce          Int                                                                 // Порядковий номер спіну в межах сесії
+  createdAt      DateTime     @default(now()) @map("created_at")                     // Дата створення ставки
+
+  @@map("roulette_bet")                                
+  @@schema("roulette")                                  
 }

@@ -1,0 +1,35 @@
+model GameSession {
+  id           String   @id @default(uuid())             
+  userId       String                                                                // UUID користувача, який створив сесію
+  user         User     @relation(fields: [userId], references: [id])                // Зв’язок із таблицею Users
+  serverSeed   String                                                                // Секретний seed від сервера (для Provably Fair)
+  serverHash   String                                                                // Хеш від serverSeed, який показується клієнту
+  clientSeed   String                                                                // Seed від клієнта (користувача)
+  nonce        Int      @default(0)                                                  // Лічильник спінів у межах цієї сесії
+  isActive     Boolean  @default(true)                                               // Чи активна сесія (true поки не закрита)
+  createdAt    DateTime @default(now()) @map("created_at")                           // Дата створення
+  
+  bets         RouletteBet[]                                                         // Масив ставок, пов’язаних із цією сесією
+
+  @@map("game_session")                                 
+  @@schema("roulette")                                  
+}
+
+model RouletteBet {
+  id             String       @id @default(uuid())        
+  gameSessionId  String       @map("game_session_id")                                // UUID сесії, до якої належить ставка
+  gameSession    GameSession  @relation(fields: [gameSessionId], references: [id])   // Зв’язок із GameSession
+  userId         String                                                              // UUID користувача, який зробив ставку
+  user           User         @relation(fields: [userId], references: [id])          // Зв’язок із Users
+  betType        String       @map("bet_type")                                       // Тип ставки (STRAIGHT, RED, BLACK)
+  betValue       Int?         @map("bet_value")                                      // Конкретне число (для STRAIGHT), може бути null
+  amount         Int                                                                 // Сума ставки
+  winningNumber  Int          @map("winning_number")                                 // Число, яке випало на рулетці
+  payoutAmount   Int          @map("payout_amount")                                  // Скільки виплачено (0 якщо програш)
+  isWin          Boolean      @map("is_win")                                         // Чи виграв користувач
+  nonce          Int                                                                 // Порядковий номер спіну в межах сесії
+  createdAt      DateTime     @default(now()) @map("created_at")                     // Дата створення ставки
+
+  @@map("roulette_bet")                                
+  @@schema("roulette")                                  
+}

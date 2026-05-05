@@ -159,6 +159,31 @@ exports.Prisma.AddressScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.GameSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serverSeed: 'serverSeed',
+  serverHash: 'serverHash',
+  clientSeed: 'clientSeed',
+  nonce: 'nonce',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RouletteBetScalarFieldEnum = {
+  id: 'id',
+  gameSessionId: 'gameSessionId',
+  userId: 'userId',
+  betType: 'betType',
+  betValue: 'betValue',
+  amount: 'amount',
+  winningNumber: 'winningNumber',
+  payoutAmount: 'payoutAmount',
+  isWin: 'isWin',
+  nonce: 'nonce',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -181,7 +206,9 @@ exports.UserRole = exports.$Enums.UserRole = {
 exports.Prisma.ModelName = {
   User: 'User',
   Profile: 'Profile',
-  Address: 'Address'
+  Address: 'Address',
+  GameSession: 'GameSession',
+  RouletteBet: 'RouletteBet'
 };
 
 /**

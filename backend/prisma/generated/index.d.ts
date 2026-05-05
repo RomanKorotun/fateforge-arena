@@ -28,6 +28,16 @@ export type Profile = $Result.DefaultSelection<Prisma.$ProfilePayload>
  * 
  */
 export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>
+/**
+ * Model GameSession
+ * 
+ */
+export type GameSession = $Result.DefaultSelection<Prisma.$GameSessionPayload>
+/**
+ * Model RouletteBet
+ * 
+ */
+export type RouletteBet = $Result.DefaultSelection<Prisma.$RouletteBetPayload>
 
 /**
  * Enums
@@ -196,6 +206,26 @@ export class PrismaClient<
     * ```
     */
   get address(): Prisma.AddressDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gameSession`: Exposes CRUD operations for the **GameSession** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameSessions
+    * const gameSessions = await prisma.gameSession.findMany()
+    * ```
+    */
+  get gameSession(): Prisma.GameSessionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rouletteBet`: Exposes CRUD operations for the **RouletteBet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RouletteBets
+    * const rouletteBets = await prisma.rouletteBet.findMany()
+    * ```
+    */
+  get rouletteBet(): Prisma.RouletteBetDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -632,7 +662,9 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Profile: 'Profile',
-    Address: 'Address'
+    Address: 'Address',
+    GameSession: 'GameSession',
+    RouletteBet: 'RouletteBet'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -648,7 +680,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "profile" | "address"
+      modelProps: "user" | "profile" | "address" | "gameSession" | "rouletteBet"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -874,6 +906,154 @@ export namespace Prisma {
           }
         }
       }
+      GameSession: {
+        payload: Prisma.$GameSessionPayload<ExtArgs>
+        fields: Prisma.GameSessionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GameSessionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GameSessionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload>
+          }
+          findFirst: {
+            args: Prisma.GameSessionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GameSessionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload>
+          }
+          findMany: {
+            args: Prisma.GameSessionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload>[]
+          }
+          create: {
+            args: Prisma.GameSessionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload>
+          }
+          createMany: {
+            args: Prisma.GameSessionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GameSessionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload>[]
+          }
+          delete: {
+            args: Prisma.GameSessionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload>
+          }
+          update: {
+            args: Prisma.GameSessionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload>
+          }
+          deleteMany: {
+            args: Prisma.GameSessionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GameSessionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GameSessionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload>[]
+          }
+          upsert: {
+            args: Prisma.GameSessionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameSessionPayload>
+          }
+          aggregate: {
+            args: Prisma.GameSessionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGameSession>
+          }
+          groupBy: {
+            args: Prisma.GameSessionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GameSessionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GameSessionCountArgs<ExtArgs>
+            result: $Utils.Optional<GameSessionCountAggregateOutputType> | number
+          }
+        }
+      }
+      RouletteBet: {
+        payload: Prisma.$RouletteBetPayload<ExtArgs>
+        fields: Prisma.RouletteBetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RouletteBetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RouletteBetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload>
+          }
+          findFirst: {
+            args: Prisma.RouletteBetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RouletteBetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload>
+          }
+          findMany: {
+            args: Prisma.RouletteBetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload>[]
+          }
+          create: {
+            args: Prisma.RouletteBetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload>
+          }
+          createMany: {
+            args: Prisma.RouletteBetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RouletteBetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload>[]
+          }
+          delete: {
+            args: Prisma.RouletteBetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload>
+          }
+          update: {
+            args: Prisma.RouletteBetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload>
+          }
+          deleteMany: {
+            args: Prisma.RouletteBetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RouletteBetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RouletteBetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload>[]
+          }
+          upsert: {
+            args: Prisma.RouletteBetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouletteBetPayload>
+          }
+          aggregate: {
+            args: Prisma.RouletteBetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRouletteBet>
+          }
+          groupBy: {
+            args: Prisma.RouletteBetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RouletteBetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RouletteBetCountArgs<ExtArgs>
+            result: $Utils.Optional<RouletteBetCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -985,6 +1165,8 @@ export namespace Prisma {
     user?: UserOmit
     profile?: ProfileOmit
     address?: AddressOmit
+    gameSession?: GameSessionOmit
+    rouletteBet?: RouletteBetOmit
   }
 
   /* Types for Logging */
@@ -1059,6 +1241,76 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    gameSessions: number
+    bets: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gameSessions?: boolean | UserCountOutputTypeCountGameSessionsArgs
+    bets?: boolean | UserCountOutputTypeCountBetsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGameSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameSessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouletteBetWhereInput
+  }
+
+
+  /**
+   * Count Type GameSessionCountOutputType
+   */
+
+  export type GameSessionCountOutputType = {
+    bets: number
+  }
+
+  export type GameSessionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bets?: boolean | GameSessionCountOutputTypeCountBetsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GameSessionCountOutputType without action
+   */
+  export type GameSessionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSessionCountOutputType
+     */
+    select?: GameSessionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GameSessionCountOutputType without action
+   */
+  export type GameSessionCountOutputTypeCountBetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouletteBetWhereInput
+  }
 
 
   /**
@@ -1295,6 +1547,9 @@ export namespace Prisma {
     updatedAt?: boolean
     profile?: boolean | User$profileArgs<ExtArgs>
     address?: boolean | User$addressArgs<ExtArgs>
+    gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
+    bets?: boolean | User$betsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1349,6 +1604,9 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profile?: boolean | User$profileArgs<ExtArgs>
     address?: boolean | User$addressArgs<ExtArgs>
+    gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
+    bets?: boolean | User$betsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
   export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1358,6 +1616,8 @@ export namespace Prisma {
     objects: {
       profile: Prisma.$ProfilePayload<ExtArgs> | null
       address: Prisma.$AddressPayload<ExtArgs> | null
+      gameSessions: Prisma.$GameSessionPayload<ExtArgs>[]
+      bets: Prisma.$RouletteBetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1769,6 +2029,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     address<T extends User$addressArgs<ExtArgs> = {}>(args?: Subset<T, User$addressArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    gameSessions<T extends User$gameSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bets<T extends User$betsArgs<ExtArgs> = {}>(args?: Subset<T, User$betsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2239,6 +2501,54 @@ export namespace Prisma {
      */
     include?: AddressInclude<ExtArgs> | null
     where?: AddressWhereInput
+  }
+
+  /**
+   * User.gameSessions
+   */
+  export type User$gameSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    where?: GameSessionWhereInput
+    orderBy?: GameSessionOrderByWithRelationInput | GameSessionOrderByWithRelationInput[]
+    cursor?: GameSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GameSessionScalarFieldEnum | GameSessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.bets
+   */
+  export type User$betsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    where?: RouletteBetWhereInput
+    orderBy?: RouletteBetOrderByWithRelationInput | RouletteBetOrderByWithRelationInput[]
+    cursor?: RouletteBetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RouletteBetScalarFieldEnum | RouletteBetScalarFieldEnum[]
   }
 
   /**
@@ -4520,6 +4830,2371 @@ export namespace Prisma {
 
 
   /**
+   * Model GameSession
+   */
+
+  export type AggregateGameSession = {
+    _count: GameSessionCountAggregateOutputType | null
+    _avg: GameSessionAvgAggregateOutputType | null
+    _sum: GameSessionSumAggregateOutputType | null
+    _min: GameSessionMinAggregateOutputType | null
+    _max: GameSessionMaxAggregateOutputType | null
+  }
+
+  export type GameSessionAvgAggregateOutputType = {
+    nonce: number | null
+  }
+
+  export type GameSessionSumAggregateOutputType = {
+    nonce: number | null
+  }
+
+  export type GameSessionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    serverSeed: string | null
+    serverHash: string | null
+    clientSeed: string | null
+    nonce: number | null
+    isActive: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GameSessionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    serverSeed: string | null
+    serverHash: string | null
+    clientSeed: string | null
+    nonce: number | null
+    isActive: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GameSessionCountAggregateOutputType = {
+    id: number
+    userId: number
+    serverSeed: number
+    serverHash: number
+    clientSeed: number
+    nonce: number
+    isActive: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GameSessionAvgAggregateInputType = {
+    nonce?: true
+  }
+
+  export type GameSessionSumAggregateInputType = {
+    nonce?: true
+  }
+
+  export type GameSessionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    serverSeed?: true
+    serverHash?: true
+    clientSeed?: true
+    nonce?: true
+    isActive?: true
+    createdAt?: true
+  }
+
+  export type GameSessionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    serverSeed?: true
+    serverHash?: true
+    clientSeed?: true
+    nonce?: true
+    isActive?: true
+    createdAt?: true
+  }
+
+  export type GameSessionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    serverSeed?: true
+    serverHash?: true
+    clientSeed?: true
+    nonce?: true
+    isActive?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GameSessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameSession to aggregate.
+     */
+    where?: GameSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameSessions to fetch.
+     */
+    orderBy?: GameSessionOrderByWithRelationInput | GameSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameSessions
+    **/
+    _count?: true | GameSessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameSessionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameSessionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameSessionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameSessionMaxAggregateInputType
+  }
+
+  export type GetGameSessionAggregateType<T extends GameSessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameSession]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameSession[P]>
+      : GetScalarType<T[P], AggregateGameSession[P]>
+  }
+
+
+
+
+  export type GameSessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameSessionWhereInput
+    orderBy?: GameSessionOrderByWithAggregationInput | GameSessionOrderByWithAggregationInput[]
+    by: GameSessionScalarFieldEnum[] | GameSessionScalarFieldEnum
+    having?: GameSessionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameSessionCountAggregateInputType | true
+    _avg?: GameSessionAvgAggregateInputType
+    _sum?: GameSessionSumAggregateInputType
+    _min?: GameSessionMinAggregateInputType
+    _max?: GameSessionMaxAggregateInputType
+  }
+
+  export type GameSessionGroupByOutputType = {
+    id: string
+    userId: string
+    serverSeed: string
+    serverHash: string
+    clientSeed: string
+    nonce: number
+    isActive: boolean
+    createdAt: Date
+    _count: GameSessionCountAggregateOutputType | null
+    _avg: GameSessionAvgAggregateOutputType | null
+    _sum: GameSessionSumAggregateOutputType | null
+    _min: GameSessionMinAggregateOutputType | null
+    _max: GameSessionMaxAggregateOutputType | null
+  }
+
+  type GetGameSessionGroupByPayload<T extends GameSessionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GameSessionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameSessionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameSessionGroupByOutputType[P]>
+            : GetScalarType<T[P], GameSessionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameSessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    serverSeed?: boolean
+    serverHash?: boolean
+    clientSeed?: boolean
+    nonce?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    bets?: boolean | GameSession$betsArgs<ExtArgs>
+    _count?: boolean | GameSessionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameSession"]>
+
+  export type GameSessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    serverSeed?: boolean
+    serverHash?: boolean
+    clientSeed?: boolean
+    nonce?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameSession"]>
+
+  export type GameSessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    serverSeed?: boolean
+    serverHash?: boolean
+    clientSeed?: boolean
+    nonce?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameSession"]>
+
+  export type GameSessionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    serverSeed?: boolean
+    serverHash?: boolean
+    clientSeed?: boolean
+    nonce?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+  }
+
+  export type GameSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "serverSeed" | "serverHash" | "clientSeed" | "nonce" | "isActive" | "createdAt", ExtArgs["result"]["gameSession"]>
+  export type GameSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    bets?: boolean | GameSession$betsArgs<ExtArgs>
+    _count?: boolean | GameSessionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GameSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GameSessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $GameSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GameSession"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      bets: Prisma.$RouletteBetPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      serverSeed: string
+      serverHash: string
+      clientSeed: string
+      nonce: number
+      isActive: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["gameSession"]>
+    composites: {}
+  }
+
+  type GameSessionGetPayload<S extends boolean | null | undefined | GameSessionDefaultArgs> = $Result.GetResult<Prisma.$GameSessionPayload, S>
+
+  type GameSessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GameSessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GameSessionCountAggregateInputType | true
+    }
+
+  export interface GameSessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameSession'], meta: { name: 'GameSession' } }
+    /**
+     * Find zero or one GameSession that matches the filter.
+     * @param {GameSessionFindUniqueArgs} args - Arguments to find a GameSession
+     * @example
+     * // Get one GameSession
+     * const gameSession = await prisma.gameSession.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GameSessionFindUniqueArgs>(args: SelectSubset<T, GameSessionFindUniqueArgs<ExtArgs>>): Prisma__GameSessionClient<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GameSession that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GameSessionFindUniqueOrThrowArgs} args - Arguments to find a GameSession
+     * @example
+     * // Get one GameSession
+     * const gameSession = await prisma.gameSession.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GameSessionFindUniqueOrThrowArgs>(args: SelectSubset<T, GameSessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameSessionClient<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GameSession that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameSessionFindFirstArgs} args - Arguments to find a GameSession
+     * @example
+     * // Get one GameSession
+     * const gameSession = await prisma.gameSession.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GameSessionFindFirstArgs>(args?: SelectSubset<T, GameSessionFindFirstArgs<ExtArgs>>): Prisma__GameSessionClient<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GameSession that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameSessionFindFirstOrThrowArgs} args - Arguments to find a GameSession
+     * @example
+     * // Get one GameSession
+     * const gameSession = await prisma.gameSession.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GameSessionFindFirstOrThrowArgs>(args?: SelectSubset<T, GameSessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameSessionClient<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GameSessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameSessionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameSessions
+     * const gameSessions = await prisma.gameSession.findMany()
+     * 
+     * // Get first 10 GameSessions
+     * const gameSessions = await prisma.gameSession.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameSessionWithIdOnly = await prisma.gameSession.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GameSessionFindManyArgs>(args?: SelectSubset<T, GameSessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GameSession.
+     * @param {GameSessionCreateArgs} args - Arguments to create a GameSession.
+     * @example
+     * // Create one GameSession
+     * const GameSession = await prisma.gameSession.create({
+     *   data: {
+     *     // ... data to create a GameSession
+     *   }
+     * })
+     * 
+     */
+    create<T extends GameSessionCreateArgs>(args: SelectSubset<T, GameSessionCreateArgs<ExtArgs>>): Prisma__GameSessionClient<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GameSessions.
+     * @param {GameSessionCreateManyArgs} args - Arguments to create many GameSessions.
+     * @example
+     * // Create many GameSessions
+     * const gameSession = await prisma.gameSession.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GameSessionCreateManyArgs>(args?: SelectSubset<T, GameSessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GameSessions and returns the data saved in the database.
+     * @param {GameSessionCreateManyAndReturnArgs} args - Arguments to create many GameSessions.
+     * @example
+     * // Create many GameSessions
+     * const gameSession = await prisma.gameSession.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GameSessions and only return the `id`
+     * const gameSessionWithIdOnly = await prisma.gameSession.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GameSessionCreateManyAndReturnArgs>(args?: SelectSubset<T, GameSessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GameSession.
+     * @param {GameSessionDeleteArgs} args - Arguments to delete one GameSession.
+     * @example
+     * // Delete one GameSession
+     * const GameSession = await prisma.gameSession.delete({
+     *   where: {
+     *     // ... filter to delete one GameSession
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GameSessionDeleteArgs>(args: SelectSubset<T, GameSessionDeleteArgs<ExtArgs>>): Prisma__GameSessionClient<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GameSession.
+     * @param {GameSessionUpdateArgs} args - Arguments to update one GameSession.
+     * @example
+     * // Update one GameSession
+     * const gameSession = await prisma.gameSession.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GameSessionUpdateArgs>(args: SelectSubset<T, GameSessionUpdateArgs<ExtArgs>>): Prisma__GameSessionClient<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GameSessions.
+     * @param {GameSessionDeleteManyArgs} args - Arguments to filter GameSessions to delete.
+     * @example
+     * // Delete a few GameSessions
+     * const { count } = await prisma.gameSession.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GameSessionDeleteManyArgs>(args?: SelectSubset<T, GameSessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameSessionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameSessions
+     * const gameSession = await prisma.gameSession.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GameSessionUpdateManyArgs>(args: SelectSubset<T, GameSessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameSessions and returns the data updated in the database.
+     * @param {GameSessionUpdateManyAndReturnArgs} args - Arguments to update many GameSessions.
+     * @example
+     * // Update many GameSessions
+     * const gameSession = await prisma.gameSession.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GameSessions and only return the `id`
+     * const gameSessionWithIdOnly = await prisma.gameSession.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GameSessionUpdateManyAndReturnArgs>(args: SelectSubset<T, GameSessionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GameSession.
+     * @param {GameSessionUpsertArgs} args - Arguments to update or create a GameSession.
+     * @example
+     * // Update or create a GameSession
+     * const gameSession = await prisma.gameSession.upsert({
+     *   create: {
+     *     // ... data to create a GameSession
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameSession we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GameSessionUpsertArgs>(args: SelectSubset<T, GameSessionUpsertArgs<ExtArgs>>): Prisma__GameSessionClient<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GameSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameSessionCountArgs} args - Arguments to filter GameSessions to count.
+     * @example
+     * // Count the number of GameSessions
+     * const count = await prisma.gameSession.count({
+     *   where: {
+     *     // ... the filter for the GameSessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameSessionCountArgs>(
+      args?: Subset<T, GameSessionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameSessionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameSessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameSessionAggregateArgs>(args: Subset<T, GameSessionAggregateArgs>): Prisma.PrismaPromise<GetGameSessionAggregateType<T>>
+
+    /**
+     * Group by GameSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameSessionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameSessionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameSessionGroupByArgs['orderBy'] }
+        : { orderBy?: GameSessionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameSessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GameSession model
+   */
+  readonly fields: GameSessionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameSession.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GameSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    bets<T extends GameSession$betsArgs<ExtArgs> = {}>(args?: Subset<T, GameSession$betsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GameSession model
+   */
+  interface GameSessionFieldRefs {
+    readonly id: FieldRef<"GameSession", 'String'>
+    readonly userId: FieldRef<"GameSession", 'String'>
+    readonly serverSeed: FieldRef<"GameSession", 'String'>
+    readonly serverHash: FieldRef<"GameSession", 'String'>
+    readonly clientSeed: FieldRef<"GameSession", 'String'>
+    readonly nonce: FieldRef<"GameSession", 'Int'>
+    readonly isActive: FieldRef<"GameSession", 'Boolean'>
+    readonly createdAt: FieldRef<"GameSession", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GameSession findUnique
+   */
+  export type GameSessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameSession to fetch.
+     */
+    where: GameSessionWhereUniqueInput
+  }
+
+  /**
+   * GameSession findUniqueOrThrow
+   */
+  export type GameSessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameSession to fetch.
+     */
+    where: GameSessionWhereUniqueInput
+  }
+
+  /**
+   * GameSession findFirst
+   */
+  export type GameSessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameSession to fetch.
+     */
+    where?: GameSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameSessions to fetch.
+     */
+    orderBy?: GameSessionOrderByWithRelationInput | GameSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameSessions.
+     */
+    cursor?: GameSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameSessions.
+     */
+    distinct?: GameSessionScalarFieldEnum | GameSessionScalarFieldEnum[]
+  }
+
+  /**
+   * GameSession findFirstOrThrow
+   */
+  export type GameSessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameSession to fetch.
+     */
+    where?: GameSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameSessions to fetch.
+     */
+    orderBy?: GameSessionOrderByWithRelationInput | GameSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameSessions.
+     */
+    cursor?: GameSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameSessions.
+     */
+    distinct?: GameSessionScalarFieldEnum | GameSessionScalarFieldEnum[]
+  }
+
+  /**
+   * GameSession findMany
+   */
+  export type GameSessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameSessions to fetch.
+     */
+    where?: GameSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameSessions to fetch.
+     */
+    orderBy?: GameSessionOrderByWithRelationInput | GameSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameSessions.
+     */
+    cursor?: GameSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameSessions.
+     */
+    distinct?: GameSessionScalarFieldEnum | GameSessionScalarFieldEnum[]
+  }
+
+  /**
+   * GameSession create
+   */
+  export type GameSessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GameSession.
+     */
+    data: XOR<GameSessionCreateInput, GameSessionUncheckedCreateInput>
+  }
+
+  /**
+   * GameSession createMany
+   */
+  export type GameSessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GameSessions.
+     */
+    data: GameSessionCreateManyInput | GameSessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameSession createManyAndReturn
+   */
+  export type GameSessionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * The data used to create many GameSessions.
+     */
+    data: GameSessionCreateManyInput | GameSessionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameSession update
+   */
+  export type GameSessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GameSession.
+     */
+    data: XOR<GameSessionUpdateInput, GameSessionUncheckedUpdateInput>
+    /**
+     * Choose, which GameSession to update.
+     */
+    where: GameSessionWhereUniqueInput
+  }
+
+  /**
+   * GameSession updateMany
+   */
+  export type GameSessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GameSessions.
+     */
+    data: XOR<GameSessionUpdateManyMutationInput, GameSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which GameSessions to update
+     */
+    where?: GameSessionWhereInput
+    /**
+     * Limit how many GameSessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameSession updateManyAndReturn
+   */
+  export type GameSessionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * The data used to update GameSessions.
+     */
+    data: XOR<GameSessionUpdateManyMutationInput, GameSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which GameSessions to update
+     */
+    where?: GameSessionWhereInput
+    /**
+     * Limit how many GameSessions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameSession upsert
+   */
+  export type GameSessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GameSession to update in case it exists.
+     */
+    where: GameSessionWhereUniqueInput
+    /**
+     * In case the GameSession found by the `where` argument doesn't exist, create a new GameSession with this data.
+     */
+    create: XOR<GameSessionCreateInput, GameSessionUncheckedCreateInput>
+    /**
+     * In case the GameSession was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameSessionUpdateInput, GameSessionUncheckedUpdateInput>
+  }
+
+  /**
+   * GameSession delete
+   */
+  export type GameSessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+    /**
+     * Filter which GameSession to delete.
+     */
+    where: GameSessionWhereUniqueInput
+  }
+
+  /**
+   * GameSession deleteMany
+   */
+  export type GameSessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameSessions to delete
+     */
+    where?: GameSessionWhereInput
+    /**
+     * Limit how many GameSessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameSession.bets
+   */
+  export type GameSession$betsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    where?: RouletteBetWhereInput
+    orderBy?: RouletteBetOrderByWithRelationInput | RouletteBetOrderByWithRelationInput[]
+    cursor?: RouletteBetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RouletteBetScalarFieldEnum | RouletteBetScalarFieldEnum[]
+  }
+
+  /**
+   * GameSession without action
+   */
+  export type GameSessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameSession
+     */
+    select?: GameSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameSession
+     */
+    omit?: GameSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameSessionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RouletteBet
+   */
+
+  export type AggregateRouletteBet = {
+    _count: RouletteBetCountAggregateOutputType | null
+    _avg: RouletteBetAvgAggregateOutputType | null
+    _sum: RouletteBetSumAggregateOutputType | null
+    _min: RouletteBetMinAggregateOutputType | null
+    _max: RouletteBetMaxAggregateOutputType | null
+  }
+
+  export type RouletteBetAvgAggregateOutputType = {
+    betValue: number | null
+    amount: number | null
+    winningNumber: number | null
+    payoutAmount: number | null
+    nonce: number | null
+  }
+
+  export type RouletteBetSumAggregateOutputType = {
+    betValue: number | null
+    amount: number | null
+    winningNumber: number | null
+    payoutAmount: number | null
+    nonce: number | null
+  }
+
+  export type RouletteBetMinAggregateOutputType = {
+    id: string | null
+    gameSessionId: string | null
+    userId: string | null
+    betType: string | null
+    betValue: number | null
+    amount: number | null
+    winningNumber: number | null
+    payoutAmount: number | null
+    isWin: boolean | null
+    nonce: number | null
+    createdAt: Date | null
+  }
+
+  export type RouletteBetMaxAggregateOutputType = {
+    id: string | null
+    gameSessionId: string | null
+    userId: string | null
+    betType: string | null
+    betValue: number | null
+    amount: number | null
+    winningNumber: number | null
+    payoutAmount: number | null
+    isWin: boolean | null
+    nonce: number | null
+    createdAt: Date | null
+  }
+
+  export type RouletteBetCountAggregateOutputType = {
+    id: number
+    gameSessionId: number
+    userId: number
+    betType: number
+    betValue: number
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: number
+    nonce: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RouletteBetAvgAggregateInputType = {
+    betValue?: true
+    amount?: true
+    winningNumber?: true
+    payoutAmount?: true
+    nonce?: true
+  }
+
+  export type RouletteBetSumAggregateInputType = {
+    betValue?: true
+    amount?: true
+    winningNumber?: true
+    payoutAmount?: true
+    nonce?: true
+  }
+
+  export type RouletteBetMinAggregateInputType = {
+    id?: true
+    gameSessionId?: true
+    userId?: true
+    betType?: true
+    betValue?: true
+    amount?: true
+    winningNumber?: true
+    payoutAmount?: true
+    isWin?: true
+    nonce?: true
+    createdAt?: true
+  }
+
+  export type RouletteBetMaxAggregateInputType = {
+    id?: true
+    gameSessionId?: true
+    userId?: true
+    betType?: true
+    betValue?: true
+    amount?: true
+    winningNumber?: true
+    payoutAmount?: true
+    isWin?: true
+    nonce?: true
+    createdAt?: true
+  }
+
+  export type RouletteBetCountAggregateInputType = {
+    id?: true
+    gameSessionId?: true
+    userId?: true
+    betType?: true
+    betValue?: true
+    amount?: true
+    winningNumber?: true
+    payoutAmount?: true
+    isWin?: true
+    nonce?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RouletteBetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RouletteBet to aggregate.
+     */
+    where?: RouletteBetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RouletteBets to fetch.
+     */
+    orderBy?: RouletteBetOrderByWithRelationInput | RouletteBetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RouletteBetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RouletteBets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RouletteBets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RouletteBets
+    **/
+    _count?: true | RouletteBetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RouletteBetAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RouletteBetSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RouletteBetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RouletteBetMaxAggregateInputType
+  }
+
+  export type GetRouletteBetAggregateType<T extends RouletteBetAggregateArgs> = {
+        [P in keyof T & keyof AggregateRouletteBet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRouletteBet[P]>
+      : GetScalarType<T[P], AggregateRouletteBet[P]>
+  }
+
+
+
+
+  export type RouletteBetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouletteBetWhereInput
+    orderBy?: RouletteBetOrderByWithAggregationInput | RouletteBetOrderByWithAggregationInput[]
+    by: RouletteBetScalarFieldEnum[] | RouletteBetScalarFieldEnum
+    having?: RouletteBetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RouletteBetCountAggregateInputType | true
+    _avg?: RouletteBetAvgAggregateInputType
+    _sum?: RouletteBetSumAggregateInputType
+    _min?: RouletteBetMinAggregateInputType
+    _max?: RouletteBetMaxAggregateInputType
+  }
+
+  export type RouletteBetGroupByOutputType = {
+    id: string
+    gameSessionId: string
+    userId: string
+    betType: string
+    betValue: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt: Date
+    _count: RouletteBetCountAggregateOutputType | null
+    _avg: RouletteBetAvgAggregateOutputType | null
+    _sum: RouletteBetSumAggregateOutputType | null
+    _min: RouletteBetMinAggregateOutputType | null
+    _max: RouletteBetMaxAggregateOutputType | null
+  }
+
+  type GetRouletteBetGroupByPayload<T extends RouletteBetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RouletteBetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RouletteBetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RouletteBetGroupByOutputType[P]>
+            : GetScalarType<T[P], RouletteBetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RouletteBetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gameSessionId?: boolean
+    userId?: boolean
+    betType?: boolean
+    betValue?: boolean
+    amount?: boolean
+    winningNumber?: boolean
+    payoutAmount?: boolean
+    isWin?: boolean
+    nonce?: boolean
+    createdAt?: boolean
+    gameSession?: boolean | GameSessionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rouletteBet"]>
+
+  export type RouletteBetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gameSessionId?: boolean
+    userId?: boolean
+    betType?: boolean
+    betValue?: boolean
+    amount?: boolean
+    winningNumber?: boolean
+    payoutAmount?: boolean
+    isWin?: boolean
+    nonce?: boolean
+    createdAt?: boolean
+    gameSession?: boolean | GameSessionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rouletteBet"]>
+
+  export type RouletteBetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gameSessionId?: boolean
+    userId?: boolean
+    betType?: boolean
+    betValue?: boolean
+    amount?: boolean
+    winningNumber?: boolean
+    payoutAmount?: boolean
+    isWin?: boolean
+    nonce?: boolean
+    createdAt?: boolean
+    gameSession?: boolean | GameSessionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rouletteBet"]>
+
+  export type RouletteBetSelectScalar = {
+    id?: boolean
+    gameSessionId?: boolean
+    userId?: boolean
+    betType?: boolean
+    betValue?: boolean
+    amount?: boolean
+    winningNumber?: boolean
+    payoutAmount?: boolean
+    isWin?: boolean
+    nonce?: boolean
+    createdAt?: boolean
+  }
+
+  export type RouletteBetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gameSessionId" | "userId" | "betType" | "betValue" | "amount" | "winningNumber" | "payoutAmount" | "isWin" | "nonce" | "createdAt", ExtArgs["result"]["rouletteBet"]>
+  export type RouletteBetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gameSession?: boolean | GameSessionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RouletteBetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gameSession?: boolean | GameSessionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RouletteBetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gameSession?: boolean | GameSessionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $RouletteBetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RouletteBet"
+    objects: {
+      gameSession: Prisma.$GameSessionPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      gameSessionId: string
+      userId: string
+      betType: string
+      betValue: number | null
+      amount: number
+      winningNumber: number
+      payoutAmount: number
+      isWin: boolean
+      nonce: number
+      createdAt: Date
+    }, ExtArgs["result"]["rouletteBet"]>
+    composites: {}
+  }
+
+  type RouletteBetGetPayload<S extends boolean | null | undefined | RouletteBetDefaultArgs> = $Result.GetResult<Prisma.$RouletteBetPayload, S>
+
+  type RouletteBetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RouletteBetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RouletteBetCountAggregateInputType | true
+    }
+
+  export interface RouletteBetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RouletteBet'], meta: { name: 'RouletteBet' } }
+    /**
+     * Find zero or one RouletteBet that matches the filter.
+     * @param {RouletteBetFindUniqueArgs} args - Arguments to find a RouletteBet
+     * @example
+     * // Get one RouletteBet
+     * const rouletteBet = await prisma.rouletteBet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RouletteBetFindUniqueArgs>(args: SelectSubset<T, RouletteBetFindUniqueArgs<ExtArgs>>): Prisma__RouletteBetClient<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RouletteBet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RouletteBetFindUniqueOrThrowArgs} args - Arguments to find a RouletteBet
+     * @example
+     * // Get one RouletteBet
+     * const rouletteBet = await prisma.rouletteBet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RouletteBetFindUniqueOrThrowArgs>(args: SelectSubset<T, RouletteBetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RouletteBetClient<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RouletteBet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouletteBetFindFirstArgs} args - Arguments to find a RouletteBet
+     * @example
+     * // Get one RouletteBet
+     * const rouletteBet = await prisma.rouletteBet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RouletteBetFindFirstArgs>(args?: SelectSubset<T, RouletteBetFindFirstArgs<ExtArgs>>): Prisma__RouletteBetClient<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RouletteBet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouletteBetFindFirstOrThrowArgs} args - Arguments to find a RouletteBet
+     * @example
+     * // Get one RouletteBet
+     * const rouletteBet = await prisma.rouletteBet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RouletteBetFindFirstOrThrowArgs>(args?: SelectSubset<T, RouletteBetFindFirstOrThrowArgs<ExtArgs>>): Prisma__RouletteBetClient<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RouletteBets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouletteBetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RouletteBets
+     * const rouletteBets = await prisma.rouletteBet.findMany()
+     * 
+     * // Get first 10 RouletteBets
+     * const rouletteBets = await prisma.rouletteBet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rouletteBetWithIdOnly = await prisma.rouletteBet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RouletteBetFindManyArgs>(args?: SelectSubset<T, RouletteBetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RouletteBet.
+     * @param {RouletteBetCreateArgs} args - Arguments to create a RouletteBet.
+     * @example
+     * // Create one RouletteBet
+     * const RouletteBet = await prisma.rouletteBet.create({
+     *   data: {
+     *     // ... data to create a RouletteBet
+     *   }
+     * })
+     * 
+     */
+    create<T extends RouletteBetCreateArgs>(args: SelectSubset<T, RouletteBetCreateArgs<ExtArgs>>): Prisma__RouletteBetClient<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RouletteBets.
+     * @param {RouletteBetCreateManyArgs} args - Arguments to create many RouletteBets.
+     * @example
+     * // Create many RouletteBets
+     * const rouletteBet = await prisma.rouletteBet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RouletteBetCreateManyArgs>(args?: SelectSubset<T, RouletteBetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RouletteBets and returns the data saved in the database.
+     * @param {RouletteBetCreateManyAndReturnArgs} args - Arguments to create many RouletteBets.
+     * @example
+     * // Create many RouletteBets
+     * const rouletteBet = await prisma.rouletteBet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RouletteBets and only return the `id`
+     * const rouletteBetWithIdOnly = await prisma.rouletteBet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RouletteBetCreateManyAndReturnArgs>(args?: SelectSubset<T, RouletteBetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RouletteBet.
+     * @param {RouletteBetDeleteArgs} args - Arguments to delete one RouletteBet.
+     * @example
+     * // Delete one RouletteBet
+     * const RouletteBet = await prisma.rouletteBet.delete({
+     *   where: {
+     *     // ... filter to delete one RouletteBet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RouletteBetDeleteArgs>(args: SelectSubset<T, RouletteBetDeleteArgs<ExtArgs>>): Prisma__RouletteBetClient<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RouletteBet.
+     * @param {RouletteBetUpdateArgs} args - Arguments to update one RouletteBet.
+     * @example
+     * // Update one RouletteBet
+     * const rouletteBet = await prisma.rouletteBet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RouletteBetUpdateArgs>(args: SelectSubset<T, RouletteBetUpdateArgs<ExtArgs>>): Prisma__RouletteBetClient<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RouletteBets.
+     * @param {RouletteBetDeleteManyArgs} args - Arguments to filter RouletteBets to delete.
+     * @example
+     * // Delete a few RouletteBets
+     * const { count } = await prisma.rouletteBet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RouletteBetDeleteManyArgs>(args?: SelectSubset<T, RouletteBetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RouletteBets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouletteBetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RouletteBets
+     * const rouletteBet = await prisma.rouletteBet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RouletteBetUpdateManyArgs>(args: SelectSubset<T, RouletteBetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RouletteBets and returns the data updated in the database.
+     * @param {RouletteBetUpdateManyAndReturnArgs} args - Arguments to update many RouletteBets.
+     * @example
+     * // Update many RouletteBets
+     * const rouletteBet = await prisma.rouletteBet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RouletteBets and only return the `id`
+     * const rouletteBetWithIdOnly = await prisma.rouletteBet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RouletteBetUpdateManyAndReturnArgs>(args: SelectSubset<T, RouletteBetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RouletteBet.
+     * @param {RouletteBetUpsertArgs} args - Arguments to update or create a RouletteBet.
+     * @example
+     * // Update or create a RouletteBet
+     * const rouletteBet = await prisma.rouletteBet.upsert({
+     *   create: {
+     *     // ... data to create a RouletteBet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RouletteBet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RouletteBetUpsertArgs>(args: SelectSubset<T, RouletteBetUpsertArgs<ExtArgs>>): Prisma__RouletteBetClient<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RouletteBets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouletteBetCountArgs} args - Arguments to filter RouletteBets to count.
+     * @example
+     * // Count the number of RouletteBets
+     * const count = await prisma.rouletteBet.count({
+     *   where: {
+     *     // ... the filter for the RouletteBets we want to count
+     *   }
+     * })
+    **/
+    count<T extends RouletteBetCountArgs>(
+      args?: Subset<T, RouletteBetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RouletteBetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RouletteBet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouletteBetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RouletteBetAggregateArgs>(args: Subset<T, RouletteBetAggregateArgs>): Prisma.PrismaPromise<GetRouletteBetAggregateType<T>>
+
+    /**
+     * Group by RouletteBet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouletteBetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RouletteBetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RouletteBetGroupByArgs['orderBy'] }
+        : { orderBy?: RouletteBetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RouletteBetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRouletteBetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RouletteBet model
+   */
+  readonly fields: RouletteBetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RouletteBet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RouletteBetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    gameSession<T extends GameSessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameSessionDefaultArgs<ExtArgs>>): Prisma__GameSessionClient<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RouletteBet model
+   */
+  interface RouletteBetFieldRefs {
+    readonly id: FieldRef<"RouletteBet", 'String'>
+    readonly gameSessionId: FieldRef<"RouletteBet", 'String'>
+    readonly userId: FieldRef<"RouletteBet", 'String'>
+    readonly betType: FieldRef<"RouletteBet", 'String'>
+    readonly betValue: FieldRef<"RouletteBet", 'Int'>
+    readonly amount: FieldRef<"RouletteBet", 'Int'>
+    readonly winningNumber: FieldRef<"RouletteBet", 'Int'>
+    readonly payoutAmount: FieldRef<"RouletteBet", 'Int'>
+    readonly isWin: FieldRef<"RouletteBet", 'Boolean'>
+    readonly nonce: FieldRef<"RouletteBet", 'Int'>
+    readonly createdAt: FieldRef<"RouletteBet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RouletteBet findUnique
+   */
+  export type RouletteBetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RouletteBet to fetch.
+     */
+    where: RouletteBetWhereUniqueInput
+  }
+
+  /**
+   * RouletteBet findUniqueOrThrow
+   */
+  export type RouletteBetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RouletteBet to fetch.
+     */
+    where: RouletteBetWhereUniqueInput
+  }
+
+  /**
+   * RouletteBet findFirst
+   */
+  export type RouletteBetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RouletteBet to fetch.
+     */
+    where?: RouletteBetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RouletteBets to fetch.
+     */
+    orderBy?: RouletteBetOrderByWithRelationInput | RouletteBetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RouletteBets.
+     */
+    cursor?: RouletteBetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RouletteBets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RouletteBets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RouletteBets.
+     */
+    distinct?: RouletteBetScalarFieldEnum | RouletteBetScalarFieldEnum[]
+  }
+
+  /**
+   * RouletteBet findFirstOrThrow
+   */
+  export type RouletteBetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RouletteBet to fetch.
+     */
+    where?: RouletteBetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RouletteBets to fetch.
+     */
+    orderBy?: RouletteBetOrderByWithRelationInput | RouletteBetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RouletteBets.
+     */
+    cursor?: RouletteBetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RouletteBets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RouletteBets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RouletteBets.
+     */
+    distinct?: RouletteBetScalarFieldEnum | RouletteBetScalarFieldEnum[]
+  }
+
+  /**
+   * RouletteBet findMany
+   */
+  export type RouletteBetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RouletteBets to fetch.
+     */
+    where?: RouletteBetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RouletteBets to fetch.
+     */
+    orderBy?: RouletteBetOrderByWithRelationInput | RouletteBetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RouletteBets.
+     */
+    cursor?: RouletteBetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RouletteBets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RouletteBets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RouletteBets.
+     */
+    distinct?: RouletteBetScalarFieldEnum | RouletteBetScalarFieldEnum[]
+  }
+
+  /**
+   * RouletteBet create
+   */
+  export type RouletteBetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RouletteBet.
+     */
+    data: XOR<RouletteBetCreateInput, RouletteBetUncheckedCreateInput>
+  }
+
+  /**
+   * RouletteBet createMany
+   */
+  export type RouletteBetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RouletteBets.
+     */
+    data: RouletteBetCreateManyInput | RouletteBetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RouletteBet createManyAndReturn
+   */
+  export type RouletteBetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * The data used to create many RouletteBets.
+     */
+    data: RouletteBetCreateManyInput | RouletteBetCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RouletteBet update
+   */
+  export type RouletteBetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RouletteBet.
+     */
+    data: XOR<RouletteBetUpdateInput, RouletteBetUncheckedUpdateInput>
+    /**
+     * Choose, which RouletteBet to update.
+     */
+    where: RouletteBetWhereUniqueInput
+  }
+
+  /**
+   * RouletteBet updateMany
+   */
+  export type RouletteBetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RouletteBets.
+     */
+    data: XOR<RouletteBetUpdateManyMutationInput, RouletteBetUncheckedUpdateManyInput>
+    /**
+     * Filter which RouletteBets to update
+     */
+    where?: RouletteBetWhereInput
+    /**
+     * Limit how many RouletteBets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RouletteBet updateManyAndReturn
+   */
+  export type RouletteBetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * The data used to update RouletteBets.
+     */
+    data: XOR<RouletteBetUpdateManyMutationInput, RouletteBetUncheckedUpdateManyInput>
+    /**
+     * Filter which RouletteBets to update
+     */
+    where?: RouletteBetWhereInput
+    /**
+     * Limit how many RouletteBets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RouletteBet upsert
+   */
+  export type RouletteBetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RouletteBet to update in case it exists.
+     */
+    where: RouletteBetWhereUniqueInput
+    /**
+     * In case the RouletteBet found by the `where` argument doesn't exist, create a new RouletteBet with this data.
+     */
+    create: XOR<RouletteBetCreateInput, RouletteBetUncheckedCreateInput>
+    /**
+     * In case the RouletteBet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RouletteBetUpdateInput, RouletteBetUncheckedUpdateInput>
+  }
+
+  /**
+   * RouletteBet delete
+   */
+  export type RouletteBetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+    /**
+     * Filter which RouletteBet to delete.
+     */
+    where: RouletteBetWhereUniqueInput
+  }
+
+  /**
+   * RouletteBet deleteMany
+   */
+  export type RouletteBetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RouletteBets to delete
+     */
+    where?: RouletteBetWhereInput
+    /**
+     * Limit how many RouletteBets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RouletteBet without action
+   */
+  export type RouletteBetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouletteBet
+     */
+    select?: RouletteBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RouletteBet
+     */
+    omit?: RouletteBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouletteBetInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4579,6 +7254,37 @@ export namespace Prisma {
   };
 
   export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
+
+
+  export const GameSessionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    serverSeed: 'serverSeed',
+    serverHash: 'serverHash',
+    clientSeed: 'clientSeed',
+    nonce: 'nonce',
+    isActive: 'isActive',
+    createdAt: 'createdAt'
+  };
+
+  export type GameSessionScalarFieldEnum = (typeof GameSessionScalarFieldEnum)[keyof typeof GameSessionScalarFieldEnum]
+
+
+  export const RouletteBetScalarFieldEnum: {
+    id: 'id',
+    gameSessionId: 'gameSessionId',
+    userId: 'userId',
+    betType: 'betType',
+    betValue: 'betValue',
+    amount: 'amount',
+    winningNumber: 'winningNumber',
+    payoutAmount: 'payoutAmount',
+    isWin: 'isWin',
+    nonce: 'nonce',
+    createdAt: 'createdAt'
+  };
+
+  export type RouletteBetScalarFieldEnum = (typeof RouletteBetScalarFieldEnum)[keyof typeof RouletteBetScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4723,6 +7429,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
+    gameSessions?: GameSessionListRelationFilter
+    bets?: RouletteBetListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4741,6 +7449,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
     profile?: ProfileOrderByWithRelationInput
     address?: AddressOrderByWithRelationInput
+    gameSessions?: GameSessionOrderByRelationAggregateInput
+    bets?: RouletteBetOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -4762,6 +7472,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
+    gameSessions?: GameSessionListRelationFilter
+    bets?: RouletteBetListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -4949,6 +7661,171 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Address"> | Date | string
   }
 
+  export type GameSessionWhereInput = {
+    AND?: GameSessionWhereInput | GameSessionWhereInput[]
+    OR?: GameSessionWhereInput[]
+    NOT?: GameSessionWhereInput | GameSessionWhereInput[]
+    id?: StringFilter<"GameSession"> | string
+    userId?: StringFilter<"GameSession"> | string
+    serverSeed?: StringFilter<"GameSession"> | string
+    serverHash?: StringFilter<"GameSession"> | string
+    clientSeed?: StringFilter<"GameSession"> | string
+    nonce?: IntFilter<"GameSession"> | number
+    isActive?: BoolFilter<"GameSession"> | boolean
+    createdAt?: DateTimeFilter<"GameSession"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    bets?: RouletteBetListRelationFilter
+  }
+
+  export type GameSessionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    serverSeed?: SortOrder
+    serverHash?: SortOrder
+    clientSeed?: SortOrder
+    nonce?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    bets?: RouletteBetOrderByRelationAggregateInput
+  }
+
+  export type GameSessionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GameSessionWhereInput | GameSessionWhereInput[]
+    OR?: GameSessionWhereInput[]
+    NOT?: GameSessionWhereInput | GameSessionWhereInput[]
+    userId?: StringFilter<"GameSession"> | string
+    serverSeed?: StringFilter<"GameSession"> | string
+    serverHash?: StringFilter<"GameSession"> | string
+    clientSeed?: StringFilter<"GameSession"> | string
+    nonce?: IntFilter<"GameSession"> | number
+    isActive?: BoolFilter<"GameSession"> | boolean
+    createdAt?: DateTimeFilter<"GameSession"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    bets?: RouletteBetListRelationFilter
+  }, "id">
+
+  export type GameSessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    serverSeed?: SortOrder
+    serverHash?: SortOrder
+    clientSeed?: SortOrder
+    nonce?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    _count?: GameSessionCountOrderByAggregateInput
+    _avg?: GameSessionAvgOrderByAggregateInput
+    _max?: GameSessionMaxOrderByAggregateInput
+    _min?: GameSessionMinOrderByAggregateInput
+    _sum?: GameSessionSumOrderByAggregateInput
+  }
+
+  export type GameSessionScalarWhereWithAggregatesInput = {
+    AND?: GameSessionScalarWhereWithAggregatesInput | GameSessionScalarWhereWithAggregatesInput[]
+    OR?: GameSessionScalarWhereWithAggregatesInput[]
+    NOT?: GameSessionScalarWhereWithAggregatesInput | GameSessionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GameSession"> | string
+    userId?: StringWithAggregatesFilter<"GameSession"> | string
+    serverSeed?: StringWithAggregatesFilter<"GameSession"> | string
+    serverHash?: StringWithAggregatesFilter<"GameSession"> | string
+    clientSeed?: StringWithAggregatesFilter<"GameSession"> | string
+    nonce?: IntWithAggregatesFilter<"GameSession"> | number
+    isActive?: BoolWithAggregatesFilter<"GameSession"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"GameSession"> | Date | string
+  }
+
+  export type RouletteBetWhereInput = {
+    AND?: RouletteBetWhereInput | RouletteBetWhereInput[]
+    OR?: RouletteBetWhereInput[]
+    NOT?: RouletteBetWhereInput | RouletteBetWhereInput[]
+    id?: StringFilter<"RouletteBet"> | string
+    gameSessionId?: StringFilter<"RouletteBet"> | string
+    userId?: StringFilter<"RouletteBet"> | string
+    betType?: StringFilter<"RouletteBet"> | string
+    betValue?: IntNullableFilter<"RouletteBet"> | number | null
+    amount?: IntFilter<"RouletteBet"> | number
+    winningNumber?: IntFilter<"RouletteBet"> | number
+    payoutAmount?: IntFilter<"RouletteBet"> | number
+    isWin?: BoolFilter<"RouletteBet"> | boolean
+    nonce?: IntFilter<"RouletteBet"> | number
+    createdAt?: DateTimeFilter<"RouletteBet"> | Date | string
+    gameSession?: XOR<GameSessionScalarRelationFilter, GameSessionWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type RouletteBetOrderByWithRelationInput = {
+    id?: SortOrder
+    gameSessionId?: SortOrder
+    userId?: SortOrder
+    betType?: SortOrder
+    betValue?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    winningNumber?: SortOrder
+    payoutAmount?: SortOrder
+    isWin?: SortOrder
+    nonce?: SortOrder
+    createdAt?: SortOrder
+    gameSession?: GameSessionOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type RouletteBetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RouletteBetWhereInput | RouletteBetWhereInput[]
+    OR?: RouletteBetWhereInput[]
+    NOT?: RouletteBetWhereInput | RouletteBetWhereInput[]
+    gameSessionId?: StringFilter<"RouletteBet"> | string
+    userId?: StringFilter<"RouletteBet"> | string
+    betType?: StringFilter<"RouletteBet"> | string
+    betValue?: IntNullableFilter<"RouletteBet"> | number | null
+    amount?: IntFilter<"RouletteBet"> | number
+    winningNumber?: IntFilter<"RouletteBet"> | number
+    payoutAmount?: IntFilter<"RouletteBet"> | number
+    isWin?: BoolFilter<"RouletteBet"> | boolean
+    nonce?: IntFilter<"RouletteBet"> | number
+    createdAt?: DateTimeFilter<"RouletteBet"> | Date | string
+    gameSession?: XOR<GameSessionScalarRelationFilter, GameSessionWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type RouletteBetOrderByWithAggregationInput = {
+    id?: SortOrder
+    gameSessionId?: SortOrder
+    userId?: SortOrder
+    betType?: SortOrder
+    betValue?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    winningNumber?: SortOrder
+    payoutAmount?: SortOrder
+    isWin?: SortOrder
+    nonce?: SortOrder
+    createdAt?: SortOrder
+    _count?: RouletteBetCountOrderByAggregateInput
+    _avg?: RouletteBetAvgOrderByAggregateInput
+    _max?: RouletteBetMaxOrderByAggregateInput
+    _min?: RouletteBetMinOrderByAggregateInput
+    _sum?: RouletteBetSumOrderByAggregateInput
+  }
+
+  export type RouletteBetScalarWhereWithAggregatesInput = {
+    AND?: RouletteBetScalarWhereWithAggregatesInput | RouletteBetScalarWhereWithAggregatesInput[]
+    OR?: RouletteBetScalarWhereWithAggregatesInput[]
+    NOT?: RouletteBetScalarWhereWithAggregatesInput | RouletteBetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RouletteBet"> | string
+    gameSessionId?: StringWithAggregatesFilter<"RouletteBet"> | string
+    userId?: StringWithAggregatesFilter<"RouletteBet"> | string
+    betType?: StringWithAggregatesFilter<"RouletteBet"> | string
+    betValue?: IntNullableWithAggregatesFilter<"RouletteBet"> | number | null
+    amount?: IntWithAggregatesFilter<"RouletteBet"> | number
+    winningNumber?: IntWithAggregatesFilter<"RouletteBet"> | number
+    payoutAmount?: IntWithAggregatesFilter<"RouletteBet"> | number
+    isWin?: BoolWithAggregatesFilter<"RouletteBet"> | boolean
+    nonce?: IntWithAggregatesFilter<"RouletteBet"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"RouletteBet"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     username: string
@@ -4965,6 +7842,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     profile?: ProfileCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    bets?: RouletteBetCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -4983,6 +7862,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+    bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -5001,6 +7882,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -5019,6 +7902,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -5228,6 +8113,182 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GameSessionCreateInput = {
+    id?: string
+    serverSeed: string
+    serverHash: string
+    clientSeed: string
+    nonce?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGameSessionsInput
+    bets?: RouletteBetCreateNestedManyWithoutGameSessionInput
+  }
+
+  export type GameSessionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    serverSeed: string
+    serverHash: string
+    clientSeed: string
+    nonce?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    bets?: RouletteBetUncheckedCreateNestedManyWithoutGameSessionInput
+  }
+
+  export type GameSessionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serverSeed?: StringFieldUpdateOperationsInput | string
+    serverHash?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    nonce?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGameSessionsNestedInput
+    bets?: RouletteBetUpdateManyWithoutGameSessionNestedInput
+  }
+
+  export type GameSessionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    serverSeed?: StringFieldUpdateOperationsInput | string
+    serverHash?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    nonce?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bets?: RouletteBetUncheckedUpdateManyWithoutGameSessionNestedInput
+  }
+
+  export type GameSessionCreateManyInput = {
+    id?: string
+    userId: string
+    serverSeed: string
+    serverHash: string
+    clientSeed: string
+    nonce?: number
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameSessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serverSeed?: StringFieldUpdateOperationsInput | string
+    serverHash?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    nonce?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameSessionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    serverSeed?: StringFieldUpdateOperationsInput | string
+    serverHash?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    nonce?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouletteBetCreateInput = {
+    id?: string
+    betType: string
+    betValue?: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt?: Date | string
+    gameSession: GameSessionCreateNestedOneWithoutBetsInput
+    user: UserCreateNestedOneWithoutBetsInput
+  }
+
+  export type RouletteBetUncheckedCreateInput = {
+    id?: string
+    gameSessionId: string
+    userId: string
+    betType: string
+    betValue?: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt?: Date | string
+  }
+
+  export type RouletteBetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gameSession?: GameSessionUpdateOneRequiredWithoutBetsNestedInput
+    user?: UserUpdateOneRequiredWithoutBetsNestedInput
+  }
+
+  export type RouletteBetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameSessionId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouletteBetCreateManyInput = {
+    id?: string
+    gameSessionId: string
+    userId: string
+    betType: string
+    betValue?: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt?: Date | string
+  }
+
+  export type RouletteBetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouletteBetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameSessionId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -5302,9 +8363,29 @@ export namespace Prisma {
     isNot?: AddressWhereInput | null
   }
 
+  export type GameSessionListRelationFilter = {
+    every?: GameSessionWhereInput
+    some?: GameSessionWhereInput
+    none?: GameSessionWhereInput
+  }
+
+  export type RouletteBetListRelationFilter = {
+    every?: RouletteBetWhereInput
+    some?: RouletteBetWhereInput
+    none?: RouletteBetWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type GameSessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RouletteBetOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -5577,6 +8658,137 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type GameSessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    serverSeed?: SortOrder
+    serverHash?: SortOrder
+    clientSeed?: SortOrder
+    nonce?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameSessionAvgOrderByAggregateInput = {
+    nonce?: SortOrder
+  }
+
+  export type GameSessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    serverSeed?: SortOrder
+    serverHash?: SortOrder
+    clientSeed?: SortOrder
+    nonce?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameSessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    serverSeed?: SortOrder
+    serverHash?: SortOrder
+    clientSeed?: SortOrder
+    nonce?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameSessionSumOrderByAggregateInput = {
+    nonce?: SortOrder
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type GameSessionScalarRelationFilter = {
+    is?: GameSessionWhereInput
+    isNot?: GameSessionWhereInput
+  }
+
+  export type RouletteBetCountOrderByAggregateInput = {
+    id?: SortOrder
+    gameSessionId?: SortOrder
+    userId?: SortOrder
+    betType?: SortOrder
+    betValue?: SortOrder
+    amount?: SortOrder
+    winningNumber?: SortOrder
+    payoutAmount?: SortOrder
+    isWin?: SortOrder
+    nonce?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RouletteBetAvgOrderByAggregateInput = {
+    betValue?: SortOrder
+    amount?: SortOrder
+    winningNumber?: SortOrder
+    payoutAmount?: SortOrder
+    nonce?: SortOrder
+  }
+
+  export type RouletteBetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    gameSessionId?: SortOrder
+    userId?: SortOrder
+    betType?: SortOrder
+    betValue?: SortOrder
+    amount?: SortOrder
+    winningNumber?: SortOrder
+    payoutAmount?: SortOrder
+    isWin?: SortOrder
+    nonce?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RouletteBetMinOrderByAggregateInput = {
+    id?: SortOrder
+    gameSessionId?: SortOrder
+    userId?: SortOrder
+    betType?: SortOrder
+    betValue?: SortOrder
+    amount?: SortOrder
+    winningNumber?: SortOrder
+    payoutAmount?: SortOrder
+    isWin?: SortOrder
+    nonce?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RouletteBetSumOrderByAggregateInput = {
+    betValue?: SortOrder
+    amount?: SortOrder
+    winningNumber?: SortOrder
+    payoutAmount?: SortOrder
+    nonce?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type ProfileCreateNestedOneWithoutUserInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
@@ -5589,6 +8801,20 @@ export namespace Prisma {
     connect?: AddressWhereUniqueInput
   }
 
+  export type GameSessionCreateNestedManyWithoutUserInput = {
+    create?: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput> | GameSessionCreateWithoutUserInput[] | GameSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameSessionCreateOrConnectWithoutUserInput | GameSessionCreateOrConnectWithoutUserInput[]
+    createMany?: GameSessionCreateManyUserInputEnvelope
+    connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+  }
+
+  export type RouletteBetCreateNestedManyWithoutUserInput = {
+    create?: XOR<RouletteBetCreateWithoutUserInput, RouletteBetUncheckedCreateWithoutUserInput> | RouletteBetCreateWithoutUserInput[] | RouletteBetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RouletteBetCreateOrConnectWithoutUserInput | RouletteBetCreateOrConnectWithoutUserInput[]
+    createMany?: RouletteBetCreateManyUserInputEnvelope
+    connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+  }
+
   export type ProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
@@ -5599,6 +8825,20 @@ export namespace Prisma {
     create?: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput>
     connectOrCreate?: AddressCreateOrConnectWithoutUserInput
     connect?: AddressWhereUniqueInput
+  }
+
+  export type GameSessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput> | GameSessionCreateWithoutUserInput[] | GameSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameSessionCreateOrConnectWithoutUserInput | GameSessionCreateOrConnectWithoutUserInput[]
+    createMany?: GameSessionCreateManyUserInputEnvelope
+    connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+  }
+
+  export type RouletteBetUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RouletteBetCreateWithoutUserInput, RouletteBetUncheckedCreateWithoutUserInput> | RouletteBetCreateWithoutUserInput[] | RouletteBetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RouletteBetCreateOrConnectWithoutUserInput | RouletteBetCreateOrConnectWithoutUserInput[]
+    createMany?: RouletteBetCreateManyUserInputEnvelope
+    connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5645,6 +8885,34 @@ export namespace Prisma {
     update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutUserInput, AddressUpdateWithoutUserInput>, AddressUncheckedUpdateWithoutUserInput>
   }
 
+  export type GameSessionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput> | GameSessionCreateWithoutUserInput[] | GameSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameSessionCreateOrConnectWithoutUserInput | GameSessionCreateOrConnectWithoutUserInput[]
+    upsert?: GameSessionUpsertWithWhereUniqueWithoutUserInput | GameSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GameSessionCreateManyUserInputEnvelope
+    set?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    disconnect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    delete?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    update?: GameSessionUpdateWithWhereUniqueWithoutUserInput | GameSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GameSessionUpdateManyWithWhereWithoutUserInput | GameSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GameSessionScalarWhereInput | GameSessionScalarWhereInput[]
+  }
+
+  export type RouletteBetUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RouletteBetCreateWithoutUserInput, RouletteBetUncheckedCreateWithoutUserInput> | RouletteBetCreateWithoutUserInput[] | RouletteBetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RouletteBetCreateOrConnectWithoutUserInput | RouletteBetCreateOrConnectWithoutUserInput[]
+    upsert?: RouletteBetUpsertWithWhereUniqueWithoutUserInput | RouletteBetUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RouletteBetCreateManyUserInputEnvelope
+    set?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    disconnect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    delete?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    update?: RouletteBetUpdateWithWhereUniqueWithoutUserInput | RouletteBetUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RouletteBetUpdateManyWithWhereWithoutUserInput | RouletteBetUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
+  }
+
   export type ProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
@@ -5663,6 +8931,34 @@ export namespace Prisma {
     delete?: AddressWhereInput | boolean
     connect?: AddressWhereUniqueInput
     update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutUserInput, AddressUpdateWithoutUserInput>, AddressUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GameSessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput> | GameSessionCreateWithoutUserInput[] | GameSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameSessionCreateOrConnectWithoutUserInput | GameSessionCreateOrConnectWithoutUserInput[]
+    upsert?: GameSessionUpsertWithWhereUniqueWithoutUserInput | GameSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GameSessionCreateManyUserInputEnvelope
+    set?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    disconnect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    delete?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    connect?: GameSessionWhereUniqueInput | GameSessionWhereUniqueInput[]
+    update?: GameSessionUpdateWithWhereUniqueWithoutUserInput | GameSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GameSessionUpdateManyWithWhereWithoutUserInput | GameSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GameSessionScalarWhereInput | GameSessionScalarWhereInput[]
+  }
+
+  export type RouletteBetUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RouletteBetCreateWithoutUserInput, RouletteBetUncheckedCreateWithoutUserInput> | RouletteBetCreateWithoutUserInput[] | RouletteBetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RouletteBetCreateOrConnectWithoutUserInput | RouletteBetCreateOrConnectWithoutUserInput[]
+    upsert?: RouletteBetUpsertWithWhereUniqueWithoutUserInput | RouletteBetUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RouletteBetCreateManyUserInputEnvelope
+    set?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    disconnect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    delete?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    update?: RouletteBetUpdateWithWhereUniqueWithoutUserInput | RouletteBetUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RouletteBetUpdateManyWithWhereWithoutUserInput | RouletteBetUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutProfileInput = {
@@ -5707,6 +9003,98 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAddressInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAddressInput, UserUpdateWithoutAddressInput>, UserUncheckedUpdateWithoutAddressInput>
+  }
+
+  export type UserCreateNestedOneWithoutGameSessionsInput = {
+    create?: XOR<UserCreateWithoutGameSessionsInput, UserUncheckedCreateWithoutGameSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGameSessionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RouletteBetCreateNestedManyWithoutGameSessionInput = {
+    create?: XOR<RouletteBetCreateWithoutGameSessionInput, RouletteBetUncheckedCreateWithoutGameSessionInput> | RouletteBetCreateWithoutGameSessionInput[] | RouletteBetUncheckedCreateWithoutGameSessionInput[]
+    connectOrCreate?: RouletteBetCreateOrConnectWithoutGameSessionInput | RouletteBetCreateOrConnectWithoutGameSessionInput[]
+    createMany?: RouletteBetCreateManyGameSessionInputEnvelope
+    connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+  }
+
+  export type RouletteBetUncheckedCreateNestedManyWithoutGameSessionInput = {
+    create?: XOR<RouletteBetCreateWithoutGameSessionInput, RouletteBetUncheckedCreateWithoutGameSessionInput> | RouletteBetCreateWithoutGameSessionInput[] | RouletteBetUncheckedCreateWithoutGameSessionInput[]
+    connectOrCreate?: RouletteBetCreateOrConnectWithoutGameSessionInput | RouletteBetCreateOrConnectWithoutGameSessionInput[]
+    createMany?: RouletteBetCreateManyGameSessionInputEnvelope
+    connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutGameSessionsNestedInput = {
+    create?: XOR<UserCreateWithoutGameSessionsInput, UserUncheckedCreateWithoutGameSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGameSessionsInput
+    upsert?: UserUpsertWithoutGameSessionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGameSessionsInput, UserUpdateWithoutGameSessionsInput>, UserUncheckedUpdateWithoutGameSessionsInput>
+  }
+
+  export type RouletteBetUpdateManyWithoutGameSessionNestedInput = {
+    create?: XOR<RouletteBetCreateWithoutGameSessionInput, RouletteBetUncheckedCreateWithoutGameSessionInput> | RouletteBetCreateWithoutGameSessionInput[] | RouletteBetUncheckedCreateWithoutGameSessionInput[]
+    connectOrCreate?: RouletteBetCreateOrConnectWithoutGameSessionInput | RouletteBetCreateOrConnectWithoutGameSessionInput[]
+    upsert?: RouletteBetUpsertWithWhereUniqueWithoutGameSessionInput | RouletteBetUpsertWithWhereUniqueWithoutGameSessionInput[]
+    createMany?: RouletteBetCreateManyGameSessionInputEnvelope
+    set?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    disconnect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    delete?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    update?: RouletteBetUpdateWithWhereUniqueWithoutGameSessionInput | RouletteBetUpdateWithWhereUniqueWithoutGameSessionInput[]
+    updateMany?: RouletteBetUpdateManyWithWhereWithoutGameSessionInput | RouletteBetUpdateManyWithWhereWithoutGameSessionInput[]
+    deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
+  }
+
+  export type RouletteBetUncheckedUpdateManyWithoutGameSessionNestedInput = {
+    create?: XOR<RouletteBetCreateWithoutGameSessionInput, RouletteBetUncheckedCreateWithoutGameSessionInput> | RouletteBetCreateWithoutGameSessionInput[] | RouletteBetUncheckedCreateWithoutGameSessionInput[]
+    connectOrCreate?: RouletteBetCreateOrConnectWithoutGameSessionInput | RouletteBetCreateOrConnectWithoutGameSessionInput[]
+    upsert?: RouletteBetUpsertWithWhereUniqueWithoutGameSessionInput | RouletteBetUpsertWithWhereUniqueWithoutGameSessionInput[]
+    createMany?: RouletteBetCreateManyGameSessionInputEnvelope
+    set?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    disconnect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    delete?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+    update?: RouletteBetUpdateWithWhereUniqueWithoutGameSessionInput | RouletteBetUpdateWithWhereUniqueWithoutGameSessionInput[]
+    updateMany?: RouletteBetUpdateManyWithWhereWithoutGameSessionInput | RouletteBetUpdateManyWithWhereWithoutGameSessionInput[]
+    deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
+  }
+
+  export type GameSessionCreateNestedOneWithoutBetsInput = {
+    create?: XOR<GameSessionCreateWithoutBetsInput, GameSessionUncheckedCreateWithoutBetsInput>
+    connectOrCreate?: GameSessionCreateOrConnectWithoutBetsInput
+    connect?: GameSessionWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutBetsInput = {
+    create?: XOR<UserCreateWithoutBetsInput, UserUncheckedCreateWithoutBetsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBetsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type GameSessionUpdateOneRequiredWithoutBetsNestedInput = {
+    create?: XOR<GameSessionCreateWithoutBetsInput, GameSessionUncheckedCreateWithoutBetsInput>
+    connectOrCreate?: GameSessionCreateOrConnectWithoutBetsInput
+    upsert?: GameSessionUpsertWithoutBetsInput
+    connect?: GameSessionWhereUniqueInput
+    update?: XOR<XOR<GameSessionUpdateToOneWithWhereWithoutBetsInput, GameSessionUpdateWithoutBetsInput>, GameSessionUncheckedUpdateWithoutBetsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutBetsNestedInput = {
+    create?: XOR<UserCreateWithoutBetsInput, UserUncheckedCreateWithoutBetsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBetsInput
+    upsert?: UserUpsertWithoutBetsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBetsInput, UserUpdateWithoutBetsInput>, UserUncheckedUpdateWithoutBetsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5927,6 +9315,33 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type ProfileCreateWithoutUserInput = {
     rating: number
     balance?: Decimal | DecimalJsLike | number | string
@@ -5977,6 +9392,74 @@ export namespace Prisma {
   export type AddressCreateOrConnectWithoutUserInput = {
     where: AddressWhereUniqueInput
     create: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput>
+  }
+
+  export type GameSessionCreateWithoutUserInput = {
+    id?: string
+    serverSeed: string
+    serverHash: string
+    clientSeed: string
+    nonce?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    bets?: RouletteBetCreateNestedManyWithoutGameSessionInput
+  }
+
+  export type GameSessionUncheckedCreateWithoutUserInput = {
+    id?: string
+    serverSeed: string
+    serverHash: string
+    clientSeed: string
+    nonce?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    bets?: RouletteBetUncheckedCreateNestedManyWithoutGameSessionInput
+  }
+
+  export type GameSessionCreateOrConnectWithoutUserInput = {
+    where: GameSessionWhereUniqueInput
+    create: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type GameSessionCreateManyUserInputEnvelope = {
+    data: GameSessionCreateManyUserInput | GameSessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RouletteBetCreateWithoutUserInput = {
+    id?: string
+    betType: string
+    betValue?: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt?: Date | string
+    gameSession: GameSessionCreateNestedOneWithoutBetsInput
+  }
+
+  export type RouletteBetUncheckedCreateWithoutUserInput = {
+    id?: string
+    gameSessionId: string
+    betType: string
+    betValue?: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt?: Date | string
+  }
+
+  export type RouletteBetCreateOrConnectWithoutUserInput = {
+    where: RouletteBetWhereUniqueInput
+    create: XOR<RouletteBetCreateWithoutUserInput, RouletteBetUncheckedCreateWithoutUserInput>
+  }
+
+  export type RouletteBetCreateManyUserInputEnvelope = {
+    data: RouletteBetCreateManyUserInput | RouletteBetCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type ProfileUpsertWithoutUserInput = {
@@ -6043,6 +9526,69 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GameSessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: GameSessionWhereUniqueInput
+    update: XOR<GameSessionUpdateWithoutUserInput, GameSessionUncheckedUpdateWithoutUserInput>
+    create: XOR<GameSessionCreateWithoutUserInput, GameSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type GameSessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: GameSessionWhereUniqueInput
+    data: XOR<GameSessionUpdateWithoutUserInput, GameSessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GameSessionUpdateManyWithWhereWithoutUserInput = {
+    where: GameSessionScalarWhereInput
+    data: XOR<GameSessionUpdateManyMutationInput, GameSessionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type GameSessionScalarWhereInput = {
+    AND?: GameSessionScalarWhereInput | GameSessionScalarWhereInput[]
+    OR?: GameSessionScalarWhereInput[]
+    NOT?: GameSessionScalarWhereInput | GameSessionScalarWhereInput[]
+    id?: StringFilter<"GameSession"> | string
+    userId?: StringFilter<"GameSession"> | string
+    serverSeed?: StringFilter<"GameSession"> | string
+    serverHash?: StringFilter<"GameSession"> | string
+    clientSeed?: StringFilter<"GameSession"> | string
+    nonce?: IntFilter<"GameSession"> | number
+    isActive?: BoolFilter<"GameSession"> | boolean
+    createdAt?: DateTimeFilter<"GameSession"> | Date | string
+  }
+
+  export type RouletteBetUpsertWithWhereUniqueWithoutUserInput = {
+    where: RouletteBetWhereUniqueInput
+    update: XOR<RouletteBetUpdateWithoutUserInput, RouletteBetUncheckedUpdateWithoutUserInput>
+    create: XOR<RouletteBetCreateWithoutUserInput, RouletteBetUncheckedCreateWithoutUserInput>
+  }
+
+  export type RouletteBetUpdateWithWhereUniqueWithoutUserInput = {
+    where: RouletteBetWhereUniqueInput
+    data: XOR<RouletteBetUpdateWithoutUserInput, RouletteBetUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RouletteBetUpdateManyWithWhereWithoutUserInput = {
+    where: RouletteBetScalarWhereInput
+    data: XOR<RouletteBetUpdateManyMutationInput, RouletteBetUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RouletteBetScalarWhereInput = {
+    AND?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
+    OR?: RouletteBetScalarWhereInput[]
+    NOT?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
+    id?: StringFilter<"RouletteBet"> | string
+    gameSessionId?: StringFilter<"RouletteBet"> | string
+    userId?: StringFilter<"RouletteBet"> | string
+    betType?: StringFilter<"RouletteBet"> | string
+    betValue?: IntNullableFilter<"RouletteBet"> | number | null
+    amount?: IntFilter<"RouletteBet"> | number
+    winningNumber?: IntFilter<"RouletteBet"> | number
+    payoutAmount?: IntFilter<"RouletteBet"> | number
+    isWin?: BoolFilter<"RouletteBet"> | boolean
+    nonce?: IntFilter<"RouletteBet"> | number
+    createdAt?: DateTimeFilter<"RouletteBet"> | Date | string
+  }
+
   export type UserCreateWithoutProfileInput = {
     id?: string
     username: string
@@ -6058,6 +9604,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     address?: AddressCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    bets?: RouletteBetCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -6075,6 +9623,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+    bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -6108,6 +9658,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -6125,6 +9677,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAddressInput = {
@@ -6142,6 +9696,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     profile?: ProfileCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    bets?: RouletteBetCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAddressInput = {
@@ -6159,6 +9715,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+    bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAddressInput = {
@@ -6192,6 +9750,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAddressInput = {
@@ -6209,6 +9769,450 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutGameSessionsInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    address?: AddressCreateNestedOneWithoutUserInput
+    bets?: RouletteBetCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutGameSessionsInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    address?: AddressUncheckedCreateNestedOneWithoutUserInput
+    bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutGameSessionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGameSessionsInput, UserUncheckedCreateWithoutGameSessionsInput>
+  }
+
+  export type RouletteBetCreateWithoutGameSessionInput = {
+    id?: string
+    betType: string
+    betValue?: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutBetsInput
+  }
+
+  export type RouletteBetUncheckedCreateWithoutGameSessionInput = {
+    id?: string
+    userId: string
+    betType: string
+    betValue?: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt?: Date | string
+  }
+
+  export type RouletteBetCreateOrConnectWithoutGameSessionInput = {
+    where: RouletteBetWhereUniqueInput
+    create: XOR<RouletteBetCreateWithoutGameSessionInput, RouletteBetUncheckedCreateWithoutGameSessionInput>
+  }
+
+  export type RouletteBetCreateManyGameSessionInputEnvelope = {
+    data: RouletteBetCreateManyGameSessionInput | RouletteBetCreateManyGameSessionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutGameSessionsInput = {
+    update: XOR<UserUpdateWithoutGameSessionsInput, UserUncheckedUpdateWithoutGameSessionsInput>
+    create: XOR<UserCreateWithoutGameSessionsInput, UserUncheckedCreateWithoutGameSessionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGameSessionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGameSessionsInput, UserUncheckedUpdateWithoutGameSessionsInput>
+  }
+
+  export type UserUpdateWithoutGameSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
+    bets?: RouletteBetUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGameSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
+    bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type RouletteBetUpsertWithWhereUniqueWithoutGameSessionInput = {
+    where: RouletteBetWhereUniqueInput
+    update: XOR<RouletteBetUpdateWithoutGameSessionInput, RouletteBetUncheckedUpdateWithoutGameSessionInput>
+    create: XOR<RouletteBetCreateWithoutGameSessionInput, RouletteBetUncheckedCreateWithoutGameSessionInput>
+  }
+
+  export type RouletteBetUpdateWithWhereUniqueWithoutGameSessionInput = {
+    where: RouletteBetWhereUniqueInput
+    data: XOR<RouletteBetUpdateWithoutGameSessionInput, RouletteBetUncheckedUpdateWithoutGameSessionInput>
+  }
+
+  export type RouletteBetUpdateManyWithWhereWithoutGameSessionInput = {
+    where: RouletteBetScalarWhereInput
+    data: XOR<RouletteBetUpdateManyMutationInput, RouletteBetUncheckedUpdateManyWithoutGameSessionInput>
+  }
+
+  export type GameSessionCreateWithoutBetsInput = {
+    id?: string
+    serverSeed: string
+    serverHash: string
+    clientSeed: string
+    nonce?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGameSessionsInput
+  }
+
+  export type GameSessionUncheckedCreateWithoutBetsInput = {
+    id?: string
+    userId: string
+    serverSeed: string
+    serverHash: string
+    clientSeed: string
+    nonce?: number
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameSessionCreateOrConnectWithoutBetsInput = {
+    where: GameSessionWhereUniqueInput
+    create: XOR<GameSessionCreateWithoutBetsInput, GameSessionUncheckedCreateWithoutBetsInput>
+  }
+
+  export type UserCreateWithoutBetsInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    address?: AddressCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBetsInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    address?: AddressUncheckedCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBetsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBetsInput, UserUncheckedCreateWithoutBetsInput>
+  }
+
+  export type GameSessionUpsertWithoutBetsInput = {
+    update: XOR<GameSessionUpdateWithoutBetsInput, GameSessionUncheckedUpdateWithoutBetsInput>
+    create: XOR<GameSessionCreateWithoutBetsInput, GameSessionUncheckedCreateWithoutBetsInput>
+    where?: GameSessionWhereInput
+  }
+
+  export type GameSessionUpdateToOneWithWhereWithoutBetsInput = {
+    where?: GameSessionWhereInput
+    data: XOR<GameSessionUpdateWithoutBetsInput, GameSessionUncheckedUpdateWithoutBetsInput>
+  }
+
+  export type GameSessionUpdateWithoutBetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serverSeed?: StringFieldUpdateOperationsInput | string
+    serverHash?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    nonce?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGameSessionsNestedInput
+  }
+
+  export type GameSessionUncheckedUpdateWithoutBetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    serverSeed?: StringFieldUpdateOperationsInput | string
+    serverHash?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    nonce?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutBetsInput = {
+    update: XOR<UserUpdateWithoutBetsInput, UserUncheckedUpdateWithoutBetsInput>
+    create: XOR<UserCreateWithoutBetsInput, UserUncheckedCreateWithoutBetsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBetsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBetsInput, UserUncheckedUpdateWithoutBetsInput>
+  }
+
+  export type UserUpdateWithoutBetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type GameSessionCreateManyUserInput = {
+    id?: string
+    serverSeed: string
+    serverHash: string
+    clientSeed: string
+    nonce?: number
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type RouletteBetCreateManyUserInput = {
+    id?: string
+    gameSessionId: string
+    betType: string
+    betValue?: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt?: Date | string
+  }
+
+  export type GameSessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serverSeed?: StringFieldUpdateOperationsInput | string
+    serverHash?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    nonce?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bets?: RouletteBetUpdateManyWithoutGameSessionNestedInput
+  }
+
+  export type GameSessionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serverSeed?: StringFieldUpdateOperationsInput | string
+    serverHash?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    nonce?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bets?: RouletteBetUncheckedUpdateManyWithoutGameSessionNestedInput
+  }
+
+  export type GameSessionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    serverSeed?: StringFieldUpdateOperationsInput | string
+    serverHash?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    nonce?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouletteBetUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gameSession?: GameSessionUpdateOneRequiredWithoutBetsNestedInput
+  }
+
+  export type RouletteBetUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameSessionId?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouletteBetUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameSessionId?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouletteBetCreateManyGameSessionInput = {
+    id?: string
+    userId: string
+    betType: string
+    betValue?: number | null
+    amount: number
+    winningNumber: number
+    payoutAmount: number
+    isWin: boolean
+    nonce: number
+    createdAt?: Date | string
+  }
+
+  export type RouletteBetUpdateWithoutGameSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBetsNestedInput
+  }
+
+  export type RouletteBetUncheckedUpdateWithoutGameSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouletteBetUncheckedUpdateManyWithoutGameSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    betType?: StringFieldUpdateOperationsInput | string
+    betValue?: NullableIntFieldUpdateOperationsInput | number | null
+    amount?: IntFieldUpdateOperationsInput | number
+    winningNumber?: IntFieldUpdateOperationsInput | number
+    payoutAmount?: IntFieldUpdateOperationsInput | number
+    isWin?: BoolFieldUpdateOperationsInput | boolean
+    nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
