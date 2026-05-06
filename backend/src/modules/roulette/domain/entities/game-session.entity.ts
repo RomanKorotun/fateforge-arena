@@ -16,20 +16,17 @@ export class GameSessionEntity {
     this.nonce = nonce;
   }
 
-  getNonce() {
+  incrementNonce() {
+    this.nonce++;
     return this.nonce;
   }
 
-  incrementNonce() {
-    this.nonce++;
+  ensureActive() {
+    if (!this.isActive) {
+      throw new DomainError('Session is closed', 403);
+    }
   }
 
-ensureActive() {
-  if (!this.isActive) {
-    throw new DomainError('Session is closed', 403);
-  }
-}
-  
   validateOwnership(userId: string): void {
     if (this.userId !== userId) {
       throw new DomainError('Not your session', 403);

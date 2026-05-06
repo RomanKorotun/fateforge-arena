@@ -7,7 +7,14 @@ export interface CreateData {
   clientSeed: string;
 }
 
+export interface UpdateGameSessionData {
+  nonce?: number;
+  isActive?: boolean;
+  clientSeed?: string;
+}
+
 export interface IGameSessionRepository {
   create(data: CreateData): Promise<GameSessionEntity>;
-  findByUserId(userId: string): Promise<GameSessionEntity | null>;
+  findById(id: string): Promise<GameSessionEntity | null>;
+  update(id: string, data: UpdateGameSessionData): Promise<GameSessionEntity>;
 }

@@ -98,13 +98,23 @@ model GameSession {
   @@schema("roulette")                                  
 }
 
+enum BetType {
+  RED
+  BLACK
+  EVEN
+  ODD
+  STRAIGHT
+
+  @@schema("roulette")
+}
+
 model RouletteBet {
   id             String       @id @default(uuid())        
   gameSessionId  String       @map("game_session_id")                                // UUID сесії, до якої належить ставка
   gameSession    GameSession  @relation(fields: [gameSessionId], references: [id])   // Зв’язок із GameSession
   userId         String                                                              // UUID користувача, який зробив ставку
   user           User         @relation(fields: [userId], references: [id])          // Зв’язок із Users
-  betType        String       @map("bet_type")                                       // Тип ставки (STRAIGHT, RED, BLACK)
+  betType        BetType      @map("bet_type")                                       // Тип ставки (STRAIGHT, RED, BLACK)
   betValue       Int?         @map("bet_value")                                      // Конкретне число (для STRAIGHT), може бути null
   amount         Int                                                                 // Сума ставки
   winningNumber  Int          @map("winning_number")                                 // Число, яке випало на рулетці

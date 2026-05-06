@@ -3,40 +3,62 @@ import {
   ArrayNotEmpty,
   IsEnum,
   IsInt,
-  IsOptional,
-  IsString,
   Min,
-  ValidateNested,
-  IsDefined,
   Max,
+  ValidateNested,
+  IsString,
+  IsOptional,
+  ValidateIf, // 👈 додано
 } from 'class-validator';
+
 import { Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { BetType } from '../../../domain/enums/bet-type-enum';
 
 class BetDto {
-  @IsEnum(BetType, { message: 'Invalid bet type' })
-  type!: BetType;
+  @ApiProperty({
+    description: 'Тип ставки',
+    enum: BetType,
+    example: BetType.STRAIGHT,
+  }) // опис для Swagger
+  @IsEnum(BetType, { message: 'Invalid bet type' }) // перевірка що тип існує в enum
+  type!: BetType; // тип ставки (RED/BLACK/STRAIGHT)
 
-  @IsOptional()
-  @IsInt({ message: 'Value must be a number' })
-  @Min(0, { message: 'Value must be >= 0' })
-  @Max(36, { message: 'Value must be <= 36' })
-  value?: number;
+  @ApiProperty({
+    description: 'Значення ставки (тільки для STRAIGHT)',
+    example: 17,
+    required: false,
+  }) // опис для Swagger
+  @ValidateIf((o) => o.type === BetType.STRAIGHT) // value тільки для STRAIGHT
+  @IsOptional() // поле може бути відсутнє
+  @IsInt({ message: 'Value must be a number' }) // має бути цілим числом
+  @Min(0) // мінімальне значення рулетки
+  @Max(36) // максимальне значення рулетки
+  value?: number; // число для STRAIGHT ставки
 
-  @IsInt({ message: 'Amount must be a number' })
-  @Min(1, { message: 'Amount must be at least 1' })
-  amount!: number;
+  @ApiProperty({ description: 'Сума ставки', example: 100 }) // опис для Swagger
+  @IsInt({ message: 'Amount must be a number' }) // тільки integer
+  @Min(1, { message: 'Amount must be at least 1' }) // мінімальна ставка
+  amount!: number; // сума ставки
 }
 
-export class PlaceBetDto {
-  @IsString({ message: 'SessionId must be a string' })
-  gameSessionId!: string;
+export class PlaceBetRequestDto {
+  @ApiProperty({
+    description: 'ID ігрової сесії',
+    example: 'game_session_123',
+  }) // опис для Swagger
+  @IsString({ message: 'SessionId must be a string' }) // перевірка string
+  gameSessionId!: string; // id сесії гри
 
-  @IsDefined({ message: 'Bets are required' })
-  @IsArray({ message: 'Bets must be an array' })
-  @ArrayNotEmpty({ message: 'Bets cannot be empty' })
-  @ValidateNested({ each: true })
-  @Type(() => BetDto)
-  bets!: BetDto[];
+  @ApiProperty({
+    description: 'Список ставок',
+    type: () => BetDto,
+    isArray: true,
+  })
+  @IsArray({ message: 'Bets must be an array' }) // перевірка що це масив
+  @ArrayNotEmpty({ message: 'Bets cannot be empty' }) // масив не може бути пустим
+  @ValidateNested({ each: true }) // перевіряє кожен BetDto всередині
+  @Type(() => BetDto) // трансформує plain object → BetDto class
+  bets!: BetDto[]; // список ставок користувача
 }

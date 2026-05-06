@@ -1,4 +1,4 @@
-import { BetType } from "../../../domain/enums/bet-type-enum";
+import { BetType } from '../../../domain/enums/bet-type-enum';
 
 export interface Bet {
   type: BetType;
@@ -7,6 +7,9 @@ export interface Bet {
 }
 
 export interface PlaceBetCommand {
-  gameSessionId: string;
-  bets: Bet[];
+  userId: string;
+  dto: {
+    gameSessionId: string;
+    bets: Bet[];
+  };
 }

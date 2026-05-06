@@ -1,4 +1,5 @@
 import { GameSession } from 'prisma/generated';
+
 import { GameSessionEntity } from '../../../domain/entities/game-session.entity';
 
 export class PrismaGameSessionMapper {

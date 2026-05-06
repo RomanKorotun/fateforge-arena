@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import crypto from 'crypto';
 
 import type { IGameSessionRepository } from '../../../domain/repositories/game-session.repository';
@@ -8,10 +8,16 @@ import { GAME_SESSION_REPOSITORY } from '../../../domain/repositories/game-sessi
 export class CreateGameSessionUseCase {
   constructor(
     @Inject(GAME_SESSION_REPOSITORY)
-    private readonly gameSessionRepo: IGameSessionRepository,
+    private readonly gameSessionRepository: IGameSessionRepository,
   ) {}
 
   async execute(userId: string) {
+    const clientSeed = crypto.randomUUID();
+
+    if (!clientSeed) {
+      throw new NotFoundException('clientSeed не знайдено');
+    }
+
     const serverSeed = crypto.randomBytes(32).toString('hex');
 
     const serverHash = crypto
@@ -19,19 +25,13 @@ export class CreateGameSessionUseCase {
       .update(serverSeed)
       .digest('hex');
 
-    const clientSeed = crypto.randomUUID();
-
-    const session = await this.gameSessionRepo.create({
+    const gameSession = await this.gameSessionRepository.create({
       userId,
       serverSeed,
       serverHash,
       clientSeed,
     });
 
-    return {
-      sessionId: session.id,
-      serverHash: session.serverHash,
-      clientSeed: session.clientSeed,
-    };
+    return gameSession;
   }
 }

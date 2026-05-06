@@ -1,77 +1,127 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { GAME_SESSION_REPOSITORY } from '../../../domain/repositories/game-session.repository.token';
-import type { IGameSessionRepository } from '../../../domain/repositories/game-session.repository';
-import { PlaceBetCommand } from './place-bet-command';
-import { DomainError } from '../../../../../shared/domain/errors/domain-error';
+import { ROULETTE_BET_REPOSITORY } from '../../../domain/repositories/roulette-bet.repository.token';
 
+import type { IGameSessionRepository } from '../../../domain/repositories/game-session.repository';
+import type { IRouletteBetRepository } from '../../../domain/repositories/roulette-bet.repository';
+
+import { Bet, PlaceBetCommand } from './place-bet-command';
+
+import { RouletteEngine } from '../../../domain/engine/roulette.engine';
+import { BetType } from '../../../domain/enums/bet-type-enum';
 
 @Injectable()
 export class PlaceBetUseCase {
-  constructor(@Inject(GAME_SESSION_REPOSITORY)
+  constructor(
+    @Inject(GAME_SESSION_REPOSITORY)
     private readonly gameSessionRepository: IGameSessionRepository,
-    // private readonly betRepo: IRouletteBetRepository,
-    // private readonly engine: RouletteEngine,
+    @Inject(ROULETTE_BET_REPOSITORY)
+    private readonly rouletteBetRepository: IRouletteBetRepository,
+    private readonly engine: RouletteEngine,
   ) {}
 
-  async execute(userId: string, {bets}: PlaceBetCommand) {
-    const session = await this.gameSessionRepository.findByUserId(userId);
-    if (!session) throw new DomainError('Game session not found', 404);
+  async execute({ userId, dto: { bets, gameSessionId } }: PlaceBetCommand) {
+    const gameSession =
+      await this.gameSessionRepository.findById(gameSessionId);
 
-    session.ensureActive();
-    session.validateOwnership(userId);
+    if (!gameSession) {
+      throw new NotFoundException('Game session not found');
+    }
 
-    const totalBet = bets.reduce((sum, b) => sum + b.amount, 0);
+    gameSession.ensureActive();
+    gameSession.validateOwnership(userId);
 
-    // if (user.profile.balance < totalBet) {
-    //   throw new Error('Not enough balance');
-    // }
+    this.validateBets(bets);
 
-    // // 4. ROULETTE RESULT
-    // const winNumber = this.engine.generateNumber(
-    //   session.serverSeed,
-    //   session.clientSeed,
-    //   session.getNonce(),
-    // );
+    const totalBet = this.calculateTotalBet(bets);
+    const nonce = gameSession.incrementNonce();
 
-    // let totalPayout = 0;
+    const winNumber = this.engine.generateNumber(
+      gameSession.serverSeed,
+      gameSession.clientSeed,
+      nonce,
+    );
 
-    // const mappedBets = dto.bets.map((bet) => {
-    //   const isWin = this.engine.checkWin(bet.type, bet.value, winNumber);
+    const { mappedBets, totalPayout } = this.processBets(
+      bets,
+      userId,
+      gameSession.id,
+      winNumber,
+      nonce,
+    );
 
-    //   const payout = isWin
-    //     ? bet.amount * this.engine.getMultiplier(bet.type)
-    //     : 0;
+    await this.rouletteBetRepository.createMany(mappedBets);
+    await this.gameSessionRepository.update(gameSession.id, { nonce });
 
-    //   totalPayout += payout;
+    return {
+      winNumber,
+      round: nonce,
+      totalBet,
+      totalPayout,
+      isWin: totalPayout > 0,
+      bets: mappedBets,
+    };
+  }
 
-    //   return {
-    //     userId,
-    //     gameSessionId: session.id,
-    //     betType: bet.type,
-    //     betValue: bet.value,
-    //     amount: bet.amount,
-    //     winningNumber: winNumber,
-    //     payoutAmount: payout,
-    //     isWin,
-    //     nonce: session.getNonce(),
-    //   };
-    // });
+  // Перевіряє коректність ставок відповідно до правил рулетки
+  private validateBets(bets: Bet[]) {
+    for (const bet of bets) {
+      const isStraight = bet.type === BetType.STRAIGHT;
+      const hasValue = bet.value !== null && bet.value !== undefined;
 
-    // // 5. SAVE BETS
-    // await this.betRepo.createMany(mappedBets);
+      if (!isStraight && hasValue) {
+        throw new BadRequestException(`${bet.type} bet cannot have value`);
+      }
 
-    // // 6. UPDATE BALANCE
-    // await this.userRepo.decreaseBalance(userId, totalBet);
-    // await this.userRepo.increaseBalance(userId, totalPayout);
+      if (isStraight && !hasValue) {
+        throw new BadRequestException('STRAIGHT bet requires value');
+      }
+    }
+  }
 
-    // // 7. UPDATE SESSION
-    // session.incrementNonce();
-    // await this.sessionRepo.updateNonce(session.id, session.getNonce());
+  // Рахує загальну суму всіх ставок у раунді
+  private calculateTotalBet(bets: Bet[]): number {
+    return bets.reduce((sum, b) => sum + b.amount, 0);
+  }
 
-    // return {
-    //   winNumber,
-    //   totalPayout,
-    // };
+  // Обробляє ставки: визначає результат, рахує виграш і формує дані для збереження
+  private processBets(
+    bets: Bet[],
+    userId: string,
+    gameSessionId: string,
+    winNumber: number,
+    nonce: number,
+  ) {
+    let totalPayout = 0;
+
+    const mappedBets = bets.map((bet) => {
+      const isWin = this.engine.checkWin(bet.type, bet.value, winNumber);
+
+      const payout = isWin
+        ? bet.amount * this.engine.getMultiplier(bet.type)
+        : 0;
+
+      totalPayout += payout;
+
+      return {
+        userId,
+        gameSessionId,
+        betType: bet.type,
+        betValue: bet.value ?? null,
+        amount: bet.amount,
+        winningNumber: winNumber,
+        payoutAmount: payout,
+        isWin,
+        nonce,
+      };
+    });
+
+    return { mappedBets, totalPayout };
   }
 }

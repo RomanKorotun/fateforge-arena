@@ -203,6 +203,14 @@ exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN'
 };
 
+exports.BetType = exports.$Enums.BetType = {
+  RED: 'RED',
+  BLACK: 'BLACK',
+  EVEN: 'EVEN',
+  ODD: 'ODD',
+  STRAIGHT: 'STRAIGHT'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Profile: 'Profile',

@@ -4,8 +4,10 @@ import { PrismaService } from '../../../../../core/prisma/prisma.service';
 import {
   CreateData,
   IGameSessionRepository,
+  UpdateGameSessionData,
 } from '../../../domain/repositories/game-session.repository';
 import { GameSessionEntity } from '../../../domain/entities/game-session.entity';
+
 import { PrismaGameSessionMapper } from '../mappers/prisma-game-session.mapper';
 
 @Injectable()
@@ -18,14 +20,22 @@ export class PrismaGameSessionRepository implements IGameSessionRepository {
     return PrismaGameSessionMapper.toDomain(gameSession);
   }
 
-  // пошук ігрової сесії по id користувача
-  async findByUserId(userId: string): Promise<GameSessionEntity | null> {
-    const session = await this.prisma.gameSession.findFirst({
-      where: { userId },
+  // пошук ігрової сесії по id сесії та по id користувача
+  async findById(id: string): Promise<GameSessionEntity | null> {
+    const session = await this.prisma.gameSession.findUnique({
+      where: { id },
     });
+    return session ? PrismaGameSessionMapper.toDomain(session) : null;
+  }
 
-    if (!session) return null;
-
+  async update(
+    id: string,
+    data: UpdateGameSessionData,
+  ): Promise<GameSessionEntity> {
+    const session = await this.prisma.gameSession.update({
+      where: { id },
+      data,
+    });
     return PrismaGameSessionMapper.toDomain(session);
   }
 }

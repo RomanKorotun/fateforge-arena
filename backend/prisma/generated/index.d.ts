@@ -50,11 +50,26 @@ export namespace $Enums {
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
+
+export const BetType: {
+  RED: 'RED',
+  BLACK: 'BLACK',
+  EVEN: 'EVEN',
+  ODD: 'ODD',
+  STRAIGHT: 'STRAIGHT'
+};
+
+export type BetType = (typeof BetType)[keyof typeof BetType]
+
 }
 
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type BetType = $Enums.BetType
+
+export const BetType: typeof $Enums.BetType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -6027,7 +6042,7 @@ export namespace Prisma {
     id: string | null
     gameSessionId: string | null
     userId: string | null
-    betType: string | null
+    betType: $Enums.BetType | null
     betValue: number | null
     amount: number | null
     winningNumber: number | null
@@ -6041,7 +6056,7 @@ export namespace Prisma {
     id: string | null
     gameSessionId: string | null
     userId: string | null
-    betType: string | null
+    betType: $Enums.BetType | null
     betValue: number | null
     amount: number | null
     winningNumber: number | null
@@ -6216,7 +6231,7 @@ export namespace Prisma {
     id: string
     gameSessionId: string
     userId: string
-    betType: string
+    betType: $Enums.BetType
     betValue: number | null
     amount: number
     winningNumber: number
@@ -6331,7 +6346,7 @@ export namespace Prisma {
       id: string
       gameSessionId: string
       userId: string
-      betType: string
+      betType: $Enums.BetType
       betValue: number | null
       amount: number
       winningNumber: number
@@ -6767,7 +6782,7 @@ export namespace Prisma {
     readonly id: FieldRef<"RouletteBet", 'String'>
     readonly gameSessionId: FieldRef<"RouletteBet", 'String'>
     readonly userId: FieldRef<"RouletteBet", 'String'>
-    readonly betType: FieldRef<"RouletteBet", 'String'>
+    readonly betType: FieldRef<"RouletteBet", 'BetType'>
     readonly betValue: FieldRef<"RouletteBet", 'Int'>
     readonly amount: FieldRef<"RouletteBet", 'Int'>
     readonly winningNumber: FieldRef<"RouletteBet", 'Int'>
@@ -7394,6 +7409,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'BetType'
+   */
+  export type EnumBetTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BetType'>
+    
+
+
+  /**
+   * Reference to a field of type 'BetType[]'
+   */
+  export type ListEnumBetTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BetType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -7743,7 +7772,7 @@ export namespace Prisma {
     id?: StringFilter<"RouletteBet"> | string
     gameSessionId?: StringFilter<"RouletteBet"> | string
     userId?: StringFilter<"RouletteBet"> | string
-    betType?: StringFilter<"RouletteBet"> | string
+    betType?: EnumBetTypeFilter<"RouletteBet"> | $Enums.BetType
     betValue?: IntNullableFilter<"RouletteBet"> | number | null
     amount?: IntFilter<"RouletteBet"> | number
     winningNumber?: IntFilter<"RouletteBet"> | number
@@ -7778,7 +7807,7 @@ export namespace Prisma {
     NOT?: RouletteBetWhereInput | RouletteBetWhereInput[]
     gameSessionId?: StringFilter<"RouletteBet"> | string
     userId?: StringFilter<"RouletteBet"> | string
-    betType?: StringFilter<"RouletteBet"> | string
+    betType?: EnumBetTypeFilter<"RouletteBet"> | $Enums.BetType
     betValue?: IntNullableFilter<"RouletteBet"> | number | null
     amount?: IntFilter<"RouletteBet"> | number
     winningNumber?: IntFilter<"RouletteBet"> | number
@@ -7816,7 +7845,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"RouletteBet"> | string
     gameSessionId?: StringWithAggregatesFilter<"RouletteBet"> | string
     userId?: StringWithAggregatesFilter<"RouletteBet"> | string
-    betType?: StringWithAggregatesFilter<"RouletteBet"> | string
+    betType?: EnumBetTypeWithAggregatesFilter<"RouletteBet"> | $Enums.BetType
     betValue?: IntNullableWithAggregatesFilter<"RouletteBet"> | number | null
     amount?: IntWithAggregatesFilter<"RouletteBet"> | number
     winningNumber?: IntWithAggregatesFilter<"RouletteBet"> | number
@@ -8195,7 +8224,7 @@ export namespace Prisma {
 
   export type RouletteBetCreateInput = {
     id?: string
-    betType: string
+    betType: $Enums.BetType
     betValue?: number | null
     amount: number
     winningNumber: number
@@ -8211,7 +8240,7 @@ export namespace Prisma {
     id?: string
     gameSessionId: string
     userId: string
-    betType: string
+    betType: $Enums.BetType
     betValue?: number | null
     amount: number
     winningNumber: number
@@ -8223,7 +8252,7 @@ export namespace Prisma {
 
   export type RouletteBetUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
@@ -8239,7 +8268,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     gameSessionId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
@@ -8253,7 +8282,7 @@ export namespace Prisma {
     id?: string
     gameSessionId: string
     userId: string
-    betType: string
+    betType: $Enums.BetType
     betValue?: number | null
     amount: number
     winningNumber: number
@@ -8265,7 +8294,7 @@ export namespace Prisma {
 
   export type RouletteBetUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
@@ -8279,7 +8308,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     gameSessionId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
@@ -8699,6 +8728,13 @@ export namespace Prisma {
     nonce?: SortOrder
   }
 
+  export type EnumBetTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BetType | EnumBetTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BetType[] | ListEnumBetTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BetType[] | ListEnumBetTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBetTypeFilter<$PrismaModel> | $Enums.BetType
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -8771,6 +8807,16 @@ export namespace Prisma {
     winningNumber?: SortOrder
     payoutAmount?: SortOrder
     nonce?: SortOrder
+  }
+
+  export type EnumBetTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BetType | EnumBetTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BetType[] | ListEnumBetTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BetType[] | ListEnumBetTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBetTypeWithAggregatesFilter<$PrismaModel> | $Enums.BetType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBetTypeFilter<$PrismaModel>
+    _max?: NestedEnumBetTypeFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -9073,6 +9119,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type EnumBetTypeFieldUpdateOperationsInput = {
+    set?: $Enums.BetType
+  }
+
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -9315,6 +9365,23 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedEnumBetTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BetType | EnumBetTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BetType[] | ListEnumBetTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BetType[] | ListEnumBetTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBetTypeFilter<$PrismaModel> | $Enums.BetType
+  }
+
+  export type NestedEnumBetTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BetType | EnumBetTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BetType[] | ListEnumBetTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BetType[] | ListEnumBetTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBetTypeWithAggregatesFilter<$PrismaModel> | $Enums.BetType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBetTypeFilter<$PrismaModel>
+    _max?: NestedEnumBetTypeFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -9428,7 +9495,7 @@ export namespace Prisma {
 
   export type RouletteBetCreateWithoutUserInput = {
     id?: string
-    betType: string
+    betType: $Enums.BetType
     betValue?: number | null
     amount: number
     winningNumber: number
@@ -9442,7 +9509,7 @@ export namespace Prisma {
   export type RouletteBetUncheckedCreateWithoutUserInput = {
     id?: string
     gameSessionId: string
-    betType: string
+    betType: $Enums.BetType
     betValue?: number | null
     amount: number
     winningNumber: number
@@ -9579,7 +9646,7 @@ export namespace Prisma {
     id?: StringFilter<"RouletteBet"> | string
     gameSessionId?: StringFilter<"RouletteBet"> | string
     userId?: StringFilter<"RouletteBet"> | string
-    betType?: StringFilter<"RouletteBet"> | string
+    betType?: EnumBetTypeFilter<"RouletteBet"> | $Enums.BetType
     betValue?: IntNullableFilter<"RouletteBet"> | number | null
     amount?: IntFilter<"RouletteBet"> | number
     winningNumber?: IntFilter<"RouletteBet"> | number
@@ -9818,7 +9885,7 @@ export namespace Prisma {
 
   export type RouletteBetCreateWithoutGameSessionInput = {
     id?: string
-    betType: string
+    betType: $Enums.BetType
     betValue?: number | null
     amount: number
     winningNumber: number
@@ -9832,7 +9899,7 @@ export namespace Prisma {
   export type RouletteBetUncheckedCreateWithoutGameSessionInput = {
     id?: string
     userId: string
-    betType: string
+    betType: $Enums.BetType
     betValue?: number | null
     amount: number
     winningNumber: number
@@ -10082,7 +10149,7 @@ export namespace Prisma {
   export type RouletteBetCreateManyUserInput = {
     id?: string
     gameSessionId: string
-    betType: string
+    betType: $Enums.BetType
     betValue?: number | null
     amount: number
     winningNumber: number
@@ -10126,7 +10193,7 @@ export namespace Prisma {
 
   export type RouletteBetUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
@@ -10140,7 +10207,7 @@ export namespace Prisma {
   export type RouletteBetUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     gameSessionId?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
@@ -10153,7 +10220,7 @@ export namespace Prisma {
   export type RouletteBetUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     gameSessionId?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
@@ -10166,7 +10233,7 @@ export namespace Prisma {
   export type RouletteBetCreateManyGameSessionInput = {
     id?: string
     userId: string
-    betType: string
+    betType: $Enums.BetType
     betValue?: number | null
     amount: number
     winningNumber: number
@@ -10178,7 +10245,7 @@ export namespace Prisma {
 
   export type RouletteBetUpdateWithoutGameSessionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
@@ -10192,7 +10259,7 @@ export namespace Prisma {
   export type RouletteBetUncheckedUpdateWithoutGameSessionInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
@@ -10205,7 +10272,7 @@ export namespace Prisma {
   export type RouletteBetUncheckedUpdateManyWithoutGameSessionInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    betType?: StringFieldUpdateOperationsInput | string
+    betType?: EnumBetTypeFieldUpdateOperationsInput | $Enums.BetType
     betValue?: NullableIntFieldUpdateOperationsInput | number | null
     amount?: IntFieldUpdateOperationsInput | number
     winningNumber?: IntFieldUpdateOperationsInput | number
