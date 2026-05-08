@@ -35,6 +35,12 @@ import { UpdateAddressUseCase } from '../application/use-cases/update-address/up
 import { NonEmptyBodyPipe } from '../../../common/pipes/non-empty-body.pipe';
 import { UpdateAddressSwagger } from './swagger/update-address.swagger';
 import { GetMeSwagger } from './swagger/get-me.swagger';
+import { CreateClientSeedUseCase } from '../application/use-cases/create-client-seed/create-client-seed.usecase';
+import { CreateClientSeedRequestDto } from './dto/create-client-seed/create-client-seed-request.dto';
+import { UpdateClientSeedRequestDto } from './dto/update-client-seed/update-client-seed-request.dto';
+import { UpdateClientSeedUseCase } from '../application/use-cases/update-client-seed/update-client-seed.usecase';
+import { CreateClientSeedSwagger } from './swagger/create-client-seed.swagger';
+import { UpdateClientSeedSwagger } from './swagger/update-client-seed.swagger';
 
 @Controller('users')
 export class UserController {
@@ -46,6 +52,8 @@ export class UserController {
     private readonly updateAddressUseCase: UpdateAddressUseCase,
     private readonly getUsersUseCase: GetUsersUseCase,
     private readonly uploadAvatarUseCase: UploadAvatarUseCase,
+    private readonly createClientSeedUseCase: CreateClientSeedUseCase,
+    private readonly updateClientSeedUseCase: UpdateClientSeedUseCase,
   ) {}
 
   // Отримати інформацію про себе (повний профіль)
@@ -119,5 +127,33 @@ export class UserController {
   @Delete('me')
   async deleteMe(@Req() req: AuthRequest) {
     return await this.deleteUserUseCase.execute(req.user.id);
+  }
+
+  // створює клієнтський сід
+  @CreateClientSeedSwagger()
+  @UseGuards(JwtAuthGuard)
+  @Post('me/client-seed')
+  async createClientSeed(
+    @Req() req: AuthRequest,
+    @Body() dto: CreateClientSeedRequestDto,
+  ) {
+    return this.createClientSeedUseCase.execute({
+      userId: req.user.id,
+      clientSeed: dto.clientSeed,
+    });
+  }
+
+  // оновлює клієнтський сід
+  @UpdateClientSeedSwagger()
+  @UseGuards(JwtAuthGuard)
+  @Put('me/client-seed')
+  async updateClientSeed(
+    @Req() req: AuthRequest,
+    @Body() dto: UpdateClientSeedRequestDto,
+  ) {
+    return this.updateClientSeedUseCase.execute({
+      userId: req.user.id,
+      clientSeed: dto.clientSeed,
+    });
   }
 }

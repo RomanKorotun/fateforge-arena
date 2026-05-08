@@ -9,6 +9,7 @@ import { UserModule } from './modules/user/user.module';
 import { RedisModule } from './core/redis/redis.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { RouletteModule } from './modules/roulette/roulette.module';
+import { EmailModule } from './core/email/email.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RouletteModule } from './modules/roulette/roulette.module';
     AppConfigModule,
     PrismaModule,
     RedisModule,
+    EmailModule,
     AuthModule,
     UserModule,
     AdminModule,

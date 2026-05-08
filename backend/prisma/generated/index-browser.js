@@ -126,6 +126,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   role: 'role',
+  emailVerifiedAt: 'emailVerifiedAt',
   lastLoginIP: 'lastLoginIP',
   lastLoginAt: 'lastLoginAt',
   isBanned: 'isBanned',
@@ -134,6 +135,20 @@ exports.Prisma.UserScalarFieldEnum = {
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserEmailVerificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserSeedScalarFieldEnum = {
+  userId: 'userId',
+  clientSeed: 'clientSeed'
 };
 
 exports.Prisma.ProfileScalarFieldEnum = {
@@ -213,6 +228,8 @@ exports.BetType = exports.$Enums.BetType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  UserEmailVerification: 'UserEmailVerification',
+  UserSeed: 'UserSeed',
   Profile: 'Profile',
   Address: 'Address',
   GameSession: 'GameSession',

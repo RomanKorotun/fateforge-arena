@@ -2,14 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class SignupSuccessResponseDto {
   @ApiProperty({
-    description: 'Id користувача',
-    example: 'c1d06b95-9d19-4ab0-81c7-c46e66c29900',
+    description: 'Повідомлення про успішну реєстрацію',
+    example:
+      'Ваш акаунт створено. Для завершення реєстрації підтвердіть електронну пошту.',
   })
-  id!: string;
-
-  @ApiProperty({ description: 'Ім"я користувача', example: 'Test' })
-  username!: string;
-
-  @ApiProperty({ description: 'Email користувача', example: 'test@gmail.com' })
-  email!: string;
+  message!: string;
 }

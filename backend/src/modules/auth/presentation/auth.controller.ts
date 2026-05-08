@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
   Req,
   Res,
   UseGuards,
@@ -40,6 +41,11 @@ import { GetUserSessionsSwagger } from './swagger/get-user-sessions.swagger';
 import { RevokeUserSessionSwagger } from './swagger/revoke-user-session.swagger';
 import { RevokeUserSessionsSwagger } from './swagger/revoke-user-sessions.swagger';
 import { ParseUuidPipe } from '../../../common/pipes/parse-uuid.pipe';
+import { ConfirmEmailUseCase } from '../application/confirm-email/confirm-email.usecase';
+import { ResendEmailVerificationRequestDto } from './dto/resend-email-verification/resend-email-verification-request.dto';
+import { ResendEmailVerificationUseCase } from '../application/resend-email-verification/resend-email-verification.usecase';
+import { ConfirmEmailSwagger } from './swagger/confirm-email.swagger';
+import { ResendEmailVerificationSwagger } from './swagger/resend-email-verification.swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -53,6 +59,8 @@ export class AuthController {
     private readonly revokeUserSessionsUseCase: RevokeUserSessionsUseCase,
     private readonly signoutUseCase: SignoutUseCase,
     private readonly restoreUserUseCase: RestoreUserUseCase,
+    private readonly confirmEmailUseCase: ConfirmEmailUseCase,
+    private readonly resendEmailVerificationUseCase: ResendEmailVerificationUseCase,
   ) {}
 
   // Реєстрація нового користувача
@@ -153,5 +161,23 @@ export class AuthController {
     });
     this.authCookieService.clearAuthCookie(res);
     return response;
+  }
+
+  // підтвердження пошти
+  @ConfirmEmailSwagger()
+  @Get('confirm-email')
+  @HttpCode(HttpStatus.OK)
+  async confirmEmail(@Query('token') token: string) {
+    return await this.confirmEmailUseCase.execute(token);
+  }
+
+  // повторна відправка листа для підтвердження пошти
+  @ResendEmailVerificationSwagger()
+  @Post('email-verification/resend')
+  @HttpCode(HttpStatus.OK)
+  async resendEmailVerification(
+    @Body() dto: ResendEmailVerificationRequestDto,
+  ) {
+    return await this.resendEmailVerificationUseCase.execute(dto.email);
   }
 }

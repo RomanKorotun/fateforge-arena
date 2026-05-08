@@ -19,6 +19,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model UserEmailVerification
+ * 
+ */
+export type UserEmailVerification = $Result.DefaultSelection<Prisma.$UserEmailVerificationPayload>
+/**
+ * Model UserSeed
+ * 
+ */
+export type UserSeed = $Result.DefaultSelection<Prisma.$UserSeedPayload>
+/**
  * Model Profile
  * 
  */
@@ -201,6 +211,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userEmailVerification`: Exposes CRUD operations for the **UserEmailVerification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserEmailVerifications
+    * const userEmailVerifications = await prisma.userEmailVerification.findMany()
+    * ```
+    */
+  get userEmailVerification(): Prisma.UserEmailVerificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userSeed`: Exposes CRUD operations for the **UserSeed** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserSeeds
+    * const userSeeds = await prisma.userSeed.findMany()
+    * ```
+    */
+  get userSeed(): Prisma.UserSeedDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.profile`: Exposes CRUD operations for the **Profile** model.
@@ -676,6 +706,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    UserEmailVerification: 'UserEmailVerification',
+    UserSeed: 'UserSeed',
     Profile: 'Profile',
     Address: 'Address',
     GameSession: 'GameSession',
@@ -695,7 +727,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "profile" | "address" | "gameSession" | "rouletteBet"
+      modelProps: "user" | "userEmailVerification" | "userSeed" | "profile" | "address" | "gameSession" | "rouletteBet"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -770,6 +802,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserEmailVerification: {
+        payload: Prisma.$UserEmailVerificationPayload<ExtArgs>
+        fields: Prisma.UserEmailVerificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserEmailVerificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserEmailVerificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload>
+          }
+          findFirst: {
+            args: Prisma.UserEmailVerificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserEmailVerificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload>
+          }
+          findMany: {
+            args: Prisma.UserEmailVerificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload>[]
+          }
+          create: {
+            args: Prisma.UserEmailVerificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload>
+          }
+          createMany: {
+            args: Prisma.UserEmailVerificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserEmailVerificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload>[]
+          }
+          delete: {
+            args: Prisma.UserEmailVerificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload>
+          }
+          update: {
+            args: Prisma.UserEmailVerificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserEmailVerificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserEmailVerificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserEmailVerificationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserEmailVerificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserEmailVerificationPayload>
+          }
+          aggregate: {
+            args: Prisma.UserEmailVerificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserEmailVerification>
+          }
+          groupBy: {
+            args: Prisma.UserEmailVerificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserEmailVerificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserEmailVerificationCountArgs<ExtArgs>
+            result: $Utils.Optional<UserEmailVerificationCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserSeed: {
+        payload: Prisma.$UserSeedPayload<ExtArgs>
+        fields: Prisma.UserSeedFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserSeedFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserSeedFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload>
+          }
+          findFirst: {
+            args: Prisma.UserSeedFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserSeedFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload>
+          }
+          findMany: {
+            args: Prisma.UserSeedFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload>[]
+          }
+          create: {
+            args: Prisma.UserSeedCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload>
+          }
+          createMany: {
+            args: Prisma.UserSeedCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserSeedCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload>[]
+          }
+          delete: {
+            args: Prisma.UserSeedDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload>
+          }
+          update: {
+            args: Prisma.UserSeedUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserSeedDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserSeedUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserSeedUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserSeedUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserSeedPayload>
+          }
+          aggregate: {
+            args: Prisma.UserSeedAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserSeed>
+          }
+          groupBy: {
+            args: Prisma.UserSeedGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserSeedGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserSeedCountArgs<ExtArgs>
+            result: $Utils.Optional<UserSeedCountAggregateOutputType> | number
           }
         }
       }
@@ -1178,6 +1358,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    userEmailVerification?: UserEmailVerificationOmit
+    userSeed?: UserSeedOmit
     profile?: ProfileOmit
     address?: AddressOmit
     gameSession?: GameSessionOmit
@@ -1264,11 +1446,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     gameSessions: number
     bets: number
+    emailVerifications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     gameSessions?: boolean | UserCountOutputTypeCountGameSessionsArgs
     bets?: boolean | UserCountOutputTypeCountBetsArgs
+    emailVerifications?: boolean | UserCountOutputTypeCountEmailVerificationsArgs
   }
 
   // Custom InputTypes
@@ -1294,6 +1478,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RouletteBetWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountEmailVerificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserEmailVerificationWhereInput
   }
 
 
@@ -1348,6 +1539,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     role: $Enums.UserRole | null
+    emailVerifiedAt: Date | null
     lastLoginIP: string | null
     lastLoginAt: Date | null
     isBanned: boolean | null
@@ -1364,6 +1556,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     role: $Enums.UserRole | null
+    emailVerifiedAt: Date | null
     lastLoginIP: string | null
     lastLoginAt: Date | null
     isBanned: boolean | null
@@ -1380,6 +1573,7 @@ export namespace Prisma {
     email: number
     password: number
     role: number
+    emailVerifiedAt: number
     lastLoginIP: number
     lastLoginAt: number
     isBanned: number
@@ -1398,6 +1592,7 @@ export namespace Prisma {
     email?: true
     password?: true
     role?: true
+    emailVerifiedAt?: true
     lastLoginIP?: true
     lastLoginAt?: true
     isBanned?: true
@@ -1414,6 +1609,7 @@ export namespace Prisma {
     email?: true
     password?: true
     role?: true
+    emailVerifiedAt?: true
     lastLoginIP?: true
     lastLoginAt?: true
     isBanned?: true
@@ -1430,6 +1626,7 @@ export namespace Prisma {
     email?: true
     password?: true
     role?: true
+    emailVerifiedAt?: true
     lastLoginIP?: true
     lastLoginAt?: true
     isBanned?: true
@@ -1519,6 +1716,7 @@ export namespace Prisma {
     email: string
     password: string
     role: $Enums.UserRole
+    emailVerifiedAt: Date | null
     lastLoginIP: string | null
     lastLoginAt: Date | null
     isBanned: boolean
@@ -1552,6 +1750,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     role?: boolean
+    emailVerifiedAt?: boolean
     lastLoginIP?: boolean
     lastLoginAt?: boolean
     isBanned?: boolean
@@ -1564,6 +1763,8 @@ export namespace Prisma {
     address?: boolean | User$addressArgs<ExtArgs>
     gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
     bets?: boolean | User$betsArgs<ExtArgs>
+    userSeed?: boolean | User$userSeedArgs<ExtArgs>
+    emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1573,6 +1774,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     role?: boolean
+    emailVerifiedAt?: boolean
     lastLoginIP?: boolean
     lastLoginAt?: boolean
     isBanned?: boolean
@@ -1589,6 +1791,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     role?: boolean
+    emailVerifiedAt?: boolean
     lastLoginIP?: boolean
     lastLoginAt?: boolean
     isBanned?: boolean
@@ -1605,6 +1808,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     role?: boolean
+    emailVerifiedAt?: boolean
     lastLoginIP?: boolean
     lastLoginAt?: boolean
     isBanned?: boolean
@@ -1615,12 +1819,14 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "password" | "role" | "lastLoginIP" | "lastLoginAt" | "isBanned" | "banEndAt" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "password" | "role" | "emailVerifiedAt" | "lastLoginIP" | "lastLoginAt" | "isBanned" | "banEndAt" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profile?: boolean | User$profileArgs<ExtArgs>
     address?: boolean | User$addressArgs<ExtArgs>
     gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
     bets?: boolean | User$betsArgs<ExtArgs>
+    userSeed?: boolean | User$userSeedArgs<ExtArgs>
+    emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1633,6 +1839,8 @@ export namespace Prisma {
       address: Prisma.$AddressPayload<ExtArgs> | null
       gameSessions: Prisma.$GameSessionPayload<ExtArgs>[]
       bets: Prisma.$RouletteBetPayload<ExtArgs>[]
+      userSeed: Prisma.$UserSeedPayload<ExtArgs> | null
+      emailVerifications: Prisma.$UserEmailVerificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1640,6 +1848,7 @@ export namespace Prisma {
       email: string
       password: string
       role: $Enums.UserRole
+      emailVerifiedAt: Date | null
       lastLoginIP: string | null
       lastLoginAt: Date | null
       isBanned: boolean
@@ -2046,6 +2255,8 @@ export namespace Prisma {
     address<T extends User$addressArgs<ExtArgs> = {}>(args?: Subset<T, User$addressArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     gameSessions<T extends User$gameSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bets<T extends User$betsArgs<ExtArgs> = {}>(args?: Subset<T, User$betsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userSeed<T extends User$userSeedArgs<ExtArgs> = {}>(args?: Subset<T, User$userSeedArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    emailVerifications<T extends User$emailVerificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$emailVerificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2080,6 +2291,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
+    readonly emailVerifiedAt: FieldRef<"User", 'DateTime'>
     readonly lastLoginIP: FieldRef<"User", 'String'>
     readonly lastLoginAt: FieldRef<"User", 'DateTime'>
     readonly isBanned: FieldRef<"User", 'Boolean'>
@@ -2567,6 +2779,49 @@ export namespace Prisma {
   }
 
   /**
+   * User.userSeed
+   */
+  export type User$userSeedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    where?: UserSeedWhereInput
+  }
+
+  /**
+   * User.emailVerifications
+   */
+  export type User$emailVerificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    where?: UserEmailVerificationWhereInput
+    orderBy?: UserEmailVerificationOrderByWithRelationInput | UserEmailVerificationOrderByWithRelationInput[]
+    cursor?: UserEmailVerificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserEmailVerificationScalarFieldEnum | UserEmailVerificationScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2582,6 +2837,2106 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserEmailVerification
+   */
+
+  export type AggregateUserEmailVerification = {
+    _count: UserEmailVerificationCountAggregateOutputType | null
+    _min: UserEmailVerificationMinAggregateOutputType | null
+    _max: UserEmailVerificationMaxAggregateOutputType | null
+  }
+
+  export type UserEmailVerificationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    token: string | null
+    expiresAt: Date | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type UserEmailVerificationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    token: string | null
+    expiresAt: Date | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type UserEmailVerificationCountAggregateOutputType = {
+    id: number
+    userId: number
+    token: number
+    expiresAt: number
+    usedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type UserEmailVerificationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    token?: true
+    expiresAt?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type UserEmailVerificationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    token?: true
+    expiresAt?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type UserEmailVerificationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    token?: true
+    expiresAt?: true
+    usedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type UserEmailVerificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserEmailVerification to aggregate.
+     */
+    where?: UserEmailVerificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserEmailVerifications to fetch.
+     */
+    orderBy?: UserEmailVerificationOrderByWithRelationInput | UserEmailVerificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserEmailVerificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserEmailVerifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserEmailVerifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserEmailVerifications
+    **/
+    _count?: true | UserEmailVerificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserEmailVerificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserEmailVerificationMaxAggregateInputType
+  }
+
+  export type GetUserEmailVerificationAggregateType<T extends UserEmailVerificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserEmailVerification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserEmailVerification[P]>
+      : GetScalarType<T[P], AggregateUserEmailVerification[P]>
+  }
+
+
+
+
+  export type UserEmailVerificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserEmailVerificationWhereInput
+    orderBy?: UserEmailVerificationOrderByWithAggregationInput | UserEmailVerificationOrderByWithAggregationInput[]
+    by: UserEmailVerificationScalarFieldEnum[] | UserEmailVerificationScalarFieldEnum
+    having?: UserEmailVerificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserEmailVerificationCountAggregateInputType | true
+    _min?: UserEmailVerificationMinAggregateInputType
+    _max?: UserEmailVerificationMaxAggregateInputType
+  }
+
+  export type UserEmailVerificationGroupByOutputType = {
+    id: string
+    userId: string
+    token: string
+    expiresAt: Date
+    usedAt: Date | null
+    createdAt: Date
+    _count: UserEmailVerificationCountAggregateOutputType | null
+    _min: UserEmailVerificationMinAggregateOutputType | null
+    _max: UserEmailVerificationMaxAggregateOutputType | null
+  }
+
+  type GetUserEmailVerificationGroupByPayload<T extends UserEmailVerificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserEmailVerificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserEmailVerificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserEmailVerificationGroupByOutputType[P]>
+            : GetScalarType<T[P], UserEmailVerificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserEmailVerificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userEmailVerification"]>
+
+  export type UserEmailVerificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userEmailVerification"]>
+
+  export type UserEmailVerificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userEmailVerification"]>
+
+  export type UserEmailVerificationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type UserEmailVerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "token" | "expiresAt" | "usedAt" | "createdAt", ExtArgs["result"]["userEmailVerification"]>
+  export type UserEmailVerificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserEmailVerificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserEmailVerificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserEmailVerificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserEmailVerification"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      token: string
+      expiresAt: Date
+      usedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["userEmailVerification"]>
+    composites: {}
+  }
+
+  type UserEmailVerificationGetPayload<S extends boolean | null | undefined | UserEmailVerificationDefaultArgs> = $Result.GetResult<Prisma.$UserEmailVerificationPayload, S>
+
+  type UserEmailVerificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserEmailVerificationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserEmailVerificationCountAggregateInputType | true
+    }
+
+  export interface UserEmailVerificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserEmailVerification'], meta: { name: 'UserEmailVerification' } }
+    /**
+     * Find zero or one UserEmailVerification that matches the filter.
+     * @param {UserEmailVerificationFindUniqueArgs} args - Arguments to find a UserEmailVerification
+     * @example
+     * // Get one UserEmailVerification
+     * const userEmailVerification = await prisma.userEmailVerification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserEmailVerificationFindUniqueArgs>(args: SelectSubset<T, UserEmailVerificationFindUniqueArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserEmailVerification that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserEmailVerificationFindUniqueOrThrowArgs} args - Arguments to find a UserEmailVerification
+     * @example
+     * // Get one UserEmailVerification
+     * const userEmailVerification = await prisma.userEmailVerification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserEmailVerificationFindUniqueOrThrowArgs>(args: SelectSubset<T, UserEmailVerificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserEmailVerification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEmailVerificationFindFirstArgs} args - Arguments to find a UserEmailVerification
+     * @example
+     * // Get one UserEmailVerification
+     * const userEmailVerification = await prisma.userEmailVerification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserEmailVerificationFindFirstArgs>(args?: SelectSubset<T, UserEmailVerificationFindFirstArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserEmailVerification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEmailVerificationFindFirstOrThrowArgs} args - Arguments to find a UserEmailVerification
+     * @example
+     * // Get one UserEmailVerification
+     * const userEmailVerification = await prisma.userEmailVerification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserEmailVerificationFindFirstOrThrowArgs>(args?: SelectSubset<T, UserEmailVerificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserEmailVerifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEmailVerificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserEmailVerifications
+     * const userEmailVerifications = await prisma.userEmailVerification.findMany()
+     * 
+     * // Get first 10 UserEmailVerifications
+     * const userEmailVerifications = await prisma.userEmailVerification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userEmailVerificationWithIdOnly = await prisma.userEmailVerification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserEmailVerificationFindManyArgs>(args?: SelectSubset<T, UserEmailVerificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserEmailVerification.
+     * @param {UserEmailVerificationCreateArgs} args - Arguments to create a UserEmailVerification.
+     * @example
+     * // Create one UserEmailVerification
+     * const UserEmailVerification = await prisma.userEmailVerification.create({
+     *   data: {
+     *     // ... data to create a UserEmailVerification
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserEmailVerificationCreateArgs>(args: SelectSubset<T, UserEmailVerificationCreateArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserEmailVerifications.
+     * @param {UserEmailVerificationCreateManyArgs} args - Arguments to create many UserEmailVerifications.
+     * @example
+     * // Create many UserEmailVerifications
+     * const userEmailVerification = await prisma.userEmailVerification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserEmailVerificationCreateManyArgs>(args?: SelectSubset<T, UserEmailVerificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserEmailVerifications and returns the data saved in the database.
+     * @param {UserEmailVerificationCreateManyAndReturnArgs} args - Arguments to create many UserEmailVerifications.
+     * @example
+     * // Create many UserEmailVerifications
+     * const userEmailVerification = await prisma.userEmailVerification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserEmailVerifications and only return the `id`
+     * const userEmailVerificationWithIdOnly = await prisma.userEmailVerification.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserEmailVerificationCreateManyAndReturnArgs>(args?: SelectSubset<T, UserEmailVerificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserEmailVerification.
+     * @param {UserEmailVerificationDeleteArgs} args - Arguments to delete one UserEmailVerification.
+     * @example
+     * // Delete one UserEmailVerification
+     * const UserEmailVerification = await prisma.userEmailVerification.delete({
+     *   where: {
+     *     // ... filter to delete one UserEmailVerification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserEmailVerificationDeleteArgs>(args: SelectSubset<T, UserEmailVerificationDeleteArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserEmailVerification.
+     * @param {UserEmailVerificationUpdateArgs} args - Arguments to update one UserEmailVerification.
+     * @example
+     * // Update one UserEmailVerification
+     * const userEmailVerification = await prisma.userEmailVerification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserEmailVerificationUpdateArgs>(args: SelectSubset<T, UserEmailVerificationUpdateArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserEmailVerifications.
+     * @param {UserEmailVerificationDeleteManyArgs} args - Arguments to filter UserEmailVerifications to delete.
+     * @example
+     * // Delete a few UserEmailVerifications
+     * const { count } = await prisma.userEmailVerification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserEmailVerificationDeleteManyArgs>(args?: SelectSubset<T, UserEmailVerificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserEmailVerifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEmailVerificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserEmailVerifications
+     * const userEmailVerification = await prisma.userEmailVerification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserEmailVerificationUpdateManyArgs>(args: SelectSubset<T, UserEmailVerificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserEmailVerifications and returns the data updated in the database.
+     * @param {UserEmailVerificationUpdateManyAndReturnArgs} args - Arguments to update many UserEmailVerifications.
+     * @example
+     * // Update many UserEmailVerifications
+     * const userEmailVerification = await prisma.userEmailVerification.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserEmailVerifications and only return the `id`
+     * const userEmailVerificationWithIdOnly = await prisma.userEmailVerification.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserEmailVerificationUpdateManyAndReturnArgs>(args: SelectSubset<T, UserEmailVerificationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserEmailVerification.
+     * @param {UserEmailVerificationUpsertArgs} args - Arguments to update or create a UserEmailVerification.
+     * @example
+     * // Update or create a UserEmailVerification
+     * const userEmailVerification = await prisma.userEmailVerification.upsert({
+     *   create: {
+     *     // ... data to create a UserEmailVerification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserEmailVerification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserEmailVerificationUpsertArgs>(args: SelectSubset<T, UserEmailVerificationUpsertArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserEmailVerifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEmailVerificationCountArgs} args - Arguments to filter UserEmailVerifications to count.
+     * @example
+     * // Count the number of UserEmailVerifications
+     * const count = await prisma.userEmailVerification.count({
+     *   where: {
+     *     // ... the filter for the UserEmailVerifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserEmailVerificationCountArgs>(
+      args?: Subset<T, UserEmailVerificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserEmailVerificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserEmailVerification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEmailVerificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserEmailVerificationAggregateArgs>(args: Subset<T, UserEmailVerificationAggregateArgs>): Prisma.PrismaPromise<GetUserEmailVerificationAggregateType<T>>
+
+    /**
+     * Group by UserEmailVerification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserEmailVerificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserEmailVerificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserEmailVerificationGroupByArgs['orderBy'] }
+        : { orderBy?: UserEmailVerificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserEmailVerificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserEmailVerificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserEmailVerification model
+   */
+  readonly fields: UserEmailVerificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserEmailVerification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserEmailVerificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserEmailVerification model
+   */
+  interface UserEmailVerificationFieldRefs {
+    readonly id: FieldRef<"UserEmailVerification", 'String'>
+    readonly userId: FieldRef<"UserEmailVerification", 'String'>
+    readonly token: FieldRef<"UserEmailVerification", 'String'>
+    readonly expiresAt: FieldRef<"UserEmailVerification", 'DateTime'>
+    readonly usedAt: FieldRef<"UserEmailVerification", 'DateTime'>
+    readonly createdAt: FieldRef<"UserEmailVerification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserEmailVerification findUnique
+   */
+  export type UserEmailVerificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEmailVerification to fetch.
+     */
+    where: UserEmailVerificationWhereUniqueInput
+  }
+
+  /**
+   * UserEmailVerification findUniqueOrThrow
+   */
+  export type UserEmailVerificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEmailVerification to fetch.
+     */
+    where: UserEmailVerificationWhereUniqueInput
+  }
+
+  /**
+   * UserEmailVerification findFirst
+   */
+  export type UserEmailVerificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEmailVerification to fetch.
+     */
+    where?: UserEmailVerificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserEmailVerifications to fetch.
+     */
+    orderBy?: UserEmailVerificationOrderByWithRelationInput | UserEmailVerificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserEmailVerifications.
+     */
+    cursor?: UserEmailVerificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserEmailVerifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserEmailVerifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserEmailVerifications.
+     */
+    distinct?: UserEmailVerificationScalarFieldEnum | UserEmailVerificationScalarFieldEnum[]
+  }
+
+  /**
+   * UserEmailVerification findFirstOrThrow
+   */
+  export type UserEmailVerificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEmailVerification to fetch.
+     */
+    where?: UserEmailVerificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserEmailVerifications to fetch.
+     */
+    orderBy?: UserEmailVerificationOrderByWithRelationInput | UserEmailVerificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserEmailVerifications.
+     */
+    cursor?: UserEmailVerificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserEmailVerifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserEmailVerifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserEmailVerifications.
+     */
+    distinct?: UserEmailVerificationScalarFieldEnum | UserEmailVerificationScalarFieldEnum[]
+  }
+
+  /**
+   * UserEmailVerification findMany
+   */
+  export type UserEmailVerificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserEmailVerifications to fetch.
+     */
+    where?: UserEmailVerificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserEmailVerifications to fetch.
+     */
+    orderBy?: UserEmailVerificationOrderByWithRelationInput | UserEmailVerificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserEmailVerifications.
+     */
+    cursor?: UserEmailVerificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserEmailVerifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserEmailVerifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserEmailVerifications.
+     */
+    distinct?: UserEmailVerificationScalarFieldEnum | UserEmailVerificationScalarFieldEnum[]
+  }
+
+  /**
+   * UserEmailVerification create
+   */
+  export type UserEmailVerificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserEmailVerification.
+     */
+    data: XOR<UserEmailVerificationCreateInput, UserEmailVerificationUncheckedCreateInput>
+  }
+
+  /**
+   * UserEmailVerification createMany
+   */
+  export type UserEmailVerificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserEmailVerifications.
+     */
+    data: UserEmailVerificationCreateManyInput | UserEmailVerificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserEmailVerification createManyAndReturn
+   */
+  export type UserEmailVerificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserEmailVerifications.
+     */
+    data: UserEmailVerificationCreateManyInput | UserEmailVerificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserEmailVerification update
+   */
+  export type UserEmailVerificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserEmailVerification.
+     */
+    data: XOR<UserEmailVerificationUpdateInput, UserEmailVerificationUncheckedUpdateInput>
+    /**
+     * Choose, which UserEmailVerification to update.
+     */
+    where: UserEmailVerificationWhereUniqueInput
+  }
+
+  /**
+   * UserEmailVerification updateMany
+   */
+  export type UserEmailVerificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserEmailVerifications.
+     */
+    data: XOR<UserEmailVerificationUpdateManyMutationInput, UserEmailVerificationUncheckedUpdateManyInput>
+    /**
+     * Filter which UserEmailVerifications to update
+     */
+    where?: UserEmailVerificationWhereInput
+    /**
+     * Limit how many UserEmailVerifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserEmailVerification updateManyAndReturn
+   */
+  export type UserEmailVerificationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * The data used to update UserEmailVerifications.
+     */
+    data: XOR<UserEmailVerificationUpdateManyMutationInput, UserEmailVerificationUncheckedUpdateManyInput>
+    /**
+     * Filter which UserEmailVerifications to update
+     */
+    where?: UserEmailVerificationWhereInput
+    /**
+     * Limit how many UserEmailVerifications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserEmailVerification upsert
+   */
+  export type UserEmailVerificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserEmailVerification to update in case it exists.
+     */
+    where: UserEmailVerificationWhereUniqueInput
+    /**
+     * In case the UserEmailVerification found by the `where` argument doesn't exist, create a new UserEmailVerification with this data.
+     */
+    create: XOR<UserEmailVerificationCreateInput, UserEmailVerificationUncheckedCreateInput>
+    /**
+     * In case the UserEmailVerification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserEmailVerificationUpdateInput, UserEmailVerificationUncheckedUpdateInput>
+  }
+
+  /**
+   * UserEmailVerification delete
+   */
+  export type UserEmailVerificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+    /**
+     * Filter which UserEmailVerification to delete.
+     */
+    where: UserEmailVerificationWhereUniqueInput
+  }
+
+  /**
+   * UserEmailVerification deleteMany
+   */
+  export type UserEmailVerificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserEmailVerifications to delete
+     */
+    where?: UserEmailVerificationWhereInput
+    /**
+     * Limit how many UserEmailVerifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserEmailVerification without action
+   */
+  export type UserEmailVerificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEmailVerification
+     */
+    select?: UserEmailVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEmailVerification
+     */
+    omit?: UserEmailVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEmailVerificationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserSeed
+   */
+
+  export type AggregateUserSeed = {
+    _count: UserSeedCountAggregateOutputType | null
+    _min: UserSeedMinAggregateOutputType | null
+    _max: UserSeedMaxAggregateOutputType | null
+  }
+
+  export type UserSeedMinAggregateOutputType = {
+    userId: string | null
+    clientSeed: string | null
+  }
+
+  export type UserSeedMaxAggregateOutputType = {
+    userId: string | null
+    clientSeed: string | null
+  }
+
+  export type UserSeedCountAggregateOutputType = {
+    userId: number
+    clientSeed: number
+    _all: number
+  }
+
+
+  export type UserSeedMinAggregateInputType = {
+    userId?: true
+    clientSeed?: true
+  }
+
+  export type UserSeedMaxAggregateInputType = {
+    userId?: true
+    clientSeed?: true
+  }
+
+  export type UserSeedCountAggregateInputType = {
+    userId?: true
+    clientSeed?: true
+    _all?: true
+  }
+
+  export type UserSeedAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserSeed to aggregate.
+     */
+    where?: UserSeedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserSeeds to fetch.
+     */
+    orderBy?: UserSeedOrderByWithRelationInput | UserSeedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserSeedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserSeeds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserSeeds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserSeeds
+    **/
+    _count?: true | UserSeedCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserSeedMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserSeedMaxAggregateInputType
+  }
+
+  export type GetUserSeedAggregateType<T extends UserSeedAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserSeed]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserSeed[P]>
+      : GetScalarType<T[P], AggregateUserSeed[P]>
+  }
+
+
+
+
+  export type UserSeedGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserSeedWhereInput
+    orderBy?: UserSeedOrderByWithAggregationInput | UserSeedOrderByWithAggregationInput[]
+    by: UserSeedScalarFieldEnum[] | UserSeedScalarFieldEnum
+    having?: UserSeedScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserSeedCountAggregateInputType | true
+    _min?: UserSeedMinAggregateInputType
+    _max?: UserSeedMaxAggregateInputType
+  }
+
+  export type UserSeedGroupByOutputType = {
+    userId: string
+    clientSeed: string
+    _count: UserSeedCountAggregateOutputType | null
+    _min: UserSeedMinAggregateOutputType | null
+    _max: UserSeedMaxAggregateOutputType | null
+  }
+
+  type GetUserSeedGroupByPayload<T extends UserSeedGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserSeedGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserSeedGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserSeedGroupByOutputType[P]>
+            : GetScalarType<T[P], UserSeedGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserSeedSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    clientSeed?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userSeed"]>
+
+  export type UserSeedSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    clientSeed?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userSeed"]>
+
+  export type UserSeedSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    clientSeed?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userSeed"]>
+
+  export type UserSeedSelectScalar = {
+    userId?: boolean
+    clientSeed?: boolean
+  }
+
+  export type UserSeedOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "clientSeed", ExtArgs["result"]["userSeed"]>
+  export type UserSeedInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserSeedIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserSeedIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserSeedPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserSeed"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      clientSeed: string
+    }, ExtArgs["result"]["userSeed"]>
+    composites: {}
+  }
+
+  type UserSeedGetPayload<S extends boolean | null | undefined | UserSeedDefaultArgs> = $Result.GetResult<Prisma.$UserSeedPayload, S>
+
+  type UserSeedCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserSeedFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserSeedCountAggregateInputType | true
+    }
+
+  export interface UserSeedDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserSeed'], meta: { name: 'UserSeed' } }
+    /**
+     * Find zero or one UserSeed that matches the filter.
+     * @param {UserSeedFindUniqueArgs} args - Arguments to find a UserSeed
+     * @example
+     * // Get one UserSeed
+     * const userSeed = await prisma.userSeed.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserSeedFindUniqueArgs>(args: SelectSubset<T, UserSeedFindUniqueArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserSeed that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserSeedFindUniqueOrThrowArgs} args - Arguments to find a UserSeed
+     * @example
+     * // Get one UserSeed
+     * const userSeed = await prisma.userSeed.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserSeedFindUniqueOrThrowArgs>(args: SelectSubset<T, UserSeedFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserSeed that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSeedFindFirstArgs} args - Arguments to find a UserSeed
+     * @example
+     * // Get one UserSeed
+     * const userSeed = await prisma.userSeed.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserSeedFindFirstArgs>(args?: SelectSubset<T, UserSeedFindFirstArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserSeed that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSeedFindFirstOrThrowArgs} args - Arguments to find a UserSeed
+     * @example
+     * // Get one UserSeed
+     * const userSeed = await prisma.userSeed.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserSeedFindFirstOrThrowArgs>(args?: SelectSubset<T, UserSeedFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserSeeds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSeedFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserSeeds
+     * const userSeeds = await prisma.userSeed.findMany()
+     * 
+     * // Get first 10 UserSeeds
+     * const userSeeds = await prisma.userSeed.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const userSeedWithUserIdOnly = await prisma.userSeed.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends UserSeedFindManyArgs>(args?: SelectSubset<T, UserSeedFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserSeed.
+     * @param {UserSeedCreateArgs} args - Arguments to create a UserSeed.
+     * @example
+     * // Create one UserSeed
+     * const UserSeed = await prisma.userSeed.create({
+     *   data: {
+     *     // ... data to create a UserSeed
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserSeedCreateArgs>(args: SelectSubset<T, UserSeedCreateArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserSeeds.
+     * @param {UserSeedCreateManyArgs} args - Arguments to create many UserSeeds.
+     * @example
+     * // Create many UserSeeds
+     * const userSeed = await prisma.userSeed.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserSeedCreateManyArgs>(args?: SelectSubset<T, UserSeedCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserSeeds and returns the data saved in the database.
+     * @param {UserSeedCreateManyAndReturnArgs} args - Arguments to create many UserSeeds.
+     * @example
+     * // Create many UserSeeds
+     * const userSeed = await prisma.userSeed.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserSeeds and only return the `userId`
+     * const userSeedWithUserIdOnly = await prisma.userSeed.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserSeedCreateManyAndReturnArgs>(args?: SelectSubset<T, UserSeedCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserSeed.
+     * @param {UserSeedDeleteArgs} args - Arguments to delete one UserSeed.
+     * @example
+     * // Delete one UserSeed
+     * const UserSeed = await prisma.userSeed.delete({
+     *   where: {
+     *     // ... filter to delete one UserSeed
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserSeedDeleteArgs>(args: SelectSubset<T, UserSeedDeleteArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserSeed.
+     * @param {UserSeedUpdateArgs} args - Arguments to update one UserSeed.
+     * @example
+     * // Update one UserSeed
+     * const userSeed = await prisma.userSeed.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserSeedUpdateArgs>(args: SelectSubset<T, UserSeedUpdateArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserSeeds.
+     * @param {UserSeedDeleteManyArgs} args - Arguments to filter UserSeeds to delete.
+     * @example
+     * // Delete a few UserSeeds
+     * const { count } = await prisma.userSeed.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserSeedDeleteManyArgs>(args?: SelectSubset<T, UserSeedDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserSeeds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSeedUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserSeeds
+     * const userSeed = await prisma.userSeed.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserSeedUpdateManyArgs>(args: SelectSubset<T, UserSeedUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserSeeds and returns the data updated in the database.
+     * @param {UserSeedUpdateManyAndReturnArgs} args - Arguments to update many UserSeeds.
+     * @example
+     * // Update many UserSeeds
+     * const userSeed = await prisma.userSeed.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserSeeds and only return the `userId`
+     * const userSeedWithUserIdOnly = await prisma.userSeed.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserSeedUpdateManyAndReturnArgs>(args: SelectSubset<T, UserSeedUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserSeed.
+     * @param {UserSeedUpsertArgs} args - Arguments to update or create a UserSeed.
+     * @example
+     * // Update or create a UserSeed
+     * const userSeed = await prisma.userSeed.upsert({
+     *   create: {
+     *     // ... data to create a UserSeed
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserSeed we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserSeedUpsertArgs>(args: SelectSubset<T, UserSeedUpsertArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserSeeds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSeedCountArgs} args - Arguments to filter UserSeeds to count.
+     * @example
+     * // Count the number of UserSeeds
+     * const count = await prisma.userSeed.count({
+     *   where: {
+     *     // ... the filter for the UserSeeds we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserSeedCountArgs>(
+      args?: Subset<T, UserSeedCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserSeedCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserSeed.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSeedAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserSeedAggregateArgs>(args: Subset<T, UserSeedAggregateArgs>): Prisma.PrismaPromise<GetUserSeedAggregateType<T>>
+
+    /**
+     * Group by UserSeed.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserSeedGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserSeedGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserSeedGroupByArgs['orderBy'] }
+        : { orderBy?: UserSeedGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserSeedGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserSeedGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserSeed model
+   */
+  readonly fields: UserSeedFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserSeed.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserSeedClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserSeed model
+   */
+  interface UserSeedFieldRefs {
+    readonly userId: FieldRef<"UserSeed", 'String'>
+    readonly clientSeed: FieldRef<"UserSeed", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserSeed findUnique
+   */
+  export type UserSeedFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSeed to fetch.
+     */
+    where: UserSeedWhereUniqueInput
+  }
+
+  /**
+   * UserSeed findUniqueOrThrow
+   */
+  export type UserSeedFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSeed to fetch.
+     */
+    where: UserSeedWhereUniqueInput
+  }
+
+  /**
+   * UserSeed findFirst
+   */
+  export type UserSeedFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSeed to fetch.
+     */
+    where?: UserSeedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserSeeds to fetch.
+     */
+    orderBy?: UserSeedOrderByWithRelationInput | UserSeedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserSeeds.
+     */
+    cursor?: UserSeedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserSeeds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserSeeds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserSeeds.
+     */
+    distinct?: UserSeedScalarFieldEnum | UserSeedScalarFieldEnum[]
+  }
+
+  /**
+   * UserSeed findFirstOrThrow
+   */
+  export type UserSeedFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSeed to fetch.
+     */
+    where?: UserSeedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserSeeds to fetch.
+     */
+    orderBy?: UserSeedOrderByWithRelationInput | UserSeedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserSeeds.
+     */
+    cursor?: UserSeedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserSeeds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserSeeds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserSeeds.
+     */
+    distinct?: UserSeedScalarFieldEnum | UserSeedScalarFieldEnum[]
+  }
+
+  /**
+   * UserSeed findMany
+   */
+  export type UserSeedFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    /**
+     * Filter, which UserSeeds to fetch.
+     */
+    where?: UserSeedWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserSeeds to fetch.
+     */
+    orderBy?: UserSeedOrderByWithRelationInput | UserSeedOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserSeeds.
+     */
+    cursor?: UserSeedWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserSeeds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserSeeds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserSeeds.
+     */
+    distinct?: UserSeedScalarFieldEnum | UserSeedScalarFieldEnum[]
+  }
+
+  /**
+   * UserSeed create
+   */
+  export type UserSeedCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserSeed.
+     */
+    data: XOR<UserSeedCreateInput, UserSeedUncheckedCreateInput>
+  }
+
+  /**
+   * UserSeed createMany
+   */
+  export type UserSeedCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserSeeds.
+     */
+    data: UserSeedCreateManyInput | UserSeedCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserSeed createManyAndReturn
+   */
+  export type UserSeedCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserSeeds.
+     */
+    data: UserSeedCreateManyInput | UserSeedCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserSeed update
+   */
+  export type UserSeedUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserSeed.
+     */
+    data: XOR<UserSeedUpdateInput, UserSeedUncheckedUpdateInput>
+    /**
+     * Choose, which UserSeed to update.
+     */
+    where: UserSeedWhereUniqueInput
+  }
+
+  /**
+   * UserSeed updateMany
+   */
+  export type UserSeedUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserSeeds.
+     */
+    data: XOR<UserSeedUpdateManyMutationInput, UserSeedUncheckedUpdateManyInput>
+    /**
+     * Filter which UserSeeds to update
+     */
+    where?: UserSeedWhereInput
+    /**
+     * Limit how many UserSeeds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserSeed updateManyAndReturn
+   */
+  export type UserSeedUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * The data used to update UserSeeds.
+     */
+    data: XOR<UserSeedUpdateManyMutationInput, UserSeedUncheckedUpdateManyInput>
+    /**
+     * Filter which UserSeeds to update
+     */
+    where?: UserSeedWhereInput
+    /**
+     * Limit how many UserSeeds to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserSeed upsert
+   */
+  export type UserSeedUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserSeed to update in case it exists.
+     */
+    where: UserSeedWhereUniqueInput
+    /**
+     * In case the UserSeed found by the `where` argument doesn't exist, create a new UserSeed with this data.
+     */
+    create: XOR<UserSeedCreateInput, UserSeedUncheckedCreateInput>
+    /**
+     * In case the UserSeed was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserSeedUpdateInput, UserSeedUncheckedUpdateInput>
+  }
+
+  /**
+   * UserSeed delete
+   */
+  export type UserSeedDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
+    /**
+     * Filter which UserSeed to delete.
+     */
+    where: UserSeedWhereUniqueInput
+  }
+
+  /**
+   * UserSeed deleteMany
+   */
+  export type UserSeedDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserSeeds to delete
+     */
+    where?: UserSeedWhereInput
+    /**
+     * Limit how many UserSeeds to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserSeed without action
+   */
+  export type UserSeedDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserSeed
+     */
+    select?: UserSeedSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserSeed
+     */
+    omit?: UserSeedOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserSeedInclude<ExtArgs> | null
   }
 
 
@@ -7229,6 +9584,7 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     role: 'role',
+    emailVerifiedAt: 'emailVerifiedAt',
     lastLoginIP: 'lastLoginIP',
     lastLoginAt: 'lastLoginAt',
     isBanned: 'isBanned',
@@ -7240,6 +9596,26 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const UserEmailVerificationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    token: 'token',
+    expiresAt: 'expiresAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type UserEmailVerificationScalarFieldEnum = (typeof UserEmailVerificationScalarFieldEnum)[keyof typeof UserEmailVerificationScalarFieldEnum]
+
+
+  export const UserSeedScalarFieldEnum: {
+    userId: 'userId',
+    clientSeed: 'clientSeed'
+  };
+
+  export type UserSeedScalarFieldEnum = (typeof UserSeedScalarFieldEnum)[keyof typeof UserSeedScalarFieldEnum]
 
 
   export const ProfileScalarFieldEnum: {
@@ -7448,6 +9824,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    emailVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     lastLoginIP?: StringNullableFilter<"User"> | string | null
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     isBanned?: BoolFilter<"User"> | boolean
@@ -7460,6 +9837,8 @@ export namespace Prisma {
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     gameSessions?: GameSessionListRelationFilter
     bets?: RouletteBetListRelationFilter
+    userSeed?: XOR<UserSeedNullableScalarRelationFilter, UserSeedWhereInput> | null
+    emailVerifications?: UserEmailVerificationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7468,6 +9847,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    emailVerifiedAt?: SortOrderInput | SortOrder
     lastLoginIP?: SortOrderInput | SortOrder
     lastLoginAt?: SortOrderInput | SortOrder
     isBanned?: SortOrder
@@ -7480,6 +9860,8 @@ export namespace Prisma {
     address?: AddressOrderByWithRelationInput
     gameSessions?: GameSessionOrderByRelationAggregateInput
     bets?: RouletteBetOrderByRelationAggregateInput
+    userSeed?: UserSeedOrderByWithRelationInput
+    emailVerifications?: UserEmailVerificationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7491,6 +9873,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    emailVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     lastLoginIP?: StringNullableFilter<"User"> | string | null
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     isBanned?: BoolFilter<"User"> | boolean
@@ -7503,6 +9886,8 @@ export namespace Prisma {
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     gameSessions?: GameSessionListRelationFilter
     bets?: RouletteBetListRelationFilter
+    userSeed?: XOR<UserSeedNullableScalarRelationFilter, UserSeedWhereInput> | null
+    emailVerifications?: UserEmailVerificationListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7511,6 +9896,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    emailVerifiedAt?: SortOrderInput | SortOrder
     lastLoginIP?: SortOrderInput | SortOrder
     lastLoginAt?: SortOrderInput | SortOrder
     isBanned?: SortOrder
@@ -7533,6 +9919,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    emailVerifiedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     lastLoginIP?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastLoginAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     isBanned?: BoolWithAggregatesFilter<"User"> | boolean
@@ -7541,6 +9928,106 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type UserEmailVerificationWhereInput = {
+    AND?: UserEmailVerificationWhereInput | UserEmailVerificationWhereInput[]
+    OR?: UserEmailVerificationWhereInput[]
+    NOT?: UserEmailVerificationWhereInput | UserEmailVerificationWhereInput[]
+    id?: StringFilter<"UserEmailVerification"> | string
+    userId?: StringFilter<"UserEmailVerification"> | string
+    token?: StringFilter<"UserEmailVerification"> | string
+    expiresAt?: DateTimeFilter<"UserEmailVerification"> | Date | string
+    usedAt?: DateTimeNullableFilter<"UserEmailVerification"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserEmailVerification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserEmailVerificationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserEmailVerificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    AND?: UserEmailVerificationWhereInput | UserEmailVerificationWhereInput[]
+    OR?: UserEmailVerificationWhereInput[]
+    NOT?: UserEmailVerificationWhereInput | UserEmailVerificationWhereInput[]
+    userId?: StringFilter<"UserEmailVerification"> | string
+    expiresAt?: DateTimeFilter<"UserEmailVerification"> | Date | string
+    usedAt?: DateTimeNullableFilter<"UserEmailVerification"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserEmailVerification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "token">
+
+  export type UserEmailVerificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: UserEmailVerificationCountOrderByAggregateInput
+    _max?: UserEmailVerificationMaxOrderByAggregateInput
+    _min?: UserEmailVerificationMinOrderByAggregateInput
+  }
+
+  export type UserEmailVerificationScalarWhereWithAggregatesInput = {
+    AND?: UserEmailVerificationScalarWhereWithAggregatesInput | UserEmailVerificationScalarWhereWithAggregatesInput[]
+    OR?: UserEmailVerificationScalarWhereWithAggregatesInput[]
+    NOT?: UserEmailVerificationScalarWhereWithAggregatesInput | UserEmailVerificationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserEmailVerification"> | string
+    userId?: StringWithAggregatesFilter<"UserEmailVerification"> | string
+    token?: StringWithAggregatesFilter<"UserEmailVerification"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"UserEmailVerification"> | Date | string
+    usedAt?: DateTimeNullableWithAggregatesFilter<"UserEmailVerification"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserEmailVerification"> | Date | string
+  }
+
+  export type UserSeedWhereInput = {
+    AND?: UserSeedWhereInput | UserSeedWhereInput[]
+    OR?: UserSeedWhereInput[]
+    NOT?: UserSeedWhereInput | UserSeedWhereInput[]
+    userId?: StringFilter<"UserSeed"> | string
+    clientSeed?: StringFilter<"UserSeed"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserSeedOrderByWithRelationInput = {
+    userId?: SortOrder
+    clientSeed?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserSeedWhereUniqueInput = Prisma.AtLeast<{
+    userId?: string
+    AND?: UserSeedWhereInput | UserSeedWhereInput[]
+    OR?: UserSeedWhereInput[]
+    NOT?: UserSeedWhereInput | UserSeedWhereInput[]
+    clientSeed?: StringFilter<"UserSeed"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "userId">
+
+  export type UserSeedOrderByWithAggregationInput = {
+    userId?: SortOrder
+    clientSeed?: SortOrder
+    _count?: UserSeedCountOrderByAggregateInput
+    _max?: UserSeedMaxOrderByAggregateInput
+    _min?: UserSeedMinOrderByAggregateInput
+  }
+
+  export type UserSeedScalarWhereWithAggregatesInput = {
+    AND?: UserSeedScalarWhereWithAggregatesInput | UserSeedScalarWhereWithAggregatesInput[]
+    OR?: UserSeedScalarWhereWithAggregatesInput[]
+    NOT?: UserSeedScalarWhereWithAggregatesInput | UserSeedScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"UserSeed"> | string
+    clientSeed?: StringWithAggregatesFilter<"UserSeed"> | string
   }
 
   export type ProfileWhereInput = {
@@ -7861,6 +10348,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -7873,6 +10361,8 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7881,6 +10371,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -7893,6 +10384,8 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7901,6 +10394,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -7913,6 +10407,8 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7921,6 +10417,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -7933,6 +10430,8 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7941,6 +10440,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -7957,6 +10457,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -7973,6 +10474,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -7981,6 +10483,102 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEmailVerificationCreateInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutEmailVerificationsInput
+  }
+
+  export type UserEmailVerificationUncheckedCreateInput = {
+    id?: string
+    userId: string
+    token: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type UserEmailVerificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutEmailVerificationsNestedInput
+  }
+
+  export type UserEmailVerificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEmailVerificationCreateManyInput = {
+    id?: string
+    userId: string
+    token: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type UserEmailVerificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEmailVerificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserSeedCreateInput = {
+    clientSeed: string
+    user: UserCreateNestedOneWithoutUserSeedInput
+  }
+
+  export type UserSeedUncheckedCreateInput = {
+    userId: string
+    clientSeed: string
+  }
+
+  export type UserSeedUpdateInput = {
+    clientSeed?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutUserSeedNestedInput
+  }
+
+  export type UserSeedUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserSeedCreateManyInput = {
+    userId: string
+    clientSeed: string
+  }
+
+  export type UserSeedUpdateManyMutationInput = {
+    clientSeed?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserSeedUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    clientSeed?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfileCreateInput = {
@@ -8340,6 +10938,17 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -8353,17 +10962,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -8404,6 +11002,17 @@ export namespace Prisma {
     none?: RouletteBetWhereInput
   }
 
+  export type UserSeedNullableScalarRelationFilter = {
+    is?: UserSeedWhereInput | null
+    isNot?: UserSeedWhereInput | null
+  }
+
+  export type UserEmailVerificationListRelationFilter = {
+    every?: UserEmailVerificationWhereInput
+    some?: UserEmailVerificationWhereInput
+    none?: UserEmailVerificationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -8417,12 +11026,17 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type UserEmailVerificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    emailVerifiedAt?: SortOrder
     lastLoginIP?: SortOrder
     lastLoginAt?: SortOrder
     isBanned?: SortOrder
@@ -8439,6 +11053,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    emailVerifiedAt?: SortOrder
     lastLoginIP?: SortOrder
     lastLoginAt?: SortOrder
     isBanned?: SortOrder
@@ -8455,6 +11070,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    emailVerifiedAt?: SortOrder
     lastLoginIP?: SortOrder
     lastLoginAt?: SortOrder
     isBanned?: SortOrder
@@ -8493,6 +11109,20 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -8509,20 +11139,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -8547,6 +11163,53 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type UserEmailVerificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserEmailVerificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserEmailVerificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserSeedCountOrderByAggregateInput = {
+    userId?: SortOrder
+    clientSeed?: SortOrder
+  }
+
+  export type UserSeedMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    clientSeed?: SortOrder
+  }
+
+  export type UserSeedMinOrderByAggregateInput = {
+    userId?: SortOrder
+    clientSeed?: SortOrder
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8567,11 +11230,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type ProfileCountOrderByAggregateInput = {
@@ -8861,6 +11519,19 @@ export namespace Prisma {
     connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
   }
 
+  export type UserSeedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserSeedCreateWithoutUserInput, UserSeedUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSeedCreateOrConnectWithoutUserInput
+    connect?: UserSeedWhereUniqueInput
+  }
+
+  export type UserEmailVerificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserEmailVerificationCreateWithoutUserInput, UserEmailVerificationUncheckedCreateWithoutUserInput> | UserEmailVerificationCreateWithoutUserInput[] | UserEmailVerificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserEmailVerificationCreateOrConnectWithoutUserInput | UserEmailVerificationCreateOrConnectWithoutUserInput[]
+    createMany?: UserEmailVerificationCreateManyUserInputEnvelope
+    connect?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+  }
+
   export type ProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
@@ -8887,6 +11558,19 @@ export namespace Prisma {
     connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
   }
 
+  export type UserSeedUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserSeedCreateWithoutUserInput, UserSeedUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSeedCreateOrConnectWithoutUserInput
+    connect?: UserSeedWhereUniqueInput
+  }
+
+  export type UserEmailVerificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserEmailVerificationCreateWithoutUserInput, UserEmailVerificationUncheckedCreateWithoutUserInput> | UserEmailVerificationCreateWithoutUserInput[] | UserEmailVerificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserEmailVerificationCreateOrConnectWithoutUserInput | UserEmailVerificationCreateOrConnectWithoutUserInput[]
+    createMany?: UserEmailVerificationCreateManyUserInputEnvelope
+    connect?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -8895,12 +11579,12 @@ export namespace Prisma {
     set?: $Enums.UserRole
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -8959,6 +11643,30 @@ export namespace Prisma {
     deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
   }
 
+  export type UserSeedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserSeedCreateWithoutUserInput, UserSeedUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSeedCreateOrConnectWithoutUserInput
+    upsert?: UserSeedUpsertWithoutUserInput
+    disconnect?: UserSeedWhereInput | boolean
+    delete?: UserSeedWhereInput | boolean
+    connect?: UserSeedWhereUniqueInput
+    update?: XOR<XOR<UserSeedUpdateToOneWithWhereWithoutUserInput, UserSeedUpdateWithoutUserInput>, UserSeedUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserEmailVerificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserEmailVerificationCreateWithoutUserInput, UserEmailVerificationUncheckedCreateWithoutUserInput> | UserEmailVerificationCreateWithoutUserInput[] | UserEmailVerificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserEmailVerificationCreateOrConnectWithoutUserInput | UserEmailVerificationCreateOrConnectWithoutUserInput[]
+    upsert?: UserEmailVerificationUpsertWithWhereUniqueWithoutUserInput | UserEmailVerificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserEmailVerificationCreateManyUserInputEnvelope
+    set?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+    disconnect?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+    delete?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+    connect?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+    update?: UserEmailVerificationUpdateWithWhereUniqueWithoutUserInput | UserEmailVerificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserEmailVerificationUpdateManyWithWhereWithoutUserInput | UserEmailVerificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserEmailVerificationScalarWhereInput | UserEmailVerificationScalarWhereInput[]
+  }
+
   export type ProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
@@ -9005,6 +11713,58 @@ export namespace Prisma {
     update?: RouletteBetUpdateWithWhereUniqueWithoutUserInput | RouletteBetUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: RouletteBetUpdateManyWithWhereWithoutUserInput | RouletteBetUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
+  }
+
+  export type UserSeedUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserSeedCreateWithoutUserInput, UserSeedUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserSeedCreateOrConnectWithoutUserInput
+    upsert?: UserSeedUpsertWithoutUserInput
+    disconnect?: UserSeedWhereInput | boolean
+    delete?: UserSeedWhereInput | boolean
+    connect?: UserSeedWhereUniqueInput
+    update?: XOR<XOR<UserSeedUpdateToOneWithWhereWithoutUserInput, UserSeedUpdateWithoutUserInput>, UserSeedUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserEmailVerificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserEmailVerificationCreateWithoutUserInput, UserEmailVerificationUncheckedCreateWithoutUserInput> | UserEmailVerificationCreateWithoutUserInput[] | UserEmailVerificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserEmailVerificationCreateOrConnectWithoutUserInput | UserEmailVerificationCreateOrConnectWithoutUserInput[]
+    upsert?: UserEmailVerificationUpsertWithWhereUniqueWithoutUserInput | UserEmailVerificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserEmailVerificationCreateManyUserInputEnvelope
+    set?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+    disconnect?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+    delete?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+    connect?: UserEmailVerificationWhereUniqueInput | UserEmailVerificationWhereUniqueInput[]
+    update?: UserEmailVerificationUpdateWithWhereUniqueWithoutUserInput | UserEmailVerificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserEmailVerificationUpdateManyWithWhereWithoutUserInput | UserEmailVerificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserEmailVerificationScalarWhereInput | UserEmailVerificationScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutEmailVerificationsInput = {
+    create?: XOR<UserCreateWithoutEmailVerificationsInput, UserUncheckedCreateWithoutEmailVerificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEmailVerificationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutEmailVerificationsNestedInput = {
+    create?: XOR<UserCreateWithoutEmailVerificationsInput, UserUncheckedCreateWithoutEmailVerificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEmailVerificationsInput
+    upsert?: UserUpsertWithoutEmailVerificationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEmailVerificationsInput, UserUpdateWithoutEmailVerificationsInput>, UserUncheckedUpdateWithoutEmailVerificationsInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserSeedInput = {
+    create?: XOR<UserCreateWithoutUserSeedInput, UserUncheckedCreateWithoutUserSeedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserSeedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUserSeedNestedInput = {
+    create?: XOR<UserCreateWithoutUserSeedInput, UserUncheckedCreateWithoutUserSeedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserSeedInput
+    upsert?: UserUpsertWithoutUserSeedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserSeedInput, UserUpdateWithoutUserSeedInput>, UserUncheckedUpdateWithoutUserSeedInput>
   }
 
   export type UserCreateNestedOneWithoutProfileInput = {
@@ -9168,6 +11928,17 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -9180,17 +11951,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -9247,6 +12007,31 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -9262,31 +12047,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -9529,6 +12289,45 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserSeedCreateWithoutUserInput = {
+    clientSeed: string
+  }
+
+  export type UserSeedUncheckedCreateWithoutUserInput = {
+    clientSeed: string
+  }
+
+  export type UserSeedCreateOrConnectWithoutUserInput = {
+    where: UserSeedWhereUniqueInput
+    create: XOR<UserSeedCreateWithoutUserInput, UserSeedUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserEmailVerificationCreateWithoutUserInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type UserEmailVerificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type UserEmailVerificationCreateOrConnectWithoutUserInput = {
+    where: UserEmailVerificationWhereUniqueInput
+    create: XOR<UserEmailVerificationCreateWithoutUserInput, UserEmailVerificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserEmailVerificationCreateManyUserInputEnvelope = {
+    data: UserEmailVerificationCreateManyUserInput | UserEmailVerificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProfileUpsertWithoutUserInput = {
     update: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
     create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
@@ -9656,12 +12455,268 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"RouletteBet"> | Date | string
   }
 
+  export type UserSeedUpsertWithoutUserInput = {
+    update: XOR<UserSeedUpdateWithoutUserInput, UserSeedUncheckedUpdateWithoutUserInput>
+    create: XOR<UserSeedCreateWithoutUserInput, UserSeedUncheckedCreateWithoutUserInput>
+    where?: UserSeedWhereInput
+  }
+
+  export type UserSeedUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserSeedWhereInput
+    data: XOR<UserSeedUpdateWithoutUserInput, UserSeedUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserSeedUpdateWithoutUserInput = {
+    clientSeed?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserSeedUncheckedUpdateWithoutUserInput = {
+    clientSeed?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserEmailVerificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserEmailVerificationWhereUniqueInput
+    update: XOR<UserEmailVerificationUpdateWithoutUserInput, UserEmailVerificationUncheckedUpdateWithoutUserInput>
+    create: XOR<UserEmailVerificationCreateWithoutUserInput, UserEmailVerificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserEmailVerificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserEmailVerificationWhereUniqueInput
+    data: XOR<UserEmailVerificationUpdateWithoutUserInput, UserEmailVerificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserEmailVerificationUpdateManyWithWhereWithoutUserInput = {
+    where: UserEmailVerificationScalarWhereInput
+    data: XOR<UserEmailVerificationUpdateManyMutationInput, UserEmailVerificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserEmailVerificationScalarWhereInput = {
+    AND?: UserEmailVerificationScalarWhereInput | UserEmailVerificationScalarWhereInput[]
+    OR?: UserEmailVerificationScalarWhereInput[]
+    NOT?: UserEmailVerificationScalarWhereInput | UserEmailVerificationScalarWhereInput[]
+    id?: StringFilter<"UserEmailVerification"> | string
+    userId?: StringFilter<"UserEmailVerification"> | string
+    token?: StringFilter<"UserEmailVerification"> | string
+    expiresAt?: DateTimeFilter<"UserEmailVerification"> | Date | string
+    usedAt?: DateTimeNullableFilter<"UserEmailVerification"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserEmailVerification"> | Date | string
+  }
+
+  export type UserCreateWithoutEmailVerificationsInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    address?: AddressCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    bets?: RouletteBetCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutEmailVerificationsInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    address?: AddressUncheckedCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+    bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutEmailVerificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutEmailVerificationsInput, UserUncheckedCreateWithoutEmailVerificationsInput>
+  }
+
+  export type UserUpsertWithoutEmailVerificationsInput = {
+    update: XOR<UserUpdateWithoutEmailVerificationsInput, UserUncheckedUpdateWithoutEmailVerificationsInput>
+    create: XOR<UserCreateWithoutEmailVerificationsInput, UserUncheckedCreateWithoutEmailVerificationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutEmailVerificationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutEmailVerificationsInput, UserUncheckedUpdateWithoutEmailVerificationsInput>
+  }
+
+  export type UserUpdateWithoutEmailVerificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutEmailVerificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutUserSeedInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    address?: AddressCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    bets?: RouletteBetCreateNestedManyWithoutUserInput
+    emailVerifications?: UserEmailVerificationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUserSeedInput = {
+    id?: string
+    username: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    address?: AddressUncheckedCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+    bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    emailVerifications?: UserEmailVerificationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUserSeedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserSeedInput, UserUncheckedCreateWithoutUserSeedInput>
+  }
+
+  export type UserUpsertWithoutUserSeedInput = {
+    update: XOR<UserUpdateWithoutUserSeedInput, UserUncheckedUpdateWithoutUserSeedInput>
+    create: XOR<UserCreateWithoutUserSeedInput, UserUncheckedCreateWithoutUserSeedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserSeedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserSeedInput, UserUncheckedUpdateWithoutUserSeedInput>
+  }
+
+  export type UserUpdateWithoutUserSeedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserSeedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutProfileInput = {
     id?: string
     username: string
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -9673,6 +12728,8 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -9681,6 +12738,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -9692,6 +12750,8 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -9716,6 +12776,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -9727,6 +12788,8 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -9735,6 +12798,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -9746,6 +12810,8 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAddressInput = {
@@ -9754,6 +12820,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -9765,6 +12832,8 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAddressInput = {
@@ -9773,6 +12842,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -9784,6 +12854,8 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAddressInput = {
@@ -9808,6 +12880,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -9819,6 +12892,8 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAddressInput = {
@@ -9827,6 +12902,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -9838,6 +12914,8 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutGameSessionsInput = {
@@ -9846,6 +12924,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -9857,6 +12936,8 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGameSessionsInput = {
@@ -9865,6 +12946,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -9876,6 +12958,8 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGameSessionsInput = {
@@ -9936,6 +13020,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -9947,6 +13032,8 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGameSessionsInput = {
@@ -9955,6 +13042,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -9966,6 +13054,8 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RouletteBetUpsertWithWhereUniqueWithoutGameSessionInput = {
@@ -10017,6 +13107,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -10028,6 +13119,8 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBetsInput = {
@@ -10036,6 +13129,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
     lastLoginIP?: string | null
     lastLoginAt?: Date | string | null
     isBanned?: boolean
@@ -10047,6 +13141,8 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBetsInput = {
@@ -10104,6 +13200,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -10115,6 +13212,8 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBetsInput = {
@@ -10123,6 +13222,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isBanned?: BoolFieldUpdateOperationsInput | boolean
@@ -10134,6 +13234,8 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type GameSessionCreateManyUserInput = {
@@ -10156,6 +13258,14 @@ export namespace Prisma {
     payoutAmount: number
     isWin: boolean
     nonce: number
+    createdAt?: Date | string
+  }
+
+  export type UserEmailVerificationCreateManyUserInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    usedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -10227,6 +13337,30 @@ export namespace Prisma {
     payoutAmount?: IntFieldUpdateOperationsInput | number
     isWin?: BoolFieldUpdateOperationsInput | boolean
     nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEmailVerificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEmailVerificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserEmailVerificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

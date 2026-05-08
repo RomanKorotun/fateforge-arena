@@ -1,0 +1,1 @@
+export const USER_SEED_REPOSITORY = Symbol('USER_SEED_REPOSITORY');

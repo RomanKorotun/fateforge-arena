@@ -10,6 +10,7 @@ model User {
   email         String    @unique
   password      String 
   role          UserRole  @default(USER)
+  emailVerifiedAt DateTime? @map("email_verified_at")
   lastLoginIP   String?   @map("last_login_ip")                                 // IP останнього входу (якщо був)
   lastLoginAt   DateTime? @map("last_login_at")                                 // дата останнього входу (якщо був)
   isBanned      Boolean   @default(false)                                       // чи заблокований користувач
@@ -21,8 +22,13 @@ model User {
   
   profile       Profile?  
   address       Address?
+
   gameSessions  GameSession[]
   bets          RouletteBet[]
+
+  userSeed      UserSeed?  
+  emailVerifications UserEmailVerification[]
+
 
   @@index([username])    
   @@index([email])       
@@ -31,6 +37,32 @@ model User {
 
   @@map("user")           
   @@schema("users")       
+}
+
+model UserEmailVerification {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  token      String   @unique @map("token")
+  expiresAt  DateTime @map("expires_at")
+  usedAt     DateTime? @map("used_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@map("user_email_verifications")
+  @@schema("users")
+}
+
+model UserSeed {
+  userId     String @id @map("user_id")
+  clientSeed String @map("client_seed")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_seeds")
+  @@schema("users")
 }
 
 model Profile {
