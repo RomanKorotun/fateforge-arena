@@ -23,15 +23,17 @@ export class PrismaUserRepository implements IUserRepository {
         username: data.username,
         email: data.email,
         password: data.password,
-        profile: {
-          create: {
-            rating: 0,
-            level: 0,
-            balance: 0,
-          },
-        },
       },
     });
+    return PrismaUserMapper.toDomain(user);
+  }
+
+  // пошук користувача по email разом
+  async findByEmail(email: string): Promise<UserEntity | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+    if (!user) return null;
     return PrismaUserMapper.toDomain(user);
   }
 

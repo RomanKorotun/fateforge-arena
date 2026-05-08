@@ -21,6 +21,7 @@ export type UpdateUserData = Partial<{
   email: string;
   password: string;
   role: UserRole;
+  emailVerifiedAt: Date;
   lastLoginIP: string;
   lastLoginAt: Date;
   isBanned: boolean;
@@ -36,6 +37,7 @@ export interface UpdateAvatar {
 
 export interface IUserRepository {
   createUser(data: CreateUserData): Promise<UserEntity>;
+  findByEmail(email: string): Promise<UserEntity | null>;
   findByEmailWithPassword(
     email: string,
   ): Promise<UserEntityWithPassword | null>;

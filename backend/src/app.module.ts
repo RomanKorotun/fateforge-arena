@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { RedisModule } from './core/redis/redis.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { EmailModule } from './core/email/email.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AdminModule } from './modules/admin/admin.module';
     AppConfigModule,
     PrismaModule,
     RedisModule,
+    EmailModule,
     AuthModule,
     UserModule,
     AdminModule,

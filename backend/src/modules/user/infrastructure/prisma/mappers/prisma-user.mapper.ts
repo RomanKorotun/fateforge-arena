@@ -10,6 +10,7 @@ export class PrismaUserMapper {
       user.username,
       user.email,
       user.role as UserRole,
+      user.emailVerifiedAt,
       user.lastLoginIP,
       user.lastLoginAt,
       user.isBanned,

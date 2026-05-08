@@ -16,9 +16,15 @@ import { RevokeUserSessionsUseCase } from './application/revoke-user-sessions/re
 import { SignoutUseCase } from './application/signout/signout.usecase';
 import { SESSION_REPOSITORY } from './domain/repositories/session.repository.token';
 import { RestoreUserUseCase } from './application/restore-user/restore-user.usecase';
+import { ConfirmEmailUseCase } from './application/confirm-email/confirm-email.usecase';
+import { USER_EMAIL_VERIFICATION_REPOSITORY } from './domain/repositories/user-email-verification.repository.token';
+import { PrismaUserEmailVerificationRepository } from './infrastructure/repositories/prisma/prisma-user-email-verification.repository';
+import { PrismaModule } from '../../core/prisma/prisma.module';
+import { EmailModule } from '../../core/email/email.module';
+import { ResendEmailVerificationUseCase } from './application/resend-email-verification/resend-email-verification.usecase';
 
 @Module({
-  imports: [SecurityModule, RedisModule, UserModule],
+  imports: [SecurityModule, PrismaModule, EmailModule, RedisModule, UserModule],
   controllers: [AuthController],
   providers: [
     SignupUseCase,
@@ -31,7 +37,13 @@ import { RestoreUserUseCase } from './application/restore-user/restore-user.usec
     RevokeUserSessionsUseCase,
     SignoutUseCase,
     RestoreUserUseCase,
+    ConfirmEmailUseCase,
+    ResendEmailVerificationUseCase,
     { provide: SESSION_REPOSITORY, useClass: RedisSessionRepository },
+    {
+      provide: USER_EMAIL_VERIFICATION_REPOSITORY,
+      useClass: PrismaUserEmailVerificationRepository,
+    },
   ],
 })
 export class AuthModule {}

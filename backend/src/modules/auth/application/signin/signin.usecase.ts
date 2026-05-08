@@ -52,6 +52,10 @@ export class SigninUseCase {
       throw new ForbiddenException('ACCOUNT_BLOCKED');
     }
 
+    if (!user.emailVerifiedAt) {
+      throw new ForbiddenException('EMAIL_NOT_VERIFIED');
+    }
+    
     const sessionId = randomUUID();
 
     const payload: JwtPayload = { id: user.id, role: user.role, sessionId };
