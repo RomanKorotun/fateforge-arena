@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 
 import { PrismaModule } from '../../core/prisma/prisma.module';
 
+import { UserModule } from '../user/user.module';
+
 import { RouletteController } from './presentation/roulette.controller';
 
 import { PlaceBetUseCase } from './application/use-cases/place-bet/place-bet.usecase';
@@ -17,8 +19,9 @@ import { GAME_SESSION_REPOSITORY } from './domain/repositories/game-session.repo
 
 import { RouletteEngine } from './domain/engine/roulette.engine';
 
+
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, UserModule],
   controllers: [RouletteController],
   providers: [
     CreateGameSessionUseCase,
