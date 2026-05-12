@@ -22,7 +22,7 @@ export class PrismaProfileRepository implements IProfileRepository {
   async createProfile(userId: string, tx?: PrismaTx): Promise<ProfileEntity> {
     const client = this.getClient(tx);
     const profile = await client.profile.create({
-      data: { userId, rating: 0, balance: 0, level: 0 },
+      data: { userId, rating: 0, level: 0 },
     });
     return PrismaProfileMapper.toDomain(profile);
   }

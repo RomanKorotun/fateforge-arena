@@ -7,7 +7,6 @@ export class PrismaProfileMapper {
     return new ProfileEntity(
       profile.userId,
       profile.rating,
-      profile.balance.toNumber(),
       profile.level,
       profile.avatar ?? null,
     );

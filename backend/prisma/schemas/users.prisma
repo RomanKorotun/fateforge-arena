@@ -93,7 +93,6 @@ model UserSeed {
 model Profile {
   userId        String    @id @map("user_id")                                    // PK = FK (1–1 зв’язок з Users)
   rating        Int                                                              // рейтинг користувача
-  balance       Decimal   @default(0) @db.Decimal(18, 6)                         // баланс
   level         Int       @default(0) // рівень користувача
   createdAt     DateTime  @default(now()) @map("created_at")                     // дата створення
   updatedAt     DateTime  @updatedAt @map("updated_at")                          // дата оновлення
