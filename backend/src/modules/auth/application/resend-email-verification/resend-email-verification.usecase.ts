@@ -6,12 +6,15 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
+import { EMAIL_VERIFICATION_EXPIRATION_MINUTES } from '../../../../common/constants/auth.constants';
+
+import { EmailService } from '../../../../core/email/email.service';
+
 import type { IUserRepository } from '../../../user/domain/repositories/user.repository';
 import { USER_REPOSITORY } from '../../../user/domain/repositories/user.repository.token';
+
 import { USER_EMAIL_VERIFICATION_REPOSITORY } from '../../domain/repositories/user-email-verification.repository.token';
 import type { IUserEmailVerificationRepository } from '../../domain/repositories/user-email-verification.repository';
-import { EmailService } from '../../../../core/email/email.service';
-import { EMAIL_VERIFICATION_EXPIRATION_MINUTES } from '../../../../common/constants/auth.constants';
 
 @Injectable()
 export class ResendEmailVerificationUseCase {
@@ -40,10 +43,11 @@ export class ResendEmailVerificationUseCase {
       Date.now() + 1000 * 60 * EMAIL_VERIFICATION_EXPIRATION_MINUTES,
     );
 
-    await this.userEmailVerificationRepo.create({
+    await this.userEmailVerificationRepo.updateByUserId({
       userId: user.id,
       token,
       expiresAt,
+      usedAt: null,
     });
 
     const BACKEND_URL = this.configService.getOrThrow('BACKEND_URL');

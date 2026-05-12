@@ -16,11 +16,20 @@ enum UserRole {
   @@schema("users")
 }
 
+enum AuthProviderType {
+  DISCORD
+  LINKEDIN
+  FACEBOOK
+  GOOGLE
+
+  @@schema("users")
+}
+
 model User {
   id            String    @id @default(uuid()) @map("id")
   username      String    @unique 
   email         String    @unique
-  password      String 
+  password      String? 
   role          UserRole  @default(USER)
   emailVerifiedAt DateTime? @map("email_verified_at")
   lastLoginIP   String?   @map("last_login_ip")                                 // IP останнього входу (якщо був)
@@ -34,7 +43,8 @@ model User {
   profile       Profile?  
   address       Address?
   userSeed      UserSeed?  
-  emailVerifications UserEmailVerification[]
+  emailVerifications UserEmailVerification?
+  authProviders AuthProvider[]
 
   @@index([username])    
   @@index([email])       
@@ -45,9 +55,24 @@ model User {
   @@schema("users")       
 }
 
+model AuthProvider {
+  id String @id @default(uuid())
+  userId String @map("user_id")
+  provider AuthProviderType
+  providerId String @map("provider_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerId])
+  @@index([userId])
+  @@map("user_auth_providers")
+  @@schema("users")
+}
+
 model UserEmailVerification {
   id         String   @id @default(uuid())
-  userId     String   @map("user_id")
+  userId     String   @unique @map("user_id")
   token      String   @unique @map("token")
   expiresAt  DateTime @map("expires_at")
   usedAt     DateTime? @map("used_at")
@@ -79,7 +104,7 @@ model Profile {
   createdAt     DateTime  @default(now()) @map("created_at")                     // дата створення
   updatedAt     DateTime  @updatedAt @map("updated_at")                          // дата оновлення
   avatar        String?                                                          // аватар користувача (якщо є)
-  user          User     @relation(fields: [userId], references: [id])           // зв’язок з Users
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)           // зв’язок з Users
 
   @@index([rating])      
   @@index([level])        
@@ -99,7 +124,7 @@ model Address {
   country        String                                                          // країна (якщо є)
   createdAt      DateTime  @default(now()) @map("created_at")                    // дата створення
   updatedAt      DateTime  @updatedAt @map("updated_at")                         // дата оновлення
-  user           User     @relation(fields: [userId], references: [id])          // зв’язок з Users
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)          // зв’язок з Users
 
   @@index([country])       
   @@index([city])          

@@ -137,6 +137,14 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AuthProviderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  providerId: 'providerId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.UserEmailVerificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -193,8 +201,16 @@ exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN'
 };
 
+exports.AuthProviderType = exports.$Enums.AuthProviderType = {
+  DISCORD: 'DISCORD',
+  LINKEDIN: 'LINKEDIN',
+  FACEBOOK: 'FACEBOOK',
+  GOOGLE: 'GOOGLE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
+  AuthProvider: 'AuthProvider',
   UserEmailVerification: 'UserEmailVerification',
   UserSeed: 'UserSeed',
   Profile: 'Profile',

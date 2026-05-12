@@ -14,31 +14,36 @@ import {
 import type { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 
+import { AvatarValidationPipe } from './pipes/avatar-validation.pipe';
+
 import type { AuthRequest } from '../../../common/types/auth-request';
-import { DeleteUserUseCase } from '../application/use-cases/delete-user/delete-user.usecase';
+import { NonEmptyBodyPipe } from '../../../common/pipes/non-empty-body.pipe';
+
 import { JwtAuthGuard } from '../../../core/security/guards/jwt-auth.guard';
-import { AddAddressUseCase } from '../application/use-cases/add-address/add-address.usecase';
+import { createMulterConfig } from '../../../core/multer/multer.config';
+
 import { AddAddressDto } from './dto/add-address/add-address-request.dto';
+import { CreateClientSeedRequestDto } from './dto/create-client-seed/create-client-seed-request.dto';
+import { UpdateAddressDto } from './dto/update-address/update-address.request.dto';
+import { UpdateClientSeedRequestDto } from './dto/update-client-seed/update-client-seed-request.dto';
+
+import { DeleteUserUseCase } from '../application/use-cases/delete-user/delete-user.usecase';
+import { AddAddressUseCase } from '../application/use-cases/add-address/add-address.usecase';
 import { getMeUseCase } from '../application/use-cases/get-me/get-me.usecase';
 import { GetUsersUseCase } from '../application/use-cases/get-users/get-users.usecase';
-import { createMulterConfig } from '../../../core/multer/multer.config';
-import { AvatarValidationPipe } from './pipes/avatar-validation.pipe';
 import { UploadAvatarUseCase } from '../application/use-cases/upload-avatar/upload-avatar.usecase';
-import { GetUserSwagger } from './swagger/get-useers.swagger';
+import { GetAddressUseCase } from '../application/use-cases/get-address/get-address.usecase';
+import { UpdateAddressUseCase } from '../application/use-cases/update-address/update-address.usecase';
+import { CreateClientSeedUseCase } from '../application/use-cases/create-client-seed/create-client-seed.usecase';
+import { UpdateClientSeedUseCase } from '../application/use-cases/update-client-seed/update-client-seed.usecase';
+
+import { GetMeSwagger } from './swagger/get-me.swagger';
 import { AddAddressSwagger } from './swagger/add-address.swagger';
 import { UploadAvatarSwagger } from './swagger/upload-avatar.swagger';
+import { GetUserSwagger } from './swagger/get-useers.swagger';
 import { DeleteMeSwagger } from './swagger/delete-me.swagger';
-import { GetAddressUseCase } from '../application/use-cases/get-address/get-address.usecase';
 import { GetAddressSwagger } from './swagger/get-address.swagger';
-import { UpdateAddressDto } from './dto/update-address/update-address.request.dto';
-import { UpdateAddressUseCase } from '../application/use-cases/update-address/update-address.usecase';
-import { NonEmptyBodyPipe } from '../../../common/pipes/non-empty-body.pipe';
 import { UpdateAddressSwagger } from './swagger/update-address.swagger';
-import { GetMeSwagger } from './swagger/get-me.swagger';
-import { CreateClientSeedUseCase } from '../application/use-cases/create-client-seed/create-client-seed.usecase';
-import { CreateClientSeedRequestDto } from './dto/create-client-seed/create-client-seed-request.dto';
-import { UpdateClientSeedRequestDto } from './dto/update-client-seed/update-client-seed-request.dto';
-import { UpdateClientSeedUseCase } from '../application/use-cases/update-client-seed/update-client-seed.usecase';
 import { CreateClientSeedSwagger } from './swagger/create-client-seed.swagger';
 import { UpdateClientSeedSwagger } from './swagger/update-client-seed.swagger';
 

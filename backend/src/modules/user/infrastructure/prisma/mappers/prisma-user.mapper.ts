@@ -1,4 +1,5 @@
 import { User } from 'prisma/generated';
+
 import { UserEntity } from '../../../domain/entities/user.entity';
 import { UserEntityWithPassword } from '../../../domain/entities/user-with-password.type';
 import { UserRole } from '../../../domain/enums/user-role.enum';

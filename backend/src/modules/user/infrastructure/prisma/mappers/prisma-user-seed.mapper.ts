@@ -1,4 +1,5 @@
 import { UserSeed } from 'prisma/generated';
+
 import { UserSeedEntity } from '../../../domain/entities/user-seed.entity';
 
 export class PrismaUserSeedMapper {
