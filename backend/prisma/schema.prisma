@@ -104,17 +104,13 @@ model UserSeed {
 
 model Profile {
   userId        String    @id @map("user_id")                                    // PK = FK (1–1 зв’язок з Users)
-  user          User      @relation(fields: [userId], references: [id])           // зв’язок з Users
   rating        Int                                                              // рейтинг користувача
   balance       Decimal   @default(0) @db.Decimal(18, 6)                         // баланс
   level         Int       @default(0) // рівень користувача
   createdAt     DateTime  @default(now()) @map("created_at")                     // дата створення
   updatedAt     DateTime  @updatedAt @map("updated_at")                          // дата оновлення
   avatar        String?                                                          // аватар користувача (якщо є)
-<<<<<<< HEAD
-=======
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)           // зв’язок з Users
->>>>>>> hw-6
 
   @@index([rating])      
   @@index([level])        
@@ -125,7 +121,6 @@ model Profile {
 
 model Address {
   userId         String    @id @map("user_id")                                   // PK = FK (1–1 з Users)
-  user           User      @relation(fields: [userId], references: [id])         // зв’язок з Users
   firstName      String    @map("first_name")                                    // ім’я
   lastName       String    @map("last_name")                                     // прізвище
   phoneNumber    String    @map("phone_number")                                  // телефон
@@ -135,10 +130,7 @@ model Address {
   country        String                                                          // країна (якщо є)
   createdAt      DateTime  @default(now()) @map("created_at")                    // дата створення
   updatedAt      DateTime  @updatedAt @map("updated_at")                         // дата оновлення
-<<<<<<< HEAD
-=======
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)          // зв’язок з Users
->>>>>>> hw-6
 
   @@index([country])       
   @@index([city])          
