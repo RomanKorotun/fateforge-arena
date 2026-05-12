@@ -1,4 +1,5 @@
 import { Profile } from 'prisma/generated';
+
 import { ProfileEntity } from '../../../domain/entities/profile.entity';
 
 export class PrismaProfileMapper {

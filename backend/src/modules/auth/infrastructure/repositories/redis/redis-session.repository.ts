@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
 import { RedisService } from '../../../../../core/redis/redis.service';
+
 import { SessionEntity } from '../../../domain/entities/session.entity';
 import type {
   DeleteSessionData,
   ISessionRepository,
 } from '../../../domain/repositories/session.repository';
+
 import {
   buildSessionKey,
   buildUserSessionsKey,

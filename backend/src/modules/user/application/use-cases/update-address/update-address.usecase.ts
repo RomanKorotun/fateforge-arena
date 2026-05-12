@@ -1,6 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import { UpdateAddressCommand } from './update-address.command';
+
 import { ADDRESS_REPOSITORY } from '../../../domain/repositories/address.repository.token';
 import type { IAddressRepository } from '../../../domain/repositories/address.repository';
 

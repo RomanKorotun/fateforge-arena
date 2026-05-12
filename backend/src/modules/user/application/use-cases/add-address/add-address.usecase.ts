@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { AddAddressCommand } from './add-address.command';
+
 import { ADDRESS_REPOSITORY } from '../../../domain/repositories/address.repository.token';
 import type { IAddressRepository } from '../../../domain/repositories/address.repository';
 

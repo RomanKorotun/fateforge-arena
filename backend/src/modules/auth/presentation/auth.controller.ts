@@ -12,40 +12,51 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import type { Request, Response } from 'express';
 
-import { SignupUseCase } from '../application/signup/signup.usecase';
+import { JwtAuthGuard } from '../../../core/security/guards/jwt-auth.guard';
+
+import { ParseUuidPipe } from '../../../common/pipes/parse-uuid.pipe';
+import type { AuthRequest, AuthUser } from '../../../common/types/auth-request';
+
 import { SignupRequestDto } from './dto/signup/signup-request.dto';
 import { SigninRequestDto } from './dto/signin/signin.request.dto';
-import { SigninUseCase } from '../application/signin/signin.usecase';
-import { RequestMetadataService } from './services/request-metadata.service';
-import { AuthCookieService } from './services/auth-cookie-service';
-import { JwtAuthGuard } from '../../../core/security/guards/jwt-auth.guard';
+import { SignoutSuccessResponseDto } from './dto/signout/signout-success-response.dto';
+import { RestoreUserRequestDto } from './dto/restore/restore-user.request.dto';
+import { ResendEmailVerificationRequestDto } from './dto/resend-email-verification/resend-email-verification-request.dto';
+
 import { CurrentUser } from './decorators/current-user.decorator';
-import type { AuthRequest, AuthUser } from '../../../common/types/auth-request';
-import { MeResponseMapper } from './mappers/me-response.mapper';
-import { FindSessionsByUserIdUseCase } from '../application/find-sessions-by-user-id/find-sessions-by-user-id.usecase';
-import { GetUserSessionsResponseMapper } from './mappers/get-sessions-response.mapper';
+
+import { AuthCookieService } from './services/auth-cookie-service';
+import { RequestMetadataService } from './services/request-metadata.service';
+
+import { SigninUseCase } from '../application/signin/signin.usecase';
+import { SignupUseCase } from '../application/signup/signup.usecase';
 import { RevokeUserSessionUseCase } from '../application/revoke-user-session/revore-user-session.usecase';
 import { RevokeUserSessionsUseCase } from '../application/revoke-user-sessions/revoke-user-sessions.usecase';
+import { FindSessionsByUserIdUseCase } from '../application/find-sessions-by-user-id/find-sessions-by-user-id.usecase';
 import { SignoutUseCase } from '../application/signout/signout.usecase';
 import { RestoreUserUseCase } from '../application/restore-user/restore-user.usecase';
-import { SignupSwagger } from './swagger/signup.swagger';
-import { SigninSwagger } from './swagger/signin.swagger';
-import { SignoutSuccessResponseDto } from './dto/signout/signout-success-response.dto';
-import { SignoutSwagger } from './swagger/signout.swagger';
-import { MeSwagger } from './swagger/me.swagger';
-import { RestoreUserRequestDto } from './dto/restore/restore-user.request.dto';
+import { ConfirmEmailUseCase } from '../application/confirm-email/confirm-email.usecase';
+import { ResendEmailVerificationUseCase } from '../application/resend-email-verification/resend-email-verification.usecase';
+import { SigninOauthUseCase } from '../application/signin-oauth/signin-oauth.usecase';
+
 import { RestoreSwagger } from './swagger/restore.swagger';
 import { GetUserSessionsSwagger } from './swagger/get-user-sessions.swagger';
 import { RevokeUserSessionSwagger } from './swagger/revoke-user-session.swagger';
 import { RevokeUserSessionsSwagger } from './swagger/revoke-user-sessions.swagger';
-import { ParseUuidPipe } from '../../../common/pipes/parse-uuid.pipe';
-import { ConfirmEmailUseCase } from '../application/confirm-email/confirm-email.usecase';
-import { ResendEmailVerificationRequestDto } from './dto/resend-email-verification/resend-email-verification-request.dto';
-import { ResendEmailVerificationUseCase } from '../application/resend-email-verification/resend-email-verification.usecase';
+import { SignupSwagger } from './swagger/signup.swagger';
+import { SigninSwagger } from './swagger/signin.swagger';
+import { SignoutSwagger } from './swagger/signout.swagger';
+import { MeSwagger } from './swagger/me.swagger';
 import { ConfirmEmailSwagger } from './swagger/confirm-email.swagger';
 import { ResendEmailVerificationSwagger } from './swagger/resend-email-verification.swagger';
+
+import { GetUserSessionsResponseMapper } from './mappers/get-sessions-response.mapper';
+import { MeResponseMapper } from './mappers/me-response.mapper';
+
+import type { OAuthRequest } from './types/oauth-request.type';
 
 @Controller('auth')
 export class AuthController {
@@ -61,7 +72,104 @@ export class AuthController {
     private readonly restoreUserUseCase: RestoreUserUseCase,
     private readonly confirmEmailUseCase: ConfirmEmailUseCase,
     private readonly resendEmailVerificationUseCase: ResendEmailVerificationUseCase,
+    private readonly signinOauthUseCase: SigninOauthUseCase,
   ) {}
+
+  // Редіректить користувача на Google
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  googleLogin() {}
+
+  // Отримує profile від Google після успішної авторизації,
+  // створює/логінить користувача
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  async googleCallback(
+    @Req() req: OAuthRequest,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { ip, device } = this.requestMetadataService.getMetadata(req);
+
+    const { accessToken, user } = await this.signinOauthUseCase.execute({
+      oauthProvider: req.user.provider,
+      oauthProfile: req.user,
+      ip,
+      device,
+    });
+
+    this.authCookieService.setAuthCookie(res, accessToken);
+    return user;
+  }
+
+  // Редіректить користувача на Linkedin
+  @Get('linkedin')
+  @UseGuards(AuthGuard('linkedin'))
+  linkedinLogin() {}
+
+  // Отримує profile від Linkedin після успішної авторизації,
+  // створює/логінить користувача
+  @Get('linkedin/callback')
+  @UseGuards(AuthGuard('linkedin'))
+  async linkedinCallback(
+    @Req() req: OAuthRequest,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { ip, device } = this.requestMetadataService.getMetadata(req);
+    const { accessToken, user } = await this.signinOauthUseCase.execute({
+      oauthProvider: req.user.provider,
+      oauthProfile: req.user,
+      ip,
+      device,
+    });
+    this.authCookieService.setAuthCookie(res, accessToken);
+    return user;
+  }
+
+  // Редіректить користувача на Discord
+  @Get('discord')
+  @UseGuards(AuthGuard('discord'))
+  discordLogin() {}
+
+  // Отримує profile від Discord після успішної авторизації,
+  // створює/логінить користувача
+  @Get('discord/callback')
+  @UseGuards(AuthGuard('discord'))
+  async discordCallback(
+    @Req() req: OAuthRequest,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { ip, device } = this.requestMetadataService.getMetadata(req);
+    const { accessToken, user } = await this.signinOauthUseCase.execute({
+      oauthProvider: req.user.provider,
+      oauthProfile: req.user,
+      ip,
+      device,
+    });
+    this.authCookieService.setAuthCookie(res, accessToken);
+    return user;
+  }
+
+  @Get('facebook')
+  @UseGuards(AuthGuard('facebook'))
+  facebookLogin() {}
+
+  @Get('facebook/callback')
+  @UseGuards(AuthGuard('facebook'))
+  async facebookCallback(
+    @Req() req: OAuthRequest,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { ip, device } = this.requestMetadataService.getMetadata(req);
+    const { accessToken, user } = await this.signinOauthUseCase.execute({
+      oauthProvider: req.user.provider,
+      oauthProfile: req.user,
+      ip,
+      device,
+    });
+
+    this.authCookieService.setAuthCookie(res, accessToken);
+    return user;
+  }
 
   // Реєстрація нового користувача
   @SignupSwagger()

@@ -1,4 +1,5 @@
 import { Address } from 'prisma/generated';
+
 import { AddressEntity } from '../../../domain/entities/address.entity';
 
 export class PrismaAddressMapper {

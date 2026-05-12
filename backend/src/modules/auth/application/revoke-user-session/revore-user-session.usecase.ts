@@ -1,9 +1,9 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 
 import { RevokeUserSessionCommand } from './revore-user-session.command';
+
 import type { ISessionRepository } from '../../domain/repositories/session.repository';
 import { SESSION_REPOSITORY } from '../../domain/repositories/session.repository.token';
-import { buildSessionKey } from '../../../../common/helpers/session-key.helper';
 
 @Injectable()
 export class RevokeUserSessionUseCase {
