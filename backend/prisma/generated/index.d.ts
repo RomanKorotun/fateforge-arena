@@ -6145,20 +6145,17 @@ export namespace Prisma {
 
   export type ProfileAvgAggregateOutputType = {
     rating: number | null
-    balance: Decimal | null
     level: number | null
   }
 
   export type ProfileSumAggregateOutputType = {
     rating: number | null
-    balance: Decimal | null
     level: number | null
   }
 
   export type ProfileMinAggregateOutputType = {
     userId: string | null
     rating: number | null
-    balance: Decimal | null
     level: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6168,7 +6165,6 @@ export namespace Prisma {
   export type ProfileMaxAggregateOutputType = {
     userId: string | null
     rating: number | null
-    balance: Decimal | null
     level: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6178,7 +6174,6 @@ export namespace Prisma {
   export type ProfileCountAggregateOutputType = {
     userId: number
     rating: number
-    balance: number
     level: number
     createdAt: number
     updatedAt: number
@@ -6189,20 +6184,17 @@ export namespace Prisma {
 
   export type ProfileAvgAggregateInputType = {
     rating?: true
-    balance?: true
     level?: true
   }
 
   export type ProfileSumAggregateInputType = {
     rating?: true
-    balance?: true
     level?: true
   }
 
   export type ProfileMinAggregateInputType = {
     userId?: true
     rating?: true
-    balance?: true
     level?: true
     createdAt?: true
     updatedAt?: true
@@ -6212,7 +6204,6 @@ export namespace Prisma {
   export type ProfileMaxAggregateInputType = {
     userId?: true
     rating?: true
-    balance?: true
     level?: true
     createdAt?: true
     updatedAt?: true
@@ -6222,7 +6213,6 @@ export namespace Prisma {
   export type ProfileCountAggregateInputType = {
     userId?: true
     rating?: true
-    balance?: true
     level?: true
     createdAt?: true
     updatedAt?: true
@@ -6319,7 +6309,6 @@ export namespace Prisma {
   export type ProfileGroupByOutputType = {
     userId: string
     rating: number
-    balance: Decimal
     level: number
     createdAt: Date
     updatedAt: Date
@@ -6348,7 +6337,6 @@ export namespace Prisma {
   export type ProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     rating?: boolean
-    balance?: boolean
     level?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6359,7 +6347,6 @@ export namespace Prisma {
   export type ProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     rating?: boolean
-    balance?: boolean
     level?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6370,7 +6357,6 @@ export namespace Prisma {
   export type ProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     rating?: boolean
-    balance?: boolean
     level?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6381,14 +6367,13 @@ export namespace Prisma {
   export type ProfileSelectScalar = {
     userId?: boolean
     rating?: boolean
-    balance?: boolean
     level?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     avatar?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "rating" | "balance" | "level" | "createdAt" | "updatedAt" | "avatar", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "rating" | "level" | "createdAt" | "updatedAt" | "avatar", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -6407,7 +6392,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       userId: string
       rating: number
-      balance: Prisma.Decimal
       level: number
       createdAt: Date
       updatedAt: Date
@@ -6838,7 +6822,6 @@ export namespace Prisma {
   interface ProfileFieldRefs {
     readonly userId: FieldRef<"Profile", 'String'>
     readonly rating: FieldRef<"Profile", 'Int'>
-    readonly balance: FieldRef<"Profile", 'Decimal'>
     readonly level: FieldRef<"Profile", 'Int'>
     readonly createdAt: FieldRef<"Profile", 'DateTime'>
     readonly updatedAt: FieldRef<"Profile", 'DateTime'>
@@ -10823,7 +10806,6 @@ export namespace Prisma {
   export const ProfileScalarFieldEnum: {
     userId: 'userId',
     rating: 'rating',
-    balance: 'balance',
     level: 'level',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -10983,20 +10965,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Decimal'
-   */
-  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-  /**
-   * Reference to a field of type 'Decimal[]'
-   */
-  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -11311,7 +11279,6 @@ export namespace Prisma {
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     userId?: StringFilter<"Profile"> | string
     rating?: IntFilter<"Profile"> | number
-    balance?: DecimalFilter<"Profile"> | Decimal | DecimalJsLike | number | string
     level?: IntFilter<"Profile"> | number
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
@@ -11322,7 +11289,6 @@ export namespace Prisma {
   export type ProfileOrderByWithRelationInput = {
     userId?: SortOrder
     rating?: SortOrder
-    balance?: SortOrder
     level?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11336,7 +11302,6 @@ export namespace Prisma {
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     rating?: IntFilter<"Profile"> | number
-    balance?: DecimalFilter<"Profile"> | Decimal | DecimalJsLike | number | string
     level?: IntFilter<"Profile"> | number
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
@@ -11347,7 +11312,6 @@ export namespace Prisma {
   export type ProfileOrderByWithAggregationInput = {
     userId?: SortOrder
     rating?: SortOrder
-    balance?: SortOrder
     level?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11365,7 +11329,6 @@ export namespace Prisma {
     NOT?: ProfileScalarWhereWithAggregatesInput | ProfileScalarWhereWithAggregatesInput[]
     userId?: StringWithAggregatesFilter<"Profile"> | string
     rating?: IntWithAggregatesFilter<"Profile"> | number
-    balance?: DecimalWithAggregatesFilter<"Profile"> | Decimal | DecimalJsLike | number | string
     level?: IntWithAggregatesFilter<"Profile"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
@@ -11917,7 +11880,6 @@ export namespace Prisma {
 
   export type ProfileCreateInput = {
     rating: number
-    balance?: Decimal | DecimalJsLike | number | string
     level?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11928,7 +11890,6 @@ export namespace Prisma {
   export type ProfileUncheckedCreateInput = {
     userId: string
     rating: number
-    balance?: Decimal | DecimalJsLike | number | string
     level?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11937,7 +11898,6 @@ export namespace Prisma {
 
   export type ProfileUpdateInput = {
     rating?: IntFieldUpdateOperationsInput | number
-    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     level?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11948,7 +11908,6 @@ export namespace Prisma {
   export type ProfileUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     level?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11958,7 +11917,6 @@ export namespace Prisma {
   export type ProfileCreateManyInput = {
     userId: string
     rating: number
-    balance?: Decimal | DecimalJsLike | number | string
     level?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11967,7 +11925,6 @@ export namespace Prisma {
 
   export type ProfileUpdateManyMutationInput = {
     rating?: IntFieldUpdateOperationsInput | number
-    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     level?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11977,7 +11934,6 @@ export namespace Prisma {
   export type ProfileUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
-    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     level?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12606,21 +12562,9 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
   export type ProfileCountOrderByAggregateInput = {
     userId?: SortOrder
     rating?: SortOrder
-    balance?: SortOrder
     level?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12629,14 +12573,12 @@ export namespace Prisma {
 
   export type ProfileAvgOrderByAggregateInput = {
     rating?: SortOrder
-    balance?: SortOrder
     level?: SortOrder
   }
 
   export type ProfileMaxOrderByAggregateInput = {
     userId?: SortOrder
     rating?: SortOrder
-    balance?: SortOrder
     level?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12646,7 +12588,6 @@ export namespace Prisma {
   export type ProfileMinOrderByAggregateInput = {
     userId?: SortOrder
     rating?: SortOrder
-    balance?: SortOrder
     level?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12655,7 +12596,6 @@ export namespace Prisma {
 
   export type ProfileSumOrderByAggregateInput = {
     rating?: SortOrder
-    balance?: SortOrder
     level?: SortOrder
   }
 
@@ -12673,22 +12613,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type AddressCountOrderByAggregateInput = {
@@ -13216,14 +13140,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
-  }
-
   export type UserUpdateOneRequiredWithoutProfileNestedInput = {
     create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfileInput
@@ -13523,17 +13439,6 @@ export namespace Prisma {
     _max?: NestedEnumAuthProviderTypeFilter<$PrismaModel>
   }
 
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -13559,22 +13464,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedEnumBetTypeFilter<$PrismaModel = never> = {
@@ -13623,7 +13512,6 @@ export namespace Prisma {
 
   export type ProfileCreateWithoutUserInput = {
     rating: number
-    balance?: Decimal | DecimalJsLike | number | string
     level?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13632,7 +13520,6 @@ export namespace Prisma {
 
   export type ProfileUncheckedCreateWithoutUserInput = {
     rating: number
-    balance?: Decimal | DecimalJsLike | number | string
     level?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13812,7 +13699,6 @@ export namespace Prisma {
 
   export type ProfileUpdateWithoutUserInput = {
     rating?: IntFieldUpdateOperationsInput | number
-    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     level?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13821,7 +13707,6 @@ export namespace Prisma {
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
     rating?: IntFieldUpdateOperationsInput | number
-    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     level?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

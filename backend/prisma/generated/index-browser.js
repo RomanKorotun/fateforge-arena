@@ -162,7 +162,6 @@ exports.Prisma.UserSeedScalarFieldEnum = {
 exports.Prisma.ProfileScalarFieldEnum = {
   userId: 'userId',
   rating: 'rating',
-  balance: 'balance',
   level: 'level',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
