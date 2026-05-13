@@ -17,7 +17,6 @@ export class UserQueryService {
         profile: {
           select: {
             rating: true,
-            balance: true,
             level: true,
             avatar: true,
           },
