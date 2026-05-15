@@ -10,6 +10,7 @@ import { WithdrawUseCase } from '../../application/withdraw/withdraw.usecase';
 import { CreateWithdrawRequestDto } from '../dto/create-withdraw/create-withdraw-request.dto';
 import { DepositSwagger } from '../swagger/deposit.swagger';
 import { WithdrawSwagger } from '../swagger/withdraw.swagger';
+import { IdempotencyKeyPipe } from '../pipes/idempotency-key.pipe';
 
 @UseGuards(JwtAuthGuard)
 @Controller('payment')
@@ -38,7 +39,8 @@ export class PaymentController {
   async Deposit(
     @Req() req: AuthRequest,
     @Body() dto: CreateDepositRequestDto,
-    @IdempotencyKey() idempotencyKey: string,
+    @IdempotencyKey(IdempotencyKeyPipe)
+    idempotencyKey: string,
   ) {
     return await this.depositUseCase.execute({
       ...dto,
@@ -52,7 +54,8 @@ export class PaymentController {
   async withdraw(
     @Req() req: AuthRequest,
     @Body() dto: CreateWithdrawRequestDto,
-    @IdempotencyKey() idempotencyKey: string,
+    @IdempotencyKey(IdempotencyKeyPipe)
+    idempotencyKey: string,
   ) {
     return await this.withdrawUseCase.execute({
       ...dto,

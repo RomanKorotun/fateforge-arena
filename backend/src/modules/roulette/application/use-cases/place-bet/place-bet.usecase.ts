@@ -173,7 +173,7 @@ export class PlaceBetUseCase {
 
   async execute({ userId, dto }: PlaceBetCommand) {
     return this.unitOfWork.transaction(async (tx) => {
-      const { bets, gameSessionId, walletId} = dto;
+      const { bets, gameSessionId, walletId } = dto;
 
       // 1. LOCK гаманець (ВАЖЛИВО для race condition)
       const wallet = await this.walletRepo.lockById(walletId, tx);
@@ -234,11 +234,7 @@ export class PlaceBetUseCase {
       // 🟢 8. ВИГРАШ → ДОДАЄМО ДО БАЛАНСУ
       // =========================================================
       if (totalPayout > 0) {
-        await this.walletRepo.increaseBalance(
-          wallet.id,
-          totalPayout,
-          tx,
-        );
+        await this.walletRepo.increaseBalance(wallet.id, totalPayout, tx);
       }
 
       // 9. відповідь
