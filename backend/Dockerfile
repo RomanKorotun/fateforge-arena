@@ -9,7 +9,7 @@ RUN yarn install --frozen-lockfile
 FROM base as development
 COPY . ./
 ENV NODE_ENV=development
-ENTRYPOINT ["sh", "docker/entrypoint.sh"]
+ENTRYPOINT ["bash", "docker/entrypoint.sh"]
 CMD ["yarn", "start:dev"]
 
 # BUILD
