@@ -33,7 +33,7 @@ export class PrismaTransactionRepository implements ITransactionRepository {
 
     const rows = await client.$queryRaw<any[]>`
     SELECT *
-    FROM "Transaction"
+    FROM transactions
     WHERE "orderId" = ${orderId}
     FOR UPDATE
   `;

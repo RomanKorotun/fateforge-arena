@@ -57,7 +57,7 @@ export class PrismaWalletRepository implements IWalletRepository {
     const client = this.getClient(tx);
     const rows = await client.$queryRaw<any[]>`
     SELECT *
-    FROM "Wallet"
+    FROM wallets
     WHERE id = ${walletId}
     FOR UPDATE
   `;
