@@ -6,7 +6,6 @@ import type {
   CreateUserData,
   FindAllUsersData,
   IUserRepository,
-  UpdateAvatar,
   UpdateUserData,
 } from '../../../domain/repositories/user.repository';
 import { UserEntity } from '../../../domain/entities/user.entity';

@@ -13,7 +13,7 @@ export class CreateGameSessionUseCase {
     @Inject(GAME_SESSION_REPOSITORY)
     private readonly gameSessionRepository: IGameSessionRepository,
     @Inject(USER_SEED_REPOSITORY)
-    private readonly userSeedRepo: IUserSeedRepository
+    private readonly userSeedRepo: IUserSeedRepository,
   ) {}
 
   async execute(userId: string) {
@@ -29,7 +29,7 @@ export class CreateGameSessionUseCase {
       .createHash('sha256')
       .update(serverSeed)
       .digest('hex');
-    
+
     const clientSeed = seedEntity.clientSeed;
 
     const gameSession = await this.gameSessionRepository.create({

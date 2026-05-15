@@ -52,6 +52,13 @@ export class PlaceBetRequestDto {
   gameSessionId!: string; // id сесії гри
 
   @ApiProperty({
+    description: 'ID гаманця (з якого списується ставка)',
+    example: 'wallet_123',
+  })
+  @IsString()
+  walletId!: string;
+
+  @ApiProperty({
     description: 'Список ставок',
     type: () => BetDto,
     isArray: true,

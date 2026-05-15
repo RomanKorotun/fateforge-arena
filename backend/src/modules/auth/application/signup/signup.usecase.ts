@@ -16,8 +16,13 @@ import type { IUserRepository } from '../../../user/domain/repositories/user.rep
 import type { IProfileRepository } from '../../../user/domain/repositories/profile.repository';
 import { PROFILE_REPOSITORY } from '../../../user/domain/repositories/profile.repository.token';
 
+import type { IWalletRepository } from '../../../finance/domain/repositories/wallet.repository';
+import { WALLET_REPOSITORY } from '../../../finance/domain/repositories/wallet.repository.token';
+
 import { USER_EMAIL_VERIFICATION_REPOSITORY } from '../../domain/repositories/user-email-verification.repository.token';
 import type { IUserEmailVerificationRepository } from '../../domain/repositories/user-email-verification.repository';
+
+import { Currency } from '../../../finance/domain/enums/currency.enum';
 
 @Injectable()
 export class SignupUseCase {
@@ -30,6 +35,8 @@ export class SignupUseCase {
     private readonly unitOfWork: IUnitOfWork,
     @Inject(PROFILE_REPOSITORY)
     private readonly profileRepo: IProfileRepository,
+    @Inject(WALLET_REPOSITORY)
+    private readonly walletRepo: IWalletRepository,
     private readonly passwordHashService: PasswordHashService,
     private readonly emailService: EmailService,
     private readonly configService: ConfigService,
@@ -55,6 +62,11 @@ export class SignupUseCase {
       );
 
       await this.profileRepo.createProfile(user.id, tx);
+
+      await this.walletRepo.createWallet(
+        { userId: user.id, currency: Currency.UAH },
+        tx,
+      );
 
       return user;
     });

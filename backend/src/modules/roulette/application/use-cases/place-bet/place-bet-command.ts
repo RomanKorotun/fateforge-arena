@@ -9,6 +9,7 @@ export interface Bet {
 export interface PlaceBetCommand {
   userId: string;
   dto: {
+    walletId: string;
     gameSessionId: string;
     bets: Bet[];
   };

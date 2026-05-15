@@ -18,7 +18,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 
   async validate(accessToken: string, refreshToken: string, profile: Profile) {
     return {
-      provider: AuthProviderEnum.DISCORD,
+      provider: AuthProviderEnum.GOOGLE,
       providerId: profile.id,
       email: profile.emails?.[0]?.value,
       name: profile.displayName,

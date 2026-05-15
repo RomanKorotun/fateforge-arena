@@ -12,6 +12,13 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap');
   const app = await NestFactory.create(AppModule);
 
+  const config = app.get(ConfigService);
+
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  });
+
   app.use(cookieParser());
 
   app.setGlobalPrefix('api');
@@ -28,8 +35,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('swagger', app, document);
-
-  const config = app.get(ConfigService);
 
   const PORT = parseInt(config.getOrThrow('PORT'), 10);
 

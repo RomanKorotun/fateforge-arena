@@ -19,7 +19,6 @@ import { AUTH_PROVIDER_REPOSITORY } from '../../domain/repositories/auth-provide
 import { SESSION_REPOSITORY } from '../../domain/repositories/session.repository.token';
 import type { IAuthProviderRepository } from '../../domain/repositories/auth-provider.repository';
 import type { ISessionRepository } from '../../domain/repositories/session.repository';
-import { AuthProviderEnum } from '../../domain/enums/auth-provider.enum';
 import { SessionEntity } from '../../domain/entities/session.entity';
 
 import { USER_REPOSITORY } from '../../../user/domain/repositories/user.repository.token';
@@ -29,6 +28,11 @@ import { PROFILE_REPOSITORY } from '../../../user/domain/repositories/profile.re
 import type { IProfileRepository } from '../../../user/domain/repositories/profile.repository';
 
 import { OAuthProfile, SigninOauthCommand } from './signin-oauth.command';
+
+import { WALLET_REPOSITORY } from '../../../finance/domain/repositories/wallet.repository.token';
+import type { IWalletRepository } from '../../../finance/domain/repositories/wallet.repository';
+
+import { Currency } from '../../../finance/domain/enums/currency.enum';
 
 @Injectable()
 export class SigninOauthUseCase {
@@ -43,6 +47,8 @@ export class SigninOauthUseCase {
     private readonly profileRepo: IProfileRepository,
     @Inject(SESSION_REPOSITORY)
     private readonly sessionRepository: ISessionRepository,
+    @Inject(WALLET_REPOSITORY)
+    private readonly walletRepo: IWalletRepository,
     private readonly tokenService: TokenService,
   ) {}
 
@@ -209,7 +215,13 @@ export class SigninOauthUseCase {
         // 7.3 СТВОРЮЄМО PROFILE
         await this.profileRepo.createProfile(user.id, tx);
 
-        // 7.4 ЗБЕРІГАЄМО AVATAR
+        // 7.4 СТВОРЮЄМО ГАМАНЕЦЬ
+        await this.walletRepo.createWallet(
+          { userId: user.id, currency: Currency.UAH },
+          tx,
+        );
+
+        // 7.5 ЗБЕРІГАЄМО AVATAR
         // Якщо OAuth provider повернув avatar — записуємо його в profile.
         if (oauthProfile.avatar) {
           await this.profileRepo.updateAvatar(
@@ -218,7 +230,7 @@ export class SigninOauthUseCase {
           );
         }
 
-        // 7.5 СТВОРЮЄМО OAuth PROVIDER
+        // 7.6 СТВОРЮЄМО OAuth PROVIDER
         // Прив’язуємо:
         // Google account -> user
         await this.authProviderRepo.create(
@@ -255,7 +267,13 @@ export class SigninOauthUseCase {
       // 8.2 СТВОРЮЄМО PROFILE
       await this.profileRepo.createProfile(user.id, tx);
 
-      // 8.3 ЗБЕРІГАЄМО AVATAR
+      // 8.3 СТВОРЮЄМО ГАМАНЕЦЬ
+      await this.walletRepo.createWallet(
+        { userId: user.id, currency: Currency.UAH },
+        tx,
+      );
+
+      // 8.4 ЗБЕРІГАЄМО AVATAR
       if (oauthProfile.avatar) {
         await this.profileRepo.updateAvatar(
           { userId: user.id, avatar: oauthProfile.avatar },
@@ -263,7 +281,7 @@ export class SigninOauthUseCase {
         );
       }
 
-      // 8.4 ПРИВ’ЯЗУЄМО OAuth PROVIDER
+      // 8.5 ПРИВ’ЯЗУЄМО OAuth PROVIDER
       await this.authProviderRepo.create(
         { userId: user.id, provider: providerType, providerId },
         tx,

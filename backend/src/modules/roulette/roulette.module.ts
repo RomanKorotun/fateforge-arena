@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 
+import { DatabaseModule } from '../../infrastructure/database/database.module';
+
 import { PrismaModule } from '../../core/prisma/prisma.module';
 
 import { UserModule } from '../user/user.module';
+
+import { FinanceModule } from '../finance/finance.module';
 
 import { RouletteController } from './presentation/roulette.controller';
 
@@ -19,9 +23,8 @@ import { GAME_SESSION_REPOSITORY } from './domain/repositories/game-session.repo
 
 import { RouletteEngine } from './domain/engine/roulette.engine';
 
-
 @Module({
-  imports: [PrismaModule, UserModule],
+  imports: [PrismaModule, DatabaseModule, UserModule, FinanceModule],
   controllers: [RouletteController],
   providers: [
     CreateGameSessionUseCase,

@@ -206,6 +206,32 @@ exports.Prisma.RouletteBetScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.WalletScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  balance: 'balance',
+  currency: 'currency',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  walletId: 'walletId',
+  type: 'type',
+  status: 'status',
+  amount: 'amount',
+  currency: 'currency',
+  provider: 'provider',
+  orderId: 'orderId',
+  providerPaymentId: 'providerPaymentId',
+  idempotencyKey: 'idempotencyKey',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -240,6 +266,32 @@ exports.BetType = exports.$Enums.BetType = {
   STRAIGHT: 'STRAIGHT'
 };
 
+exports.Currency = exports.$Enums.Currency = {
+  UAH: 'UAH',
+  USD: 'USD',
+  EUR: 'EUR'
+};
+
+exports.TransactionType = exports.$Enums.TransactionType = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAWAL: 'WITHDRAWAL',
+  REFUND: 'REFUND',
+  BET: 'BET',
+  WIN: 'WIN'
+};
+
+exports.TransactionStatus = exports.$Enums.TransactionStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELED: 'CANCELED'
+};
+
+exports.PaymentProvider = exports.$Enums.PaymentProvider = {
+  LIQPAY: 'LIQPAY',
+  WAYFORPAY: 'WAYFORPAY'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   AuthProvider: 'AuthProvider',
@@ -248,7 +300,9 @@ exports.Prisma.ModelName = {
   Profile: 'Profile',
   Address: 'Address',
   GameSession: 'GameSession',
-  RouletteBet: 'RouletteBet'
+  RouletteBet: 'RouletteBet',
+  Wallet: 'Wallet',
+  Transaction: 'Transaction'
 };
 
 /**

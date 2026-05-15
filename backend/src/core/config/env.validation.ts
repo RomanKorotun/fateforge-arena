@@ -3,6 +3,7 @@ import * as Joi from 'joi';
 export const envValidationSchema = Joi.object({
   PORT: Joi.number().required(),
   NODE_ENV: Joi.string().valid('development', 'production').required(),
+  FRONTEND_URL: Joi.string().required(),
   DATABASE_URL: Joi.string().required(),
   ACCESS_TOKEN_SECRET: Joi.string().required(),
   ACCESS_TOKEN_TIME: Joi.number().required(),
@@ -29,4 +30,8 @@ export const envValidationSchema = Joi.object({
   GOOGLE_CLIENT_ID: Joi.string().required(),
   GOOGLE_CLIENT_SECRET: Joi.string().required(),
   GOOGLE_CALLBACK_URL: Joi.string().required(),
+  PUBLIC_KEY_LIQPAY: Joi.string().required(),
+  PRIVATE_KEY_LIQPAY: Joi.string().required(),
+  WFP_MERCHANT_ACCOUNT: Joi.string().required(),
+  WFP_MERCHANT_SECRET: Joi.string().required(),
 });

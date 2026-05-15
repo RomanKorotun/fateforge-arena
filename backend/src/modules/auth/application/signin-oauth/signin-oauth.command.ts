@@ -9,7 +9,6 @@ export interface OAuthProfile {
 }
 
 export interface SigninOauthCommand {
-  oauthProvider: AuthProviderEnum;
   oauthProfile: OAuthProfile;
   ip: string;
   device: {

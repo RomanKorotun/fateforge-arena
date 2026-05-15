@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 
 import { UserModule } from '../user/user.module';
 
+import { FinanceModule } from '../finance/finance.module';
+
 import { PrismaModule } from '../../core/prisma/prisma.module';
 import { EmailModule } from '../../core/email/email.module';
 import { SecurityModule } from '../../core/security/security.module';
@@ -45,6 +47,7 @@ import { DatabaseModule } from '../../infrastructure/database/database.module';
     EmailModule,
     RedisModule,
     UserModule,
+    FinanceModule,
   ],
   controllers: [AuthController],
   providers: [

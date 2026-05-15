@@ -11,6 +11,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { RouletteModule } from './modules/roulette/roulette.module';
 import { EmailModule } from './core/email/email.module';
 import { DatabaseModule } from './infrastructure/database/database.module';
+import { FinanceModule } from './modules/finance/finance.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { DatabaseModule } from './infrastructure/database/database.module';
     UserModule,
     AdminModule,
     RouletteModule,
+    FinanceModule,
   ],
 })
 export class AppModule {}

@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import {
   Body,
   Controller,
@@ -60,7 +61,9 @@ import type { OAuthRequest } from './types/oauth-request.type';
 
 @Controller('auth')
 export class AuthController {
+  private readonly FRONTEND_URL: string;
   constructor(
+    private readonly configService: ConfigService,
     private readonly signupUseCase: SignupUseCase,
     private readonly signinUseCase: SigninUseCase,
     private readonly requestMetadataService: RequestMetadataService,
@@ -73,7 +76,9 @@ export class AuthController {
     private readonly confirmEmailUseCase: ConfirmEmailUseCase,
     private readonly resendEmailVerificationUseCase: ResendEmailVerificationUseCase,
     private readonly signinOauthUseCase: SigninOauthUseCase,
-  ) {}
+  ) {
+    this.FRONTEND_URL = this.configService.getOrThrow('FRONTEND_URL');
+  }
 
   // Редіректить користувача на Google
   @Get('google')
@@ -91,14 +96,13 @@ export class AuthController {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
 
     const { accessToken, user } = await this.signinOauthUseCase.execute({
-      oauthProvider: req.user.provider,
       oauthProfile: req.user,
       ip,
       device,
     });
 
     this.authCookieService.setAuthCookie(res, accessToken);
-    return user;
+    return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
   }
 
   // Редіректить користувача на Linkedin
@@ -116,13 +120,12 @@ export class AuthController {
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
     const { accessToken, user } = await this.signinOauthUseCase.execute({
-      oauthProvider: req.user.provider,
       oauthProfile: req.user,
       ip,
       device,
     });
     this.authCookieService.setAuthCookie(res, accessToken);
-    return user;
+    return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
   }
 
   // Редіректить користувача на Discord
@@ -140,13 +143,12 @@ export class AuthController {
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
     const { accessToken, user } = await this.signinOauthUseCase.execute({
-      oauthProvider: req.user.provider,
       oauthProfile: req.user,
       ip,
       device,
     });
     this.authCookieService.setAuthCookie(res, accessToken);
-    return user;
+    return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
   }
 
   @Get('facebook')
@@ -161,14 +163,13 @@ export class AuthController {
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
     const { accessToken, user } = await this.signinOauthUseCase.execute({
-      oauthProvider: req.user.provider,
       oauthProfile: req.user,
       ip,
       device,
     });
 
     this.authCookieService.setAuthCookie(res, accessToken);
-    return user;
+    return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
   }
 
   // Реєстрація нового користувача

@@ -13,7 +13,10 @@ export class UploadAvatarUseCase {
   ) {}
 
   async execute({ userId, avatar }: UploadAvatarCommand) {
-    await this.profileRepository.updateAvatar({ userId, avatar });
+    await this.profileRepository.updateAvatar({
+      userId,
+      avatar: `/avatars/${avatar}`,
+    });
 
     return {
       avatarUrl: `/avatars/${avatar}`,

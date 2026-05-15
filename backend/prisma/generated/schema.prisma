@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  schemas  = ["public", "users", "roulette"]
+  schemas  = ["public", "users", "roulette", "finance"]
 }
 
 enum UserRole {
@@ -46,6 +46,7 @@ model User {
   gameSessions GameSession[]
   bets         RouletteBet[]
 
+  wallet             Wallet?
   userSeed           UserSeed?
   emailVerifications UserEmailVerification?
   authProviders      AuthProvider[]
@@ -177,4 +178,80 @@ model RouletteBet {
 
   @@map("roulette_bet")
   @@schema("roulette")
+}
+
+enum TransactionType {
+  DEPOSIT // поповнення балансу
+  WITHDRAWAL // вивід коштів
+  REFUND // повернення
+  BET // ставка
+  WIN // виграш
+
+  @@schema("finance")
+}
+
+enum TransactionStatus {
+  PENDING // очікує
+  COMPLETED // успішно
+  FAILED // помилка
+  CANCELED // скасовано
+
+  @@schema("finance")
+}
+
+enum PaymentProvider {
+  LIQPAY
+  WAYFORPAY
+
+  @@schema("finance")
+}
+
+enum Currency {
+  UAH
+  USD
+  EUR
+
+  @@schema("finance")
+}
+
+model Wallet {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  balance   Decimal  @default(0.00) @db.Decimal(15, 2)
+  currency  Currency @default(UAH)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@index([userId])
+  @@map("wallets")
+  @@schema("finance")
+}
+
+model Transaction {
+  id                String            @id @default(uuid())
+  walletId          String
+  type              TransactionType // тип операції
+  status            TransactionStatus @default(PENDING) // статус
+  amount            Decimal           @db.Decimal(15, 2)
+  currency          Currency          @default(UAH)
+  provider          PaymentProvider? // платіжна система  
+  orderId           String?           @unique // ID замовлення у твоїй системі                           
+  providerPaymentId String? // ID платежу від платіжної системи
+  idempotencyKey    String?           @unique // для захисту від повторної обробки webhook
+  description       String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId])
+  @@index([status])
+  @@index([type])
+  @@index([createdAt])
+  @@map("transactions")
+  @@schema("finance")
 }

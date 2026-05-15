@@ -35,9 +35,10 @@ model User {
   gameSessions  GameSession[]
   bets          RouletteBet[]
 
-  userSeed      UserSeed?  
-  emailVerifications UserEmailVerification?
-  authProviders AuthProvider[]
+  wallet                  Wallet?
+  userSeed                UserSeed?  
+  emailVerifications      UserEmailVerification?
+  authProviders           AuthProvider[]
 
 
   @@index([username])    
