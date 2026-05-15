@@ -46,7 +46,7 @@ export class PrismaTransactionRepository implements ITransactionRepository {
   // знайти по idempotency key
   async findByIdempotencyKey(key: string, tx?: PrismaTx) {
     const client = this.getClient(tx);
-    const transaction = await client.transaction.findUnique({
+    const transaction = await client.transaction.findFirst({
       where: { idempotencyKey: key },
     });
     return transaction ? PrismaTransactionMapper.toDomain(transaction) : null;
