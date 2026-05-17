@@ -3,32 +3,28 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      target: development
-    image: node_api_dev
-    container_name: api_dev
+      target: production
+    image: node_api_prod
+    container_name: api_prod
+    restart: always
     env_file:
-      - .env.development
-    ports:
-      - "3799:3799"
-    volumes:
-      - ./backend:/app
-      - node_app_modules:/app/node_modules
+      - .env.production
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
+    expose:
+      - "3799"
 
   postgres:
     image: postgres:16-alpine
-    container_name: postgres_dev
-    restart: on-failure
-    ports:
-      - "5439:5432"
+    container_name: postgres_prod
+    restart: always
     env_file:
-      - .env.development
+      - .env.production
     volumes:
-      - pg-data-dev:/var/lib/postgresql/data
+      - pg-data-prod:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
       interval: 10s
@@ -37,19 +33,29 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: redis_dev
-    ports:
-      - "6380:6379"
+    container_name: redis_prod
+    restart: always
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
-      - redis-data-dev:/data
+      - redis-data-prod:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 2s
       retries: 5
 
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_prod
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+
 volumes:
-  node_app_modules:
-  pg-data-dev:
-  redis-data-dev:
+  pg-data-prod:
+  redis-data-prod:
