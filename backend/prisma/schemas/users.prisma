@@ -4,12 +4,22 @@ enum UserRole {
   @@schema("users")
 }
 
+enum AuthProviderType {
+  DISCORD
+  LINKEDIN
+  FACEBOOK
+  GOOGLE
+
+  @@schema("users")
+}
+
 model User {
   id            String    @id @default(uuid()) @map("id")
   username      String    @unique 
   email         String    @unique
-  password      String 
+  password      String? 
   role          UserRole  @default(USER)
+  emailVerifiedAt DateTime? @map("email_verified_at")
   lastLoginIP   String?   @map("last_login_ip")                                 // IP останнього входу (якщо був)
   lastLoginAt   DateTime? @map("last_login_at")                                 // дата останнього входу (якщо був)
   isBanned      Boolean   @default(false)                                       // чи заблокований користувач
@@ -18,8 +28,18 @@ model User {
   deletedAt     DateTime? @map("deleted_at")                                    // дата видалення (якщо soft delete)
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at") 
+  
   profile       Profile?  
-  address       Address?  
+  address       Address?
+
+  gameSessions  GameSession[]
+  bets          RouletteBet[]
+
+  wallet                  Wallet?
+  userSeed                UserSeed?  
+  emailVerifications      UserEmailVerification?
+  authProviders           AuthProvider[]
+
 
   @@index([username])    
   @@index([email])       
@@ -30,15 +50,55 @@ model User {
   @@schema("users")       
 }
 
+model AuthProvider {
+  id String @id @default(uuid())
+  userId String @map("user_id")
+  provider AuthProviderType
+  providerId String @map("provider_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerId])
+  @@index([userId])
+  @@map("user_auth_providers")
+  @@schema("users")
+}
+
+model UserEmailVerification {
+  id         String   @id @default(uuid())
+  userId     String   @unique @map("user_id")
+  token      String   @unique @map("token")
+  expiresAt  DateTime @map("expires_at")
+  usedAt     DateTime? @map("used_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@map("user_email_verifications")
+  @@schema("users")
+}
+
+model UserSeed {
+  userId     String @id @map("user_id")
+  clientSeed String @map("client_seed")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_seeds")
+  @@schema("users")
+}
+
 model Profile {
   userId        String    @id @map("user_id")                                    // PK = FK (1–1 зв’язок з Users)
   rating        Int                                                              // рейтинг користувача
-  balance       Decimal   @default(0) @db.Decimal(18, 6)                         // баланс
   level         Int       @default(0) // рівень користувача
   createdAt     DateTime  @default(now()) @map("created_at")                     // дата створення
   updatedAt     DateTime  @updatedAt @map("updated_at")                          // дата оновлення
   avatar        String?                                                          // аватар користувача (якщо є)
-  user          User     @relation(fields: [userId], references: [id])           // зв’язок з Users
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)           // зв’язок з Users
 
   @@index([rating])      
   @@index([level])        
@@ -58,7 +118,7 @@ model Address {
   country        String                                                          // країна (якщо є)
   createdAt      DateTime  @default(now()) @map("created_at")                    // дата створення
   updatedAt      DateTime  @updatedAt @map("updated_at")                         // дата оновлення
-  user           User     @relation(fields: [userId], references: [id])          // зв’язок з Users
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)          // зв’язок з Users
 
   @@index([country])       
   @@index([city])          

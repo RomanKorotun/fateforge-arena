@@ -1,4 +1,5 @@
 import { Profile } from 'prisma/generated';
+
 import { ProfileEntity } from '../../../domain/entities/profile.entity';
 
 export class PrismaProfileMapper {
@@ -6,7 +7,6 @@ export class PrismaProfileMapper {
     return new ProfileEntity(
       profile.userId,
       profile.rating,
-      profile.balance.toNumber(),
       profile.level,
       profile.avatar ?? null,
     );

@@ -1,0 +1,34 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+
+        with:
+          host: ${{ secrets.HOST }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+
+          script: |
+            # переходимо в папку проєкту на VPS
+            cd /opt/fateforge-arena
+
+            # тягнемо останні зміни з GitHub
+            git pull origin main
+
+            # оновлюємо тільки Node.js API сервіс
+            docker compose -f docker-compose.prod.yml up -d --build api
+
+            # застосовуємо Prisma міграції
+            docker exec api_prod yarn prisma:deploy
+
+            # очищення старих Docker image шарів
+            docker image prune -f

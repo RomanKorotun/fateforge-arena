@@ -9,10 +9,12 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 import { Strategy } from 'passport-jwt';
 
-import type { ISessionRepository } from '../../domain/repositories/session.repository';
 import { JwtPayload } from '../../../../common/types/jwt-payload.type';
+
 import { USER_REPOSITORY } from '../../../user/domain/repositories/user.repository.token';
 import type { IUserRepository } from '../../../user/domain/repositories/user.repository';
+
+import type { ISessionRepository } from '../../domain/repositories/session.repository';
 import { SESSION_REPOSITORY } from '../../domain/repositories/session.repository.token';
 
 @Injectable()

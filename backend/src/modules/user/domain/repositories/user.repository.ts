@@ -5,7 +5,7 @@ import { UserRole } from '../enums/user-role.enum';
 export interface CreateUserData {
   username: string;
   email: string;
-  password: string;
+  password?: string;
 }
 
 export interface FindAllUsersData {
@@ -21,6 +21,7 @@ export type UpdateUserData = Partial<{
   email: string;
   password: string;
   role: UserRole;
+  emailVerifiedAt: Date;
   lastLoginIP: string;
   lastLoginAt: Date;
   isBanned: boolean;
@@ -35,12 +36,17 @@ export interface UpdateAvatar {
 }
 
 export interface IUserRepository {
-  createUser(data: CreateUserData): Promise<UserEntity>;
+  createUser(data: CreateUserData, tx?: unknown): Promise<UserEntity>;
+  findByEmail(email: string, tx?: unknown): Promise<UserEntity | null>;
   findByEmailWithPassword(
     email: string,
+    tx?: unknown,
   ): Promise<UserEntityWithPassword | null>;
-  findById(id: string): Promise<UserEntity | null>;
-  updateUser(userId: string, data: UpdateUserData): Promise<UserEntity>;
-  findAllUsers(params: FindAllUsersData): Promise<UserEntity[]>;
-  updateAvatar(data: UpdateAvatar): Promise<void>;
+  findById(id: string, tx?: unknown): Promise<UserEntity | null>;
+  updateUser(
+    userId: string,
+    data: UpdateUserData,
+    tx?: unknown,
+  ): Promise<UserEntity>;
+  findAllUsers(params: FindAllUsersData, tx?: unknown): Promise<UserEntity[]>;
 }

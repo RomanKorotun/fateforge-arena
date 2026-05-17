@@ -126,6 +126,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   role: 'role',
+  emailVerifiedAt: 'emailVerifiedAt',
   lastLoginIP: 'lastLoginIP',
   lastLoginAt: 'lastLoginAt',
   isBanned: 'isBanned',
@@ -136,10 +137,31 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AuthProviderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  providerId: 'providerId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserEmailVerificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserSeedScalarFieldEnum = {
+  userId: 'userId',
+  clientSeed: 'clientSeed'
+};
+
 exports.Prisma.ProfileScalarFieldEnum = {
   userId: 'userId',
   rating: 'rating',
-  balance: 'balance',
   level: 'level',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -155,6 +177,57 @@ exports.Prisma.AddressScalarFieldEnum = {
   address: 'address',
   city: 'city',
   country: 'country',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GameSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serverSeed: 'serverSeed',
+  serverHash: 'serverHash',
+  clientSeed: 'clientSeed',
+  nonce: 'nonce',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RouletteBetScalarFieldEnum = {
+  id: 'id',
+  gameSessionId: 'gameSessionId',
+  userId: 'userId',
+  betType: 'betType',
+  betValue: 'betValue',
+  amount: 'amount',
+  winningNumber: 'winningNumber',
+  payoutAmount: 'payoutAmount',
+  isWin: 'isWin',
+  nonce: 'nonce',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.WalletScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  balance: 'balance',
+  currency: 'currency',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  walletId: 'walletId',
+  type: 'type',
+  status: 'status',
+  amount: 'amount',
+  currency: 'currency',
+  provider: 'provider',
+  orderId: 'orderId',
+  providerPaymentId: 'providerPaymentId',
+  idempotencyKey: 'idempotencyKey',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -178,10 +251,58 @@ exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN'
 };
 
+exports.AuthProviderType = exports.$Enums.AuthProviderType = {
+  DISCORD: 'DISCORD',
+  LINKEDIN: 'LINKEDIN',
+  FACEBOOK: 'FACEBOOK',
+  GOOGLE: 'GOOGLE'
+};
+
+exports.BetType = exports.$Enums.BetType = {
+  RED: 'RED',
+  BLACK: 'BLACK',
+  EVEN: 'EVEN',
+  ODD: 'ODD',
+  STRAIGHT: 'STRAIGHT'
+};
+
+exports.Currency = exports.$Enums.Currency = {
+  UAH: 'UAH',
+  USD: 'USD',
+  EUR: 'EUR'
+};
+
+exports.TransactionType = exports.$Enums.TransactionType = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAWAL: 'WITHDRAWAL',
+  REFUND: 'REFUND',
+  BET: 'BET',
+  WIN: 'WIN'
+};
+
+exports.TransactionStatus = exports.$Enums.TransactionStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELED: 'CANCELED'
+};
+
+exports.PaymentProvider = exports.$Enums.PaymentProvider = {
+  LIQPAY: 'LIQPAY',
+  WAYFORPAY: 'WAYFORPAY'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
+  AuthProvider: 'AuthProvider',
+  UserEmailVerification: 'UserEmailVerification',
+  UserSeed: 'UserSeed',
   Profile: 'Profile',
-  Address: 'Address'
+  Address: 'Address',
+  GameSession: 'GameSession',
+  RouletteBet: 'RouletteBet',
+  Wallet: 'Wallet',
+  Transaction: 'Transaction'
 };
 
 /**

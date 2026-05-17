@@ -1,0 +1,142 @@
+<mjml>
+  <mj-head>
+
+    <mj-attributes>
+      <mj-all font-family="Arial, sans-serif" />
+
+      <mj-text color="#d1d5db" font-size="14px" line-height="22px" />
+
+      <mj-button
+        background-color="#7c3aed"
+        color="#ffffff"
+        border-radius="8px"
+        font-size="14px"
+        font-weight="bold"
+        inner-padding="12px 24px"
+      />
+    </mj-attributes>
+
+    <mj-style inline="inline">
+      .card {
+        border: 1px solid #27272a;
+      }
+
+      /* трохи зменшено */
+      .hero-title {
+        font-size: 24px !important;
+        font-weight: 700;
+        color: #ffffff !important;
+      }
+
+      .muted {
+        color: #9ca3af !important;
+      }
+
+      @media only screen and (max-width: 480px) {
+        .hero-title {
+          font-size: 20px !important;
+        }
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body background-color="#09090b">
+
+    <mj-section padding="30px 16px">
+      <mj-column
+        background-color="#18181b"
+        border-radius="14px"
+        css-class="card"
+        padding="32px"
+      >
+
+        <!-- TITLE -->
+        <mj-text
+          align="center"
+          font-size="26px"
+          font-weight="700"
+          color="#7c3aed"
+          padding-bottom="10px"
+        >
+          ⚔️ FateForge Arena
+        </mj-text>
+
+        <mj-divider border-color="#27272a" padding-bottom="20px" />
+
+        <!-- GREETING -->
+        <mj-text css-class="hero-title">
+          Вітаємо, {{ username }}!
+        </mj-text>
+
+        <!-- MAIN TEXT -->
+        <mj-text>
+          Ви успішно розпочали реєстрацію в
+          <strong style="color:#ffffff;">FateForge Arena</strong>
+          — світі PvP-битв, героїв, азартних режимів та унікальних пригод.
+        </mj-text>
+
+        <mj-text>
+          Щоб активувати акаунт і отримати доступ до всіх можливостей платформи,
+          підтвердіть вашу електронну адресу.
+        </mj-text>
+
+        <!-- BUTTON -->
+        <mj-button href="{{ confirmationLink }}">
+          Підтвердити Email
+        </mj-button>
+
+        <!-- FEATURES -->
+        <mj-text padding-top="18px">
+          Після підтвердження ви зможете:
+        </mj-text>
+
+        <mj-text>
+          ⚔️ Брати участь у PvP-битвах<br />
+          🛡️ Розвивати власного героя<br />
+          🎰 Випробовувати удачу в казино<br />
+        </mj-text>
+
+        <!-- WARNING -->
+        <mj-text
+          css-class="muted"
+          font-size="13px"
+          padding-top="10px"
+        >
+          Якщо ви не створювали акаунт у FateForge Arena —
+          просто проігноруйте цей лист.
+        </mj-text>
+
+        <!-- CONTACT -->
+        <mj-text
+          css-class="muted"
+          font-size="13px"
+          padding-top="8px"
+        >
+          Потрібна допомога?<br />
+
+          Напиши нам:
+          <a
+            href="mailto:roman.korotun@ukr.net"
+            style="color:#7c3aed; text-decoration:none;"
+          >
+           roman.korotun@ukr.net
+          </a>
+        </mj-text>
+
+        <mj-divider border-color="#27272a" padding-top="20px" />
+
+        <!-- FOOTER -->
+        <mj-text
+          align="center"
+          font-size="12px"
+          color="#71717a"
+        >
+          © 2026 FateForge Arena<br />
+          Forge your destiny in the arena.
+        </mj-text>
+
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>

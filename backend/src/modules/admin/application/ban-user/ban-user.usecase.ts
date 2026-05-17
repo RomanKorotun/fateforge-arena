@@ -2,6 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import type { IUserRepository } from '../../../user/domain/repositories/user.repository';
 import { USER_REPOSITORY } from '../../../user/domain/repositories/user.repository.token';
+
 import { BanUserCommand } from './ban-user.command';
 
 @Injectable()

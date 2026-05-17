@@ -1,4 +1,5 @@
 import { User } from 'prisma/generated';
+
 import { UserEntity } from '../../../domain/entities/user.entity';
 import { UserEntityWithPassword } from '../../../domain/entities/user-with-password.type';
 import { UserRole } from '../../../domain/enums/user-role.enum';
@@ -10,6 +11,7 @@ export class PrismaUserMapper {
       user.username,
       user.email,
       user.role as UserRole,
+      user.emailVerifiedAt,
       user.lastLoginIP,
       user.lastLoginAt,
       user.isBanned,

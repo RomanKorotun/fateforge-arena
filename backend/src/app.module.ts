@@ -8,6 +8,10 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { RedisModule } from './core/redis/redis.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { RouletteModule } from './modules/roulette/roulette.module';
+import { EmailModule } from './core/email/email.module';
+import { DatabaseModule } from './infrastructure/database/database.module';
+import { FinanceModule } from './modules/finance/finance.module';
 
 @Module({
   imports: [
@@ -15,11 +19,15 @@ import { AdminModule } from './modules/admin/admin.module';
       rootPath: join(__dirname, '..', 'uploads'),
     }),
     AppConfigModule,
+    DatabaseModule,
     PrismaModule,
     RedisModule,
+    EmailModule,
     AuthModule,
     UserModule,
     AdminModule,
+    RouletteModule,
+    FinanceModule,
   ],
 })
 export class AppModule {}

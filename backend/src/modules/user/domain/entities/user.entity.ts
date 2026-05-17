@@ -6,6 +6,7 @@ export class UserEntity {
     public readonly username: string,
     public readonly email: string,
     public readonly role: UserRole,
+    public readonly emailVerifiedAt: Date | null,
     public readonly lastLoginIp: string | null,
     public readonly lastLoginAt: Date | null,
     public readonly isBanned: boolean,

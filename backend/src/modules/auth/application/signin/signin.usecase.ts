@@ -6,17 +6,21 @@ import {
 } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 
+import { SESSION_TTL_SECONDS } from '../../../../common/constants/session.constants';
+import { JwtPayload } from '../../../../common/types/jwt-payload.type';
+import { buildSessionKey } from '../../../../common/helpers/session-key.helper';
+
 import { SigninCommand } from './signin.command';
+
 import { PasswordHashService } from '../../../../core/security/services/password-hash.service';
 import { TokenService } from '../../../../core/security/services/token.service';
-import type { ISessionRepository } from '../../domain/repositories/session.repository';
-import { SESSION_TTL_SECONDS } from '../../../../common/constants/session.constants';
-import { SessionEntity } from '../../domain/entities/session.entity';
-import { JwtPayload } from '../../../../common/types/jwt-payload.type';
+
 import { USER_REPOSITORY } from '../../../user/domain/repositories/user.repository.token';
 import type { IUserRepository } from '../../../user/domain/repositories/user.repository';
+
+import type { ISessionRepository } from '../../domain/repositories/session.repository';
+import { SessionEntity } from '../../domain/entities/session.entity';
 import { SESSION_REPOSITORY } from '../../domain/repositories/session.repository.token';
-import { buildSessionKey } from '../../../../common/helpers/session-key.helper';
 
 @Injectable()
 export class SigninUseCase {
@@ -37,7 +41,7 @@ export class SigninUseCase {
 
     const passwordCompare = await this.passwordHashService.compare(
       password,
-      user.password,
+      user.password!,
     );
 
     if (!passwordCompare) {
@@ -50,6 +54,10 @@ export class SigninUseCase {
 
     if (user.isBanned) {
       throw new ForbiddenException('ACCOUNT_BLOCKED');
+    }
+
+    if (!user.emailVerifiedAt) {
+      throw new ForbiddenException('EMAIL_NOT_VERIFIED');
     }
 
     const sessionId = randomUUID();

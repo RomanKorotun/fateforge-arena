@@ -49,32 +49,58 @@ docker exec -it node_container_dev sh
 
 3.2. API маршрути
 
-### USERS
-
-GET /users/me — отримати інформацію про себе (профіль + адреса)  
-POST /users/me/address — додати адресу користувача  
-GET /users — список користувачів (обмежена інформація)  
-DELETE /users/me — видалити акаунт (soft delete)
-
 ---
 
-### ADMIN
+# AUTH
 
-GET /admin/users — отримання списку всіх користувачів (тільки ADMIN)  
-PATCH /admin/users/:id/ban — блокування користувача  
-PATCH /admin/users/:id/unban — розблокування користувача
+GET /auth/google — редірект на Google OAuth  
+GET /auth/google/callback — callback після Google OAuth
 
----
+GET /auth/linkedin — редірект на LinkedIn OAuth  
+GET /auth/linkedin/callback — callback після LinkedIn OAuth
 
-### AUTH
+GET /auth/discord — редірект на Discord OAuth  
+GET /auth/discord/callback — callback після Discord OAuth
+
+GET /auth/facebook — редірект на Facebook OAuth  
+GET /auth/facebook/callback — callback після Facebook OAuth
 
 POST /auth/signup — реєстрація користувача  
 POST /auth/signin — авторизація користувача  
-POST /auth/signout — вихід з поточного пристрою  
 POST /auth/restore — відновлення акаунта
 
-GET /auth/me — отримання поточного користувача  
-GET /auth/sessions — отримання всіх активних сесій користувача
+GET /auth/me — отримати поточного користувача  
+GET /auth/sessions — отримати всі активні сесії
 
-DELETE /auth/sessions/:id/revoke — видалення конкретної сесії  
-DELETE /auth/sessions/revoke-all — видалення всіх сесій користувача (logout з усіх пристроїв)
+DELETE /auth/sessions/:id/revoke — відкликати конкретну сесію  
+DELETE /auth/sessions/revoke-all — відкликати всі сесії (logout all devices)
+
+POST /auth/signout — вихід з поточної сесії
+
+GET /auth/confirm-email?token= — підтвердження email  
+POST /auth/email-verification/resend — повторна відправка email verification
+
+---
+
+# USERS
+
+GET /users/me — отримати свій профіль  
+POST /users/me/profile/avatar — завантажити аватар
+
+POST /users/me/address — додати адресу  
+GET /users/me/address — отримати адресу  
+PUT /users/me/address — оновити адресу
+
+GET /users — список користувачів (обмежена інформація)  
+DELETE /users/me — soft delete акаунта
+
+POST /users/me/client-seed — створити client seed  
+PUT /users/me/client-seed — оновити client seed
+
+---
+
+# ADMIN
+
+GET /admin/users — список всіх користувачів (ADMIN only)  
+PATCH /admin/users/:id/ban — забанити користувача  
+PATCH /admin/users/:id/unban — розбанити користувача
