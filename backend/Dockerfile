@@ -24,7 +24,7 @@ WORKDIR /app
 RUN apt-get update -y && apt-get install -y openssl
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --production
-COPY --from=build /app/prisma ./dist/prisma
+COPY --from=build /app/dist ./dist
 
 ENV NODE_ENV=production
 CMD ["yarn", "start:prod"]
