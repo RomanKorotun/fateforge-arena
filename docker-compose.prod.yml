@@ -21,6 +21,8 @@ services:
     image: postgres:16-alpine
     container_name: postgres_prod
     restart: always
+    ports:
+      - "127.0.0.1:5544:5432"
     env_file:
       - .env.production
     volumes:
@@ -35,6 +37,8 @@ services:
     image: redis:7-alpine
     container_name: redis_prod
     restart: always
+    ports:
+      - "127.0.0.1:6379:6379"
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - redis-data-prod:/data
