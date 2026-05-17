@@ -26,7 +26,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --production
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./dist/prisma
-COPY --from=build /app/prisma.config.js ./dist/prisma.config.js
+COPY --from=build /app/dist/prisma.config.js ./dist/prisma.config.js
 
 ENV NODE_ENV=production
 CMD ["yarn", "start:prod"]
