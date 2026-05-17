@@ -38,7 +38,7 @@ services:
     container_name: redis_prod
     restart: always
     ports:
-      - "127.0.0.1:6379:6379"
+      - "127.0.0.1:6389:6379"
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - redis-data-prod:/data
