@@ -15,7 +15,10 @@ async function bootstrap() {
   const config = app.get(ConfigService);
 
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      'https://fateforge-arena-frontend.netlify.app',
+    ],
     credentials: true,
   });
 
