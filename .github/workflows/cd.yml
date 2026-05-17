@@ -28,7 +28,7 @@ jobs:
             docker compose -f docker-compose.prod.yml up -d --build api
 
             # застосовуємо Prisma міграції
-            docker exec api_prod yarn prisma:deploy
+            docker exec api_prod yarn prisma:deploy --schema=dist/prisma/schema.prisma --config=dist/prisma.config.js
 
             # очищення старих Docker image шарів
             docker image prune -f
