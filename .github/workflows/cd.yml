@@ -15,7 +15,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: root
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.PRIVATE_SSH_KEY }}
 
           script: |
             # переходимо в папку проєкту на VPS
