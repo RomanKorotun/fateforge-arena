@@ -16,7 +16,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
     });
   }
 
-  async validate(accessToken: string, refreshToken: string, profile: Profile) {
+  validate(accessToken: string, refreshToken: string, profile: Profile) {
     const email = profile.emails?.[0]?.value ?? profile._json?.email ?? null;
     const name = profile.displayName ?? profile._json?.name ?? null;
     const avatar =

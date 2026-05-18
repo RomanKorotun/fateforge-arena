@@ -8,6 +8,8 @@ import { Reflector } from '@nestjs/core';
 
 import { UserRole } from '../../../modules/user/domain/enums/user-role.enum';
 
+import { AuthRequest } from '../../../common/types/auth-request';
+
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
@@ -22,7 +24,7 @@ export class RolesGuard implements CanActivate {
       return true;
     }
 
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<AuthRequest>();
     const user = request.user;
 
     if (!user || !requiredRoles.includes(user.role)) {

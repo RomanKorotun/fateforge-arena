@@ -94,10 +94,7 @@ export class SigninOauthUseCase {
     // =========================================================
     // 6. Відповідь в контролер
     // =========================================================
-    return {
-      accessToken,
-      user: { username: user.username, email: user.email, role: user.role },
-    };
+    return { accessToken };
   }
 
   // =========================================================

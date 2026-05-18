@@ -16,7 +16,7 @@ export class TokenService {
       'ACCESS_TOKEN_SECRET',
     );
     const accessTokenTime = parseInt(
-      this.configService.getOrThrow('ACCESS_TOKEN_TIME'),
+      this.configService.getOrThrow<string>('ACCESS_TOKEN_TIME'),
       10,
     );
 

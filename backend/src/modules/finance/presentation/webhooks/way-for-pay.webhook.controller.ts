@@ -2,7 +2,7 @@ import { BadRequestException, Controller, Post, Req } from '@nestjs/common';
 import type { Request } from 'express';
 
 import { HandleDepositWebhookUseCase } from '../../application/handle-deposit-webhook/handle-deposit-webhook.use-case';
-import { PaymentProvider } from '../../domain/enums/payment-provider.enum';
+// import { PaymentProvider } from '../../domain/enums/payment-provider.enum';
 import { WayforpayProvider } from '../../infrastructure/payment-providers/way-for-pay.provider';
 
 @Controller('webhooks/wayforpay')

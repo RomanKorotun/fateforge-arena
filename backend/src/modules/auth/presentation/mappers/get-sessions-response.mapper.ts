@@ -2,7 +2,9 @@ import { SessionEntity } from '../../domain/entities/session.entity';
 
 export const GetUserSessionsResponseMapper = {
   toResponseList(sessions: SessionEntity[], currentSessionId: string) {
-    return sessions.map((s) => this.toResponse(s, currentSessionId));
+    return sessions.map((s) =>
+      GetUserSessionsResponseMapper.toResponse(s, currentSessionId),
+    );
   },
 
   toResponse(session: SessionEntity, currentSessionId: string) {
