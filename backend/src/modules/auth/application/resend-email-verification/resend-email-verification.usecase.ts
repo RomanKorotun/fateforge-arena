@@ -50,7 +50,7 @@ export class ResendEmailVerificationUseCase {
       usedAt: null,
     });
 
-    const BACKEND_URL = this.configService.getOrThrow('BACKEND_URL');
+    const BACKEND_URL = this.configService.getOrThrow<string>('BACKEND_URL');
 
     await this.emailService.sendVerificationEmail({
       email: user.email,

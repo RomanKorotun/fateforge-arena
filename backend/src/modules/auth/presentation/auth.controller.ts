@@ -95,7 +95,7 @@ export class AuthController {
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
 
-    const { accessToken, user } = await this.signinOauthUseCase.execute({
+    const { accessToken } = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
@@ -119,7 +119,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
-    const { accessToken, user } = await this.signinOauthUseCase.execute({
+    const { accessToken } = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
@@ -142,7 +142,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
-    const { accessToken, user } = await this.signinOauthUseCase.execute({
+    const { accessToken } = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
@@ -162,7 +162,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
-    const { accessToken, user } = await this.signinOauthUseCase.execute({
+    const { accessToken } = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,

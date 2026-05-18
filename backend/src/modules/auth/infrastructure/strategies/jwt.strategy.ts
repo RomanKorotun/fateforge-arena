@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { Request } from 'express';
+import type { Request } from 'express';
 import { Strategy } from 'passport-jwt';
 
 import { JwtPayload } from '../../../../common/types/jwt-payload.type';
@@ -26,7 +26,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
   ) {
     super({
-      jwtFromRequest: (req) => req?.cookies?.accessToken,
+      jwtFromRequest: (req: Request) => req?.cookies?.accessToken,
       ignoreExpiration: false,
       secretOrKey: configService.getOrThrow('ACCESS_TOKEN_SECRET'),
       passReqToCallback: true,

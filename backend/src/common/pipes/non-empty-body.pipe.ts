@@ -2,7 +2,7 @@ import { PipeTransform, Injectable, BadRequestException } from '@nestjs/common';
 
 @Injectable()
 export class NonEmptyBodyPipe implements PipeTransform {
-  transform(value: any) {
+  transform(value: unknown) {
     if (!value || typeof value !== 'object') {
       throw new BadRequestException(
         'Невірний формат тіла запиту: очікується обʼєкт',
