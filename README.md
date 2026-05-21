@@ -130,3 +130,37 @@ Infra:
 ```bash
 docker compose --env-file .env.development -f docker-compose.dev.yml up --build -d
 ```
+
+## DEPLOYMENT
+
+Проєкт **задеплоєний на власному VPS (Linux server)**.
+
+- Усі сервіси запущені в контейнерах через Docker Compose
+- Nginx reverse proxy
+
+## CI/CD (GitHub Actions)
+
+Проєкт використовує автоматизований CI/CD пайплайн на базі **GitHub Actions**.
+
+Після кожного `push` у гілку `main` запускається CI/CD процес:
+
+### CI (Continuous Integration)
+
+- встановлення залежностей
+- перевірка тестів
+- збірка проєкту
+
+### CD (Continuous Deployment)
+
+Після успішного CI автоматично виконується деплой на VPS:
+
+- підключення до VPS через SSH (GitHub Secrets)
+- `git pull` останніх змін
+- пересборка тільки Node.js API Docker контейнера
+- перезапуск API сервісу
+- застосування Prisma міграцій
+- очищення старих Docker image
+
+### Результат
+
+Після завершення pipeline нова версія backend автоматично розгортається на production сервері без ручного втручання.
