@@ -14,8 +14,6 @@ import { HandleDepositWebhookUseCase } from '../../application/handle-deposit-we
 import { PaymentProvider } from '../../domain/enums/payment-provider.enum';
 import { TransactionStatus } from '../../domain/enums/transaction-status.enum';
 
-import { StripeWebhookSwagger } from '../swagger/stripe-webhook.swagger';
-
 @Controller('webhooks/stripe')
 export class StripeWebhookController {
   constructor(
@@ -23,27 +21,42 @@ export class StripeWebhookController {
     private readonly handleDepositWebhookUseCase: HandleDepositWebhookUseCase,
   ) {}
 
-  @StripeWebhookSwagger()
   @Post()
   @HttpCode(HttpStatus.OK)
   async handleStripeWebhook(
     @Req() req: Request,
     @Headers('stripe-signature') signature: string,
   ) {
-    const payload = req.body as Buffer;
+    try {
+      console.log('\n================ STRIPE WEBHOOK START ================');
+      console.log('📩 Signature:', signature);
 
-    const event: any = this.stripeProvider.verifyWebhookSignature(
-      payload,
-      signature,
-    );
+      const payload = req.body as Buffer;
 
-    switch (event.type) {
-      case 'checkout.session.completed': {
-        const session = event.data.object;
+      console.log('📦 RAW PAYLOAD SIZE:', payload?.length);
 
-        const orderId = session?.metadata?.orderId;
+      const event: any = this.stripeProvider.verifyWebhookSignature(
+        payload,
+        signature,
+      );
 
-        if (!orderId) return { received: true };
+      console.log('🎯 EVENT TYPE:', event.type);
+      console.log('🆔 EVENT ID:', event.id);
+
+      const session = event.data.object;
+      console.log('📄 SESSION:', JSON.stringify(session, null, 2));
+
+      const orderId = session?.metadata?.orderId;
+
+      console.log('🧾 ORDER ID:', orderId);
+
+      if (!orderId) {
+        console.log('❌ NO ORDER ID → EXIT');
+        return { received: true };
+      }
+
+      if (event.type === 'checkout.session.completed') {
+        console.log('➡️ PROCESS: checkout.session.completed');
 
         await this.handleDepositWebhookUseCase.execute({
           provider: PaymentProvider.STRIPE,
@@ -53,33 +66,29 @@ export class StripeWebhookController {
           transactionId: String(session.payment_intent ?? ''),
         });
 
-        break;
+        console.log('✅ SUCCESS WEBHOOK PROCESSED');
       }
 
-      case 'payment_intent.payment_failed': {
-        const session = event.data.object;
+      if (event.type === 'payment_intent.payment_failed') {
+        console.log('➡️ PROCESS: payment_intent.payment_failed');
 
-        const orderId = session?.metadata?.orderId;
+        await this.handleDepositWebhookUseCase.execute({
+          provider: PaymentProvider.STRIPE,
+          orderId,
+          status: TransactionStatus.FAILED,
+          amount: 0,
+          transactionId: String(session.payment_intent ?? ''),
+        });
 
-        if (!orderId) return { received: true };
-
-        if (orderId) {
-          await this.handleDepositWebhookUseCase.execute({
-            provider: PaymentProvider.STRIPE,
-            orderId,
-            status: TransactionStatus.FAILED,
-            amount: 0,
-            transactionId: String(session.payment_intent ?? ''),
-          });
-        }
-
-        break;
+        console.log('❌ FAILED WEBHOOK PROCESSED');
       }
 
-      default:
-        break;
+      console.log('================ STRIPE WEBHOOK END ================\n');
+
+      return { received: true };
+    } catch (err) {
+      console.error('🔥 WEBHOOK CRASH:', err);
+      throw err;
     }
-
-    return { received: true };
   }
 }
