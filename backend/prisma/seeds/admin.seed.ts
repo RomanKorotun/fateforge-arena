@@ -35,6 +35,7 @@ async function main() {
       email: adminEmail,
       password: hashedPassword,
       role: UserRole.ADMIN,
+      emailVerifiedAt: new Date(),
     },
   });
 }

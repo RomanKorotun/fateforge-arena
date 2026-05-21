@@ -35,7 +35,7 @@ model User {
   gameSessions  GameSession[]
   bets          RouletteBet[]
 
-  wallet                  Wallet?
+  wallets                 Wallet[]
   userSeed                UserSeed?  
   emailVerifications      UserEmailVerification?
   authProviders           AuthProvider[]

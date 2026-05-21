@@ -1,5 +1,4 @@
 import { IsEnum, IsNumber, IsString, Min } from 'class-validator';
-
 import { ApiProperty } from '@nestjs/swagger';
 
 import { Currency } from '../../../domain/enums/currency.enum';
@@ -10,9 +9,7 @@ export class CreateDepositRequestDto {
     description: 'ID гаманця',
     example: 'cmf4k5l2p0000v8z1x9a2b3c4',
   })
-  @IsString({
-    message: 'Поле walletId повинно бути рядком',
-  })
+  @IsString({ message: 'Поле walletId повинно бути рядком' })
   walletId!: string;
 
   @ApiProperty({
@@ -21,9 +18,7 @@ export class CreateDepositRequestDto {
     minimum: 1,
   })
   @IsNumber({}, { message: 'Поле amount повинно бути числом' })
-  @Min(1, {
-    message: 'Мінімальна сума поповнення 1',
-  })
+  @Min(1, { message: 'Мінімальна сума поповнення 1' })
   amount!: number;
 
   @ApiProperty({
@@ -31,18 +26,14 @@ export class CreateDepositRequestDto {
     enum: Currency,
     example: Currency.UAH,
   })
-  @IsEnum(Currency, {
-    message: 'Не валідна валюта',
-  })
+  @IsEnum(Currency, { message: 'Не валідна валюта' })
   currency!: Currency;
 
   @ApiProperty({
     description: 'Платіжний провайдер',
     enum: PaymentProvider,
-    example: PaymentProvider.LIQPAY,
+    example: PaymentProvider.STRIPE,
   })
-  @IsEnum(PaymentProvider, {
-    message: 'Не валідний платіжний провайдер',
-  })
+  @IsEnum(PaymentProvider, { message: 'Не валідний платіжний провайдер' })
   provider!: PaymentProvider;
 }

@@ -7,6 +7,7 @@ export class LeaveGameResponseMapper {
       message: 'Session closed',
       sessionId: entity.id,
       isActive: entity.isActive,
+      clientSeed: entity.clientSeed,
       revealedServerSeed: entity.serverSeed,
     };
   }

@@ -222,10 +222,12 @@ exports.Prisma.TransactionScalarFieldEnum = {
   type: 'type',
   status: 'status',
   amount: 'amount',
+  balanceBefore: 'balanceBefore',
+  balanceAfter: 'balanceAfter',
   currency: 'currency',
   provider: 'provider',
+  paymentPayload: 'paymentPayload',
   orderId: 'orderId',
-  providerPaymentId: 'providerPaymentId',
   idempotencyKey: 'idempotencyKey',
   description: 'description',
   createdAt: 'createdAt',
@@ -237,6 +239,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -245,6 +252,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.UserRole = exports.$Enums.UserRole = {
   USER: 'USER',
@@ -289,7 +302,8 @@ exports.TransactionStatus = exports.$Enums.TransactionStatus = {
 
 exports.PaymentProvider = exports.$Enums.PaymentProvider = {
   LIQPAY: 'LIQPAY',
-  WAYFORPAY: 'WAYFORPAY'
+  WAYFORPAY: 'WAYFORPAY',
+  STRIPE: 'STRIPE'
 };
 
 exports.Prisma.ModelName = {

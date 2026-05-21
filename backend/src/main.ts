@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 import { SwaggerModule } from '@nestjs/swagger';
+import * as express from 'express';
 
 import { AppModule } from './app.module';
 import { swaggerConfig } from './core/swagger/swagger.config';
@@ -11,6 +12,9 @@ import { AllExceptionFilter } from './common/filters/all-exception.filter';
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
   const app = await NestFactory.create(AppModule);
+
+  app.use('/api/webhooks/stripe', express.raw({ type: 'application/json' }));
+  app.use(express.json());
 
   const config = app.get(ConfigService);
 

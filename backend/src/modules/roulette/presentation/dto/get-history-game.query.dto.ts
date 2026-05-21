@@ -1,22 +1,51 @@
 import { Transform } from 'class-transformer';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUUID,
+  IsDateString,
+  IsEnum,
+} from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { BetType } from '../../domain/enums/bet-type-enum';
 
 export class GetHistoryGameQueryDto {
-  @ApiProperty({ required: true, description: 'Номер сторінки' })
+  @ApiPropertyOptional({ example: 1 })
   @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsOptional()
   page: number = 1;
 
-  @ApiProperty({ required: true, description: 'Кількість записів' })
+  @ApiPropertyOptional({ example: 30 })
   @Transform(({ value }) => Number(value))
   @IsNumber()
   @IsOptional()
-  limit: number = 20;
+  limit: number = 30;
 
-  @ApiProperty({ required: false, description: 'Фільтр по ID ігрової сесії' })
+  @ApiPropertyOptional()
   @IsString()
   @IsOptional()
   gameSessionId?: string;
+
+  @ApiPropertyOptional({ description: 'ADMIN only' })
+  @IsUUID()
+  @IsOptional()
+  userId?: string;
+
+  // 🔥 ENUM DROPDOWN В SWAGGER
+  @ApiPropertyOptional({ enum: BetType })
+  @IsEnum(BetType)
+  @IsOptional()
+  betType?: BetType;
+
+  @ApiPropertyOptional()
+  @IsDateString()
+  @IsOptional()
+  from?: string;
+
+  @ApiPropertyOptional()
+  @IsDateString()
+  @IsOptional()
+  to?: string;
 }

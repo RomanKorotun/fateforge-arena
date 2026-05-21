@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 
 import { PrismaModule } from '../../core/prisma/prisma.module';
 
@@ -25,9 +25,11 @@ import { GetAddressUseCase } from './application/use-cases/get-address/get-addre
 import { UpdateAddressUseCase } from './application/use-cases/update-address/update-address.usecase';
 import { CreateClientSeedUseCase } from './application/use-cases/create-client-seed/create-client-seed.usecase';
 import { UpdateClientSeedUseCase } from './application/use-cases/update-client-seed/update-client-seed.usecase';
+import { GetClientSeedUseCase } from './application/use-cases/get-client-seed/get-client-seed.usecase';
+import { RouletteModule } from '../roulette/roulette.module';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, forwardRef(() => RouletteModule)],
   controllers: [UserController],
   providers: [
     DeleteUserUseCase,
@@ -40,6 +42,7 @@ import { UpdateClientSeedUseCase } from './application/use-cases/update-client-s
     UserQueryService,
     CreateClientSeedUseCase,
     UpdateClientSeedUseCase,
+    GetClientSeedUseCase,
     { provide: USER_REPOSITORY, useClass: PrismaUserRepository },
     { provide: ADDRESS_REPOSITORY, useClass: PrismaAddressRepository },
     { provide: PROFILE_REPOSITORY, useClass: PrismaProfileRepository },

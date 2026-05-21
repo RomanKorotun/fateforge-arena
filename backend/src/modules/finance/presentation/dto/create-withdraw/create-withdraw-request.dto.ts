@@ -38,7 +38,7 @@ export class CreateWithdrawRequestDto {
   @ApiProperty({
     description: 'Провайдер (імітація платіжної системи для виводу)',
     enum: PaymentProvider,
-    example: PaymentProvider.LIQPAY,
+    example: PaymentProvider.STRIPE,
   })
   @IsEnum(PaymentProvider, {
     message: 'Не валідний платіжний провайдер',

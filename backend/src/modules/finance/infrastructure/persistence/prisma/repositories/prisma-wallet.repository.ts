@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../../../core/prisma/prisma.service';
-import { WalletEntity } from '../../../../domain/entities/wallet.entity';
 import {
   CreateWalletData,
   IWalletRepository,
-} from '../../../../domain/repositories/wallet.repository';
+} from '../../../../domain/repositories/wallet/wallet.repository';
 import { PrismaTx } from '../../../../../../core/prisma/prisma.types';
 import { PrismaWalletMapper } from '../mappers/prisma-wallet.mapper';
 
@@ -24,6 +23,18 @@ export class PrismaWalletRepository implements IWalletRepository {
       data: { userId, ...(currency && { currency }) },
     });
     return PrismaWalletMapper.toDomain(wallet);
+  }
+
+  // отримати всі гаманці користувача
+  async findAllByUserId(userId: string, tx?: PrismaTx) {
+    const client = this.getClient(tx);
+
+    const wallets = await client.wallet.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    return wallets.map(PrismaWalletMapper.toDomain);
   }
 
   // Знайти гаманець по id гаманця і по userId

@@ -23,6 +23,13 @@ export class CreateGameSessionUseCase {
       throw new NotFoundException('clientSeed не знайдено');
     }
 
+    const activeSession =
+      await this.gameSessionRepository.findActiveByUserId(userId);
+
+    if (activeSession) {
+      throw new NotFoundException('У вас вже є активна ігрова сесія');
+    }
+
     const serverSeed = crypto.randomBytes(32).toString('hex');
 
     const serverHash = crypto

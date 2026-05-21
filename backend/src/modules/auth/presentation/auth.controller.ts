@@ -58,6 +58,8 @@ import { GetUserSessionsResponseMapper } from './mappers/get-sessions-response.m
 import { MeResponseMapper } from './mappers/me-response.mapper';
 
 import type { OAuthRequest } from './types/oauth-request.type';
+import { OAuthLoginSwagger } from './swagger/oauth-login.swagger';
+import { OAuthCallbackSwagger } from './swagger/oauth-callback.swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -81,12 +83,14 @@ export class AuthController {
   }
 
   // Редіректить користувача на Google
+  @OAuthLoginSwagger('Google')
   @Get('google')
   @UseGuards(AuthGuard('google'))
   googleLogin() {}
 
   // Отримує profile від Google після успішної авторизації,
   // створює/логінить користувача
+  @OAuthCallbackSwagger('Google')
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleCallback(
@@ -106,12 +110,14 @@ export class AuthController {
   }
 
   // Редіректить користувача на Linkedin
+  @OAuthLoginSwagger('Linkedin')
   @Get('linkedin')
   @UseGuards(AuthGuard('linkedin'))
   linkedinLogin() {}
 
   // Отримує profile від Linkedin після успішної авторизації,
   // створює/логінить користувача
+  @OAuthCallbackSwagger('Linkedin')
   @Get('linkedin/callback')
   @UseGuards(AuthGuard('linkedin'))
   async linkedinCallback(
@@ -129,12 +135,14 @@ export class AuthController {
   }
 
   // Редіректить користувача на Discord
+  @OAuthLoginSwagger('Discord')
   @Get('discord')
   @UseGuards(AuthGuard('discord'))
   discordLogin() {}
 
   // Отримує profile від Discord після успішної авторизації,
   // створює/логінить користувача
+  @OAuthCallbackSwagger('Discord')
   @Get('discord/callback')
   @UseGuards(AuthGuard('discord'))
   async discordCallback(
@@ -151,10 +159,15 @@ export class AuthController {
     return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
   }
 
+  // Редіректить користувача на Facebook
+  @OAuthLoginSwagger('Facebook')
   @Get('facebook')
   @UseGuards(AuthGuard('facebook'))
   facebookLogin() {}
 
+  // Отримує profile від Facebook після успішної авторизації,
+  // створює/логінить користувача
+  @OAuthCallbackSwagger('Facebook')
   @Get('facebook/callback')
   @UseGuards(AuthGuard('facebook'))
   async facebookCallback(

@@ -5,44 +5,29 @@ import { CreateDepositUseCase } from '../../application/create-deposit/create-de
 import { CreateDepositRequestDto } from '../dto/create-deposit/create-deposit-request.dto';
 import type { AuthRequest } from '../../../../common/types/auth-request';
 import { IdempotencyKey } from '../decorators/idempotency-key.decorator';
-import { DepositUseCase } from '../../application/deposit/deposit.usecase';
 import { WithdrawUseCase } from '../../application/withdraw/withdraw.usecase';
 import { CreateWithdrawRequestDto } from '../dto/create-withdraw/create-withdraw-request.dto';
-import { DepositSwagger } from '../swagger/deposit.swagger';
-import { WithdrawSwagger } from '../swagger/withdraw.swagger';
 import { IdempotencyKeyPipe } from '../pipes/idempotency-key.pipe';
+
+import { WithdrawSwagger } from '../swagger/withdraw.swagger';
+import { CreateDepositSwagger } from '../swagger/create-deposit.swagger';
 
 @UseGuards(JwtAuthGuard)
 @Controller('payment')
 export class PaymentController {
   constructor(
     private readonly createDepositUseCase: CreateDepositUseCase,
-    private readonly depositUseCase: DepositUseCase,
     private readonly withdrawUseCase: WithdrawUseCase,
   ) {}
 
-  // @Post('create-deposit')
-  // async createDeposit(
-  //   @Req() req: AuthRequest,
-  //   @Body() dto: CreateDepositRequestDto,
-  //   @IdempotencyKey() idempotencyKey: string,
-  // ) {
-  //   return await this.createDepositUseCase.execute({
-  //     ...dto,
-  //     idempotencyKey,
-  //     userId: req.user.id,
-  //   });
-  // }
-
-  @DepositSwagger()
-  @Post('deposit')
-  async Deposit(
+  @CreateDepositSwagger()
+  @Post('create-deposit')
+  async createDeposit(
     @Req() req: AuthRequest,
     @Body() dto: CreateDepositRequestDto,
-    @IdempotencyKey(IdempotencyKeyPipe)
-    idempotencyKey: string,
+    @IdempotencyKey() idempotencyKey: string,
   ) {
-    return await this.depositUseCase.execute({
+    return await this.createDepositUseCase.execute({
       ...dto,
       idempotencyKey,
       userId: req.user.id,

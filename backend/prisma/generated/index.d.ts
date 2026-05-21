@@ -120,7 +120,8 @@ export type TransactionStatus = (typeof TransactionStatus)[keyof typeof Transact
 
 export const PaymentProvider: {
   LIQPAY: 'LIQPAY',
-  WAYFORPAY: 'WAYFORPAY'
+  WAYFORPAY: 'WAYFORPAY',
+  STRIPE: 'STRIPE'
 };
 
 export type PaymentProvider = (typeof PaymentProvider)[keyof typeof PaymentProvider]
@@ -1787,12 +1788,14 @@ export namespace Prisma {
   export type UserCountOutputType = {
     gameSessions: number
     bets: number
+    wallets: number
     authProviders: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     gameSessions?: boolean | UserCountOutputTypeCountGameSessionsArgs
     bets?: boolean | UserCountOutputTypeCountBetsArgs
+    wallets?: boolean | UserCountOutputTypeCountWalletsArgs
     authProviders?: boolean | UserCountOutputTypeCountAuthProvidersArgs
   }
 
@@ -1819,6 +1822,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RouletteBetWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWalletsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WalletWhereInput
   }
 
   /**
@@ -2135,7 +2145,7 @@ export namespace Prisma {
     address?: boolean | User$addressArgs<ExtArgs>
     gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
     bets?: boolean | User$betsArgs<ExtArgs>
-    wallet?: boolean | User$walletArgs<ExtArgs>
+    wallets?: boolean | User$walletsArgs<ExtArgs>
     userSeed?: boolean | User$userSeedArgs<ExtArgs>
     emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
     authProviders?: boolean | User$authProvidersArgs<ExtArgs>
@@ -2199,7 +2209,7 @@ export namespace Prisma {
     address?: boolean | User$addressArgs<ExtArgs>
     gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
     bets?: boolean | User$betsArgs<ExtArgs>
-    wallet?: boolean | User$walletArgs<ExtArgs>
+    wallets?: boolean | User$walletsArgs<ExtArgs>
     userSeed?: boolean | User$userSeedArgs<ExtArgs>
     emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
     authProviders?: boolean | User$authProvidersArgs<ExtArgs>
@@ -2215,7 +2225,7 @@ export namespace Prisma {
       address: Prisma.$AddressPayload<ExtArgs> | null
       gameSessions: Prisma.$GameSessionPayload<ExtArgs>[]
       bets: Prisma.$RouletteBetPayload<ExtArgs>[]
-      wallet: Prisma.$WalletPayload<ExtArgs> | null
+      wallets: Prisma.$WalletPayload<ExtArgs>[]
       userSeed: Prisma.$UserSeedPayload<ExtArgs> | null
       emailVerifications: Prisma.$UserEmailVerificationPayload<ExtArgs> | null
       authProviders: Prisma.$AuthProviderPayload<ExtArgs>[]
@@ -2633,7 +2643,7 @@ export namespace Prisma {
     address<T extends User$addressArgs<ExtArgs> = {}>(args?: Subset<T, User$addressArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     gameSessions<T extends User$gameSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bets<T extends User$betsArgs<ExtArgs> = {}>(args?: Subset<T, User$betsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    wallet<T extends User$walletArgs<ExtArgs> = {}>(args?: Subset<T, User$walletArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    wallets<T extends User$walletsArgs<ExtArgs> = {}>(args?: Subset<T, User$walletsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userSeed<T extends User$userSeedArgs<ExtArgs> = {}>(args?: Subset<T, User$userSeedArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     emailVerifications<T extends User$emailVerificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$emailVerificationsArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     authProviders<T extends User$authProvidersArgs<ExtArgs> = {}>(args?: Subset<T, User$authProvidersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3159,9 +3169,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.wallet
+   * User.wallets
    */
-  export type User$walletArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$walletsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Wallet
      */
@@ -3175,6 +3185,11 @@ export namespace Prisma {
      */
     include?: WalletInclude<ExtArgs> | null
     where?: WalletWhereInput
+    orderBy?: WalletOrderByWithRelationInput | WalletOrderByWithRelationInput[]
+    cursor?: WalletWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WalletScalarFieldEnum | WalletScalarFieldEnum[]
   }
 
   /**
@@ -12195,10 +12210,14 @@ export namespace Prisma {
 
   export type TransactionAvgAggregateOutputType = {
     amount: Decimal | null
+    balanceBefore: Decimal | null
+    balanceAfter: Decimal | null
   }
 
   export type TransactionSumAggregateOutputType = {
     amount: Decimal | null
+    balanceBefore: Decimal | null
+    balanceAfter: Decimal | null
   }
 
   export type TransactionMinAggregateOutputType = {
@@ -12207,10 +12226,11 @@ export namespace Prisma {
     type: $Enums.TransactionType | null
     status: $Enums.TransactionStatus | null
     amount: Decimal | null
+    balanceBefore: Decimal | null
+    balanceAfter: Decimal | null
     currency: $Enums.Currency | null
     provider: $Enums.PaymentProvider | null
     orderId: string | null
-    providerPaymentId: string | null
     idempotencyKey: string | null
     description: string | null
     createdAt: Date | null
@@ -12223,10 +12243,11 @@ export namespace Prisma {
     type: $Enums.TransactionType | null
     status: $Enums.TransactionStatus | null
     amount: Decimal | null
+    balanceBefore: Decimal | null
+    balanceAfter: Decimal | null
     currency: $Enums.Currency | null
     provider: $Enums.PaymentProvider | null
     orderId: string | null
-    providerPaymentId: string | null
     idempotencyKey: string | null
     description: string | null
     createdAt: Date | null
@@ -12239,10 +12260,12 @@ export namespace Prisma {
     type: number
     status: number
     amount: number
+    balanceBefore: number
+    balanceAfter: number
     currency: number
     provider: number
+    paymentPayload: number
     orderId: number
-    providerPaymentId: number
     idempotencyKey: number
     description: number
     createdAt: number
@@ -12253,10 +12276,14 @@ export namespace Prisma {
 
   export type TransactionAvgAggregateInputType = {
     amount?: true
+    balanceBefore?: true
+    balanceAfter?: true
   }
 
   export type TransactionSumAggregateInputType = {
     amount?: true
+    balanceBefore?: true
+    balanceAfter?: true
   }
 
   export type TransactionMinAggregateInputType = {
@@ -12265,10 +12292,11 @@ export namespace Prisma {
     type?: true
     status?: true
     amount?: true
+    balanceBefore?: true
+    balanceAfter?: true
     currency?: true
     provider?: true
     orderId?: true
-    providerPaymentId?: true
     idempotencyKey?: true
     description?: true
     createdAt?: true
@@ -12281,10 +12309,11 @@ export namespace Prisma {
     type?: true
     status?: true
     amount?: true
+    balanceBefore?: true
+    balanceAfter?: true
     currency?: true
     provider?: true
     orderId?: true
-    providerPaymentId?: true
     idempotencyKey?: true
     description?: true
     createdAt?: true
@@ -12297,10 +12326,12 @@ export namespace Prisma {
     type?: true
     status?: true
     amount?: true
+    balanceBefore?: true
+    balanceAfter?: true
     currency?: true
     provider?: true
+    paymentPayload?: true
     orderId?: true
-    providerPaymentId?: true
     idempotencyKey?: true
     description?: true
     createdAt?: true
@@ -12400,10 +12431,12 @@ export namespace Prisma {
     type: $Enums.TransactionType
     status: $Enums.TransactionStatus
     amount: Decimal
+    balanceBefore: Decimal
+    balanceAfter: Decimal | null
     currency: $Enums.Currency
     provider: $Enums.PaymentProvider | null
+    paymentPayload: JsonValue | null
     orderId: string | null
-    providerPaymentId: string | null
     idempotencyKey: string | null
     description: string | null
     createdAt: Date
@@ -12435,10 +12468,12 @@ export namespace Prisma {
     type?: boolean
     status?: boolean
     amount?: boolean
+    balanceBefore?: boolean
+    balanceAfter?: boolean
     currency?: boolean
     provider?: boolean
+    paymentPayload?: boolean
     orderId?: boolean
-    providerPaymentId?: boolean
     idempotencyKey?: boolean
     description?: boolean
     createdAt?: boolean
@@ -12452,10 +12487,12 @@ export namespace Prisma {
     type?: boolean
     status?: boolean
     amount?: boolean
+    balanceBefore?: boolean
+    balanceAfter?: boolean
     currency?: boolean
     provider?: boolean
+    paymentPayload?: boolean
     orderId?: boolean
-    providerPaymentId?: boolean
     idempotencyKey?: boolean
     description?: boolean
     createdAt?: boolean
@@ -12469,10 +12506,12 @@ export namespace Prisma {
     type?: boolean
     status?: boolean
     amount?: boolean
+    balanceBefore?: boolean
+    balanceAfter?: boolean
     currency?: boolean
     provider?: boolean
+    paymentPayload?: boolean
     orderId?: boolean
-    providerPaymentId?: boolean
     idempotencyKey?: boolean
     description?: boolean
     createdAt?: boolean
@@ -12486,17 +12525,19 @@ export namespace Prisma {
     type?: boolean
     status?: boolean
     amount?: boolean
+    balanceBefore?: boolean
+    balanceAfter?: boolean
     currency?: boolean
     provider?: boolean
+    paymentPayload?: boolean
     orderId?: boolean
-    providerPaymentId?: boolean
     idempotencyKey?: boolean
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "walletId" | "type" | "status" | "amount" | "currency" | "provider" | "orderId" | "providerPaymentId" | "idempotencyKey" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "walletId" | "type" | "status" | "amount" | "balanceBefore" | "balanceAfter" | "currency" | "provider" | "paymentPayload" | "orderId" | "idempotencyKey" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     wallet?: boolean | WalletDefaultArgs<ExtArgs>
   }
@@ -12518,10 +12559,12 @@ export namespace Prisma {
       type: $Enums.TransactionType
       status: $Enums.TransactionStatus
       amount: Prisma.Decimal
+      balanceBefore: Prisma.Decimal
+      balanceAfter: Prisma.Decimal | null
       currency: $Enums.Currency
       provider: $Enums.PaymentProvider | null
+      paymentPayload: Prisma.JsonValue | null
       orderId: string | null
-      providerPaymentId: string | null
       idempotencyKey: string | null
       description: string | null
       createdAt: Date
@@ -12955,10 +12998,12 @@ export namespace Prisma {
     readonly type: FieldRef<"Transaction", 'TransactionType'>
     readonly status: FieldRef<"Transaction", 'TransactionStatus'>
     readonly amount: FieldRef<"Transaction", 'Decimal'>
+    readonly balanceBefore: FieldRef<"Transaction", 'Decimal'>
+    readonly balanceAfter: FieldRef<"Transaction", 'Decimal'>
     readonly currency: FieldRef<"Transaction", 'Currency'>
     readonly provider: FieldRef<"Transaction", 'PaymentProvider'>
+    readonly paymentPayload: FieldRef<"Transaction", 'Json'>
     readonly orderId: FieldRef<"Transaction", 'String'>
-    readonly providerPaymentId: FieldRef<"Transaction", 'String'>
     readonly idempotencyKey: FieldRef<"Transaction", 'String'>
     readonly description: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
@@ -13525,10 +13570,12 @@ export namespace Prisma {
     type: 'type',
     status: 'status',
     amount: 'amount',
+    balanceBefore: 'balanceBefore',
+    balanceAfter: 'balanceAfter',
     currency: 'currency',
     provider: 'provider',
+    paymentPayload: 'paymentPayload',
     orderId: 'orderId',
-    providerPaymentId: 'providerPaymentId',
     idempotencyKey: 'idempotencyKey',
     description: 'description',
     createdAt: 'createdAt',
@@ -13546,6 +13593,14 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -13560,6 +13615,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -13729,6 +13793,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -13767,7 +13845,7 @@ export namespace Prisma {
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     gameSessions?: GameSessionListRelationFilter
     bets?: RouletteBetListRelationFilter
-    wallet?: XOR<WalletNullableScalarRelationFilter, WalletWhereInput> | null
+    wallets?: WalletListRelationFilter
     userSeed?: XOR<UserSeedNullableScalarRelationFilter, UserSeedWhereInput> | null
     emailVerifications?: XOR<UserEmailVerificationNullableScalarRelationFilter, UserEmailVerificationWhereInput> | null
     authProviders?: AuthProviderListRelationFilter
@@ -13792,7 +13870,7 @@ export namespace Prisma {
     address?: AddressOrderByWithRelationInput
     gameSessions?: GameSessionOrderByRelationAggregateInput
     bets?: RouletteBetOrderByRelationAggregateInput
-    wallet?: WalletOrderByWithRelationInput
+    wallets?: WalletOrderByRelationAggregateInput
     userSeed?: UserSeedOrderByWithRelationInput
     emailVerifications?: UserEmailVerificationOrderByWithRelationInput
     authProviders?: AuthProviderOrderByRelationAggregateInput
@@ -13820,7 +13898,7 @@ export namespace Prisma {
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     gameSessions?: GameSessionListRelationFilter
     bets?: RouletteBetListRelationFilter
-    wallet?: XOR<WalletNullableScalarRelationFilter, WalletWhereInput> | null
+    wallets?: WalletListRelationFilter
     userSeed?: XOR<UserSeedNullableScalarRelationFilter, UserSeedWhereInput> | null
     emailVerifications?: XOR<UserEmailVerificationNullableScalarRelationFilter, UserEmailVerificationWhereInput> | null
     authProviders?: AuthProviderListRelationFilter
@@ -14358,10 +14436,10 @@ export namespace Prisma {
 
   export type WalletWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId?: string
     AND?: WalletWhereInput | WalletWhereInput[]
     OR?: WalletWhereInput[]
     NOT?: WalletWhereInput | WalletWhereInput[]
+    userId?: StringFilter<"Wallet"> | string
     balance?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
     currency?: EnumCurrencyFilter<"Wallet"> | $Enums.Currency
     isActive?: BoolFilter<"Wallet"> | boolean
@@ -14369,7 +14447,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Wallet"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     transactions?: TransactionListRelationFilter
-  }, "id" | "userId">
+  }, "id">
 
   export type WalletOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14408,10 +14486,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     status?: EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
     amount?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalNullableFilter<"Transaction"> | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFilter<"Transaction"> | $Enums.Currency
     provider?: EnumPaymentProviderNullableFilter<"Transaction"> | $Enums.PaymentProvider | null
+    paymentPayload?: JsonNullableFilter<"Transaction">
     orderId?: StringNullableFilter<"Transaction"> | string | null
-    providerPaymentId?: StringNullableFilter<"Transaction"> | string | null
     idempotencyKey?: StringNullableFilter<"Transaction"> | string | null
     description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -14425,10 +14505,12 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     amount?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrderInput | SortOrder
     currency?: SortOrder
     provider?: SortOrderInput | SortOrder
+    paymentPayload?: SortOrderInput | SortOrder
     orderId?: SortOrderInput | SortOrder
-    providerPaymentId?: SortOrderInput | SortOrder
     idempotencyKey?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -14447,9 +14529,11 @@ export namespace Prisma {
     type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     status?: EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
     amount?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalNullableFilter<"Transaction"> | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFilter<"Transaction"> | $Enums.Currency
     provider?: EnumPaymentProviderNullableFilter<"Transaction"> | $Enums.PaymentProvider | null
-    providerPaymentId?: StringNullableFilter<"Transaction"> | string | null
+    paymentPayload?: JsonNullableFilter<"Transaction">
     description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -14462,10 +14546,12 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     amount?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrderInput | SortOrder
     currency?: SortOrder
     provider?: SortOrderInput | SortOrder
+    paymentPayload?: SortOrderInput | SortOrder
     orderId?: SortOrderInput | SortOrder
-    providerPaymentId?: SortOrderInput | SortOrder
     idempotencyKey?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -14486,10 +14572,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeWithAggregatesFilter<"Transaction"> | $Enums.TransactionType
     status?: EnumTransactionStatusWithAggregatesFilter<"Transaction"> | $Enums.TransactionStatus
     amount?: DecimalWithAggregatesFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalWithAggregatesFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalNullableWithAggregatesFilter<"Transaction"> | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyWithAggregatesFilter<"Transaction"> | $Enums.Currency
     provider?: EnumPaymentProviderNullableWithAggregatesFilter<"Transaction"> | $Enums.PaymentProvider | null
+    paymentPayload?: JsonNullableWithAggregatesFilter<"Transaction">
     orderId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
-    providerPaymentId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     idempotencyKey?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     description?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -14515,7 +14603,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
-    wallet?: WalletCreateNestedOneWithoutUserInput
+    wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
@@ -14540,7 +14628,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
-    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
@@ -14565,7 +14653,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
-    wallet?: WalletUpdateOneWithoutUserNestedInput
+    wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
@@ -14590,7 +14678,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
-    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
@@ -15133,7 +15221,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutWalletInput
+    user: UserCreateNestedOneWithoutWalletsInput
     transactions?: TransactionCreateNestedManyWithoutWalletInput
   }
 
@@ -15155,7 +15243,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutWalletNestedInput
+    user?: UserUpdateOneRequiredWithoutWalletsNestedInput
     transactions?: TransactionUpdateManyWithoutWalletNestedInput
   }
 
@@ -15204,10 +15292,12 @@ export namespace Prisma {
     type: $Enums.TransactionType
     status?: $Enums.TransactionStatus
     amount: Decimal | DecimalJsLike | number | string
+    balanceBefore: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string | null
     currency?: $Enums.Currency
     provider?: $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: string | null
-    providerPaymentId?: string | null
     idempotencyKey?: string | null
     description?: string | null
     createdAt?: Date | string
@@ -15221,10 +15311,12 @@ export namespace Prisma {
     type: $Enums.TransactionType
     status?: $Enums.TransactionStatus
     amount: Decimal | DecimalJsLike | number | string
+    balanceBefore: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string | null
     currency?: $Enums.Currency
     provider?: $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: string | null
-    providerPaymentId?: string | null
     idempotencyKey?: string | null
     description?: string | null
     createdAt?: Date | string
@@ -15236,10 +15328,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
     provider?: NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15253,10 +15347,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
     provider?: NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15269,10 +15365,12 @@ export namespace Prisma {
     type: $Enums.TransactionType
     status?: $Enums.TransactionStatus
     amount: Decimal | DecimalJsLike | number | string
+    balanceBefore: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string | null
     currency?: $Enums.Currency
     provider?: $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: string | null
-    providerPaymentId?: string | null
     idempotencyKey?: string | null
     description?: string | null
     createdAt?: Date | string
@@ -15284,10 +15382,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
     provider?: NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15300,10 +15400,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
     provider?: NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15396,9 +15498,10 @@ export namespace Prisma {
     none?: RouletteBetWhereInput
   }
 
-  export type WalletNullableScalarRelationFilter = {
-    is?: WalletWhereInput | null
-    isNot?: WalletWhereInput | null
+  export type WalletListRelationFilter = {
+    every?: WalletWhereInput
+    some?: WalletWhereInput
+    none?: WalletWhereInput
   }
 
   export type UserSeedNullableScalarRelationFilter = {
@@ -15427,6 +15530,10 @@ export namespace Prisma {
   }
 
   export type RouletteBetOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WalletOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16017,11 +16124,45 @@ export namespace Prisma {
     not?: NestedEnumTransactionStatusFilter<$PrismaModel> | $Enums.TransactionStatus
   }
 
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type EnumPaymentProviderNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentProvider | EnumPaymentProviderFieldRefInput<$PrismaModel> | null
     in?: $Enums.PaymentProvider[] | ListEnumPaymentProviderFieldRefInput<$PrismaModel> | null
     notIn?: $Enums.PaymentProvider[] | ListEnumPaymentProviderFieldRefInput<$PrismaModel> | null
     not?: NestedEnumPaymentProviderNullableFilter<$PrismaModel> | $Enums.PaymentProvider | null
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type WalletScalarRelationFilter = {
@@ -16035,10 +16176,12 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     amount?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
     currency?: SortOrder
     provider?: SortOrder
+    paymentPayload?: SortOrder
     orderId?: SortOrder
-    providerPaymentId?: SortOrder
     idempotencyKey?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
@@ -16047,6 +16190,8 @@ export namespace Prisma {
 
   export type TransactionAvgOrderByAggregateInput = {
     amount?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
@@ -16055,10 +16200,11 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     amount?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
     currency?: SortOrder
     provider?: SortOrder
     orderId?: SortOrder
-    providerPaymentId?: SortOrder
     idempotencyKey?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
@@ -16071,10 +16217,11 @@ export namespace Prisma {
     type?: SortOrder
     status?: SortOrder
     amount?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
     currency?: SortOrder
     provider?: SortOrder
     orderId?: SortOrder
-    providerPaymentId?: SortOrder
     idempotencyKey?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
@@ -16083,6 +16230,8 @@ export namespace Prisma {
 
   export type TransactionSumOrderByAggregateInput = {
     amount?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
   }
 
   export type EnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -16105,6 +16254,22 @@ export namespace Prisma {
     _max?: NestedEnumTransactionStatusFilter<$PrismaModel>
   }
 
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
   export type EnumPaymentProviderNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentProvider | EnumPaymentProviderFieldRefInput<$PrismaModel> | null
     in?: $Enums.PaymentProvider[] | ListEnumPaymentProviderFieldRefInput<$PrismaModel> | null
@@ -16113,6 +16278,32 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumPaymentProviderNullableFilter<$PrismaModel>
     _max?: NestedEnumPaymentProviderNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type ProfileCreateNestedOneWithoutUserInput = {
@@ -16141,10 +16332,11 @@ export namespace Prisma {
     connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
   }
 
-  export type WalletCreateNestedOneWithoutUserInput = {
-    create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
-    connectOrCreate?: WalletCreateOrConnectWithoutUserInput
-    connect?: WalletWhereUniqueInput
+  export type WalletCreateNestedManyWithoutUserInput = {
+    create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
+    createMany?: WalletCreateManyUserInputEnvelope
+    connect?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
   }
 
   export type UserSeedCreateNestedOneWithoutUserInput = {
@@ -16192,10 +16384,11 @@ export namespace Prisma {
     connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
   }
 
-  export type WalletUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
-    connectOrCreate?: WalletCreateOrConnectWithoutUserInput
-    connect?: WalletWhereUniqueInput
+  export type WalletUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
+    createMany?: WalletCreateManyUserInputEnvelope
+    connect?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
   }
 
   export type UserSeedUncheckedCreateNestedOneWithoutUserInput = {
@@ -16289,14 +16482,18 @@ export namespace Prisma {
     deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
   }
 
-  export type WalletUpdateOneWithoutUserNestedInput = {
-    create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
-    connectOrCreate?: WalletCreateOrConnectWithoutUserInput
-    upsert?: WalletUpsertWithoutUserInput
-    disconnect?: WalletWhereInput | boolean
-    delete?: WalletWhereInput | boolean
-    connect?: WalletWhereUniqueInput
-    update?: XOR<XOR<WalletUpdateToOneWithWhereWithoutUserInput, WalletUpdateWithoutUserInput>, WalletUncheckedUpdateWithoutUserInput>
+  export type WalletUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
+    upsert?: WalletUpsertWithWhereUniqueWithoutUserInput | WalletUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WalletCreateManyUserInputEnvelope
+    set?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
+    disconnect?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
+    delete?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
+    connect?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
+    update?: WalletUpdateWithWhereUniqueWithoutUserInput | WalletUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WalletUpdateManyWithWhereWithoutUserInput | WalletUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WalletScalarWhereInput | WalletScalarWhereInput[]
   }
 
   export type UserSeedUpdateOneWithoutUserNestedInput = {
@@ -16381,14 +16578,18 @@ export namespace Prisma {
     deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
   }
 
-  export type WalletUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
-    connectOrCreate?: WalletCreateOrConnectWithoutUserInput
-    upsert?: WalletUpsertWithoutUserInput
-    disconnect?: WalletWhereInput | boolean
-    delete?: WalletWhereInput | boolean
-    connect?: WalletWhereUniqueInput
-    update?: XOR<XOR<WalletUpdateToOneWithWhereWithoutUserInput, WalletUpdateWithoutUserInput>, WalletUncheckedUpdateWithoutUserInput>
+  export type WalletUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
+    upsert?: WalletUpsertWithWhereUniqueWithoutUserInput | WalletUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WalletCreateManyUserInputEnvelope
+    set?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
+    disconnect?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
+    delete?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
+    connect?: WalletWhereUniqueInput | WalletWhereUniqueInput[]
+    update?: WalletUpdateWithWhereUniqueWithoutUserInput | WalletUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WalletUpdateManyWithWhereWithoutUserInput | WalletUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WalletScalarWhereInput | WalletScalarWhereInput[]
   }
 
   export type UserSeedUncheckedUpdateOneWithoutUserNestedInput = {
@@ -16603,9 +16804,9 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBetsInput, UserUpdateWithoutBetsInput>, UserUncheckedUpdateWithoutBetsInput>
   }
 
-  export type UserCreateNestedOneWithoutWalletInput = {
-    create?: XOR<UserCreateWithoutWalletInput, UserUncheckedCreateWithoutWalletInput>
-    connectOrCreate?: UserCreateOrConnectWithoutWalletInput
+  export type UserCreateNestedOneWithoutWalletsInput = {
+    create?: XOR<UserCreateWithoutWalletsInput, UserUncheckedCreateWithoutWalletsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWalletsInput
     connect?: UserWhereUniqueInput
   }
 
@@ -16635,12 +16836,12 @@ export namespace Prisma {
     set?: $Enums.Currency
   }
 
-  export type UserUpdateOneRequiredWithoutWalletNestedInput = {
-    create?: XOR<UserCreateWithoutWalletInput, UserUncheckedCreateWithoutWalletInput>
-    connectOrCreate?: UserCreateOrConnectWithoutWalletInput
-    upsert?: UserUpsertWithoutWalletInput
+  export type UserUpdateOneRequiredWithoutWalletsNestedInput = {
+    create?: XOR<UserCreateWithoutWalletsInput, UserUncheckedCreateWithoutWalletsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWalletsInput
+    upsert?: UserUpsertWithoutWalletsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWalletInput, UserUpdateWithoutWalletInput>, UserUncheckedUpdateWithoutWalletInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWalletsInput, UserUpdateWithoutWalletsInput>, UserUncheckedUpdateWithoutWalletsInput>
   }
 
   export type TransactionUpdateManyWithoutWalletNestedInput = {
@@ -16683,6 +16884,14 @@ export namespace Prisma {
 
   export type EnumTransactionStatusFieldUpdateOperationsInput = {
     set?: $Enums.TransactionStatus
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type NullableEnumPaymentProviderFieldUpdateOperationsInput = {
@@ -17007,6 +17216,17 @@ export namespace Prisma {
     not?: NestedEnumTransactionStatusFilter<$PrismaModel> | $Enums.TransactionStatus
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type NestedEnumPaymentProviderNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentProvider | EnumPaymentProviderFieldRefInput<$PrismaModel> | null
     in?: $Enums.PaymentProvider[] | ListEnumPaymentProviderFieldRefInput<$PrismaModel> | null
@@ -17034,6 +17254,22 @@ export namespace Prisma {
     _max?: NestedEnumTransactionStatusFilter<$PrismaModel>
   }
 
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumPaymentProviderNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentProvider | EnumPaymentProviderFieldRefInput<$PrismaModel> | null
     in?: $Enums.PaymentProvider[] | ListEnumPaymentProviderFieldRefInput<$PrismaModel> | null
@@ -17042,6 +17278,29 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumPaymentProviderNullableFilter<$PrismaModel>
     _max?: NestedEnumPaymentProviderNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type ProfileCreateWithoutUserInput = {
@@ -17185,6 +17444,11 @@ export namespace Prisma {
   export type WalletCreateOrConnectWithoutUserInput = {
     where: WalletWhereUniqueInput
     create: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
+  }
+
+  export type WalletCreateManyUserInputEnvelope = {
+    data: WalletCreateManyUserInput | WalletCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserSeedCreateWithoutUserInput = {
@@ -17370,35 +17634,33 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"RouletteBet"> | Date | string
   }
 
-  export type WalletUpsertWithoutUserInput = {
+  export type WalletUpsertWithWhereUniqueWithoutUserInput = {
+    where: WalletWhereUniqueInput
     update: XOR<WalletUpdateWithoutUserInput, WalletUncheckedUpdateWithoutUserInput>
     create: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput>
-    where?: WalletWhereInput
   }
 
-  export type WalletUpdateToOneWithWhereWithoutUserInput = {
-    where?: WalletWhereInput
+  export type WalletUpdateWithWhereUniqueWithoutUserInput = {
+    where: WalletWhereUniqueInput
     data: XOR<WalletUpdateWithoutUserInput, WalletUncheckedUpdateWithoutUserInput>
   }
 
-  export type WalletUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    transactions?: TransactionUpdateManyWithoutWalletNestedInput
+  export type WalletUpdateManyWithWhereWithoutUserInput = {
+    where: WalletScalarWhereInput
+    data: XOR<WalletUpdateManyMutationInput, WalletUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type WalletUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    transactions?: TransactionUncheckedUpdateManyWithoutWalletNestedInput
+  export type WalletScalarWhereInput = {
+    AND?: WalletScalarWhereInput | WalletScalarWhereInput[]
+    OR?: WalletScalarWhereInput[]
+    NOT?: WalletScalarWhereInput | WalletScalarWhereInput[]
+    id?: StringFilter<"Wallet"> | string
+    userId?: StringFilter<"Wallet"> | string
+    balance?: DecimalFilter<"Wallet"> | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyFilter<"Wallet"> | $Enums.Currency
+    isActive?: BoolFilter<"Wallet"> | boolean
+    createdAt?: DateTimeFilter<"Wallet"> | Date | string
+    updatedAt?: DateTimeFilter<"Wallet"> | Date | string
   }
 
   export type UserSeedUpsertWithoutUserInput = {
@@ -17493,7 +17755,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
-    wallet?: WalletCreateNestedOneWithoutUserInput
+    wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
   }
@@ -17517,7 +17779,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
-    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
   }
@@ -17557,7 +17819,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
-    wallet?: WalletUpdateOneWithoutUserNestedInput
+    wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
   }
@@ -17581,7 +17843,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
-    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -17605,7 +17867,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
-    wallet?: WalletCreateNestedOneWithoutUserInput
+    wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
   }
@@ -17629,7 +17891,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
-    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
   }
@@ -17669,7 +17931,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
-    wallet?: WalletUpdateOneWithoutUserNestedInput
+    wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
   }
@@ -17693,7 +17955,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
-    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -17717,7 +17979,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
-    wallet?: WalletCreateNestedOneWithoutUserInput
+    wallets?: WalletCreateNestedManyWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
   }
@@ -17741,7 +18003,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
-    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
   }
@@ -17781,7 +18043,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
-    wallet?: WalletUpdateOneWithoutUserNestedInput
+    wallets?: WalletUpdateManyWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
   }
@@ -17805,7 +18067,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
-    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -17828,7 +18090,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
-    wallet?: WalletCreateNestedOneWithoutUserInput
+    wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
@@ -17852,7 +18114,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
-    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
@@ -17892,7 +18154,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
-    wallet?: WalletUpdateOneWithoutUserNestedInput
+    wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
@@ -17916,7 +18178,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
-    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
@@ -17940,7 +18202,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
-    wallet?: WalletCreateNestedOneWithoutUserInput
+    wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
@@ -17964,7 +18226,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
-    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
@@ -18004,7 +18266,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
-    wallet?: WalletUpdateOneWithoutUserNestedInput
+    wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
@@ -18028,7 +18290,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
-    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
@@ -18052,7 +18314,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
-    wallet?: WalletCreateNestedOneWithoutUserInput
+    wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
@@ -18076,7 +18338,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
-    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
@@ -18152,7 +18414,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
-    wallet?: WalletUpdateOneWithoutUserNestedInput
+    wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
@@ -18176,7 +18438,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
-    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
@@ -18243,7 +18505,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
-    wallet?: WalletCreateNestedOneWithoutUserInput
+    wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
@@ -18267,7 +18529,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
-    wallet?: WalletUncheckedCreateNestedOneWithoutUserInput
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
@@ -18340,7 +18602,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
-    wallet?: WalletUpdateOneWithoutUserNestedInput
+    wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
@@ -18364,13 +18626,13 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
-    wallet?: WalletUncheckedUpdateOneWithoutUserNestedInput
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type UserCreateWithoutWalletInput = {
+  export type UserCreateWithoutWalletsInput = {
     id?: string
     username: string
     email: string
@@ -18394,7 +18656,7 @@ export namespace Prisma {
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutWalletInput = {
+  export type UserUncheckedCreateWithoutWalletsInput = {
     id?: string
     username: string
     email: string
@@ -18418,9 +18680,9 @@ export namespace Prisma {
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutWalletInput = {
+  export type UserCreateOrConnectWithoutWalletsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutWalletInput, UserUncheckedCreateWithoutWalletInput>
+    create: XOR<UserCreateWithoutWalletsInput, UserUncheckedCreateWithoutWalletsInput>
   }
 
   export type TransactionCreateWithoutWalletInput = {
@@ -18428,10 +18690,12 @@ export namespace Prisma {
     type: $Enums.TransactionType
     status?: $Enums.TransactionStatus
     amount: Decimal | DecimalJsLike | number | string
+    balanceBefore: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string | null
     currency?: $Enums.Currency
     provider?: $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: string | null
-    providerPaymentId?: string | null
     idempotencyKey?: string | null
     description?: string | null
     createdAt?: Date | string
@@ -18443,10 +18707,12 @@ export namespace Prisma {
     type: $Enums.TransactionType
     status?: $Enums.TransactionStatus
     amount: Decimal | DecimalJsLike | number | string
+    balanceBefore: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string | null
     currency?: $Enums.Currency
     provider?: $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: string | null
-    providerPaymentId?: string | null
     idempotencyKey?: string | null
     description?: string | null
     createdAt?: Date | string
@@ -18463,18 +18729,18 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutWalletInput = {
-    update: XOR<UserUpdateWithoutWalletInput, UserUncheckedUpdateWithoutWalletInput>
-    create: XOR<UserCreateWithoutWalletInput, UserUncheckedCreateWithoutWalletInput>
+  export type UserUpsertWithoutWalletsInput = {
+    update: XOR<UserUpdateWithoutWalletsInput, UserUncheckedUpdateWithoutWalletsInput>
+    create: XOR<UserCreateWithoutWalletsInput, UserUncheckedCreateWithoutWalletsInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutWalletInput = {
+  export type UserUpdateToOneWithWhereWithoutWalletsInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutWalletInput, UserUncheckedUpdateWithoutWalletInput>
+    data: XOR<UserUpdateWithoutWalletsInput, UserUncheckedUpdateWithoutWalletsInput>
   }
 
-  export type UserUpdateWithoutWalletInput = {
+  export type UserUpdateWithoutWalletsInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -18498,7 +18764,7 @@ export namespace Prisma {
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutWalletInput = {
+  export type UserUncheckedUpdateWithoutWalletsInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -18547,10 +18813,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
     status?: EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
     amount?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
+    balanceAfter?: DecimalNullableFilter<"Transaction"> | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFilter<"Transaction"> | $Enums.Currency
     provider?: EnumPaymentProviderNullableFilter<"Transaction"> | $Enums.PaymentProvider | null
+    paymentPayload?: JsonNullableFilter<"Transaction">
     orderId?: StringNullableFilter<"Transaction"> | string | null
-    providerPaymentId?: StringNullableFilter<"Transaction"> | string | null
     idempotencyKey?: StringNullableFilter<"Transaction"> | string | null
     description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -18564,7 +18832,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutWalletInput
+    user: UserCreateNestedOneWithoutWalletsInput
   }
 
   export type WalletUncheckedCreateWithoutTransactionsInput = {
@@ -18600,7 +18868,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutWalletNestedInput
+    user?: UserUpdateOneRequiredWithoutWalletsNestedInput
   }
 
   export type WalletUncheckedUpdateWithoutTransactionsInput = {
@@ -18634,6 +18902,15 @@ export namespace Prisma {
     isWin: boolean
     nonce: number
     createdAt?: Date | string
+  }
+
+  export type WalletCreateManyUserInput = {
+    id?: string
+    balance?: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.Currency
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AuthProviderCreateManyUserInput = {
@@ -18714,6 +18991,35 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WalletUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUpdateManyWithoutWalletNestedInput
+  }
+
+  export type WalletUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutWalletNestedInput
+  }
+
+  export type WalletUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AuthProviderUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: EnumAuthProviderTypeFieldUpdateOperationsInput | $Enums.AuthProviderType
@@ -18792,10 +19098,12 @@ export namespace Prisma {
     type: $Enums.TransactionType
     status?: $Enums.TransactionStatus
     amount: Decimal | DecimalJsLike | number | string
+    balanceBefore: Decimal | DecimalJsLike | number | string
+    balanceAfter?: Decimal | DecimalJsLike | number | string | null
     currency?: $Enums.Currency
     provider?: $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: string | null
-    providerPaymentId?: string | null
     idempotencyKey?: string | null
     description?: string | null
     createdAt?: Date | string
@@ -18807,10 +19115,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
     provider?: NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18822,10 +19132,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
     provider?: NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18837,10 +19149,12 @@ export namespace Prisma {
     type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceBefore?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceAfter?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
     provider?: NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+    paymentPayload?: NullableJsonNullValueInput | InputJsonValue
     orderId?: NullableStringFieldUpdateOperationsInput | string | null
-    providerPaymentId?: NullableStringFieldUpdateOperationsInput | string | null
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

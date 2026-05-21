@@ -16,5 +16,11 @@ export interface UpdateGameSessionData {
 export interface IGameSessionRepository {
   create(data: CreateData): Promise<GameSessionEntity>;
   findById(id: string): Promise<GameSessionEntity | null>;
-  update(id: string, data: UpdateGameSessionData): Promise<GameSessionEntity>;
+  findAllByUserId(userId: string): Promise<GameSessionEntity[]>;
+  update(
+    id: string,
+    data: UpdateGameSessionData,
+    tx?: unknown,
+  ): Promise<GameSessionEntity>;
+  findActiveByUserId(userId: string): Promise<GameSessionEntity | null>;
 }

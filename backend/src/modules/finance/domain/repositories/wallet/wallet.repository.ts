@@ -1,5 +1,5 @@
-import { WalletEntity } from '../entities/wallet.entity';
-import { Currency } from '../enums/currency.enum';
+import { WalletEntity } from '../../entities/wallet.entity';
+import { Currency } from '../../enums/currency.enum';
 
 export interface CreateWalletData {
   userId: string;
@@ -9,6 +9,9 @@ export interface CreateWalletData {
 export interface IWalletRepository {
   // Створити гаманець для користувача
   createWallet(data: CreateWalletData, tx?: unknown): Promise<WalletEntity>;
+
+  // Отримати всі гаманці користувача
+  findAllByUserId(userId: string, tx?: unknown): Promise<WalletEntity[]>;
 
   // Знайти гаманець по id гаманця і по userId
   findByIdAndUserId(

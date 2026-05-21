@@ -19,6 +19,7 @@ import { CreateGameSessionUseCase } from '../application/use-cases/create-game-s
 import { GetHistoryGameUseCase } from '../application/use-cases/get-history-game/get-history-game.usecase';
 import { PlaceBetUseCase } from '../application/use-cases/place-bet/place-bet.usecase';
 import { LeaveGameUseCase } from '../application/use-cases/leave-game/leave-game.usecase';
+import { GetUserAllGameSessionsUseCase } from '../application/use-cases/get-user-all-game-sessions/get-user-all-game-sessions.usecase';
 
 import { PlaceBetRequestDto } from './dto/place-bet/place-bet-request.dto';
 import { GetHistoryGameQueryDto } from './dto/get-history-game.query.dto';
@@ -31,12 +32,14 @@ import { LeaveGameSwagger } from './swagger/leave-game.swagger';
 import { GetHistoryGameSwagger } from './swagger/get-history-game.swagger';
 import { PlaceBetSwagger } from './swagger/place-bet.swagger';
 import { CreateGameSessionSwagger } from './swagger/create-game-session.swagger';
+import { GetUserSessionsSwagger } from './swagger/get-user-all-game-sessions.swagger';
 
 import { PlaceBetResponseMapper } from './mappers/place-bet-response.mapper';
 import { GetHistoryGameResponseMapper } from './mappers/get-history-game-response.mapper';
 import { LeaveGameResponseMapper } from './mappers/leave-game-response.mapper';
 import { CreateGameSessionResponseMapper } from './mappers/create-game-session-response.mapper';
 
+@UseGuards(JwtAuthGuard)
 @Controller('roulette')
 export class RouletteController {
   constructor(
@@ -44,11 +47,11 @@ export class RouletteController {
     private readonly placeBetUseCase: PlaceBetUseCase,
     private readonly getHistoryGameUseCase: GetHistoryGameUseCase,
     private readonly leaveGameUseCase: LeaveGameUseCase,
+    private readonly getUserAllGameSessionsUseCase: GetUserAllGameSessionsUseCase,
   ) {}
 
   // Створює нову ігрову сесію для користувача.
   @CreateGameSessionSwagger()
-  @UseGuards(JwtAuthGuard)
   @Post('join')
   async join(
     @Req() req: AuthRequest,
@@ -57,10 +60,16 @@ export class RouletteController {
     return CreateGameSessionResponseMapper.toDto(gameSession);
   }
 
+  // Повертає список ігрових сесій користувача
+  @GetUserSessionsSwagger()
+  @Get('sessions')
+  async getUserAllGameSessions(@Req() req: AuthRequest) {
+    return await this.getUserAllGameSessionsUseCase.execute(req.user.id);
+  }
+
   // Обробляє ставки користувача в межах активної ігрової сесії.
   // Виконує розрахунок результату спіну (win number), визначає виграші, рахує payout та повертає підсумок раунду (profit, total bet, results по кожній ставці).
   @PlaceBetSwagger()
-  @UseGuards(JwtAuthGuard)
   @Post('bet')
   async placeBet(
     @Req() req: AuthRequest,
@@ -76,23 +85,23 @@ export class RouletteController {
   // Повертає історію ставок користувача.
   // Підтримує пагінацію та фільтрацію по gameSessionId.
   @GetHistoryGameSwagger()
-  @UseGuards(JwtAuthGuard)
   @Get('history')
   async getHistoryGame(
     @Req() req: AuthRequest,
     @Query() query: GetHistoryGameQueryDto,
-  ): Promise<GetHistoryGameSuccessResponseDto[]> {
-    const bets = await this.getHistoryGameUseCase.execute({
-      userId: req.user.id,
-      query,
+  ) {
+    const result = await this.getHistoryGameUseCase.execute({
+      requesterId: req.user.id,
+      requesterRole: req.user.role,
+      ...query,
     });
-    return GetHistoryGameResponseMapper.toDtoList(bets);
+
+    return result;
   }
 
   // Завершує активну ігрову сесію користувача.
   // Після виклику сесія більше не приймає ставки.
   @LeaveGameSwagger()
-  @UseGuards(JwtAuthGuard)
   @Patch('leave/:id')
   async leaveGame(
     @Req() req: AuthRequest,

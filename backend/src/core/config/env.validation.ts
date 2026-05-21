@@ -29,8 +29,7 @@ export const envValidationSchema = Joi.object({
   GOOGLE_CLIENT_ID: Joi.string().required(),
   GOOGLE_CLIENT_SECRET: Joi.string().required(),
   GOOGLE_CALLBACK_URL: Joi.string().required(),
-  PUBLIC_KEY_LIQPAY: Joi.string().required(),
-  PRIVATE_KEY_LIQPAY: Joi.string().required(),
-  WFP_MERCHANT_ACCOUNT: Joi.string().required(),
-  WFP_MERCHANT_SECRET: Joi.string().required(),
+  STRIPE_SECRET_KEY: Joi.string().required(),
+  STRIPE_PUBLISHABLE_KEY: Joi.string().required(),
+  STRIPE_WEBHOOK_SECRET: Joi.string().required(),
 });
