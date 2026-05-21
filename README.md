@@ -38,6 +38,20 @@ Infra:
 
 ---
 
+## SWAGGER (API Documentation)
+
+Проєкт використовує Swagger для документування API.
+
+### Доступ до Swagger:
+
+- **Development:**  
+  `http://localhost:3799/swagger`
+
+- **Production:**  
+  `https://fateforge-arena.duckdns.org/swagger`
+
+---
+
 ## АУТЕНТИФІКАЦІЯ
 
 Система автентифікації включає:
