@@ -9,7 +9,6 @@ import { randomUUID } from 'crypto';
 import { DepositCommand } from './create-deposit.command';
 
 import { PaymentProvider } from '../../domain/enums/payment-provider.enum';
-
 import { StripeProvider } from '../../infrastructure/payment-providers/stripe.provider';
 
 import { TRANSACTION_REPOSITORY } from '../../domain/repositories/transaction/transaction.repository.token';
@@ -31,54 +30,64 @@ export class CreateDepositUseCase {
     private readonly stripeProvider: StripeProvider,
   ) {}
 
-  async execute({
-    idempotencyKey,
-    walletId,
-    userId,
-    amount,
-    currency,
-    provider,
-  }: DepositCommand) {
-    const wallet = await this.walletRepo.findByIdAndUserId(walletId, userId);
+  async execute(params: DepositCommand) {
+    try {
+      console.log('➡️ CREATE_DEPOSIT INPUT:', params);
 
-    if (!wallet) {
-      throw new NotFoundException('Гаманець не знайдено');
-    }
+      const { idempotencyKey, walletId, userId, amount, currency, provider } =
+        params;
 
-    const existing =
-      await this.transactionRepo.findByIdempotencyKey(idempotencyKey);
+      const wallet = await this.walletRepo.findByIdAndUserId(walletId, userId);
 
-    if (existing) {
-      return existing;
-    }
+      console.log('💰 WALLET:', wallet);
 
-    const orderId = randomUUID();
-    const description = `Deposit via ${provider}`;
+      if (!wallet) {
+        throw new NotFoundException('Гаманець не знайдено');
+      }
 
-    await this.transactionRepo.createTransaction({
-      walletId: wallet.id,
-      type: TransactionType.DEPOSIT,
-      status: TransactionStatus.PENDING,
-      amount,
-      currency,
-      balanceBefore: wallet.balance,
-      provider,
-      orderId,
-      idempotencyKey,
-      description,
-    });
+      const existing =
+        await this.transactionRepo.findByIdempotencyKey(idempotencyKey);
 
-    if (provider === PaymentProvider.STRIPE) {
-      return this.stripeProvider.createCheckoutSession({
+      if (existing) {
+        console.log('♻️ EXISTING TRANSACTION:', existing);
+        return existing;
+      }
+
+      const orderId = randomUUID();
+      const description = `Deposit via ${provider}`;
+
+      const tx = await this.transactionRepo.createTransaction({
+        walletId: wallet.id,
+        type: TransactionType.DEPOSIT,
+        status: TransactionStatus.PENDING,
         amount,
         currency,
+        balanceBefore: wallet.balance,
+        provider,
         orderId,
+        idempotencyKey,
         description,
       });
-    }
 
-    throw new BadRequestException('Unsupported provider');
+      console.log('🧾 TRANSACTION CREATED:', tx);
+
+      if (provider === PaymentProvider.STRIPE) {
+        const result = await this.stripeProvider.createCheckoutSession({
+          amount,
+          currency,
+          orderId,
+          description,
+        });
+
+        console.log('💳 STRIPE RESULT:', result);
+
+        return result;
+      }
+
+      throw new BadRequestException('Unsupported provider');
+    } catch (err) {
+      console.error('❌ CREATE_DEPOSIT_ERROR:', err);
+      throw err;
+    }
   }
 }
-
-
