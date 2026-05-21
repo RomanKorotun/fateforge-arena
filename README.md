@@ -1,106 +1,132 @@
-## 1. Використані технології
+# Backend API (NestJS)
 
-### Backend
+---
+
+## Опис проєкту
+
+Модульний backend на NestJS з наступними доменами:
+
+- auth — автентифікація, OAuth, сесії
+- users — профіль користувача
+- admin — керування користувачами
+- finance — гаманці, транзакції, платежі
+- roulette — ігрова логіка
+
+---
+
+## ТЕХНОЛОГІЇ
+
+Backend:
 
 - Node.js
-- Nest.js
+- NestJS
+- TypeScript
 
-### База даних
+Database:
 
-- Redis — зберігання сесій користувачів
-- PostgreSQL — основні дані (користувачі, профілі, адреси, ролі)
+- PostgreSQL — основна база даних
+- Redis — сесії та кеш
 
-### ORM
+ORM:
 
-- PrismaORM
+- Prisma ORM
 
-### Інфраструктура
+Infra:
 
-- Docker (Dockerfile, Docker Compose)
+- Docker
+- Docker Compose
 
-## 2. Загальні положення
+---
 
-2.1. Спочатку потрібно клонувати репозиторій на свій локальний комп'ютер
+## АУТЕНТИФІКАЦІЯ
 
-```bash
-git clone url-репозиторія
-```
+Система автентифікації включає:
 
-2.2. Налаштування середовища
+### OAuth провайдери:
 
-- У корені репозиторію створіть файл **.env.development**
-- Заповніть його змінними середовища на основі прикладу з файлу **.env.example**
+- Google
+- Discord
+- LinkedIn
+- Facebook
 
-  2.3. Запустити Docker
+### Локальна авторизація:
 
-  2.4. Відкрийте термінал у корені репозиторію та виконайте команду. Ця команда збирає образи і запускає контейнери у фоновому режимі.
+- email + password
+
+---
+
+### Як працює auth flow:
+
+1. користувач переходить на OAuth provider
+2. отримує callback у backend
+3. створюється або знаходиться користувач
+4. генерується JWT токен
+5. токен зберігається в **httpOnly cookie**
+6. створюється сесія користувача
+
+---
+
+## СЕСІЇ
+
+- сесії користувачів зберігаються в **Redis**
+- кожен логін створює нову сесію
+- підтримується:
+  - revoke конкретної сесії
+  - revoke всіх сесій (logout all devices)
+  - перегляд активних сесій
+
+---
+
+## БІЗНЕС ЛОГІКА
+
+### Finance:
+
+- створення депозитів
+- вивід коштів (withdraw)
+- транзакції (transaction system)
+- Stripe payments
+- баланс формується тільки через transactions
+
+### Roulette:
+
+- створення ігрових сесій
+- ставки (bets)
+- розрахунок результатів гри
+- історія ігор
+- оновлення балансу через finance модуль
+
+---
+
+## USERS
+
+- профіль користувача
+- список користувачів
+- avatar upload
+- адреси користувача
+- client seed (provably fair система)
+- soft delete акаунта
+
+---
+
+## ADMIN
+
+- список користувачів
+- бан / розбан користувачів
+- доступ тільки для ролі ADMIN
+
+---
+
+## ENVIRONMENT
+
+Для локального запуску:
+
+- створити файл `.env.development`
+- базується на `.env.example`
+
+---
+
+## ЛОКАЛЬНИЙ ЗАПУСК
 
 ```bash
 docker compose --env-file .env.development -f docker-compose.dev.yml up --build -d
 ```
-
-## 3. BACKEND
-
-3.1. Щоб зайти в контейнер і виконувати команди всередині нього, використовуйте команду нижче. Тут node_container_dev — назва контейнера з docker-compose.yml.
-
-```bash
-docker exec -it node_container_dev sh
-```
-
-3.2. API маршрути
-
----
-
-# AUTH
-
-GET /auth/google — редірект на Google OAuth  
-GET /auth/google/callback — callback після Google OAuth
-
-GET /auth/linkedin — редірект на LinkedIn OAuth  
-GET /auth/linkedin/callback — callback після LinkedIn OAuth
-
-GET /auth/discord — редірект на Discord OAuth  
-GET /auth/discord/callback — callback після Discord OAuth
-
-GET /auth/facebook — редірект на Facebook OAuth  
-GET /auth/facebook/callback — callback після Facebook OAuth
-
-POST /auth/signup — реєстрація користувача  
-POST /auth/signin — авторизація користувача  
-POST /auth/restore — відновлення акаунта
-
-GET /auth/me — отримати поточного користувача  
-GET /auth/sessions — отримати всі активні сесії
-
-DELETE /auth/sessions/:id/revoke — відкликати конкретну сесію  
-DELETE /auth/sessions/revoke-all — відкликати всі сесії (logout all devices)
-
-POST /auth/signout — вихід з поточної сесії
-
-GET /auth/confirm-email?token= — підтвердження email  
-POST /auth/email-verification/resend — повторна відправка email verification
-
----
-
-# USERS
-
-GET /users/me — отримати свій профіль  
-POST /users/me/profile/avatar — завантажити аватар
-
-POST /users/me/address — додати адресу  
-GET /users/me/address — отримати адресу  
-PUT /users/me/address — оновити адресу
-
-GET /users — список користувачів (обмежена інформація)  
-DELETE /users/me — soft delete акаунта
-
-POST /users/me/client-seed — створити client seed  
-PUT /users/me/client-seed — оновити client seed
-
----
-
-# ADMIN
-
-GET /admin/users — список всіх користувачів (ADMIN only)  
-PATCH /admin/users/:id/ban — забанити користувача  
-PATCH /admin/users/:id/unban — розбанити користувача
