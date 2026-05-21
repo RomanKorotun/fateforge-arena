@@ -13,12 +13,8 @@ export class GetClientSeedUseCase {
   async execute(userId: string) {
     const seed = await this.userSeedRepository.getSeed(userId);
 
-    if (!seed) {
-      throw new NotFoundException('Client seed not found');
-    }
-
     return {
-      clientSeed: seed.clientSeed,
+      clientSeed: seed? seed.clientSeed? null,
     };
   }
 }
