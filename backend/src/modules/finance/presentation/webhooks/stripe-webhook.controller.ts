@@ -27,68 +27,41 @@ export class StripeWebhookController {
     @Req() req: Request,
     @Headers('stripe-signature') signature: string,
   ) {
-    try {
-      console.log('\n================ STRIPE WEBHOOK START ================');
-      console.log('📩 Signature:', signature);
+    const payload = req.body as Buffer;
 
-      const payload = req.body as Buffer;
+    const event: any = this.stripeProvider.verifyWebhookSignature(
+      payload,
+      signature,
+    );
 
-      console.log('📦 RAW PAYLOAD SIZE:', payload?.length);
+    const session = event.data.object;
 
-      const event: any = this.stripeProvider.verifyWebhookSignature(
-        payload,
-        signature,
-      );
+    const orderId = session?.metadata?.orderId;
 
-      console.log('🎯 EVENT TYPE:', event.type);
-      console.log('🆔 EVENT ID:', event.id);
-
-      const session = event.data.object;
-      console.log('📄 SESSION:', JSON.stringify(session, null, 2));
-
-      const orderId = session?.metadata?.orderId;
-
-      console.log('🧾 ORDER ID:', orderId);
-
-      if (!orderId) {
-        console.log('❌ NO ORDER ID → EXIT');
-        return { received: true };
-      }
-
-      if (event.type === 'checkout.session.completed') {
-        console.log('➡️ PROCESS: checkout.session.completed');
-
-        await this.handleDepositWebhookUseCase.execute({
-          provider: PaymentProvider.STRIPE,
-          orderId,
-          status: TransactionStatus.COMPLETED,
-          amount: session.amount_total,
-          transactionId: String(session.payment_intent ?? ''),
-        });
-
-        console.log('✅ SUCCESS WEBHOOK PROCESSED');
-      }
-
-      if (event.type === 'payment_intent.payment_failed') {
-        console.log('➡️ PROCESS: payment_intent.payment_failed');
-
-        await this.handleDepositWebhookUseCase.execute({
-          provider: PaymentProvider.STRIPE,
-          orderId,
-          status: TransactionStatus.FAILED,
-          amount: 0,
-          transactionId: String(session.payment_intent ?? ''),
-        });
-
-        console.log('❌ FAILED WEBHOOK PROCESSED');
-      }
-
-      console.log('================ STRIPE WEBHOOK END ================\n');
-
+    if (!orderId) {
       return { received: true };
-    } catch (err) {
-      console.error('🔥 WEBHOOK CRASH:', err);
-      throw err;
     }
+
+    if (event.type === 'checkout.session.completed') {
+      await this.handleDepositWebhookUseCase.execute({
+        provider: PaymentProvider.STRIPE,
+        orderId,
+        status: TransactionStatus.COMPLETED,
+        amount: session.amount_total,
+        transactionId: String(session.payment_intent ?? ''),
+      });
+    }
+
+    if (event.type === 'payment_intent.payment_failed') {
+      await this.handleDepositWebhookUseCase.execute({
+        provider: PaymentProvider.STRIPE,
+        orderId,
+        status: TransactionStatus.FAILED,
+        amount: 0,
+        transactionId: String(session.payment_intent ?? ''),
+      });
+    }
+
+    return { received: true };
   }
 }

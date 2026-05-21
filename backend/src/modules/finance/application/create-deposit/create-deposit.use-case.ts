@@ -32,14 +32,10 @@ export class CreateDepositUseCase {
 
   async execute(params: DepositCommand) {
     try {
-      console.log('➡️ CREATE_DEPOSIT INPUT:', params);
-
       const { idempotencyKey, walletId, userId, amount, currency, provider } =
         params;
 
       const wallet = await this.walletRepo.findByIdAndUserId(walletId, userId);
-
-      console.log('💰 WALLET:', wallet);
 
       if (!wallet) {
         throw new NotFoundException('Гаманець не знайдено');
@@ -49,14 +45,13 @@ export class CreateDepositUseCase {
         await this.transactionRepo.findByIdempotencyKey(idempotencyKey);
 
       if (existing) {
-        console.log('♻️ EXISTING TRANSACTION:', existing);
         return existing;
       }
 
       const orderId = randomUUID();
       const description = `Deposit via ${provider}`;
 
-      const tx = await this.transactionRepo.createTransaction({
+      await this.transactionRepo.createTransaction({
         walletId: wallet.id,
         type: TransactionType.DEPOSIT,
         status: TransactionStatus.PENDING,
@@ -69,8 +64,6 @@ export class CreateDepositUseCase {
         description,
       });
 
-      console.log('🧾 TRANSACTION CREATED:', tx);
-
       if (provider === PaymentProvider.STRIPE) {
         const result = await this.stripeProvider.createCheckoutSession({
           amount,
@@ -79,14 +72,11 @@ export class CreateDepositUseCase {
           description,
         });
 
-        console.log('💳 STRIPE RESULT:', result);
-
         return result;
       }
 
       throw new BadRequestException('Unsupported provider');
     } catch (err) {
-      console.error('❌ CREATE_DEPOSIT_ERROR:', err);
       throw err;
     }
   }
