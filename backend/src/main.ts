@@ -45,6 +45,8 @@ async function bootstrap() {
 
   const PORT = parseInt(config.getOrThrow('PORT'), 10);
 
-  await app.listen(PORT, () => logger.log(`Server is running on ${PORT} PORT`));
+  await app.listen(PORT, '0.0.0.0', () =>
+    logger.log(`Server is running on ${PORT} PORT`),
+  );
 }
 void bootstrap();
