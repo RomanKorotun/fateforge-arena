@@ -14,7 +14,7 @@ export class GetClientSeedUseCase {
     const seed = await this.userSeedRepository.getSeed(userId);
 
     return {
-      clientSeed: seed? seed.clientSeed? null,
+      clientSeed: seed ? seed.clientSeed : null,
     };
   }
 }
