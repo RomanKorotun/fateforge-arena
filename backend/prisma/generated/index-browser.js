@@ -222,10 +222,12 @@ exports.Prisma.TransactionScalarFieldEnum = {
   type: 'type',
   status: 'status',
   amount: 'amount',
+  balanceBefore: 'balanceBefore',
+  balanceAfter: 'balanceAfter',
   currency: 'currency',
   provider: 'provider',
-  orderId: 'orderId',
   providerPaymentId: 'providerPaymentId',
+  orderId: 'orderId',
   idempotencyKey: 'idempotencyKey',
   description: 'description',
   createdAt: 'createdAt',
@@ -289,7 +291,8 @@ exports.TransactionStatus = exports.$Enums.TransactionStatus = {
 
 exports.PaymentProvider = exports.$Enums.PaymentProvider = {
   LIQPAY: 'LIQPAY',
-  WAYFORPAY: 'WAYFORPAY'
+  WAYFORPAY: 'WAYFORPAY',
+  STRIPE: 'STRIPE'
 };
 
 exports.Prisma.ModelName = {

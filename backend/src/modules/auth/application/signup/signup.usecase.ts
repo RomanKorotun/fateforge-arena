@@ -16,8 +16,8 @@ import type { IUserRepository } from '../../../user/domain/repositories/user.rep
 import type { IProfileRepository } from '../../../user/domain/repositories/profile.repository';
 import { PROFILE_REPOSITORY } from '../../../user/domain/repositories/profile.repository.token';
 
-import type { IWalletRepository } from '../../../finance/domain/repositories/wallet.repository';
-import { WALLET_REPOSITORY } from '../../../finance/domain/repositories/wallet.repository.token';
+import type { IWalletRepository } from '../../../finance/domain/repositories/wallet/wallet.repository';
+import { WALLET_REPOSITORY } from '../../../finance/domain/repositories/wallet/wallet.repository.token';
 
 import { USER_EMAIL_VERIFICATION_REPOSITORY } from '../../domain/repositories/user-email-verification.repository.token';
 import type { IUserEmailVerificationRepository } from '../../domain/repositories/user-email-verification.repository';

@@ -29,8 +29,8 @@ import type { IProfileRepository } from '../../../user/domain/repositories/profi
 
 import { OAuthProfile, SigninOauthCommand } from './signin-oauth.command';
 
-import { WALLET_REPOSITORY } from '../../../finance/domain/repositories/wallet.repository.token';
-import type { IWalletRepository } from '../../../finance/domain/repositories/wallet.repository';
+import { WALLET_REPOSITORY } from '../../../finance/domain/repositories/wallet/wallet.repository.token';
+import type { IWalletRepository } from '../../../finance/domain/repositories/wallet/wallet.repository';
 
 import { Currency } from '../../../finance/domain/enums/currency.enum';
 

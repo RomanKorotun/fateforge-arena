@@ -33,5 +33,8 @@ jobs:
             # застосовуємо Prisma міграції
             docker exec api_prod npx prisma migrate deploy --config=dist/prisma.config.ts
 
+            # створення адміна
+            docker exec api_prod node dist/prisma/seeds/admin.seed.js
+
             # очищення старих Docker image шарів
             docker image prune -f

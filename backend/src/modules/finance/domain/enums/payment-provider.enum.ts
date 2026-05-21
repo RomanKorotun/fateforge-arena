@@ -1,4 +1,3 @@
 export enum PaymentProvider {
-  LIQPAY = 'LIQPAY',
-  WAYFORPAY = 'WAYFORPAY',
+  STRIPE = 'STRIPE',
 }

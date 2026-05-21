@@ -7,15 +7,19 @@ import {
 import { randomUUID } from 'crypto';
 
 import { DepositCommand } from './create-deposit.command';
+
 import { PaymentProvider } from '../../domain/enums/payment-provider.enum';
-import { LiqPayProvider } from '../../infrastructure/payment-providers/liqpay.provider';
-import { TRANSACTION_REPOSITORY } from '../../domain/repositories/transaction.repository.token';
-import type { ITransactionRepository } from '../../domain/repositories/transaction.repository';
-import { WALLET_REPOSITORY } from '../../domain/repositories/wallet.repository.token';
-import type { IWalletRepository } from '../../domain/repositories/wallet.repository';
+
+import { StripeProvider } from '../../infrastructure/payment-providers/stripe.provider';
+
+import { TRANSACTION_REPOSITORY } from '../../domain/repositories/transaction/transaction.repository.token';
+import type { ITransactionRepository } from '../../domain/repositories/transaction/transaction.repository';
+
+import { WALLET_REPOSITORY } from '../../domain/repositories/wallet/wallet.repository.token';
+import type { IWalletRepository } from '../../domain/repositories/wallet/wallet.repository';
+
 import { TransactionType } from '../../domain/enums/transaction-type.enum';
 import { TransactionStatus } from '../../domain/enums/transaction-status.enum';
-import { WayforpayProvider } from '../../infrastructure/payment-providers/way-for-pay.provider';
 
 @Injectable()
 export class CreateDepositUseCase {
@@ -24,8 +28,7 @@ export class CreateDepositUseCase {
     private readonly transactionRepo: ITransactionRepository,
     @Inject(WALLET_REPOSITORY)
     private readonly walletRepo: IWalletRepository,
-    private readonly liqpayProvider: LiqPayProvider,
-    private readonly wayforpayProvider: WayforpayProvider,
+    private readonly stripeProvider: StripeProvider,
   ) {}
 
   async execute({
@@ -46,29 +49,7 @@ export class CreateDepositUseCase {
       await this.transactionRepo.findByIdempotencyKey(idempotencyKey);
 
     if (existing) {
-      if (!existing.orderId || !existing.description) {
-        throw new BadRequestException(
-          'Transaction missing orderId/description',
-        );
-      }
-
-      if (existing.provider === PaymentProvider.LIQPAY) {
-        return this.liqpayProvider.generateDepositCheckout({
-          amount: existing.amount,
-          currency: existing.currency,
-          orderId: existing.orderId,
-          description: existing.description,
-        });
-      }
-
-      if (existing.provider === PaymentProvider.WAYFORPAY) {
-        return this.wayforpayProvider.generateDepositCheckout({
-          amount: existing.amount,
-          currency: existing.currency,
-          orderId: existing.orderId,
-          description: existing.description,
-        });
-      }
+      return existing;
     }
 
     const orderId = randomUUID();
@@ -80,23 +61,15 @@ export class CreateDepositUseCase {
       status: TransactionStatus.PENDING,
       amount,
       currency,
+      balanceBefore: wallet.balance,
       provider,
       orderId,
       idempotencyKey,
       description,
     });
 
-    if (provider === PaymentProvider.LIQPAY) {
-      return this.liqpayProvider.generateDepositCheckout({
-        amount,
-        currency,
-        orderId,
-        description,
-      });
-    }
-
-    if (provider === PaymentProvider.WAYFORPAY) {
-      return this.wayforpayProvider.generateDepositCheckout({
+    if (provider === PaymentProvider.STRIPE) {
+      return this.stripeProvider.createCheckoutSession({
         amount,
         currency,
         orderId,
@@ -107,3 +80,5 @@ export class CreateDepositUseCase {
     throw new BadRequestException('Unsupported provider');
   }
 }
+
+

@@ -1,15 +1,13 @@
 import { DomainError } from '../../../../shared/domain/errors/domain-error';
 
 export class GameSessionEntity {
-  private nonce: number;
-
   constructor(
     public readonly id: string,
     public readonly userId: string,
     public readonly serverSeed: string,
     public readonly serverHash: string,
     public readonly clientSeed: string,
-    nonce: number,
+    public nonce: number,
     public readonly isActive: boolean,
     public readonly createdAt: Date,
   ) {

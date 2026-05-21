@@ -1,8 +1,18 @@
+import { BetType } from '../../../domain/enums/bet-type-enum';
+import { UserRole } from '../../../../user/domain/enums/user-role.enum';
+
 export interface GetHistoryGameCommand {
-  userId: string;
-  query: {
-    page: number;
-    limit: number;
-    gameSessionId?: string;
-  };
+  requesterId: string;
+  requesterRole: UserRole;
+
+  userId?: string;
+  gameSessionId?: string;
+
+  betType?: BetType;
+
+  from?: string;
+  to?: string;
+
+  page: number;
+  limit: number;
 }

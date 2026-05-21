@@ -16,7 +16,7 @@ export class UserQueryService {
         profile: {
           select: { rating: true, level: true, avatar: true },
         },
-        wallet: {
+        wallets: {
           select: { id: true, balance: true, currency: true },
         },
       },

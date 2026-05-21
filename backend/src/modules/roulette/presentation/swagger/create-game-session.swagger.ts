@@ -1,8 +1,8 @@
 import { applyDecorators } from '@nestjs/common';
 import {
   ApiCookieAuth,
+  ApiCreatedResponse,
   ApiNotFoundResponse,
-  ApiOkResponse,
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -21,7 +21,7 @@ export const CreateGameSessionSwagger = () => {
         'Створює нову ігрову сесію для користувача та повертає provably fair дані.',
     }),
 
-    ApiOkResponse({
+    ApiCreatedResponse({
       type: CreateGameSessionSuccessResponseDto,
       description: 'Успішне створення ігрової сесії.',
     }),

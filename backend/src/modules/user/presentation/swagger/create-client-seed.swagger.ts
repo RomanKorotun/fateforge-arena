@@ -1,10 +1,10 @@
 import { applyDecorators } from '@nestjs/common';
 import {
   ApiCookieAuth,
-  ApiOkResponse,
   ApiOperation,
   ApiUnauthorizedResponse,
   ApiBadRequestResponse,
+  ApiCreatedResponse,
 } from '@nestjs/swagger';
 
 import { CreateClientSeedSuccessResponseDto } from '../dto/create-client-seed/create-client-seed-success-response.dto';
@@ -21,7 +21,7 @@ export const CreateClientSeedSwagger = () => {
         'Встановлює clientSeed для провайблі фейр системи користувача.',
     }),
 
-    ApiOkResponse({
+    ApiCreatedResponse({
       type: CreateClientSeedSuccessResponseDto,
       description: 'Client seed успішно створено',
     }),

@@ -25,4 +25,11 @@ export class LeaveGameSuccessResponseDto {
     example: 'server-seed-revealed-string',
   })
   revealedServerSeed!: string;
+
+  @ApiProperty({
+    description:
+      'Client seed користувача (використовується для provably fair перевірки)',
+    example: 'my-seed',
+  })
+  clientSeed!: string;
 }

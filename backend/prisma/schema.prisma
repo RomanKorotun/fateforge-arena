@@ -47,7 +47,7 @@ model User {
   gameSessions  GameSession[]
   bets          RouletteBet[]
 
-  wallet                  Wallet?
+  wallets                 Wallet[]
   userSeed                UserSeed?  
   emailVerifications      UserEmailVerification?
   authProviders           AuthProvider[]
@@ -206,6 +206,7 @@ enum TransactionStatus {
 enum PaymentProvider {
   LIQPAY
   WAYFORPAY
+  STRIPE
   
   @@schema("finance")
 }
@@ -220,7 +221,7 @@ enum Currency {
 
 model Wallet {
   id          String        @id @default(uuid())
-  userId      String        @unique
+  userId      String       
   balance     Decimal       @default(0.00) @db.Decimal(15, 2)
   currency    Currency      @default(UAH)
   isActive    Boolean       @default(true)
@@ -242,10 +243,12 @@ model Transaction {
   type        TransactionType                                             // тип операції
   status      TransactionStatus  @default(PENDING)                        // статус
   amount      Decimal            @db.Decimal(15, 2)
+  balanceBefore Decimal         @db.Decimal(15, 2)
+  balanceAfter  Decimal?         @db.Decimal(15, 2)
   currency    Currency           @default(UAH)                                                
-  provider    PaymentProvider?                                            // платіжна система  
-  orderId     String?            @unique                                  // ID замовлення у твоїй системі                           
-  providerPaymentId String?                                               // ID платежу від платіжної системи
+  provider    PaymentProvider?
+  providerPaymentId String?                                               // ID платежу від платіжної системи 
+  orderId     String?            @unique                                  // ID замовлення у твоїй системі                                                                         // ID платежу від платіжної системи
   idempotencyKey String?         @unique                                  // для захисту від повторної обробки webhook
   description String?
   createdAt   DateTime           @default(now())

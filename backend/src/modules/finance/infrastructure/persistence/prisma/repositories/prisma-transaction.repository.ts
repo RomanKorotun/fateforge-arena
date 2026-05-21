@@ -5,10 +5,11 @@ import { PrismaService } from '../../../../../../core/prisma/prisma.service';
 
 import type {
   CreateTransactionData,
+  GetTransactionsParams,
   ITransactionRepository,
-} from '../../../../domain/repositories/transaction.repository';
+  UpdateTransactionStatusData,
+} from '../../../../domain/repositories/transaction/transaction.repository';
 import { PrismaTransactionMapper } from '../mappers/prisma-transaction.mapper';
-import { TransactionStatus } from '../../../../domain/enums/transaction-status.enum';
 
 @Injectable()
 export class PrismaTransactionRepository implements ITransactionRepository {
@@ -55,21 +56,54 @@ export class PrismaTransactionRepository implements ITransactionRepository {
   // оновити статус
   async updateStatus(
     transactionId: string,
-    data: {
-      status: TransactionStatus;
-      providerPaymentId?: string;
-    },
+    data: UpdateTransactionStatusData,
     tx?: PrismaTx,
   ): Promise<void> {
     const client = this.getClient(tx);
     await client.transaction.update({
       where: { id: transactionId },
       data: {
-        status: data.status,
+        ...data,
         ...(data.providerPaymentId && {
           providerPaymentId: data.providerPaymentId,
         }),
       },
     });
+  }
+
+  async findMany(filters: GetTransactionsParams, tx?: PrismaTx) {
+    const client = this.getClient(tx);
+
+    const { page, limit, from, to, userId, ...data } = filters;
+
+    const skip = (page - 1) * limit;
+
+    const where = {
+      ...data,
+      ...(from || to
+        ? {
+            createdAt: {
+              ...(from ? { gte: from } : {}),
+              ...(to ? { lte: to } : {}),
+            },
+          }
+        : {}),
+      ...(userId ? { wallet: { userId } } : {}),
+    };
+
+    const [transactions, total] = await Promise.all([
+      client.transaction.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      client.transaction.count({ where }),
+    ]);
+
+    return {
+      data: transactions.map(PrismaTransactionMapper.toDomain),
+      total,
+    };
   }
 }
