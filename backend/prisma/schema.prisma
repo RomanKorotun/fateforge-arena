@@ -247,7 +247,7 @@ model Transaction {
   balanceAfter  Decimal?         @db.Decimal(15, 2)
   currency    Currency           @default(UAH)                                                
   provider    PaymentProvider?
-  paymentPayload Json?                                            // платіжна система  
+  providerPaymentId String?                                               // ID платежу від платіжної системи 
   orderId     String?            @unique                                  // ID замовлення у твоїй системі                                                                         // ID платежу від платіжної системи
   idempotencyKey String?         @unique                                  // для захисту від повторної обробки webhook
   description String?

@@ -233,21 +233,21 @@ model Wallet {
 }
 
 model Transaction {
-  id             String            @id @default(uuid())
-  walletId       String
-  type           TransactionType // тип операції
-  status         TransactionStatus @default(PENDING) // статус
-  amount         Decimal           @db.Decimal(15, 2)
-  balanceBefore  Decimal           @db.Decimal(15, 2)
-  balanceAfter   Decimal?          @db.Decimal(15, 2)
-  currency       Currency          @default(UAH)
-  provider       PaymentProvider?
-  paymentPayload Json? // платіжна система  
-  orderId        String?           @unique // ID замовлення у твоїй системі                                                                         // ID платежу від платіжної системи
-  idempotencyKey String?           @unique // для захисту від повторної обробки webhook
-  description    String?
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
+  id                String            @id @default(uuid())
+  walletId          String
+  type              TransactionType // тип операції
+  status            TransactionStatus @default(PENDING) // статус
+  amount            Decimal           @db.Decimal(15, 2)
+  balanceBefore     Decimal           @db.Decimal(15, 2)
+  balanceAfter      Decimal?          @db.Decimal(15, 2)
+  currency          Currency          @default(UAH)
+  provider          PaymentProvider?
+  providerPaymentId String? // ID платежу від платіжної системи 
+  orderId           String?           @unique // ID замовлення у твоїй системі                                                                         // ID платежу від платіжної системи
+  idempotencyKey    String?           @unique // для захисту від повторної обробки webhook
+  description       String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
 
   wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
 
