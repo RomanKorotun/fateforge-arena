@@ -30,10 +30,10 @@ export class EmailService {
     data: EmailTemplates[T],
   ): Promise<string> {
     // шлях до шаблону
-    const filePath = path.resolve(
-      'src/core/email/templates',
-      `${templateName}.mjml`,
-    );
+    const filePath =
+      process.env.NODE_ENV === 'development'
+        ? path.resolve('src/core/email/templates', `${templateName}.mjml`)
+        : path.resolve('src/core/email/templates', `${templateName}.mjml`);
 
     // читаємо файл
     const source = await fs.readFile(filePath, 'utf8');
