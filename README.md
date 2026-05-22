@@ -1,4 +1,4 @@
-# Backend API (NestJS)
+# Backend API
 
 ---
 
@@ -24,8 +24,8 @@ Backend:
 
 Database:
 
-- PostgreSQL — основна база даних
-- Redis — сесії та кеш
+- PostgreSQL
+- Redis
 
 ORM:
 
@@ -96,8 +96,8 @@ Infra:
 ### Finance:
 
 - створення депозитів
-- вивід коштів (withdraw)
-- транзакції (transaction system)
+- вивід коштів
+- транзакції
 - Stripe payments
 - баланс формується тільки через transactions
 

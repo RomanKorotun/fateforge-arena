@@ -35,8 +35,9 @@ export class GetTransactionsUseCase {
     // чи адмін
     const isAdmin = requesterRole === UserRole.ADMIN;
 
-    const fromDate = from ? new Date(from) : undefined;
-    const toDate = to ? new Date(to) : undefined;
+    const fromDate = from ? new Date(from + 'T00:00:00') : undefined;
+
+    const toDate = to ? new Date(to + 'T23:59:59.999') : undefined;
 
     let finalUserId: string | undefined;
     let finalWalletId: string | undefined;
