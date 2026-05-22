@@ -59,8 +59,8 @@ export class GetHistoryGameUseCase {
       userId: finalUserId,
       gameSessionId,
       betType,
-      from: from ? new Date(from) : undefined,
-      to: to ? new Date(to) : undefined,
+      from: from ? new Date(from + 'T00:00:00') : undefined,
+      to: to ? new Date(to + 'T23:59:59.999') : undefined,
       page,
       limit,
     });
