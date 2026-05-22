@@ -78,13 +78,13 @@ export class AllExceptionFilter implements ExceptionFilter {
     let status = 500;
     let message: string | object = 'Server error';
 
-    // ✅ 1. DOMAIN ERROR (додали)
+    // 1. DOMAIN ERROR
     if (exception instanceof DomainError) {
       status = exception.httpCode;
       message = exception.message;
     }
 
-    // ✅ 2. NEST HTTP ERROR (твоя стара логіка — НЕ чіпаємо)
+    // NEST HTTP ERROR
     else if (exception instanceof HttpException) {
       status = exception.getStatus();
 
@@ -103,12 +103,11 @@ export class AllExceptionFilter implements ExceptionFilter {
       }
     }
 
-    // log
-    if (process.env.NODE_ENV === 'development') {
-      this.logger.error(message, exception as any);
-    }
+    this.logger.error(
+      `URL: ${url} | TYPE: ${exception?.constructor?.name || 'unknown'} | MESSAGE: ${message}`,
+      exception instanceof Error ? exception.stack : String(exception),
+    );
 
-    // response
     response.status(status).json({
       status,
       message,
