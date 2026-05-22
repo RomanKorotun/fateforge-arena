@@ -33,7 +33,7 @@ export class EmailService {
     const filePath =
       process.env.NODE_ENV === 'development'
         ? path.resolve('src/core/email/templates', `${templateName}.mjml`)
-        : path.resolve('src/core/email/templates', `${templateName}.mjml`);
+        : path.resolve('dist/src/core/email/templates', `${templateName}.mjml`);
 
     // читаємо файл
     const source = await fs.readFile(filePath, 'utf8');
