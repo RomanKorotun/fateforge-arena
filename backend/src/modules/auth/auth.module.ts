@@ -49,7 +49,7 @@ import { GeoIpModule } from '../../core/geoip/geo-ip.module';
     RedisModule,
     UserModule,
     FinanceModule,
-    GeoIpModule
+    GeoIpModule,
   ],
   controllers: [AuthController],
   providers: [

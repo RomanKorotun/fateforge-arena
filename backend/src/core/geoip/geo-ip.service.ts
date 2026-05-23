@@ -2,7 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as maxmind from 'maxmind';
 import type { CityResponse } from 'maxmind';
-import * as path from 'path';
+import path from 'path';
 
 @Injectable()
 export class GeoIpService implements OnModuleInit {
@@ -18,8 +18,8 @@ export class GeoIpService implements OnModuleInit {
         ? path.join(process.cwd(), 'src', 'core', 'geoip', 'GeoLite2-City.mmdb')
         : path.join(
             process.cwd(),
-          'dist',
-            "src",
+            'dist',
+            'src',
             'core',
             'geoip',
             'GeoLite2-City.mmdb',
@@ -29,15 +29,6 @@ export class GeoIpService implements OnModuleInit {
   }
 
   getLocation(ip: string) {
-    if (!ip) {
-      return {
-        country: null,
-        city: null,
-        region: null,
-        timezone: null,
-      };
-    }
-
     const data = this.lookup.get(ip);
 
     return {

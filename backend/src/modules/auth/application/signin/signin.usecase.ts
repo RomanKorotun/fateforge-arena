@@ -32,7 +32,7 @@ export class SigninUseCase {
     private readonly sessionRepository: ISessionRepository,
   ) {}
 
-  async execute({ email, password, ip, device }: SigninCommand) {
+  async execute({ email, password, ip, device, geo }: SigninCommand) {
     const user = await this.userRepository.findByEmailWithPassword(email);
 
     if (!user) {
@@ -69,12 +69,14 @@ export class SigninUseCase {
     const key = buildSessionKey(sessionId);
 
     const { browser, os, type } = device;
+    const { country, region, city } = geo;
 
     const session: SessionEntity = {
       sessionId,
       userId: user.id,
       ip,
       device: { browser, os, type },
+      geo: { country, region, city },
       createdAt: new Date().toISOString(),
     };
 

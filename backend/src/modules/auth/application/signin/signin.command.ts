@@ -7,4 +7,9 @@ export interface SigninCommand {
     os: string;
     type: string;
   };
+  geo: {
+    country: string | null;
+    region: string | null;
+    city: string | null;
+  };
 }
