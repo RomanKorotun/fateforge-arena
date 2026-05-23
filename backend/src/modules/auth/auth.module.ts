@@ -26,6 +26,7 @@ import { GoogleStrategy } from './infrastructure/strategies/google.strategy';
 import { PrismaAuthProviderRepository } from './infrastructure/repositories/prisma/auth-provider.repository';
 import { LinkedinApi } from './infrastructure/oauth/ linkedin.api';
 import { LinkedinStrategy } from './infrastructure/strategies/linkedin.strategy';
+import { DatabaseModule } from '../../infrastructure/database/database.module';
 
 import { SignoutUseCase } from './application/signout/signout.usecase';
 import { SignupUseCase } from './application/signup/signup.usecase';
@@ -37,7 +38,6 @@ import { RestoreUserUseCase } from './application/restore-user/restore-user.usec
 import { ConfirmEmailUseCase } from './application/confirm-email/confirm-email.usecase';
 import { ResendEmailVerificationUseCase } from './application/resend-email-verification/resend-email-verification.usecase';
 import { SigninOauthUseCase } from './application/signin-oauth/signin-oauth.usecase';
-import { DatabaseModule } from '../../infrastructure/database/database.module';
 
 @Module({
   imports: [

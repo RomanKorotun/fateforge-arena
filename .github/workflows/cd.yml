@@ -30,11 +30,17 @@ jobs:
             # оновлюємо тільки Node.js API сервіс
             docker compose -f docker-compose.prod.yml up -d --build api
 
+            # # застосовуємо Prisma міграції
+            # docker exec api_prod npx prisma migrate deploy --config=dist/prisma.config.ts
+
             # застосовуємо Prisma міграції
-            docker exec api_prod npx prisma migrate deploy --config=dist/prisma.config.ts
+            docker exec api_prod yarn prisma:deploy
+
+            # # створення адміна
+            # docker exec api_prod node dist/prisma/seeds/admin.seed.js
 
             # створення адміна
-            docker exec api_prod node dist/prisma/seeds/admin.seed.js
+            docker exec api_prod node prisma/seeds/admin.seed.js
 
             # очищення старих Docker image шарів
             docker image prune -f

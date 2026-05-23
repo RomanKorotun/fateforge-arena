@@ -12,6 +12,7 @@ import { RouletteModule } from './modules/roulette/roulette.module';
 import { EmailModule } from './core/email/email.module';
 import { DatabaseModule } from './infrastructure/database/database.module';
 import { FinanceModule } from './modules/finance/finance.module';
+import { GeoIpModule } from './core/geoip/geo-ip.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { FinanceModule } from './modules/finance/finance.module';
     }),
     AppConfigModule,
     DatabaseModule,
+    GeoIpModule,
     PrismaModule,
     RedisModule,
     EmailModule,

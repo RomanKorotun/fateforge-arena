@@ -52,14 +52,16 @@ import { SigninSwagger } from './swagger/signin.swagger';
 import { SignoutSwagger } from './swagger/signout.swagger';
 import { MeSwagger } from './swagger/me.swagger';
 import { ConfirmEmailSwagger } from './swagger/confirm-email.swagger';
+import { OAuthCallbackSwagger } from './swagger/oauth-callback.swagger';
 import { ResendEmailVerificationSwagger } from './swagger/resend-email-verification.swagger';
+import { OAuthLoginSwagger } from './swagger/oauth-login.swagger';
 
 import { GetUserSessionsResponseMapper } from './mappers/get-sessions-response.mapper';
 import { MeResponseMapper } from './mappers/me-response.mapper';
 
 import type { OAuthRequest } from './types/oauth-request.type';
-import { OAuthLoginSwagger } from './swagger/oauth-login.swagger';
-import { OAuthCallbackSwagger } from './swagger/oauth-callback.swagger';
+
+// import { GeoIpService } from '../../../core/geoip/geo-ip.service';
 
 @Controller('auth')
 export class AuthController {
@@ -78,6 +80,7 @@ export class AuthController {
     private readonly confirmEmailUseCase: ConfirmEmailUseCase,
     private readonly resendEmailVerificationUseCase: ResendEmailVerificationUseCase,
     private readonly signinOauthUseCase: SigninOauthUseCase,
+    // private readonly geoIpService: GeoIpService,
   ) {
     this.FRONTEND_URL = this.configService.getOrThrow('FRONTEND_URL');
   }
