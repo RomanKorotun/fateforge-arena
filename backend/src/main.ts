@@ -13,6 +13,8 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap');
   const app = await NestFactory.create(AppModule);
 
+  app.set('trust proxy', true);
+
   app.use('/api/webhooks/stripe', express.raw({ type: 'application/json' }));
   app.use(express.json());
 
