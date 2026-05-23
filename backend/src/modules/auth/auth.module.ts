@@ -38,6 +38,7 @@ import { RestoreUserUseCase } from './application/restore-user/restore-user.usec
 import { ConfirmEmailUseCase } from './application/confirm-email/confirm-email.usecase';
 import { ResendEmailVerificationUseCase } from './application/resend-email-verification/resend-email-verification.usecase';
 import { SigninOauthUseCase } from './application/signin-oauth/signin-oauth.usecase';
+import { GeoIpModule } from '../../core/geoip/geo-ip.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { SigninOauthUseCase } from './application/signin-oauth/signin-oauth.usec
     RedisModule,
     UserModule,
     FinanceModule,
+    GeoIpModule
   ],
   controllers: [AuthController],
   providers: [

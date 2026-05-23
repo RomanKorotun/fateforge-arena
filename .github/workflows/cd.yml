@@ -32,8 +32,6 @@ jobs:
             # оновлюємо тільки Node.js API сервіс
             docker compose -f docker-compose.prod.yml up -d --build api
 
-            sleep 10
-
             # застосовуємо Prisma міграції
             docker exec api_prod yarn prisma:deploy --config=dist/prisma.config.ts
 
