@@ -18,7 +18,8 @@ export class GeoIpService implements OnModuleInit {
         ? path.join(process.cwd(), 'src', 'core', 'geoip', 'GeoLite2-City.mmdb')
         : path.join(
             process.cwd(),
-            'dist',
+          'dist',
+            "src",
             'core',
             'geoip',
             'GeoLite2-City.mmdb',

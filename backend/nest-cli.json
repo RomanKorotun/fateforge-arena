@@ -7,11 +7,11 @@
     "assets": [
       {
         "include": "core/email/templates/**/*",
-        "outDir": "dist"
+        "outDir": "dist/src"
       },
       {
         "include": "core/geoip/GeoLite2-City.mmdb",
-        "outDir": "dist"
+        "outDir": "dist/src"
       }
     ]
   }
