@@ -17,7 +17,6 @@ FROM base AS build
 COPY . ./
 RUN npx prisma generate
 RUN yarn build
-RUN yarn seed:build
 
 # PRODUCTION
 FROM node:24-slim AS production
@@ -26,10 +25,7 @@ RUN apt-get update -y && apt-get install -y openssl
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --production
 COPY --from=build /app/dist ./dist
-# COPY --from=build /app/prisma ./dist/prisma
-# COPY --from=build /app/prisma.config.ts ./dist/prisma.config.ts
-COPY --from=build /app/prisma ./prisma
-COPY --from=build /app/prisma.config.ts ./prisma.config.ts
+COPY --from=build /app/prisma.config.ts ./dist/prisma.config.ts
 
 ENV NODE_ENV=production
 CMD ["yarn", "start:prod"]

@@ -61,7 +61,7 @@ import { MeResponseMapper } from './mappers/me-response.mapper';
 
 import type { OAuthRequest } from './types/oauth-request.type';
 
-// import { GeoIpService } from '../../../core/geoip/geo-ip.service';
+import { GeoIpService } from '../../../core/geoip/geo-ip.service';
 
 @Controller('auth')
 export class AuthController {
@@ -80,7 +80,7 @@ export class AuthController {
     private readonly confirmEmailUseCase: ConfirmEmailUseCase,
     private readonly resendEmailVerificationUseCase: ResendEmailVerificationUseCase,
     private readonly signinOauthUseCase: SigninOauthUseCase,
-    // private readonly geoIpService: GeoIpService,
+    private readonly geoIpService: GeoIpService,
   ) {
     this.FRONTEND_URL = this.configService.getOrThrow('FRONTEND_URL');
   }
@@ -205,6 +205,8 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
+    const result = this.geoIpService.getLocation(ip);
+    console.log("geo", result);
     const { accessToken, user } = await this.signinUseCase.execute({
       ...dto,
       ip,
