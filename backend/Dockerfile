@@ -17,6 +17,7 @@ FROM base AS build
 COPY . ./
 RUN npx prisma generate
 RUN yarn build
+RUN yarn seed:build
 
 # PRODUCTION
 FROM node:24-slim AS production

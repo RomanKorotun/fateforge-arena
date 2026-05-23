@@ -7,6 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "seed:build": "tsc prisma/seeds/**/*.ts --outDir dist/seeds",
+    "seed:run": "node dist/seeds/admin.seed.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nodemon --legacy-watch --watch src --exec ts-node src/main.ts",

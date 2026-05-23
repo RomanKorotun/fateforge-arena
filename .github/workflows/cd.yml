@@ -40,7 +40,7 @@ jobs:
             # docker exec api_prod node dist/prisma/seeds/admin.seed.js
 
             # створення адміна
-            docker exec api_prod node prisma/seeds/admin.seed.js
+            docker exec api_prod yarn seed:run
 
             # очищення старих Docker image шарів
             docker image prune -f
