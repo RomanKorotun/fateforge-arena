@@ -101,11 +101,12 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
-
+    const geo = this.geoIpService.getLocation(ip);
     const { accessToken } = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
+      geo,
     });
 
     this.authCookieService.setAuthCookie(res, accessToken);
@@ -128,10 +129,12 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
+    const geo = this.geoIpService.getLocation(ip);
     const { accessToken } = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
+      geo,
     });
     this.authCookieService.setAuthCookie(res, accessToken);
     return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
@@ -153,10 +156,12 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
+    const geo = this.geoIpService.getLocation(ip);
     const { accessToken } = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
+      geo,
     });
     this.authCookieService.setAuthCookie(res, accessToken);
     return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
@@ -178,10 +183,12 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
+    const geo = this.geoIpService.getLocation(ip);
     const { accessToken } = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
+      geo,
     });
 
     this.authCookieService.setAuthCookie(res, accessToken);
@@ -205,12 +212,12 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
-    const result = this.geoIpService.getLocation(ip);
-    console.log("geo", result);
+    const geo = this.geoIpService.getLocation(ip);
     const { accessToken, user } = await this.signinUseCase.execute({
       ...dto,
       ip,
       device,
+      geo,
     });
     this.authCookieService.setAuthCookie(res, accessToken);
     return user;

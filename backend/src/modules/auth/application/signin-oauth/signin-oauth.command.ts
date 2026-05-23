@@ -8,12 +8,21 @@ export interface OAuthProfile {
   avatar?: string;
 }
 
+export interface Device {
+  browser: string;
+  os: string;
+  type: string;
+}
+
+export interface Geo {
+  country: string | null;
+  region: string | null;
+  city: string | null;
+}
+
 export interface SigninOauthCommand {
   oauthProfile: OAuthProfile;
   ip: string;
-  device: {
-    browser: string;
-    os: string;
-    type: string;
-  };
+  device: Device;
+  geo: Geo;
 }
