@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class DeleteMeSuccessResponseDto {
+export class DeleteAccountSuccessResponseDto {
   @ApiProperty({
     description: 'Повідомлення про успішне видалення акаунта',
     example: 'Account deleted successfully',

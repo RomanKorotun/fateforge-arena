@@ -8,6 +8,7 @@ import { PrismaModule } from '../../core/prisma/prisma.module';
 import { EmailModule } from '../../core/email/email.module';
 import { SecurityModule } from '../../core/security/security.module';
 import { RedisModule } from '../../core/redis/redis.module';
+import { GeoIpModule } from '../../core/geoip/geo-ip.module';
 
 import { AuthController } from './presentation/auth.controller';
 import { RequestMetadataService } from './presentation/services/request-metadata.service';
@@ -38,7 +39,7 @@ import { RestoreUserUseCase } from './application/restore-user/restore-user.usec
 import { ConfirmEmailUseCase } from './application/confirm-email/confirm-email.usecase';
 import { ResendEmailVerificationUseCase } from './application/resend-email-verification/resend-email-verification.usecase';
 import { SigninOauthUseCase } from './application/signin-oauth/signin-oauth.usecase';
-import { GeoIpModule } from '../../core/geoip/geo-ip.module';
+import { DeleteAccountUseCase } from './application/delete-account/delete-account.usecase';
 
 @Module({
   imports: [
@@ -62,10 +63,12 @@ import { GeoIpModule } from '../../core/geoip/geo-ip.module';
     LinkedinStrategy,
     FacebookStrategy,
     GoogleStrategy,
+    AuthCookieService,
     FindSessionsByUserIdUseCase,
     RevokeUserSessionUseCase,
     RevokeUserSessionsUseCase,
     SignoutUseCase,
+    DeleteAccountUseCase,
     RestoreUserUseCase,
     ConfirmEmailUseCase,
     ResendEmailVerificationUseCase,
@@ -80,6 +83,6 @@ import { GeoIpModule } from '../../core/geoip/geo-ip.module';
       provide: AUTH_PROVIDER_REPOSITORY,
       useClass: PrismaAuthProviderRepository,
     },
-  ],
+  ]
 })
 export class AuthModule {}

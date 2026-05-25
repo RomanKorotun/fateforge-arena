@@ -6,10 +6,10 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { MeSuccessResponseDto } from '../dto/me/me-success-response.dto';
-import { MeUnauthorizedResponseDto } from '../dto/me/me-unauthorized-response.dto';
+import { CurrentSuccessResponseDto } from '../dto/current/current-success-response.dto';
+import { CurrentUnauthorizedResponseDto } from '../dto/current/current-unauthorized-response.dto';
 
-export const MeSwagger = () => {
+export const CurrentSwagger = () => {
   return applyDecorators(
     ApiCookieAuth('accessToken'),
     ApiOperation({
@@ -18,11 +18,11 @@ export const MeSwagger = () => {
         'Повертає публічну інформацію про поточного авторизованого користувача',
     }),
     ApiOkResponse({
-      type: MeSuccessResponseDto,
+      type: CurrentSuccessResponseDto,
       description: 'Успішна відповідь із даними поточного користувача',
     }),
     ApiUnauthorizedResponse({
-      type: MeUnauthorizedResponseDto,
+      type: CurrentUnauthorizedResponseDto,
       description:
         'Користувач не аутентифікований (не передано або недійсний токен)',
     }),

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class MeSuccessResponseDto {
+export class CurrentSuccessResponseDto {
   @ApiProperty({ description: 'Ім"я користувача', example: 'Test' })
   username!: string;
 

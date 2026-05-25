@@ -17,13 +17,6 @@ export class AuthCookieService {
       sameSite: isProd ? 'none' : 'lax',
       maxAge,
     });
-
-    // res.cookie('accessToken', token, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: 'none',
-    //   maxAge,
-    // });
   }
 
   clearAuthCookie(res: Response) {

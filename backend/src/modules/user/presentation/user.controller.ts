@@ -1,8 +1,8 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
+  Patch,
   Post,
   Put,
   Req,
@@ -27,7 +27,6 @@ import { CreateClientSeedRequestDto } from './dto/create-client-seed/create-clie
 import { UpdateAddressDto } from './dto/update-address/update-address.request.dto';
 import { UpdateClientSeedRequestDto } from './dto/update-client-seed/update-client-seed-request.dto';
 
-import { DeleteUserUseCase } from '../application/use-cases/delete-user/delete-user.usecase';
 import { AddAddressUseCase } from '../application/use-cases/add-address/add-address.usecase';
 import { getMeUseCase } from '../application/use-cases/get-me/get-me.usecase';
 import { GetUsersUseCase } from '../application/use-cases/get-users/get-users.usecase';
@@ -42,7 +41,6 @@ import { GetMeSwagger } from './swagger/get-me.swagger';
 import { AddAddressSwagger } from './swagger/add-address.swagger';
 import { UploadAvatarSwagger } from './swagger/upload-avatar.swagger';
 import { GetUserSwagger } from './swagger/get-useers.swagger';
-import { DeleteMeSwagger } from './swagger/delete-me.swagger';
 import { GetAddressSwagger } from './swagger/get-address.swagger';
 import { UpdateAddressSwagger } from './swagger/update-address.swagger';
 import { CreateClientSeedSwagger } from './swagger/create-client-seed.swagger';
@@ -52,7 +50,6 @@ import { GetClientSeedSwagger } from './swagger/get-client-sed.swagger';
 @Controller('users')
 export class UserController {
   constructor(
-    private readonly deleteUserUseCase: DeleteUserUseCase,
     private readonly getMeUseCase: getMeUseCase,
     private readonly addAddressUseCase: AddAddressUseCase,
     private readonly getAddressUseCase: GetAddressUseCase,
@@ -98,19 +95,10 @@ export class UserController {
     });
   }
 
-  // Отримати адресу користувача
-  @GetAddressSwagger()
-  @UseGuards(JwtAuthGuard)
-  @Get('me/address')
-  async getAddress(@Req() req: AuthRequest, @Res() res: Response) {
-    const address = await this.getAddressUseCase.execute(req.user.id);
-    return res.json(address);
-  }
-
   // Оновити адресу користувача
   @UpdateAddressSwagger()
   @UseGuards(JwtAuthGuard)
-  @Put('me/address')
+  @Patch('me/address')
   async updateAddress(
     @Req() req: AuthRequest,
     @Body(NonEmptyBodyPipe) dto: UpdateAddressDto,
@@ -121,6 +109,16 @@ export class UserController {
     });
   }
 
+  // Отримати адресу користувача
+  @GetAddressSwagger()
+  @UseGuards(JwtAuthGuard)
+  @Get('me/address')
+  async getAddress(@Req() req: AuthRequest, @Res() res: Response) {
+    const address = await this.getAddressUseCase.execute(req.user.id);
+    return res.json(address);
+  }
+
+
   // Список користувачів з обмеженою інформацією (для рейтингу/статистики)
   @GetUserSwagger()
   @UseGuards(JwtAuthGuard)
@@ -129,13 +127,15 @@ export class UserController {
     return await this.getUsersUseCase.execute();
   }
 
-  // видаляє акаунт користувача (SOFT DELETE)
-  @DeleteMeSwagger()
-  @UseGuards(JwtAuthGuard)
-  @Delete('me')
-  async deleteMe(@Req() req: AuthRequest) {
-    return await this.deleteUserUseCase.execute(req.user.id);
-  }
+  // // видаляє акаунт користувача (SOFT DELETE)
+  // @DeleteMeSwagger()
+  // @UseGuards(JwtAuthGuard)
+  // @Delete('me')
+  // async deleteMe(@Req() req: AuthRequest, @Res({ passthrough: true }) res: Response,) {
+  //   const response = await this.deleteUserUseCase.execute(req.user.id);
+  //   this.authCookieService.clearAuthCookie(res);
+  //   return response;
+  // }
 
   // створює клієнтський сід
   @CreateClientSeedSwagger()

@@ -27,7 +27,12 @@ import { UserEntity } from '../../../user/domain/entities/user.entity';
 import { PROFILE_REPOSITORY } from '../../../user/domain/repositories/profile.repository.token';
 import type { IProfileRepository } from '../../../user/domain/repositories/profile.repository';
 
-import { Device, Geo, OAuthProfile, SigninOauthCommand } from './signin-oauth.command';
+import {
+  Device,
+  Geo,
+  OAuthProfile,
+  SigninOauthCommand,
+} from './signin-oauth.command';
 
 import { WALLET_REPOSITORY } from '../../../finance/domain/repositories/wallet/wallet.repository.token';
 import type { IWalletRepository } from '../../../finance/domain/repositories/wallet/wallet.repository';
