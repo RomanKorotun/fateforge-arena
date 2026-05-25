@@ -123,7 +123,7 @@ model Address {
   postalCode  String   @map("postal_code") // поштовий індекс
   address     String // основна адреса
   city        String // місто
-  country     String // країна (якщо є)
+  country     String // країна 
   createdAt   DateTime @default(now()) @map("created_at") // дата створення
   updatedAt   DateTime @updatedAt @map("updated_at") // дата оновлення
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade) // зв’язок з Users

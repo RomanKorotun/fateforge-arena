@@ -42,6 +42,7 @@ import { RestoreUserUseCase } from '../application/restore-user/restore-user.use
 import { ConfirmEmailUseCase } from '../application/confirm-email/confirm-email.usecase';
 import { ResendEmailVerificationUseCase } from '../application/resend-email-verification/resend-email-verification.usecase';
 import { SigninOauthUseCase } from '../application/signin-oauth/signin-oauth.usecase';
+import { DeleteAccountUseCase } from '../application/delete-account/delete-account.usecase';
 
 import { RestoreSwagger } from './swagger/restore.swagger';
 import { GetUserSessionsSwagger } from './swagger/get-user-sessions.swagger';
@@ -50,14 +51,15 @@ import { RevokeUserSessionsSwagger } from './swagger/revoke-user-sessions.swagge
 import { SignupSwagger } from './swagger/signup.swagger';
 import { SigninSwagger } from './swagger/signin.swagger';
 import { SignoutSwagger } from './swagger/signout.swagger';
-import { MeSwagger } from './swagger/me.swagger';
+import { CurrentSwagger } from './swagger/current.swagger';
 import { ConfirmEmailSwagger } from './swagger/confirm-email.swagger';
 import { OAuthCallbackSwagger } from './swagger/oauth-callback.swagger';
 import { ResendEmailVerificationSwagger } from './swagger/resend-email-verification.swagger';
 import { OAuthLoginSwagger } from './swagger/oauth-login.swagger';
+import { DeleteMeSwagger } from './swagger/delete-me.swagger';
 
 import { GetUserSessionsResponseMapper } from './mappers/get-sessions-response.mapper';
-import { MeResponseMapper } from './mappers/me-response.mapper';
+import { CurrentResponseMapper } from './mappers/me-response.mapper';
 
 import type { OAuthRequest } from './types/oauth-request.type';
 
@@ -81,6 +83,7 @@ export class AuthController {
     private readonly resendEmailVerificationUseCase: ResendEmailVerificationUseCase,
     private readonly signinOauthUseCase: SigninOauthUseCase,
     private readonly geoIpService: GeoIpService,
+    private readonly deleteAccountUseCase: DeleteAccountUseCase
   ) {
     this.FRONTEND_URL = this.configService.getOrThrow('FRONTEND_URL');
   }
@@ -232,11 +235,11 @@ export class AuthController {
   }
 
   // Отримати профіль поточного автентифікованого користувача
-  @MeSwagger()
+  @CurrentSwagger()
   @UseGuards(JwtAuthGuard)
-  @Get('me')
+  @Get('current')
   me(@CurrentUser() user: AuthUser) {
-    return MeResponseMapper.toResponse(user);
+    return CurrentResponseMapper.toResponse(user);
   }
 
   // Отримання всіх активних сесій поточного користувача (по userId з JWT)
@@ -314,4 +317,16 @@ export class AuthController {
   ) {
     return await this.resendEmailVerificationUseCase.execute(dto.email);
   }
+
+  // видалення акаунта користувача (SOFT DELETE), видалення всіх активних сесій, очищає кукі
+  @DeleteMeSwagger()
+  @UseGuards(JwtAuthGuard)
+  @Delete('me')
+  async deleteAccount(@Req() req: AuthRequest, @Res({ passthrough: true }) res: Response,) {
+    const response = await this.deleteAccountUseCase.execute(req.user.id);
+    this.authCookieService.clearAuthCookie(res);
+    return response;
+  }
 }
+
+

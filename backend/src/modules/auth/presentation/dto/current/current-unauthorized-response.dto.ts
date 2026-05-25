@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class DeleteMeUnauthorizedResponseDto {
+export class CurrentUnauthorizedResponseDto {
   @ApiProperty({ description: 'Статус відповіді', example: 401 })
   status!: number;
 
-  @ApiProperty({ description: 'Текст помилки', example: 'Invalid credentials' })
+  @ApiProperty({ description: 'Текст помилки', example: 'Unauthorized' })
   message!: string;
 
   @ApiProperty({
     description: 'URL на який був зроблений запит',
-    example: '/api/users/me',
+    example: '/api/auth/me',
   })
   url!: string;
 

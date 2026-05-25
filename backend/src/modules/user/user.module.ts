@@ -16,7 +16,6 @@ import { PrismaAddressRepository } from './infrastructure/prisma/repositories/pr
 import { PrismaUserSeedRepository } from './infrastructure/prisma/repositories/prisma-user-seed.repository';
 import { PrismaProfileRepository } from './infrastructure/prisma/repositories/prisma-profile.reposotory';
 
-import { DeleteUserUseCase } from './application/use-cases/delete-user/delete-user.usecase';
 import { AddAddressUseCase } from './application/use-cases/add-address/add-address.usecase';
 import { getMeUseCase } from './application/use-cases/get-me/get-me.usecase';
 import { GetUsersUseCase } from './application/use-cases/get-users/get-users.usecase';
@@ -32,7 +31,6 @@ import { RouletteModule } from '../roulette/roulette.module';
   imports: [PrismaModule, forwardRef(() => RouletteModule)],
   controllers: [UserController],
   providers: [
-    DeleteUserUseCase,
     getMeUseCase,
     GetUsersUseCase,
     AddAddressUseCase,

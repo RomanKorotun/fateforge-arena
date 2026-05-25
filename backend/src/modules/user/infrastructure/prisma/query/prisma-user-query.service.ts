@@ -14,7 +14,7 @@ export class UserQueryService {
       where: { id },
       select: {
         profile: {
-          select: { rating: true, level: true, avatar: true },
+          select: { avatar: true },
         },
         wallets: {
           select: { id: true, balance: true, currency: true },
@@ -30,14 +30,8 @@ export class UserQueryService {
       select: {
         username: true,
         createdAt: true,
-
-        profile: {
-          select: { rating: true, level: true },
-        },
-
-        address: {
-          select: { country: true },
-        },
+        profile: { select: { rating: true, level: true } },
+        address: { select: { country: true } },
       },
     });
 
