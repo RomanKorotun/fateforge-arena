@@ -303,38 +303,30 @@ export class AuthController {
     return response;
   }
 
-// підтвердження пошти
-@ConfirmEmailSwagger()
-@Get('confirm-email')
-@HttpCode(HttpStatus.OK)
-async confirmEmail(
-  @Query('token') token: string,
-  @Res() res: Response,
-) {
-  try {
-    await this.confirmEmailUseCase.execute(token);
-    return res.redirect(
-      `${this.FRONTEND_URL}/confirm-email?status=success`,
-    );
-  } catch (e: unknown) {
-    let status:
-      | 'expired'
-      | 'error'
-      | 'already_verified' = 'error';
+  // підтвердження пошти
+  @ConfirmEmailSwagger()
+  @Get('confirm-email')
+  @HttpCode(HttpStatus.OK)
+  async confirmEmail(@Query('token') token: string, @Res() res: Response) {
+    try {
+      await this.confirmEmailUseCase.execute(token);
+      return res.redirect(`${this.FRONTEND_URL}/confirm-email?status=success`);
+    } catch (e: unknown) {
+      let status: 'expired' | 'error' | 'already_verified' = 'error';
 
-    if (e instanceof GoneException) {
-      status = 'expired';
-    } else if (e instanceof ConflictException) {
-      status = 'already_verified';
-    } else if (e instanceof NotFoundException) {
-      status = 'error';
+      if (e instanceof GoneException) {
+        status = 'expired';
+      } else if (e instanceof ConflictException) {
+        status = 'already_verified';
+      } else if (e instanceof NotFoundException) {
+        status = 'error';
+      }
+
+      return res.redirect(
+        `${this.FRONTEND_URL}/confirm-email?status=${status}`,
+      );
     }
-
-    return res.redirect(
-      `${this.FRONTEND_URL}/confirm-email?status=${status}`,
-    );
   }
-}
 
   // повторна відправка листа для підтвердження пошти
   @ResendEmailVerificationSwagger()
