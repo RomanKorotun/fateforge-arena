@@ -39,25 +39,29 @@ export class SigninUseCase {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const passwordCompare = await this.passwordHashService.compare(
-      password,
-      user.password!,
-    );
-
-    if (!passwordCompare) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
     if (user.isDeleted) {
       throw new UnauthorizedException('ACCOUNT_DELETED');
     }
-
+    
     if (user.isBanned) {
       throw new ForbiddenException('ACCOUNT_BLOCKED');
     }
-
+    
     if (!user.emailVerifiedAt) {
       throw new ForbiddenException('EMAIL_NOT_VERIFIED');
+    }
+    
+    if (!user.password) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+    
+    const passwordCompare = await this.passwordHashService.compare(
+      password,
+      user.password,
+    );
+    
+    if (!passwordCompare) {
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const sessionId = randomUUID();
