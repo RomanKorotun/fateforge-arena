@@ -118,7 +118,6 @@ export class UserController {
     return res.json(address);
   }
 
-
   // Список користувачів з обмеженою інформацією (для рейтингу/статистики)
   @GetUserSwagger()
   @UseGuards(JwtAuthGuard)

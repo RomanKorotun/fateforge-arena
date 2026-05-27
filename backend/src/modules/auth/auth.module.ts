@@ -83,6 +83,6 @@ import { DeleteAccountUseCase } from './application/delete-account/delete-accoun
       provide: AUTH_PROVIDER_REPOSITORY,
       useClass: PrismaAuthProviderRepository,
     },
-  ]
+  ],
 })
 export class AuthModule {}

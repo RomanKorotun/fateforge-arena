@@ -1,11 +1,14 @@
 import { ConfigService } from '@nestjs/config';
 import {
   Body,
+  ConflictException,
   Controller,
   Delete,
   Get,
+  GoneException,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Query,
@@ -83,7 +86,7 @@ export class AuthController {
     private readonly resendEmailVerificationUseCase: ResendEmailVerificationUseCase,
     private readonly signinOauthUseCase: SigninOauthUseCase,
     private readonly geoIpService: GeoIpService,
-    private readonly deleteAccountUseCase: DeleteAccountUseCase
+    private readonly deleteAccountUseCase: DeleteAccountUseCase,
   ) {
     this.FRONTEND_URL = this.configService.getOrThrow('FRONTEND_URL');
   }
@@ -300,13 +303,38 @@ export class AuthController {
     return response;
   }
 
-  // підтвердження пошти
-  @ConfirmEmailSwagger()
-  @Get('confirm-email')
-  @HttpCode(HttpStatus.OK)
-  async confirmEmail(@Query('token') token: string) {
-    return await this.confirmEmailUseCase.execute(token);
+// підтвердження пошти
+@ConfirmEmailSwagger()
+@Get('confirm-email')
+@HttpCode(HttpStatus.OK)
+async confirmEmail(
+  @Query('token') token: string,
+  @Res() res: Response,
+) {
+  try {
+    await this.confirmEmailUseCase.execute(token);
+    return res.redirect(
+      `${this.FRONTEND_URL}/confirm-email?status=success`,
+    );
+  } catch (e: unknown) {
+    let status:
+      | 'expired'
+      | 'error'
+      | 'already_verified' = 'error';
+
+    if (e instanceof GoneException) {
+      status = 'expired';
+    } else if (e instanceof ConflictException) {
+      status = 'already_verified';
+    } else if (e instanceof NotFoundException) {
+      status = 'error';
+    }
+
+    return res.redirect(
+      `${this.FRONTEND_URL}/confirm-email?status=${status}`,
+    );
   }
+}
 
   // повторна відправка листа для підтвердження пошти
   @ResendEmailVerificationSwagger()
@@ -322,11 +350,12 @@ export class AuthController {
   @DeleteMeSwagger()
   @UseGuards(JwtAuthGuard)
   @Delete('me')
-  async deleteAccount(@Req() req: AuthRequest, @Res({ passthrough: true }) res: Response,) {
+  async deleteAccount(
+    @Req() req: AuthRequest,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const response = await this.deleteAccountUseCase.execute(req.user.id);
     this.authCookieService.clearAuthCookie(res);
     return response;
   }
 }
-
-
