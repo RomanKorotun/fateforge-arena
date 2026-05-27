@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   GoneException,
   Inject,
   Injectable,
@@ -29,7 +30,7 @@ export class ConfirmEmailUseCase {
     }
 
     if (verification.isUsed()) {
-      return { message: 'Email already confirmed' };
+      throw new ConflictException('Email already verified');
     }
 
     if (verification.isExpired()) {
