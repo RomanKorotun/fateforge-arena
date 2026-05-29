@@ -27,7 +27,7 @@ export class EndGameUseCase {
     const session: GameSession = JSON.parse(sessionStr);
 
     if (session.gameId !== gameId) {
-      throw new BadRequestException('Game ID mismatch');
+      throw new BadRequestException('Ігрову сесію не знайдено');
     }
 
     await this.redis.del(`slot_session:${userId}`);
