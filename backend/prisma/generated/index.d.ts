@@ -63,6 +63,11 @@ export type Wallet = $Result.DefaultSelection<Prisma.$WalletPayload>
  * 
  */
 export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
+/**
+ * Model VideoSlotHistory
+ * 
+ */
+export type VideoSlotHistory = $Result.DefaultSelection<Prisma.$VideoSlotHistoryPayload>
 
 /**
  * Enums
@@ -385,6 +390,16 @@ export class PrismaClient<
     * ```
     */
   get transaction(): Prisma.TransactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.videoSlotHistory`: Exposes CRUD operations for the **VideoSlotHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VideoSlotHistories
+    * const videoSlotHistories = await prisma.videoSlotHistory.findMany()
+    * ```
+    */
+  get videoSlotHistory(): Prisma.VideoSlotHistoryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -828,7 +843,8 @@ export namespace Prisma {
     GameSession: 'GameSession',
     RouletteBet: 'RouletteBet',
     Wallet: 'Wallet',
-    Transaction: 'Transaction'
+    Transaction: 'Transaction',
+    VideoSlotHistory: 'VideoSlotHistory'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -844,7 +860,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "authProvider" | "userEmailVerification" | "userSeed" | "profile" | "address" | "gameSession" | "rouletteBet" | "wallet" | "transaction"
+      modelProps: "user" | "authProvider" | "userEmailVerification" | "userSeed" | "profile" | "address" | "gameSession" | "rouletteBet" | "wallet" | "transaction" | "videoSlotHistory"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1588,6 +1604,80 @@ export namespace Prisma {
           }
         }
       }
+      VideoSlotHistory: {
+        payload: Prisma.$VideoSlotHistoryPayload<ExtArgs>
+        fields: Prisma.VideoSlotHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VideoSlotHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VideoSlotHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.VideoSlotHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VideoSlotHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.VideoSlotHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.VideoSlotHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.VideoSlotHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VideoSlotHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.VideoSlotHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload>
+          }
+          update: {
+            args: Prisma.VideoSlotHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.VideoSlotHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VideoSlotHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VideoSlotHistoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.VideoSlotHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoSlotHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.VideoSlotHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVideoSlotHistory>
+          }
+          groupBy: {
+            args: Prisma.VideoSlotHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VideoSlotHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VideoSlotHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<VideoSlotHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1706,6 +1796,7 @@ export namespace Prisma {
     rouletteBet?: RouletteBetOmit
     wallet?: WalletOmit
     transaction?: TransactionOmit
+    videoSlotHistory?: VideoSlotHistoryOmit
   }
 
   /* Types for Logging */
@@ -1788,6 +1879,7 @@ export namespace Prisma {
   export type UserCountOutputType = {
     gameSessions: number
     bets: number
+    videoSlotHistory: number
     wallets: number
     authProviders: number
   }
@@ -1795,6 +1887,7 @@ export namespace Prisma {
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     gameSessions?: boolean | UserCountOutputTypeCountGameSessionsArgs
     bets?: boolean | UserCountOutputTypeCountBetsArgs
+    videoSlotHistory?: boolean | UserCountOutputTypeCountVideoSlotHistoryArgs
     wallets?: boolean | UserCountOutputTypeCountWalletsArgs
     authProviders?: boolean | UserCountOutputTypeCountAuthProvidersArgs
   }
@@ -1822,6 +1915,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RouletteBetWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountVideoSlotHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VideoSlotHistoryWhereInput
   }
 
   /**
@@ -2145,6 +2245,7 @@ export namespace Prisma {
     address?: boolean | User$addressArgs<ExtArgs>
     gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
     bets?: boolean | User$betsArgs<ExtArgs>
+    videoSlotHistory?: boolean | User$videoSlotHistoryArgs<ExtArgs>
     wallets?: boolean | User$walletsArgs<ExtArgs>
     userSeed?: boolean | User$userSeedArgs<ExtArgs>
     emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
@@ -2209,6 +2310,7 @@ export namespace Prisma {
     address?: boolean | User$addressArgs<ExtArgs>
     gameSessions?: boolean | User$gameSessionsArgs<ExtArgs>
     bets?: boolean | User$betsArgs<ExtArgs>
+    videoSlotHistory?: boolean | User$videoSlotHistoryArgs<ExtArgs>
     wallets?: boolean | User$walletsArgs<ExtArgs>
     userSeed?: boolean | User$userSeedArgs<ExtArgs>
     emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
@@ -2225,6 +2327,7 @@ export namespace Prisma {
       address: Prisma.$AddressPayload<ExtArgs> | null
       gameSessions: Prisma.$GameSessionPayload<ExtArgs>[]
       bets: Prisma.$RouletteBetPayload<ExtArgs>[]
+      videoSlotHistory: Prisma.$VideoSlotHistoryPayload<ExtArgs>[]
       wallets: Prisma.$WalletPayload<ExtArgs>[]
       userSeed: Prisma.$UserSeedPayload<ExtArgs> | null
       emailVerifications: Prisma.$UserEmailVerificationPayload<ExtArgs> | null
@@ -2643,6 +2746,7 @@ export namespace Prisma {
     address<T extends User$addressArgs<ExtArgs> = {}>(args?: Subset<T, User$addressArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     gameSessions<T extends User$gameSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bets<T extends User$betsArgs<ExtArgs> = {}>(args?: Subset<T, User$betsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouletteBetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    videoSlotHistory<T extends User$videoSlotHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$videoSlotHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     wallets<T extends User$walletsArgs<ExtArgs> = {}>(args?: Subset<T, User$walletsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userSeed<T extends User$userSeedArgs<ExtArgs> = {}>(args?: Subset<T, User$userSeedArgs<ExtArgs>>): Prisma__UserSeedClient<$Result.GetResult<Prisma.$UserSeedPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     emailVerifications<T extends User$emailVerificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$emailVerificationsArgs<ExtArgs>>): Prisma__UserEmailVerificationClient<$Result.GetResult<Prisma.$UserEmailVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -3166,6 +3270,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RouletteBetScalarFieldEnum | RouletteBetScalarFieldEnum[]
+  }
+
+  /**
+   * User.videoSlotHistory
+   */
+  export type User$videoSlotHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    where?: VideoSlotHistoryWhereInput
+    orderBy?: VideoSlotHistoryOrderByWithRelationInput | VideoSlotHistoryOrderByWithRelationInput[]
+    cursor?: VideoSlotHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VideoSlotHistoryScalarFieldEnum | VideoSlotHistoryScalarFieldEnum[]
   }
 
   /**
@@ -13432,6 +13560,1171 @@ export namespace Prisma {
 
 
   /**
+   * Model VideoSlotHistory
+   */
+
+  export type AggregateVideoSlotHistory = {
+    _count: VideoSlotHistoryCountAggregateOutputType | null
+    _avg: VideoSlotHistoryAvgAggregateOutputType | null
+    _sum: VideoSlotHistorySumAggregateOutputType | null
+    _min: VideoSlotHistoryMinAggregateOutputType | null
+    _max: VideoSlotHistoryMaxAggregateOutputType | null
+  }
+
+  export type VideoSlotHistoryAvgAggregateOutputType = {
+    mode: number | null
+    totalSpins: number | null
+    totalBets: Decimal | null
+    totalWins: Decimal | null
+    rtp: number | null
+  }
+
+  export type VideoSlotHistorySumAggregateOutputType = {
+    mode: number | null
+    totalSpins: number | null
+    totalBets: Decimal | null
+    totalWins: Decimal | null
+    rtp: number | null
+  }
+
+  export type VideoSlotHistoryMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    gameId: string | null
+    mode: number | null
+    totalSpins: number | null
+    totalBets: Decimal | null
+    totalWins: Decimal | null
+    rtp: number | null
+    createdAt: Date | null
+  }
+
+  export type VideoSlotHistoryMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    gameId: string | null
+    mode: number | null
+    totalSpins: number | null
+    totalBets: Decimal | null
+    totalWins: Decimal | null
+    rtp: number | null
+    createdAt: Date | null
+  }
+
+  export type VideoSlotHistoryCountAggregateOutputType = {
+    id: number
+    userId: number
+    gameId: number
+    mode: number
+    totalSpins: number
+    totalBets: number
+    totalWins: number
+    rtp: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type VideoSlotHistoryAvgAggregateInputType = {
+    mode?: true
+    totalSpins?: true
+    totalBets?: true
+    totalWins?: true
+    rtp?: true
+  }
+
+  export type VideoSlotHistorySumAggregateInputType = {
+    mode?: true
+    totalSpins?: true
+    totalBets?: true
+    totalWins?: true
+    rtp?: true
+  }
+
+  export type VideoSlotHistoryMinAggregateInputType = {
+    id?: true
+    userId?: true
+    gameId?: true
+    mode?: true
+    totalSpins?: true
+    totalBets?: true
+    totalWins?: true
+    rtp?: true
+    createdAt?: true
+  }
+
+  export type VideoSlotHistoryMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    gameId?: true
+    mode?: true
+    totalSpins?: true
+    totalBets?: true
+    totalWins?: true
+    rtp?: true
+    createdAt?: true
+  }
+
+  export type VideoSlotHistoryCountAggregateInputType = {
+    id?: true
+    userId?: true
+    gameId?: true
+    mode?: true
+    totalSpins?: true
+    totalBets?: true
+    totalWins?: true
+    rtp?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type VideoSlotHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VideoSlotHistory to aggregate.
+     */
+    where?: VideoSlotHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoSlotHistories to fetch.
+     */
+    orderBy?: VideoSlotHistoryOrderByWithRelationInput | VideoSlotHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VideoSlotHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoSlotHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoSlotHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VideoSlotHistories
+    **/
+    _count?: true | VideoSlotHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VideoSlotHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VideoSlotHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VideoSlotHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VideoSlotHistoryMaxAggregateInputType
+  }
+
+  export type GetVideoSlotHistoryAggregateType<T extends VideoSlotHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateVideoSlotHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVideoSlotHistory[P]>
+      : GetScalarType<T[P], AggregateVideoSlotHistory[P]>
+  }
+
+
+
+
+  export type VideoSlotHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VideoSlotHistoryWhereInput
+    orderBy?: VideoSlotHistoryOrderByWithAggregationInput | VideoSlotHistoryOrderByWithAggregationInput[]
+    by: VideoSlotHistoryScalarFieldEnum[] | VideoSlotHistoryScalarFieldEnum
+    having?: VideoSlotHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VideoSlotHistoryCountAggregateInputType | true
+    _avg?: VideoSlotHistoryAvgAggregateInputType
+    _sum?: VideoSlotHistorySumAggregateInputType
+    _min?: VideoSlotHistoryMinAggregateInputType
+    _max?: VideoSlotHistoryMaxAggregateInputType
+  }
+
+  export type VideoSlotHistoryGroupByOutputType = {
+    id: string
+    userId: string
+    gameId: string
+    mode: number
+    totalSpins: number
+    totalBets: Decimal
+    totalWins: Decimal
+    rtp: number
+    createdAt: Date
+    _count: VideoSlotHistoryCountAggregateOutputType | null
+    _avg: VideoSlotHistoryAvgAggregateOutputType | null
+    _sum: VideoSlotHistorySumAggregateOutputType | null
+    _min: VideoSlotHistoryMinAggregateOutputType | null
+    _max: VideoSlotHistoryMaxAggregateOutputType | null
+  }
+
+  type GetVideoSlotHistoryGroupByPayload<T extends VideoSlotHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VideoSlotHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VideoSlotHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VideoSlotHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], VideoSlotHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VideoSlotHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    gameId?: boolean
+    mode?: boolean
+    totalSpins?: boolean
+    totalBets?: boolean
+    totalWins?: boolean
+    rtp?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["videoSlotHistory"]>
+
+  export type VideoSlotHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    gameId?: boolean
+    mode?: boolean
+    totalSpins?: boolean
+    totalBets?: boolean
+    totalWins?: boolean
+    rtp?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["videoSlotHistory"]>
+
+  export type VideoSlotHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    gameId?: boolean
+    mode?: boolean
+    totalSpins?: boolean
+    totalBets?: boolean
+    totalWins?: boolean
+    rtp?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["videoSlotHistory"]>
+
+  export type VideoSlotHistorySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    gameId?: boolean
+    mode?: boolean
+    totalSpins?: boolean
+    totalBets?: boolean
+    totalWins?: boolean
+    rtp?: boolean
+    createdAt?: boolean
+  }
+
+  export type VideoSlotHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "gameId" | "mode" | "totalSpins" | "totalBets" | "totalWins" | "rtp" | "createdAt", ExtArgs["result"]["videoSlotHistory"]>
+  export type VideoSlotHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type VideoSlotHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type VideoSlotHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $VideoSlotHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VideoSlotHistory"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      gameId: string
+      mode: number
+      totalSpins: number
+      totalBets: Prisma.Decimal
+      totalWins: Prisma.Decimal
+      rtp: number
+      createdAt: Date
+    }, ExtArgs["result"]["videoSlotHistory"]>
+    composites: {}
+  }
+
+  type VideoSlotHistoryGetPayload<S extends boolean | null | undefined | VideoSlotHistoryDefaultArgs> = $Result.GetResult<Prisma.$VideoSlotHistoryPayload, S>
+
+  type VideoSlotHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VideoSlotHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VideoSlotHistoryCountAggregateInputType | true
+    }
+
+  export interface VideoSlotHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VideoSlotHistory'], meta: { name: 'VideoSlotHistory' } }
+    /**
+     * Find zero or one VideoSlotHistory that matches the filter.
+     * @param {VideoSlotHistoryFindUniqueArgs} args - Arguments to find a VideoSlotHistory
+     * @example
+     * // Get one VideoSlotHistory
+     * const videoSlotHistory = await prisma.videoSlotHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VideoSlotHistoryFindUniqueArgs>(args: SelectSubset<T, VideoSlotHistoryFindUniqueArgs<ExtArgs>>): Prisma__VideoSlotHistoryClient<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VideoSlotHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VideoSlotHistoryFindUniqueOrThrowArgs} args - Arguments to find a VideoSlotHistory
+     * @example
+     * // Get one VideoSlotHistory
+     * const videoSlotHistory = await prisma.videoSlotHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VideoSlotHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, VideoSlotHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VideoSlotHistoryClient<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VideoSlotHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoSlotHistoryFindFirstArgs} args - Arguments to find a VideoSlotHistory
+     * @example
+     * // Get one VideoSlotHistory
+     * const videoSlotHistory = await prisma.videoSlotHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VideoSlotHistoryFindFirstArgs>(args?: SelectSubset<T, VideoSlotHistoryFindFirstArgs<ExtArgs>>): Prisma__VideoSlotHistoryClient<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VideoSlotHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoSlotHistoryFindFirstOrThrowArgs} args - Arguments to find a VideoSlotHistory
+     * @example
+     * // Get one VideoSlotHistory
+     * const videoSlotHistory = await prisma.videoSlotHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VideoSlotHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, VideoSlotHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__VideoSlotHistoryClient<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VideoSlotHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoSlotHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VideoSlotHistories
+     * const videoSlotHistories = await prisma.videoSlotHistory.findMany()
+     * 
+     * // Get first 10 VideoSlotHistories
+     * const videoSlotHistories = await prisma.videoSlotHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const videoSlotHistoryWithIdOnly = await prisma.videoSlotHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VideoSlotHistoryFindManyArgs>(args?: SelectSubset<T, VideoSlotHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VideoSlotHistory.
+     * @param {VideoSlotHistoryCreateArgs} args - Arguments to create a VideoSlotHistory.
+     * @example
+     * // Create one VideoSlotHistory
+     * const VideoSlotHistory = await prisma.videoSlotHistory.create({
+     *   data: {
+     *     // ... data to create a VideoSlotHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends VideoSlotHistoryCreateArgs>(args: SelectSubset<T, VideoSlotHistoryCreateArgs<ExtArgs>>): Prisma__VideoSlotHistoryClient<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VideoSlotHistories.
+     * @param {VideoSlotHistoryCreateManyArgs} args - Arguments to create many VideoSlotHistories.
+     * @example
+     * // Create many VideoSlotHistories
+     * const videoSlotHistory = await prisma.videoSlotHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VideoSlotHistoryCreateManyArgs>(args?: SelectSubset<T, VideoSlotHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VideoSlotHistories and returns the data saved in the database.
+     * @param {VideoSlotHistoryCreateManyAndReturnArgs} args - Arguments to create many VideoSlotHistories.
+     * @example
+     * // Create many VideoSlotHistories
+     * const videoSlotHistory = await prisma.videoSlotHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VideoSlotHistories and only return the `id`
+     * const videoSlotHistoryWithIdOnly = await prisma.videoSlotHistory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VideoSlotHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, VideoSlotHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VideoSlotHistory.
+     * @param {VideoSlotHistoryDeleteArgs} args - Arguments to delete one VideoSlotHistory.
+     * @example
+     * // Delete one VideoSlotHistory
+     * const VideoSlotHistory = await prisma.videoSlotHistory.delete({
+     *   where: {
+     *     // ... filter to delete one VideoSlotHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VideoSlotHistoryDeleteArgs>(args: SelectSubset<T, VideoSlotHistoryDeleteArgs<ExtArgs>>): Prisma__VideoSlotHistoryClient<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VideoSlotHistory.
+     * @param {VideoSlotHistoryUpdateArgs} args - Arguments to update one VideoSlotHistory.
+     * @example
+     * // Update one VideoSlotHistory
+     * const videoSlotHistory = await prisma.videoSlotHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VideoSlotHistoryUpdateArgs>(args: SelectSubset<T, VideoSlotHistoryUpdateArgs<ExtArgs>>): Prisma__VideoSlotHistoryClient<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VideoSlotHistories.
+     * @param {VideoSlotHistoryDeleteManyArgs} args - Arguments to filter VideoSlotHistories to delete.
+     * @example
+     * // Delete a few VideoSlotHistories
+     * const { count } = await prisma.videoSlotHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VideoSlotHistoryDeleteManyArgs>(args?: SelectSubset<T, VideoSlotHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VideoSlotHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoSlotHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VideoSlotHistories
+     * const videoSlotHistory = await prisma.videoSlotHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VideoSlotHistoryUpdateManyArgs>(args: SelectSubset<T, VideoSlotHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VideoSlotHistories and returns the data updated in the database.
+     * @param {VideoSlotHistoryUpdateManyAndReturnArgs} args - Arguments to update many VideoSlotHistories.
+     * @example
+     * // Update many VideoSlotHistories
+     * const videoSlotHistory = await prisma.videoSlotHistory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VideoSlotHistories and only return the `id`
+     * const videoSlotHistoryWithIdOnly = await prisma.videoSlotHistory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VideoSlotHistoryUpdateManyAndReturnArgs>(args: SelectSubset<T, VideoSlotHistoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VideoSlotHistory.
+     * @param {VideoSlotHistoryUpsertArgs} args - Arguments to update or create a VideoSlotHistory.
+     * @example
+     * // Update or create a VideoSlotHistory
+     * const videoSlotHistory = await prisma.videoSlotHistory.upsert({
+     *   create: {
+     *     // ... data to create a VideoSlotHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VideoSlotHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VideoSlotHistoryUpsertArgs>(args: SelectSubset<T, VideoSlotHistoryUpsertArgs<ExtArgs>>): Prisma__VideoSlotHistoryClient<$Result.GetResult<Prisma.$VideoSlotHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VideoSlotHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoSlotHistoryCountArgs} args - Arguments to filter VideoSlotHistories to count.
+     * @example
+     * // Count the number of VideoSlotHistories
+     * const count = await prisma.videoSlotHistory.count({
+     *   where: {
+     *     // ... the filter for the VideoSlotHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends VideoSlotHistoryCountArgs>(
+      args?: Subset<T, VideoSlotHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VideoSlotHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VideoSlotHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoSlotHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VideoSlotHistoryAggregateArgs>(args: Subset<T, VideoSlotHistoryAggregateArgs>): Prisma.PrismaPromise<GetVideoSlotHistoryAggregateType<T>>
+
+    /**
+     * Group by VideoSlotHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoSlotHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VideoSlotHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VideoSlotHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: VideoSlotHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VideoSlotHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVideoSlotHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VideoSlotHistory model
+   */
+  readonly fields: VideoSlotHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VideoSlotHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VideoSlotHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VideoSlotHistory model
+   */
+  interface VideoSlotHistoryFieldRefs {
+    readonly id: FieldRef<"VideoSlotHistory", 'String'>
+    readonly userId: FieldRef<"VideoSlotHistory", 'String'>
+    readonly gameId: FieldRef<"VideoSlotHistory", 'String'>
+    readonly mode: FieldRef<"VideoSlotHistory", 'Int'>
+    readonly totalSpins: FieldRef<"VideoSlotHistory", 'Int'>
+    readonly totalBets: FieldRef<"VideoSlotHistory", 'Decimal'>
+    readonly totalWins: FieldRef<"VideoSlotHistory", 'Decimal'>
+    readonly rtp: FieldRef<"VideoSlotHistory", 'Float'>
+    readonly createdAt: FieldRef<"VideoSlotHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VideoSlotHistory findUnique
+   */
+  export type VideoSlotHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoSlotHistory to fetch.
+     */
+    where: VideoSlotHistoryWhereUniqueInput
+  }
+
+  /**
+   * VideoSlotHistory findUniqueOrThrow
+   */
+  export type VideoSlotHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoSlotHistory to fetch.
+     */
+    where: VideoSlotHistoryWhereUniqueInput
+  }
+
+  /**
+   * VideoSlotHistory findFirst
+   */
+  export type VideoSlotHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoSlotHistory to fetch.
+     */
+    where?: VideoSlotHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoSlotHistories to fetch.
+     */
+    orderBy?: VideoSlotHistoryOrderByWithRelationInput | VideoSlotHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VideoSlotHistories.
+     */
+    cursor?: VideoSlotHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoSlotHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoSlotHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VideoSlotHistories.
+     */
+    distinct?: VideoSlotHistoryScalarFieldEnum | VideoSlotHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * VideoSlotHistory findFirstOrThrow
+   */
+  export type VideoSlotHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoSlotHistory to fetch.
+     */
+    where?: VideoSlotHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoSlotHistories to fetch.
+     */
+    orderBy?: VideoSlotHistoryOrderByWithRelationInput | VideoSlotHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VideoSlotHistories.
+     */
+    cursor?: VideoSlotHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoSlotHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoSlotHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VideoSlotHistories.
+     */
+    distinct?: VideoSlotHistoryScalarFieldEnum | VideoSlotHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * VideoSlotHistory findMany
+   */
+  export type VideoSlotHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoSlotHistories to fetch.
+     */
+    where?: VideoSlotHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoSlotHistories to fetch.
+     */
+    orderBy?: VideoSlotHistoryOrderByWithRelationInput | VideoSlotHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VideoSlotHistories.
+     */
+    cursor?: VideoSlotHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoSlotHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoSlotHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VideoSlotHistories.
+     */
+    distinct?: VideoSlotHistoryScalarFieldEnum | VideoSlotHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * VideoSlotHistory create
+   */
+  export type VideoSlotHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VideoSlotHistory.
+     */
+    data: XOR<VideoSlotHistoryCreateInput, VideoSlotHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * VideoSlotHistory createMany
+   */
+  export type VideoSlotHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VideoSlotHistories.
+     */
+    data: VideoSlotHistoryCreateManyInput | VideoSlotHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VideoSlotHistory createManyAndReturn
+   */
+  export type VideoSlotHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many VideoSlotHistories.
+     */
+    data: VideoSlotHistoryCreateManyInput | VideoSlotHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VideoSlotHistory update
+   */
+  export type VideoSlotHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VideoSlotHistory.
+     */
+    data: XOR<VideoSlotHistoryUpdateInput, VideoSlotHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which VideoSlotHistory to update.
+     */
+    where: VideoSlotHistoryWhereUniqueInput
+  }
+
+  /**
+   * VideoSlotHistory updateMany
+   */
+  export type VideoSlotHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VideoSlotHistories.
+     */
+    data: XOR<VideoSlotHistoryUpdateManyMutationInput, VideoSlotHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which VideoSlotHistories to update
+     */
+    where?: VideoSlotHistoryWhereInput
+    /**
+     * Limit how many VideoSlotHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VideoSlotHistory updateManyAndReturn
+   */
+  export type VideoSlotHistoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to update VideoSlotHistories.
+     */
+    data: XOR<VideoSlotHistoryUpdateManyMutationInput, VideoSlotHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which VideoSlotHistories to update
+     */
+    where?: VideoSlotHistoryWhereInput
+    /**
+     * Limit how many VideoSlotHistories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VideoSlotHistory upsert
+   */
+  export type VideoSlotHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VideoSlotHistory to update in case it exists.
+     */
+    where: VideoSlotHistoryWhereUniqueInput
+    /**
+     * In case the VideoSlotHistory found by the `where` argument doesn't exist, create a new VideoSlotHistory with this data.
+     */
+    create: XOR<VideoSlotHistoryCreateInput, VideoSlotHistoryUncheckedCreateInput>
+    /**
+     * In case the VideoSlotHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VideoSlotHistoryUpdateInput, VideoSlotHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * VideoSlotHistory delete
+   */
+  export type VideoSlotHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which VideoSlotHistory to delete.
+     */
+    where: VideoSlotHistoryWhereUniqueInput
+  }
+
+  /**
+   * VideoSlotHistory deleteMany
+   */
+  export type VideoSlotHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VideoSlotHistories to delete
+     */
+    where?: VideoSlotHistoryWhereInput
+    /**
+     * Limit how many VideoSlotHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VideoSlotHistory without action
+   */
+  export type VideoSlotHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoSlotHistory
+     */
+    select?: VideoSlotHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoSlotHistory
+     */
+    omit?: VideoSlotHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoSlotHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13587,6 +14880,21 @@ export namespace Prisma {
   };
 
   export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+  export const VideoSlotHistoryScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    gameId: 'gameId',
+    mode: 'mode',
+    totalSpins: 'totalSpins',
+    totalBets: 'totalBets',
+    totalWins: 'totalWins',
+    rtp: 'rtp',
+    createdAt: 'createdAt'
+  };
+
+  export type VideoSlotHistoryScalarFieldEnum = (typeof VideoSlotHistoryScalarFieldEnum)[keyof typeof VideoSlotHistoryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13818,6 +15126,7 @@ export namespace Prisma {
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     gameSessions?: GameSessionListRelationFilter
     bets?: RouletteBetListRelationFilter
+    videoSlotHistory?: VideoSlotHistoryListRelationFilter
     wallets?: WalletListRelationFilter
     userSeed?: XOR<UserSeedNullableScalarRelationFilter, UserSeedWhereInput> | null
     emailVerifications?: XOR<UserEmailVerificationNullableScalarRelationFilter, UserEmailVerificationWhereInput> | null
@@ -13843,6 +15152,7 @@ export namespace Prisma {
     address?: AddressOrderByWithRelationInput
     gameSessions?: GameSessionOrderByRelationAggregateInput
     bets?: RouletteBetOrderByRelationAggregateInput
+    videoSlotHistory?: VideoSlotHistoryOrderByRelationAggregateInput
     wallets?: WalletOrderByRelationAggregateInput
     userSeed?: UserSeedOrderByWithRelationInput
     emailVerifications?: UserEmailVerificationOrderByWithRelationInput
@@ -13871,6 +15181,7 @@ export namespace Prisma {
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     gameSessions?: GameSessionListRelationFilter
     bets?: RouletteBetListRelationFilter
+    videoSlotHistory?: VideoSlotHistoryListRelationFilter
     wallets?: WalletListRelationFilter
     userSeed?: XOR<UserSeedNullableScalarRelationFilter, UserSeedWhereInput> | null
     emailVerifications?: XOR<UserEmailVerificationNullableScalarRelationFilter, UserEmailVerificationWhereInput> | null
@@ -14557,6 +15868,83 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
   }
 
+  export type VideoSlotHistoryWhereInput = {
+    AND?: VideoSlotHistoryWhereInput | VideoSlotHistoryWhereInput[]
+    OR?: VideoSlotHistoryWhereInput[]
+    NOT?: VideoSlotHistoryWhereInput | VideoSlotHistoryWhereInput[]
+    id?: StringFilter<"VideoSlotHistory"> | string
+    userId?: StringFilter<"VideoSlotHistory"> | string
+    gameId?: StringFilter<"VideoSlotHistory"> | string
+    mode?: IntFilter<"VideoSlotHistory"> | number
+    totalSpins?: IntFilter<"VideoSlotHistory"> | number
+    totalBets?: DecimalFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFilter<"VideoSlotHistory"> | number
+    createdAt?: DateTimeFilter<"VideoSlotHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type VideoSlotHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    mode?: SortOrder
+    totalSpins?: SortOrder
+    totalBets?: SortOrder
+    totalWins?: SortOrder
+    rtp?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type VideoSlotHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VideoSlotHistoryWhereInput | VideoSlotHistoryWhereInput[]
+    OR?: VideoSlotHistoryWhereInput[]
+    NOT?: VideoSlotHistoryWhereInput | VideoSlotHistoryWhereInput[]
+    userId?: StringFilter<"VideoSlotHistory"> | string
+    gameId?: StringFilter<"VideoSlotHistory"> | string
+    mode?: IntFilter<"VideoSlotHistory"> | number
+    totalSpins?: IntFilter<"VideoSlotHistory"> | number
+    totalBets?: DecimalFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFilter<"VideoSlotHistory"> | number
+    createdAt?: DateTimeFilter<"VideoSlotHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type VideoSlotHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    mode?: SortOrder
+    totalSpins?: SortOrder
+    totalBets?: SortOrder
+    totalWins?: SortOrder
+    rtp?: SortOrder
+    createdAt?: SortOrder
+    _count?: VideoSlotHistoryCountOrderByAggregateInput
+    _avg?: VideoSlotHistoryAvgOrderByAggregateInput
+    _max?: VideoSlotHistoryMaxOrderByAggregateInput
+    _min?: VideoSlotHistoryMinOrderByAggregateInput
+    _sum?: VideoSlotHistorySumOrderByAggregateInput
+  }
+
+  export type VideoSlotHistoryScalarWhereWithAggregatesInput = {
+    AND?: VideoSlotHistoryScalarWhereWithAggregatesInput | VideoSlotHistoryScalarWhereWithAggregatesInput[]
+    OR?: VideoSlotHistoryScalarWhereWithAggregatesInput[]
+    NOT?: VideoSlotHistoryScalarWhereWithAggregatesInput | VideoSlotHistoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VideoSlotHistory"> | string
+    userId?: StringWithAggregatesFilter<"VideoSlotHistory"> | string
+    gameId?: StringWithAggregatesFilter<"VideoSlotHistory"> | string
+    mode?: IntWithAggregatesFilter<"VideoSlotHistory"> | number
+    totalSpins?: IntWithAggregatesFilter<"VideoSlotHistory"> | number
+    totalBets?: DecimalWithAggregatesFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalWithAggregatesFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
+    rtp?: FloatWithAggregatesFilter<"VideoSlotHistory"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"VideoSlotHistory"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     username: string
@@ -14576,6 +15964,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
@@ -14601,6 +15990,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
@@ -14626,6 +16016,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
@@ -14651,6 +16042,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
@@ -15385,6 +16777,89 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type VideoSlotHistoryCreateInput = {
+    id?: string
+    gameId: string
+    mode: number
+    totalSpins: number
+    totalBets: Decimal | DecimalJsLike | number | string
+    totalWins: Decimal | DecimalJsLike | number | string
+    rtp: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutVideoSlotHistoryInput
+  }
+
+  export type VideoSlotHistoryUncheckedCreateInput = {
+    id?: string
+    userId: string
+    gameId: string
+    mode: number
+    totalSpins: number
+    totalBets: Decimal | DecimalJsLike | number | string
+    totalWins: Decimal | DecimalJsLike | number | string
+    rtp: number
+    createdAt?: Date | string
+  }
+
+  export type VideoSlotHistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    mode?: IntFieldUpdateOperationsInput | number
+    totalSpins?: IntFieldUpdateOperationsInput | number
+    totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutVideoSlotHistoryNestedInput
+  }
+
+  export type VideoSlotHistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    mode?: IntFieldUpdateOperationsInput | number
+    totalSpins?: IntFieldUpdateOperationsInput | number
+    totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoSlotHistoryCreateManyInput = {
+    id?: string
+    userId: string
+    gameId: string
+    mode: number
+    totalSpins: number
+    totalBets: Decimal | DecimalJsLike | number | string
+    totalWins: Decimal | DecimalJsLike | number | string
+    rtp: number
+    createdAt?: Date | string
+  }
+
+  export type VideoSlotHistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    mode?: IntFieldUpdateOperationsInput | number
+    totalSpins?: IntFieldUpdateOperationsInput | number
+    totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoSlotHistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    mode?: IntFieldUpdateOperationsInput | number
+    totalSpins?: IntFieldUpdateOperationsInput | number
+    totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -15471,6 +16946,12 @@ export namespace Prisma {
     none?: RouletteBetWhereInput
   }
 
+  export type VideoSlotHistoryListRelationFilter = {
+    every?: VideoSlotHistoryWhereInput
+    some?: VideoSlotHistoryWhereInput
+    none?: VideoSlotHistoryWhereInput
+  }
+
   export type WalletListRelationFilter = {
     every?: WalletWhereInput
     some?: WalletWhereInput
@@ -15503,6 +16984,10 @@ export namespace Prisma {
   }
 
   export type RouletteBetOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VideoSlotHistoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16232,6 +17717,85 @@ export namespace Prisma {
     _max?: NestedEnumPaymentProviderNullableFilter<$PrismaModel>
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type VideoSlotHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    mode?: SortOrder
+    totalSpins?: SortOrder
+    totalBets?: SortOrder
+    totalWins?: SortOrder
+    rtp?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VideoSlotHistoryAvgOrderByAggregateInput = {
+    mode?: SortOrder
+    totalSpins?: SortOrder
+    totalBets?: SortOrder
+    totalWins?: SortOrder
+    rtp?: SortOrder
+  }
+
+  export type VideoSlotHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    mode?: SortOrder
+    totalSpins?: SortOrder
+    totalBets?: SortOrder
+    totalWins?: SortOrder
+    rtp?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VideoSlotHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    gameId?: SortOrder
+    mode?: SortOrder
+    totalSpins?: SortOrder
+    totalBets?: SortOrder
+    totalWins?: SortOrder
+    rtp?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type VideoSlotHistorySumOrderByAggregateInput = {
+    mode?: SortOrder
+    totalSpins?: SortOrder
+    totalBets?: SortOrder
+    totalWins?: SortOrder
+    rtp?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type ProfileCreateNestedOneWithoutUserInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
@@ -16256,6 +17820,13 @@ export namespace Prisma {
     connectOrCreate?: RouletteBetCreateOrConnectWithoutUserInput | RouletteBetCreateOrConnectWithoutUserInput[]
     createMany?: RouletteBetCreateManyUserInputEnvelope
     connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+  }
+
+  export type VideoSlotHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<VideoSlotHistoryCreateWithoutUserInput, VideoSlotHistoryUncheckedCreateWithoutUserInput> | VideoSlotHistoryCreateWithoutUserInput[] | VideoSlotHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VideoSlotHistoryCreateOrConnectWithoutUserInput | VideoSlotHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: VideoSlotHistoryCreateManyUserInputEnvelope
+    connect?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
   }
 
   export type WalletCreateNestedManyWithoutUserInput = {
@@ -16308,6 +17879,13 @@ export namespace Prisma {
     connectOrCreate?: RouletteBetCreateOrConnectWithoutUserInput | RouletteBetCreateOrConnectWithoutUserInput[]
     createMany?: RouletteBetCreateManyUserInputEnvelope
     connect?: RouletteBetWhereUniqueInput | RouletteBetWhereUniqueInput[]
+  }
+
+  export type VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<VideoSlotHistoryCreateWithoutUserInput, VideoSlotHistoryUncheckedCreateWithoutUserInput> | VideoSlotHistoryCreateWithoutUserInput[] | VideoSlotHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VideoSlotHistoryCreateOrConnectWithoutUserInput | VideoSlotHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: VideoSlotHistoryCreateManyUserInputEnvelope
+    connect?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
   }
 
   export type WalletUncheckedCreateNestedManyWithoutUserInput = {
@@ -16408,6 +17986,20 @@ export namespace Prisma {
     deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
   }
 
+  export type VideoSlotHistoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VideoSlotHistoryCreateWithoutUserInput, VideoSlotHistoryUncheckedCreateWithoutUserInput> | VideoSlotHistoryCreateWithoutUserInput[] | VideoSlotHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VideoSlotHistoryCreateOrConnectWithoutUserInput | VideoSlotHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: VideoSlotHistoryUpsertWithWhereUniqueWithoutUserInput | VideoSlotHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VideoSlotHistoryCreateManyUserInputEnvelope
+    set?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
+    disconnect?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
+    delete?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
+    connect?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
+    update?: VideoSlotHistoryUpdateWithWhereUniqueWithoutUserInput | VideoSlotHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VideoSlotHistoryUpdateManyWithWhereWithoutUserInput | VideoSlotHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VideoSlotHistoryScalarWhereInput | VideoSlotHistoryScalarWhereInput[]
+  }
+
   export type WalletUpdateManyWithoutUserNestedInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -16502,6 +18094,20 @@ export namespace Prisma {
     update?: RouletteBetUpdateWithWhereUniqueWithoutUserInput | RouletteBetUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: RouletteBetUpdateManyWithWhereWithoutUserInput | RouletteBetUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: RouletteBetScalarWhereInput | RouletteBetScalarWhereInput[]
+  }
+
+  export type VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VideoSlotHistoryCreateWithoutUserInput, VideoSlotHistoryUncheckedCreateWithoutUserInput> | VideoSlotHistoryCreateWithoutUserInput[] | VideoSlotHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VideoSlotHistoryCreateOrConnectWithoutUserInput | VideoSlotHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: VideoSlotHistoryUpsertWithWhereUniqueWithoutUserInput | VideoSlotHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VideoSlotHistoryCreateManyUserInputEnvelope
+    set?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
+    disconnect?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
+    delete?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
+    connect?: VideoSlotHistoryWhereUniqueInput | VideoSlotHistoryWhereUniqueInput[]
+    update?: VideoSlotHistoryUpdateWithWhereUniqueWithoutUserInput | VideoSlotHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VideoSlotHistoryUpdateManyWithWhereWithoutUserInput | VideoSlotHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VideoSlotHistoryScalarWhereInput | VideoSlotHistoryScalarWhereInput[]
   }
 
   export type WalletUncheckedUpdateManyWithoutUserNestedInput = {
@@ -16830,6 +18436,28 @@ export namespace Prisma {
     upsert?: WalletUpsertWithoutTransactionsInput
     connect?: WalletWhereUniqueInput
     update?: XOR<XOR<WalletUpdateToOneWithWhereWithoutTransactionsInput, WalletUpdateWithoutTransactionsInput>, WalletUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutVideoSlotHistoryInput = {
+    create?: XOR<UserCreateWithoutVideoSlotHistoryInput, UserUncheckedCreateWithoutVideoSlotHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVideoSlotHistoryInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutVideoSlotHistoryNestedInput = {
+    create?: XOR<UserCreateWithoutVideoSlotHistoryInput, UserUncheckedCreateWithoutVideoSlotHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVideoSlotHistoryInput
+    upsert?: UserUpsertWithoutVideoSlotHistoryInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVideoSlotHistoryInput, UserUpdateWithoutVideoSlotHistoryInput>, UserUncheckedUpdateWithoutVideoSlotHistoryInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -17206,6 +18834,22 @@ export namespace Prisma {
     _max?: NestedEnumPaymentProviderNullableFilter<$PrismaModel>
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type ProfileCreateWithoutUserInput = {
     rating: number
     level?: number
@@ -17321,6 +18965,38 @@ export namespace Prisma {
 
   export type RouletteBetCreateManyUserInputEnvelope = {
     data: RouletteBetCreateManyUserInput | RouletteBetCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VideoSlotHistoryCreateWithoutUserInput = {
+    id?: string
+    gameId: string
+    mode: number
+    totalSpins: number
+    totalBets: Decimal | DecimalJsLike | number | string
+    totalWins: Decimal | DecimalJsLike | number | string
+    rtp: number
+    createdAt?: Date | string
+  }
+
+  export type VideoSlotHistoryUncheckedCreateWithoutUserInput = {
+    id?: string
+    gameId: string
+    mode: number
+    totalSpins: number
+    totalBets: Decimal | DecimalJsLike | number | string
+    totalWins: Decimal | DecimalJsLike | number | string
+    rtp: number
+    createdAt?: Date | string
+  }
+
+  export type VideoSlotHistoryCreateOrConnectWithoutUserInput = {
+    where: VideoSlotHistoryWhereUniqueInput
+    create: XOR<VideoSlotHistoryCreateWithoutUserInput, VideoSlotHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type VideoSlotHistoryCreateManyUserInputEnvelope = {
+    data: VideoSlotHistoryCreateManyUserInput | VideoSlotHistoryCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -17537,6 +19213,37 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"RouletteBet"> | Date | string
   }
 
+  export type VideoSlotHistoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: VideoSlotHistoryWhereUniqueInput
+    update: XOR<VideoSlotHistoryUpdateWithoutUserInput, VideoSlotHistoryUncheckedUpdateWithoutUserInput>
+    create: XOR<VideoSlotHistoryCreateWithoutUserInput, VideoSlotHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type VideoSlotHistoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: VideoSlotHistoryWhereUniqueInput
+    data: XOR<VideoSlotHistoryUpdateWithoutUserInput, VideoSlotHistoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type VideoSlotHistoryUpdateManyWithWhereWithoutUserInput = {
+    where: VideoSlotHistoryScalarWhereInput
+    data: XOR<VideoSlotHistoryUpdateManyMutationInput, VideoSlotHistoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type VideoSlotHistoryScalarWhereInput = {
+    AND?: VideoSlotHistoryScalarWhereInput | VideoSlotHistoryScalarWhereInput[]
+    OR?: VideoSlotHistoryScalarWhereInput[]
+    NOT?: VideoSlotHistoryScalarWhereInput | VideoSlotHistoryScalarWhereInput[]
+    id?: StringFilter<"VideoSlotHistory"> | string
+    userId?: StringFilter<"VideoSlotHistory"> | string
+    gameId?: StringFilter<"VideoSlotHistory"> | string
+    mode?: IntFilter<"VideoSlotHistory"> | number
+    totalSpins?: IntFilter<"VideoSlotHistory"> | number
+    totalBets?: DecimalFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFilter<"VideoSlotHistory"> | number
+    createdAt?: DateTimeFilter<"VideoSlotHistory"> | Date | string
+  }
+
   export type WalletUpsertWithWhereUniqueWithoutUserInput = {
     where: WalletWhereUniqueInput
     update: XOR<WalletUpdateWithoutUserInput, WalletUncheckedUpdateWithoutUserInput>
@@ -17658,6 +19365,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
@@ -17682,6 +19390,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
@@ -17722,6 +19431,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
@@ -17746,6 +19456,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
@@ -17770,6 +19481,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
@@ -17794,6 +19506,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
@@ -17834,6 +19547,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
@@ -17858,6 +19572,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
@@ -17882,6 +19597,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
@@ -17906,6 +19622,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
@@ -17946,6 +19663,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
@@ -17970,6 +19688,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
@@ -17993,6 +19712,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
@@ -18017,6 +19737,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
@@ -18057,6 +19778,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
@@ -18081,6 +19803,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
@@ -18105,6 +19828,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
@@ -18129,6 +19853,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
@@ -18169,6 +19894,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
@@ -18193,6 +19919,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
@@ -18217,6 +19944,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
@@ -18241,6 +19969,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
@@ -18317,6 +20046,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
@@ -18341,6 +20071,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
@@ -18408,6 +20139,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryCreateNestedManyWithoutUserInput
     wallets?: WalletCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
@@ -18432,6 +20164,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
@@ -18505,6 +20238,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUpdateManyWithoutUserNestedInput
     wallets?: WalletUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
@@ -18529,6 +20263,7 @@ export namespace Prisma {
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
@@ -18554,6 +20289,7 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionCreateNestedManyWithoutUserInput
     bets?: RouletteBetCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryCreateNestedManyWithoutUserInput
     userSeed?: UserSeedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderCreateNestedManyWithoutUserInput
@@ -18578,6 +20314,7 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
     bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedCreateNestedManyWithoutUserInput
     userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
     emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
     authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
@@ -18662,6 +20399,7 @@ export namespace Prisma {
     address?: AddressUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
@@ -18686,6 +20424,7 @@ export namespace Prisma {
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
     bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    videoSlotHistory?: VideoSlotHistoryUncheckedUpdateManyWithoutUserNestedInput
     userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
     emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
     authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
@@ -18784,6 +20523,122 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserCreateWithoutVideoSlotHistoryInput = {
+    id?: string
+    username: string
+    email: string
+    password?: string | null
+    role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    address?: AddressCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionCreateNestedManyWithoutUserInput
+    bets?: RouletteBetCreateNestedManyWithoutUserInput
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationCreateNestedOneWithoutUserInput
+    authProviders?: AuthProviderCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutVideoSlotHistoryInput = {
+    id?: string
+    username: string
+    email: string
+    password?: string | null
+    role?: $Enums.UserRole
+    emailVerifiedAt?: Date | string | null
+    lastLoginIP?: string | null
+    lastLoginAt?: Date | string | null
+    isBanned?: boolean
+    banEndAt?: Date | string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    address?: AddressUncheckedCreateNestedOneWithoutUserInput
+    gameSessions?: GameSessionUncheckedCreateNestedManyWithoutUserInput
+    bets?: RouletteBetUncheckedCreateNestedManyWithoutUserInput
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    userSeed?: UserSeedUncheckedCreateNestedOneWithoutUserInput
+    emailVerifications?: UserEmailVerificationUncheckedCreateNestedOneWithoutUserInput
+    authProviders?: AuthProviderUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutVideoSlotHistoryInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutVideoSlotHistoryInput, UserUncheckedCreateWithoutVideoSlotHistoryInput>
+  }
+
+  export type UserUpsertWithoutVideoSlotHistoryInput = {
+    update: XOR<UserUpdateWithoutVideoSlotHistoryInput, UserUncheckedUpdateWithoutVideoSlotHistoryInput>
+    create: XOR<UserCreateWithoutVideoSlotHistoryInput, UserUncheckedCreateWithoutVideoSlotHistoryInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutVideoSlotHistoryInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutVideoSlotHistoryInput, UserUncheckedUpdateWithoutVideoSlotHistoryInput>
+  }
+
+  export type UserUpdateWithoutVideoSlotHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUpdateManyWithoutUserNestedInput
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUpdateOneWithoutUserNestedInput
+    authProviders?: AuthProviderUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutVideoSlotHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginIP?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    banEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
+    gameSessions?: GameSessionUncheckedUpdateManyWithoutUserNestedInput
+    bets?: RouletteBetUncheckedUpdateManyWithoutUserNestedInput
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    userSeed?: UserSeedUncheckedUpdateOneWithoutUserNestedInput
+    emailVerifications?: UserEmailVerificationUncheckedUpdateOneWithoutUserNestedInput
+    authProviders?: AuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type GameSessionCreateManyUserInput = {
     id?: string
     serverSeed: string
@@ -18804,6 +20659,17 @@ export namespace Prisma {
     payoutAmount: number
     isWin: boolean
     nonce: number
+    createdAt?: Date | string
+  }
+
+  export type VideoSlotHistoryCreateManyUserInput = {
+    id?: string
+    gameId: string
+    mode: number
+    totalSpins: number
+    totalBets: Decimal | DecimalJsLike | number | string
+    totalWins: Decimal | DecimalJsLike | number | string
+    rtp: number
     createdAt?: Date | string
   }
 
@@ -18891,6 +20757,39 @@ export namespace Prisma {
     payoutAmount?: IntFieldUpdateOperationsInput | number
     isWin?: BoolFieldUpdateOperationsInput | boolean
     nonce?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoSlotHistoryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    mode?: IntFieldUpdateOperationsInput | number
+    totalSpins?: IntFieldUpdateOperationsInput | number
+    totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoSlotHistoryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    mode?: IntFieldUpdateOperationsInput | number
+    totalSpins?: IntFieldUpdateOperationsInput | number
+    totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoSlotHistoryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gameId?: StringFieldUpdateOperationsInput | string
+    mode?: IntFieldUpdateOperationsInput | number
+    totalSpins?: IntFieldUpdateOperationsInput | number
+    totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalWins?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rtp?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

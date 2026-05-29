@@ -234,6 +234,18 @@ exports.Prisma.TransactionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.VideoSlotHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameId: 'gameId',
+  mode: 'mode',
+  totalSpins: 'totalSpins',
+  totalBets: 'totalBets',
+  totalWins: 'totalWins',
+  rtp: 'rtp',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -305,7 +317,8 @@ exports.Prisma.ModelName = {
   GameSession: 'GameSession',
   RouletteBet: 'RouletteBet',
   Wallet: 'Wallet',
-  Transaction: 'Transaction'
+  Transaction: 'Transaction',
+  VideoSlotHistory: 'VideoSlotHistory'
 };
 
 /**

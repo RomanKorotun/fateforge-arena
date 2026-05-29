@@ -3,7 +3,13 @@ import path from 'path';
 
 const SCHEMAS_DIR = path.resolve('prisma', 'schemas');
 
-const FILES = ['base.prisma', 'users.prisma', "roulette.prisma", "finance.prisma"];
+const FILES = [
+  'base.prisma',
+  'users.prisma',
+  'roulette.prisma',
+  'finance.prisma',
+  'videoslot.prisma',
+];
 
 const SCHEMA_PATH = path.resolve('prisma', 'schema.prisma');
 
