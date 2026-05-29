@@ -13,6 +13,7 @@ import { EmailModule } from './core/email/email.module';
 import { DatabaseModule } from './infrastructure/database/database.module';
 import { FinanceModule } from './modules/finance/finance.module';
 import { GeoIpModule } from './core/geoip/geo-ip.module';
+import { VideoslotModule } from './modules/videoslot/videoclot.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { GeoIpModule } from './core/geoip/geo-ip.module';
     AdminModule,
     RouletteModule,
     FinanceModule,
+    VideoslotModule,
   ],
 })
 export class AppModule {}

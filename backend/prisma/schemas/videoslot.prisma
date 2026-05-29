@@ -1,0 +1,17 @@
+model VideoSlotHistory {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  gameId      String
+  mode        Int
+  totalSpins  Int
+  totalBets   Decimal  @db.Decimal(15, 2)
+  totalWins   Decimal  @db.Decimal(15, 2)
+  rtp         Float
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([gameId])
+  @@index([userId, gameId])
+  @@schema("videoslot")
+}
