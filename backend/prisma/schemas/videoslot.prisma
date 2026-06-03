@@ -3,6 +3,7 @@ model VideoSlotHistory {
   userId      String
   user        User     @relation(fields: [userId], references: [id])
   gameId      String
+  currency    String
   mode        Int
   totalSpins  Int
   totalBets   Decimal  @db.Decimal(15, 2)

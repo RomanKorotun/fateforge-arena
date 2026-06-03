@@ -7,27 +7,27 @@ import {
 import { randomInt } from 'crypto';
 
 import { PlaySpinCommand } from './play-spin.command';
-import { RedisService } from '../../../../core/redis/redis.service';
 
 import {
   PAYLINES_CONFIG,
   PAYTABLE,
   WILD_SYMBOL,
-} from '../../domain/constants/videoslots.constants';
+} from '../../../domain/constants/videoslots.constants';
 
-import { WALLET_REPOSITORY } from '../../../../modules/finance/domain/repositories/wallet/wallet.repository.token';
-import type { IWalletRepository } from '../../../../modules/finance/domain/repositories/wallet/wallet.repository';
+import { WALLET_REPOSITORY } from '../../../../../modules/finance/domain/repositories/wallet/wallet.repository.token';
+import type { IWalletRepository } from '../../../../../modules/finance/domain/repositories/wallet/wallet.repository';
 
-import { TRANSACTION_REPOSITORY } from '../../../../modules/finance/domain/repositories/transaction/transaction.repository.token';
-import type { ITransactionRepository } from '../../../../modules/finance/domain/repositories/transaction/transaction.repository';
+import { TRANSACTION_REPOSITORY } from '../../../../../modules/finance/domain/repositories/transaction/transaction.repository.token';
+import type { ITransactionRepository } from '../../../../../modules/finance/domain/repositories/transaction/transaction.repository';
 
-import { UNIT_OF_WORK } from '../../../../common/tokens/unit-of-work.token';
-import type { IUnitOfWork } from '../../../../common/contracts/unit-of-work.interface';
+import { UNIT_OF_WORK } from '../../../../../common/tokens/unit-of-work.token';
+import type { IUnitOfWork } from '../../../../../common/contracts/unit-of-work.interface';
 
-import { ReelGeneratorService } from '../services/reel-generator.service';
-import { TransactionType } from '../../../../modules/finance/domain/enums/transaction-type.enum';
-import { TransactionStatus } from '../../../../modules/finance/domain/enums/transaction-status.enum';
-import { GameSession } from '../create-game/create-game.ussecase';
+import { ReelGeneratorService } from '../../services/reel-generator.service';
+import { TransactionType } from '../../../../../modules/finance/domain/enums/transaction-type.enum';
+import { TransactionStatus } from '../../../../../modules/finance/domain/enums/transaction-status.enum';
+import { GAME_SESSION_REPOSITORY } from '../../../domain/repositories/game-session/game-session.repository.token';
+import type { IGameSessionRepository } from '../../../domain/repositories/game-session/game-session.repository';
 
 // Результат виграшної лінії
 type WinningLine = {
@@ -40,38 +40,33 @@ type WinningLine = {
 @Injectable()
 export class PlaySpinUseCase {
   constructor(
-    private readonly redis: RedisService,
-
+    @Inject(GAME_SESSION_REPOSITORY)
+    private readonly gameSessionRepository: IGameSessionRepository,
     @Inject(WALLET_REPOSITORY)
     private readonly walletRepository: IWalletRepository,
-
     @Inject(TRANSACTION_REPOSITORY)
     private readonly transactionRepository: ITransactionRepository,
-
     @Inject(UNIT_OF_WORK)
     private readonly unitOfWork: IUnitOfWork,
-
     private readonly reelGeneratorService: ReelGeneratorService,
   ) {}
 
   async execute({ userId, data }: PlaySpinCommand) {
-    const { bet, lines, walletId } = data;
+    const { bet, lines } = data;
 
     // 1. Отримуємо ігрову сесію з Redis
-    const sessionStr = await this.redis.get(`slot_session:${userId}`);
+    const session = await this.gameSessionRepository.get(userId);
 
-    if (!sessionStr) {
+    if (!session) {
       throw new NotFoundException(
         'Ігрову сесію не знайдено. Спочатку ініціалізуй гру.',
       );
     }
 
-    const session: GameSession = JSON.parse(sessionStr);
-
     // 2. ВСЯ ФІНАНСОВА ЛОГІКА В POSTGRES ТРАНЗАКЦІЇ
     return this.unitOfWork.transaction(async (tx) => {
       // Блокуємо гаманець (щоб не було race condition)
-      const wallet = await this.walletRepository.lockById(walletId, tx);
+      const wallet = await this.walletRepository.lockById(session.walletId, tx);
 
       if (!wallet || wallet.userId !== userId) {
         throw new NotFoundException('Гаманець не знайдено');
@@ -144,9 +139,11 @@ export class PlaySpinUseCase {
           const multiplier = PAYTABLE[targetSymbol]?.[matchCount] ?? 0;
 
           if (multiplier > 0) {
-            const winAmount = betPerLine * multiplier;
+            // const winAmount = betPerLine * multiplier;
+            const winAmount = Math.round(betPerLine * multiplier * 100) / 100;
 
-            totalWin += winAmount;
+            // totalWin += winAmount;
+            totalWin = Math.round((totalWin + winAmount) * 100) / 100;
 
             winningLines.push({
               lineId,
@@ -207,7 +204,7 @@ export class PlaySpinUseCase {
       session.totalBets += bet;
       session.totalWins += totalWin;
 
-      await this.redis.set(`slot_session:${userId}`, JSON.stringify(session));
+      await this.gameSessionRepository.save(userId, session);
 
       // 8. ФОРМУВАННЯ ВІДПОВІДІ
       const viewGrid = [0, 1, 2].map((row) => grid.map((col) => col[row]));

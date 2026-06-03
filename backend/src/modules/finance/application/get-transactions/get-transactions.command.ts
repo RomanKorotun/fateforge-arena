@@ -1,5 +1,3 @@
-// get-transactions.command.ts
-
 import { Currency } from '../../domain/enums/currency.enum';
 import { PaymentProvider } from '../../domain/enums/payment-provider.enum';
 import { TransactionStatus } from '../../domain/enums/transaction-status.enum';
