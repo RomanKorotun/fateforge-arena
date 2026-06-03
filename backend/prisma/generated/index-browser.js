@@ -238,6 +238,7 @@ exports.Prisma.VideoSlotHistoryScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   gameId: 'gameId',
+  currency: 'currency',
   mode: 'mode',
   totalSpins: 'totalSpins',
   totalBets: 'totalBets',

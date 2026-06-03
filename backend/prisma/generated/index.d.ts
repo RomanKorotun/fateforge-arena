@@ -13591,6 +13591,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     gameId: string | null
+    currency: string | null
     mode: number | null
     totalSpins: number | null
     totalBets: Decimal | null
@@ -13603,6 +13604,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     gameId: string | null
+    currency: string | null
     mode: number | null
     totalSpins: number | null
     totalBets: Decimal | null
@@ -13615,6 +13617,7 @@ export namespace Prisma {
     id: number
     userId: number
     gameId: number
+    currency: number
     mode: number
     totalSpins: number
     totalBets: number
@@ -13645,6 +13648,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     gameId?: true
+    currency?: true
     mode?: true
     totalSpins?: true
     totalBets?: true
@@ -13657,6 +13661,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     gameId?: true
+    currency?: true
     mode?: true
     totalSpins?: true
     totalBets?: true
@@ -13669,6 +13674,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     gameId?: true
+    currency?: true
     mode?: true
     totalSpins?: true
     totalBets?: true
@@ -13768,6 +13774,7 @@ export namespace Prisma {
     id: string
     userId: string
     gameId: string
+    currency: string
     mode: number
     totalSpins: number
     totalBets: Decimal
@@ -13799,6 +13806,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     gameId?: boolean
+    currency?: boolean
     mode?: boolean
     totalSpins?: boolean
     totalBets?: boolean
@@ -13812,6 +13820,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     gameId?: boolean
+    currency?: boolean
     mode?: boolean
     totalSpins?: boolean
     totalBets?: boolean
@@ -13825,6 +13834,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     gameId?: boolean
+    currency?: boolean
     mode?: boolean
     totalSpins?: boolean
     totalBets?: boolean
@@ -13838,6 +13848,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     gameId?: boolean
+    currency?: boolean
     mode?: boolean
     totalSpins?: boolean
     totalBets?: boolean
@@ -13846,7 +13857,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type VideoSlotHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "gameId" | "mode" | "totalSpins" | "totalBets" | "totalWins" | "rtp" | "createdAt", ExtArgs["result"]["videoSlotHistory"]>
+  export type VideoSlotHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "gameId" | "currency" | "mode" | "totalSpins" | "totalBets" | "totalWins" | "rtp" | "createdAt", ExtArgs["result"]["videoSlotHistory"]>
   export type VideoSlotHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -13866,6 +13877,7 @@ export namespace Prisma {
       id: string
       userId: string
       gameId: string
+      currency: string
       mode: number
       totalSpins: number
       totalBets: Prisma.Decimal
@@ -14299,6 +14311,7 @@ export namespace Prisma {
     readonly id: FieldRef<"VideoSlotHistory", 'String'>
     readonly userId: FieldRef<"VideoSlotHistory", 'String'>
     readonly gameId: FieldRef<"VideoSlotHistory", 'String'>
+    readonly currency: FieldRef<"VideoSlotHistory", 'String'>
     readonly mode: FieldRef<"VideoSlotHistory", 'Int'>
     readonly totalSpins: FieldRef<"VideoSlotHistory", 'Int'>
     readonly totalBets: FieldRef<"VideoSlotHistory", 'Decimal'>
@@ -14886,6 +14899,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     gameId: 'gameId',
+    currency: 'currency',
     mode: 'mode',
     totalSpins: 'totalSpins',
     totalBets: 'totalBets',
@@ -15875,6 +15889,7 @@ export namespace Prisma {
     id?: StringFilter<"VideoSlotHistory"> | string
     userId?: StringFilter<"VideoSlotHistory"> | string
     gameId?: StringFilter<"VideoSlotHistory"> | string
+    currency?: StringFilter<"VideoSlotHistory"> | string
     mode?: IntFilter<"VideoSlotHistory"> | number
     totalSpins?: IntFilter<"VideoSlotHistory"> | number
     totalBets?: DecimalFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
@@ -15888,6 +15903,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     gameId?: SortOrder
+    currency?: SortOrder
     mode?: SortOrder
     totalSpins?: SortOrder
     totalBets?: SortOrder
@@ -15904,6 +15920,7 @@ export namespace Prisma {
     NOT?: VideoSlotHistoryWhereInput | VideoSlotHistoryWhereInput[]
     userId?: StringFilter<"VideoSlotHistory"> | string
     gameId?: StringFilter<"VideoSlotHistory"> | string
+    currency?: StringFilter<"VideoSlotHistory"> | string
     mode?: IntFilter<"VideoSlotHistory"> | number
     totalSpins?: IntFilter<"VideoSlotHistory"> | number
     totalBets?: DecimalFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
@@ -15917,6 +15934,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     gameId?: SortOrder
+    currency?: SortOrder
     mode?: SortOrder
     totalSpins?: SortOrder
     totalBets?: SortOrder
@@ -15937,6 +15955,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"VideoSlotHistory"> | string
     userId?: StringWithAggregatesFilter<"VideoSlotHistory"> | string
     gameId?: StringWithAggregatesFilter<"VideoSlotHistory"> | string
+    currency?: StringWithAggregatesFilter<"VideoSlotHistory"> | string
     mode?: IntWithAggregatesFilter<"VideoSlotHistory"> | number
     totalSpins?: IntWithAggregatesFilter<"VideoSlotHistory"> | number
     totalBets?: DecimalWithAggregatesFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
@@ -16780,6 +16799,7 @@ export namespace Prisma {
   export type VideoSlotHistoryCreateInput = {
     id?: string
     gameId: string
+    currency: string
     mode: number
     totalSpins: number
     totalBets: Decimal | DecimalJsLike | number | string
@@ -16793,6 +16813,7 @@ export namespace Prisma {
     id?: string
     userId: string
     gameId: string
+    currency: string
     mode: number
     totalSpins: number
     totalBets: Decimal | DecimalJsLike | number | string
@@ -16804,6 +16825,7 @@ export namespace Prisma {
   export type VideoSlotHistoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     mode?: IntFieldUpdateOperationsInput | number
     totalSpins?: IntFieldUpdateOperationsInput | number
     totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -16817,6 +16839,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     mode?: IntFieldUpdateOperationsInput | number
     totalSpins?: IntFieldUpdateOperationsInput | number
     totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -16829,6 +16852,7 @@ export namespace Prisma {
     id?: string
     userId: string
     gameId: string
+    currency: string
     mode: number
     totalSpins: number
     totalBets: Decimal | DecimalJsLike | number | string
@@ -16840,6 +16864,7 @@ export namespace Prisma {
   export type VideoSlotHistoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     mode?: IntFieldUpdateOperationsInput | number
     totalSpins?: IntFieldUpdateOperationsInput | number
     totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -16852,6 +16877,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     mode?: IntFieldUpdateOperationsInput | number
     totalSpins?: IntFieldUpdateOperationsInput | number
     totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17732,6 +17758,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     gameId?: SortOrder
+    currency?: SortOrder
     mode?: SortOrder
     totalSpins?: SortOrder
     totalBets?: SortOrder
@@ -17752,6 +17779,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     gameId?: SortOrder
+    currency?: SortOrder
     mode?: SortOrder
     totalSpins?: SortOrder
     totalBets?: SortOrder
@@ -17764,6 +17792,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     gameId?: SortOrder
+    currency?: SortOrder
     mode?: SortOrder
     totalSpins?: SortOrder
     totalBets?: SortOrder
@@ -18971,6 +19000,7 @@ export namespace Prisma {
   export type VideoSlotHistoryCreateWithoutUserInput = {
     id?: string
     gameId: string
+    currency: string
     mode: number
     totalSpins: number
     totalBets: Decimal | DecimalJsLike | number | string
@@ -18982,6 +19012,7 @@ export namespace Prisma {
   export type VideoSlotHistoryUncheckedCreateWithoutUserInput = {
     id?: string
     gameId: string
+    currency: string
     mode: number
     totalSpins: number
     totalBets: Decimal | DecimalJsLike | number | string
@@ -19236,6 +19267,7 @@ export namespace Prisma {
     id?: StringFilter<"VideoSlotHistory"> | string
     userId?: StringFilter<"VideoSlotHistory"> | string
     gameId?: StringFilter<"VideoSlotHistory"> | string
+    currency?: StringFilter<"VideoSlotHistory"> | string
     mode?: IntFilter<"VideoSlotHistory"> | number
     totalSpins?: IntFilter<"VideoSlotHistory"> | number
     totalBets?: DecimalFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
@@ -20665,6 +20697,7 @@ export namespace Prisma {
   export type VideoSlotHistoryCreateManyUserInput = {
     id?: string
     gameId: string
+    currency: string
     mode: number
     totalSpins: number
     totalBets: Decimal | DecimalJsLike | number | string
@@ -20763,6 +20796,7 @@ export namespace Prisma {
   export type VideoSlotHistoryUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     mode?: IntFieldUpdateOperationsInput | number
     totalSpins?: IntFieldUpdateOperationsInput | number
     totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -20774,6 +20808,7 @@ export namespace Prisma {
   export type VideoSlotHistoryUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     mode?: IntFieldUpdateOperationsInput | number
     totalSpins?: IntFieldUpdateOperationsInput | number
     totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -20785,6 +20820,7 @@ export namespace Prisma {
   export type VideoSlotHistoryUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     gameId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
     mode?: IntFieldUpdateOperationsInput | number
     totalSpins?: IntFieldUpdateOperationsInput | number
     totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
