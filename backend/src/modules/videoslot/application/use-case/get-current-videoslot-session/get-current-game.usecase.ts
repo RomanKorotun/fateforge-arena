@@ -11,6 +11,8 @@ export class GetCurrentGameUseCase {
   ) {}
   async execute(userId: string) {
     const activeSession = await this.gameSessionRepository.get(userId);
-    return activeSession ? { gameId: activeSession.gameId, walletId: activeSession.walletId } : null;
+    return activeSession
+      ? { gameId: activeSession.gameId, walletId: activeSession.walletId }
+      : null;
   }
 }

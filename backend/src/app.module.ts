@@ -14,9 +14,12 @@ import { DatabaseModule } from './infrastructure/database/database.module';
 import { FinanceModule } from './modules/finance/finance.module';
 import { GeoIpModule } from './core/geoip/geo-ip.module';
 import { VideoslotModule } from './modules/videoslot/videoclot.module';
+import { ChatModule } from './modules/chat/chat.module';
+import { JwtAuthModule } from './core/JwtAuth/jwt-auth.module';
 
 @Module({
   imports: [
+    JwtAuthModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
     }),
@@ -32,6 +35,7 @@ import { VideoslotModule } from './modules/videoslot/videoclot.module';
     RouletteModule,
     FinanceModule,
     VideoslotModule,
+    ChatModule,
   ],
 })
 export class AppModule {}
