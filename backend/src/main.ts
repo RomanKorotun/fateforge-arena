@@ -8,10 +8,17 @@ import * as express from 'express';
 import { AppModule } from './app.module';
 import { swaggerConfig } from './core/swagger/swagger.config';
 import { AllExceptionFilter } from './common/filters/all-exception.filter';
+import { RedisService } from './core/redis/redis.service';
+import { RedisIoAdapter } from './infrastructure/websocket/redis-io.adapter';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
   const app = await NestFactory.create(AppModule);
+
+  const redisService = app.get(RedisService);
+  const redisAdapter = new RedisIoAdapter(app, redisService);
+  await redisAdapter.connectToRedis();
+  app.useWebSocketAdapter(redisAdapter);
 
   const expressApp = app.getHttpAdapter().getInstance();
   expressApp.set('trust proxy', 1);

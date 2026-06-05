@@ -13,6 +13,7 @@
 - roulette — ігрова логіка
 - roulette — ігрова логіка рулетки, ставки та обробка раундів
 - videoslot — логіка слот-гри, спіни та розрахунок виграшів
+- chat - логіка для створення чат-кімнат, додавання та видалення користувачів до кімнат, збереження повідомлень
 
 ---
 
@@ -71,14 +72,9 @@ Infra:
 
 ---
 
-### Як працює auth flow:
+### Як передається токен:
 
-1. користувач переходить на OAuth provider
-2. отримує callback у backend
-3. створюється або знаходиться користувач
-4. генерується JWT токен
-5. токен зберігається в **httpOnly cookie**
-6. створюється сесія користувача
+- токен зберігається в **httpOnly cookie**
 
 ---
 
@@ -113,7 +109,7 @@ Infra:
 
 ---
 
-## USERS
+## USER
 
 - профіль користувача
 - список користувачів
@@ -131,6 +127,22 @@ Infra:
 - доступ тільки для ролі ADMIN
 
 ---
+
+## CHAT
+
+Socket Events:
+
+Client → Server:
+
+- room:join // @SubscribeMessage('room:join') - зайти в кімнату, отримати users + history
+- room:leave // @SubscribeMessage('room:leave') - вийти з кімнати, оновити users
+- message:send // @SubscribeMessage('message:send') - відправити повідомлення
+
+Server → Client:
+
+- room:users // this.server.to(room).emit('room:users') - список онлайн користувачів
+- chat:init // client.emit('chat:init') - історія повідомлень після join
+- message:new // this.server.to(room).emit('message:new') - нове повідомлення всім
 
 ## ENVIRONMENT
 

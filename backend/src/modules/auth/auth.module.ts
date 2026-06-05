@@ -41,6 +41,9 @@ import { ResendEmailVerificationUseCase } from './application/resend-email-verif
 import { SigninOauthUseCase } from './application/signin-oauth/signin-oauth.usecase';
 import { DeleteAccountUseCase } from './application/delete-account/delete-account.usecase';
 
+import { WsJwtGuard } from './presentation/guards/ws-jwt.guard';
+import { ValidateUserService } from './application/services/validate-user.service';
+
 @Module({
   imports: [
     SecurityModule,
@@ -74,6 +77,8 @@ import { DeleteAccountUseCase } from './application/delete-account/delete-accoun
     ResendEmailVerificationUseCase,
     SigninOauthUseCase,
     LinkedinApi,
+    WsJwtGuard,
+    ValidateUserService,
     { provide: SESSION_REPOSITORY, useClass: RedisSessionRepository },
     {
       provide: USER_EMAIL_VERIFICATION_REPOSITORY,
@@ -84,5 +89,6 @@ import { DeleteAccountUseCase } from './application/delete-account/delete-accoun
       useClass: PrismaAuthProviderRepository,
     },
   ],
+  exports: [WsJwtGuard, ValidateUserService],
 })
 export class AuthModule {}
