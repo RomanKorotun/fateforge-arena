@@ -50,4 +50,18 @@ export class PrismaProfileRepository implements IProfileRepository {
     });
     return profile ? PrismaProfileMapper.toDomain(profile) : null;
   }
+
+  // збільшення рейтингу користувача (в грі battle)
+  async incrementRating(
+    userId: string,
+    rating: number,
+    tx?: PrismaTx,
+  ): Promise<void> {
+    const client = this.getClient(tx);
+
+    await client.profile.update({
+      where: { userId },
+      data: { rating: { increment: rating } },
+    });
+  }
 }

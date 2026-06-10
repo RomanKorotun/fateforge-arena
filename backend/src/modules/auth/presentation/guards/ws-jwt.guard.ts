@@ -23,11 +23,8 @@ export class WsJwtGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const client = context.switchToWs().getClient<Socket>();
-    console.log("client",client);
     const cookies = cookie.parse(client.handshake.headers.cookie ?? '');
-    console.log("cookies", cookies);
     const token = cookies.accessToken;
-    console.log("token", token);
 
     if (!token) {
       throw new UnauthorizedException('No token');
@@ -44,7 +41,6 @@ export class WsJwtGuard implements CanActivate {
     }
 
     const user = await this.authValidator.validateByPayload(payload);
-    console.log("user",user);
 
     client.data.user = {
       id: user.id,

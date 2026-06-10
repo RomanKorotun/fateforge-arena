@@ -68,6 +68,11 @@ export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
  * 
  */
 export type VideoSlotHistory = $Result.DefaultSelection<Prisma.$VideoSlotHistoryPayload>
+/**
+ * Model BattleResult
+ * 
+ */
+export type BattleResult = $Result.DefaultSelection<Prisma.$BattleResultPayload>
 
 /**
  * Enums
@@ -400,6 +405,16 @@ export class PrismaClient<
     * ```
     */
   get videoSlotHistory(): Prisma.VideoSlotHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.battleResult`: Exposes CRUD operations for the **BattleResult** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BattleResults
+    * const battleResults = await prisma.battleResult.findMany()
+    * ```
+    */
+  get battleResult(): Prisma.BattleResultDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -844,7 +859,8 @@ export namespace Prisma {
     RouletteBet: 'RouletteBet',
     Wallet: 'Wallet',
     Transaction: 'Transaction',
-    VideoSlotHistory: 'VideoSlotHistory'
+    VideoSlotHistory: 'VideoSlotHistory',
+    BattleResult: 'BattleResult'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -860,7 +876,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "authProvider" | "userEmailVerification" | "userSeed" | "profile" | "address" | "gameSession" | "rouletteBet" | "wallet" | "transaction" | "videoSlotHistory"
+      modelProps: "user" | "authProvider" | "userEmailVerification" | "userSeed" | "profile" | "address" | "gameSession" | "rouletteBet" | "wallet" | "transaction" | "videoSlotHistory" | "battleResult"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1678,6 +1694,80 @@ export namespace Prisma {
           }
         }
       }
+      BattleResult: {
+        payload: Prisma.$BattleResultPayload<ExtArgs>
+        fields: Prisma.BattleResultFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BattleResultFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BattleResultFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload>
+          }
+          findFirst: {
+            args: Prisma.BattleResultFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BattleResultFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload>
+          }
+          findMany: {
+            args: Prisma.BattleResultFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload>[]
+          }
+          create: {
+            args: Prisma.BattleResultCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload>
+          }
+          createMany: {
+            args: Prisma.BattleResultCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BattleResultCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload>[]
+          }
+          delete: {
+            args: Prisma.BattleResultDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload>
+          }
+          update: {
+            args: Prisma.BattleResultUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload>
+          }
+          deleteMany: {
+            args: Prisma.BattleResultDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BattleResultUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BattleResultUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload>[]
+          }
+          upsert: {
+            args: Prisma.BattleResultUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleResultPayload>
+          }
+          aggregate: {
+            args: Prisma.BattleResultAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBattleResult>
+          }
+          groupBy: {
+            args: Prisma.BattleResultGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BattleResultGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BattleResultCountArgs<ExtArgs>
+            result: $Utils.Optional<BattleResultCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1797,6 +1887,7 @@ export namespace Prisma {
     wallet?: WalletOmit
     transaction?: TransactionOmit
     videoSlotHistory?: VideoSlotHistoryOmit
+    battleResult?: BattleResultOmit
   }
 
   /* Types for Logging */
@@ -14738,6 +14829,1105 @@ export namespace Prisma {
 
 
   /**
+   * Model BattleResult
+   */
+
+  export type AggregateBattleResult = {
+    _count: BattleResultCountAggregateOutputType | null
+    _avg: BattleResultAvgAggregateOutputType | null
+    _sum: BattleResultSumAggregateOutputType | null
+    _min: BattleResultMinAggregateOutputType | null
+    _max: BattleResultMaxAggregateOutputType | null
+  }
+
+  export type BattleResultAvgAggregateOutputType = {
+    totalRounds: number | null
+    player1Health: number | null
+    player2Health: number | null
+  }
+
+  export type BattleResultSumAggregateOutputType = {
+    totalRounds: number | null
+    player1Health: number | null
+    player2Health: number | null
+  }
+
+  export type BattleResultMinAggregateOutputType = {
+    id: string | null
+    player1Id: string | null
+    player2Id: string | null
+    winnerId: string | null
+    totalRounds: number | null
+    player1Health: number | null
+    player2Health: number | null
+    createdAt: Date | null
+  }
+
+  export type BattleResultMaxAggregateOutputType = {
+    id: string | null
+    player1Id: string | null
+    player2Id: string | null
+    winnerId: string | null
+    totalRounds: number | null
+    player1Health: number | null
+    player2Health: number | null
+    createdAt: Date | null
+  }
+
+  export type BattleResultCountAggregateOutputType = {
+    id: number
+    player1Id: number
+    player2Id: number
+    winnerId: number
+    totalRounds: number
+    player1Health: number
+    player2Health: number
+    player1MovesHistory: number
+    player2MovesHistory: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BattleResultAvgAggregateInputType = {
+    totalRounds?: true
+    player1Health?: true
+    player2Health?: true
+  }
+
+  export type BattleResultSumAggregateInputType = {
+    totalRounds?: true
+    player1Health?: true
+    player2Health?: true
+  }
+
+  export type BattleResultMinAggregateInputType = {
+    id?: true
+    player1Id?: true
+    player2Id?: true
+    winnerId?: true
+    totalRounds?: true
+    player1Health?: true
+    player2Health?: true
+    createdAt?: true
+  }
+
+  export type BattleResultMaxAggregateInputType = {
+    id?: true
+    player1Id?: true
+    player2Id?: true
+    winnerId?: true
+    totalRounds?: true
+    player1Health?: true
+    player2Health?: true
+    createdAt?: true
+  }
+
+  export type BattleResultCountAggregateInputType = {
+    id?: true
+    player1Id?: true
+    player2Id?: true
+    winnerId?: true
+    totalRounds?: true
+    player1Health?: true
+    player2Health?: true
+    player1MovesHistory?: true
+    player2MovesHistory?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BattleResultAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BattleResult to aggregate.
+     */
+    where?: BattleResultWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleResults to fetch.
+     */
+    orderBy?: BattleResultOrderByWithRelationInput | BattleResultOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BattleResultWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleResults from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleResults.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BattleResults
+    **/
+    _count?: true | BattleResultCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BattleResultAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BattleResultSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BattleResultMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BattleResultMaxAggregateInputType
+  }
+
+  export type GetBattleResultAggregateType<T extends BattleResultAggregateArgs> = {
+        [P in keyof T & keyof AggregateBattleResult]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBattleResult[P]>
+      : GetScalarType<T[P], AggregateBattleResult[P]>
+  }
+
+
+
+
+  export type BattleResultGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BattleResultWhereInput
+    orderBy?: BattleResultOrderByWithAggregationInput | BattleResultOrderByWithAggregationInput[]
+    by: BattleResultScalarFieldEnum[] | BattleResultScalarFieldEnum
+    having?: BattleResultScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BattleResultCountAggregateInputType | true
+    _avg?: BattleResultAvgAggregateInputType
+    _sum?: BattleResultSumAggregateInputType
+    _min?: BattleResultMinAggregateInputType
+    _max?: BattleResultMaxAggregateInputType
+  }
+
+  export type BattleResultGroupByOutputType = {
+    id: string
+    player1Id: string
+    player2Id: string
+    winnerId: string | null
+    totalRounds: number
+    player1Health: number
+    player2Health: number
+    player1MovesHistory: JsonValue
+    player2MovesHistory: JsonValue
+    createdAt: Date
+    _count: BattleResultCountAggregateOutputType | null
+    _avg: BattleResultAvgAggregateOutputType | null
+    _sum: BattleResultSumAggregateOutputType | null
+    _min: BattleResultMinAggregateOutputType | null
+    _max: BattleResultMaxAggregateOutputType | null
+  }
+
+  type GetBattleResultGroupByPayload<T extends BattleResultGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BattleResultGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BattleResultGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BattleResultGroupByOutputType[P]>
+            : GetScalarType<T[P], BattleResultGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BattleResultSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    player1Id?: boolean
+    player2Id?: boolean
+    winnerId?: boolean
+    totalRounds?: boolean
+    player1Health?: boolean
+    player2Health?: boolean
+    player1MovesHistory?: boolean
+    player2MovesHistory?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["battleResult"]>
+
+  export type BattleResultSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    player1Id?: boolean
+    player2Id?: boolean
+    winnerId?: boolean
+    totalRounds?: boolean
+    player1Health?: boolean
+    player2Health?: boolean
+    player1MovesHistory?: boolean
+    player2MovesHistory?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["battleResult"]>
+
+  export type BattleResultSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    player1Id?: boolean
+    player2Id?: boolean
+    winnerId?: boolean
+    totalRounds?: boolean
+    player1Health?: boolean
+    player2Health?: boolean
+    player1MovesHistory?: boolean
+    player2MovesHistory?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["battleResult"]>
+
+  export type BattleResultSelectScalar = {
+    id?: boolean
+    player1Id?: boolean
+    player2Id?: boolean
+    winnerId?: boolean
+    totalRounds?: boolean
+    player1Health?: boolean
+    player2Health?: boolean
+    player1MovesHistory?: boolean
+    player2MovesHistory?: boolean
+    createdAt?: boolean
+  }
+
+  export type BattleResultOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "player1Id" | "player2Id" | "winnerId" | "totalRounds" | "player1Health" | "player2Health" | "player1MovesHistory" | "player2MovesHistory" | "createdAt", ExtArgs["result"]["battleResult"]>
+
+  export type $BattleResultPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BattleResult"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      player1Id: string
+      player2Id: string
+      winnerId: string | null
+      totalRounds: number
+      player1Health: number
+      player2Health: number
+      player1MovesHistory: Prisma.JsonValue
+      player2MovesHistory: Prisma.JsonValue
+      createdAt: Date
+    }, ExtArgs["result"]["battleResult"]>
+    composites: {}
+  }
+
+  type BattleResultGetPayload<S extends boolean | null | undefined | BattleResultDefaultArgs> = $Result.GetResult<Prisma.$BattleResultPayload, S>
+
+  type BattleResultCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BattleResultFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BattleResultCountAggregateInputType | true
+    }
+
+  export interface BattleResultDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BattleResult'], meta: { name: 'BattleResult' } }
+    /**
+     * Find zero or one BattleResult that matches the filter.
+     * @param {BattleResultFindUniqueArgs} args - Arguments to find a BattleResult
+     * @example
+     * // Get one BattleResult
+     * const battleResult = await prisma.battleResult.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BattleResultFindUniqueArgs>(args: SelectSubset<T, BattleResultFindUniqueArgs<ExtArgs>>): Prisma__BattleResultClient<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BattleResult that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BattleResultFindUniqueOrThrowArgs} args - Arguments to find a BattleResult
+     * @example
+     * // Get one BattleResult
+     * const battleResult = await prisma.battleResult.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BattleResultFindUniqueOrThrowArgs>(args: SelectSubset<T, BattleResultFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BattleResultClient<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BattleResult that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleResultFindFirstArgs} args - Arguments to find a BattleResult
+     * @example
+     * // Get one BattleResult
+     * const battleResult = await prisma.battleResult.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BattleResultFindFirstArgs>(args?: SelectSubset<T, BattleResultFindFirstArgs<ExtArgs>>): Prisma__BattleResultClient<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BattleResult that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleResultFindFirstOrThrowArgs} args - Arguments to find a BattleResult
+     * @example
+     * // Get one BattleResult
+     * const battleResult = await prisma.battleResult.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BattleResultFindFirstOrThrowArgs>(args?: SelectSubset<T, BattleResultFindFirstOrThrowArgs<ExtArgs>>): Prisma__BattleResultClient<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BattleResults that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleResultFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BattleResults
+     * const battleResults = await prisma.battleResult.findMany()
+     * 
+     * // Get first 10 BattleResults
+     * const battleResults = await prisma.battleResult.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const battleResultWithIdOnly = await prisma.battleResult.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BattleResultFindManyArgs>(args?: SelectSubset<T, BattleResultFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BattleResult.
+     * @param {BattleResultCreateArgs} args - Arguments to create a BattleResult.
+     * @example
+     * // Create one BattleResult
+     * const BattleResult = await prisma.battleResult.create({
+     *   data: {
+     *     // ... data to create a BattleResult
+     *   }
+     * })
+     * 
+     */
+    create<T extends BattleResultCreateArgs>(args: SelectSubset<T, BattleResultCreateArgs<ExtArgs>>): Prisma__BattleResultClient<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BattleResults.
+     * @param {BattleResultCreateManyArgs} args - Arguments to create many BattleResults.
+     * @example
+     * // Create many BattleResults
+     * const battleResult = await prisma.battleResult.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BattleResultCreateManyArgs>(args?: SelectSubset<T, BattleResultCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BattleResults and returns the data saved in the database.
+     * @param {BattleResultCreateManyAndReturnArgs} args - Arguments to create many BattleResults.
+     * @example
+     * // Create many BattleResults
+     * const battleResult = await prisma.battleResult.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BattleResults and only return the `id`
+     * const battleResultWithIdOnly = await prisma.battleResult.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BattleResultCreateManyAndReturnArgs>(args?: SelectSubset<T, BattleResultCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BattleResult.
+     * @param {BattleResultDeleteArgs} args - Arguments to delete one BattleResult.
+     * @example
+     * // Delete one BattleResult
+     * const BattleResult = await prisma.battleResult.delete({
+     *   where: {
+     *     // ... filter to delete one BattleResult
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BattleResultDeleteArgs>(args: SelectSubset<T, BattleResultDeleteArgs<ExtArgs>>): Prisma__BattleResultClient<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BattleResult.
+     * @param {BattleResultUpdateArgs} args - Arguments to update one BattleResult.
+     * @example
+     * // Update one BattleResult
+     * const battleResult = await prisma.battleResult.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BattleResultUpdateArgs>(args: SelectSubset<T, BattleResultUpdateArgs<ExtArgs>>): Prisma__BattleResultClient<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BattleResults.
+     * @param {BattleResultDeleteManyArgs} args - Arguments to filter BattleResults to delete.
+     * @example
+     * // Delete a few BattleResults
+     * const { count } = await prisma.battleResult.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BattleResultDeleteManyArgs>(args?: SelectSubset<T, BattleResultDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BattleResults.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleResultUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BattleResults
+     * const battleResult = await prisma.battleResult.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BattleResultUpdateManyArgs>(args: SelectSubset<T, BattleResultUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BattleResults and returns the data updated in the database.
+     * @param {BattleResultUpdateManyAndReturnArgs} args - Arguments to update many BattleResults.
+     * @example
+     * // Update many BattleResults
+     * const battleResult = await prisma.battleResult.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BattleResults and only return the `id`
+     * const battleResultWithIdOnly = await prisma.battleResult.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BattleResultUpdateManyAndReturnArgs>(args: SelectSubset<T, BattleResultUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BattleResult.
+     * @param {BattleResultUpsertArgs} args - Arguments to update or create a BattleResult.
+     * @example
+     * // Update or create a BattleResult
+     * const battleResult = await prisma.battleResult.upsert({
+     *   create: {
+     *     // ... data to create a BattleResult
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BattleResult we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BattleResultUpsertArgs>(args: SelectSubset<T, BattleResultUpsertArgs<ExtArgs>>): Prisma__BattleResultClient<$Result.GetResult<Prisma.$BattleResultPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BattleResults.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleResultCountArgs} args - Arguments to filter BattleResults to count.
+     * @example
+     * // Count the number of BattleResults
+     * const count = await prisma.battleResult.count({
+     *   where: {
+     *     // ... the filter for the BattleResults we want to count
+     *   }
+     * })
+    **/
+    count<T extends BattleResultCountArgs>(
+      args?: Subset<T, BattleResultCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BattleResultCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BattleResult.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleResultAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BattleResultAggregateArgs>(args: Subset<T, BattleResultAggregateArgs>): Prisma.PrismaPromise<GetBattleResultAggregateType<T>>
+
+    /**
+     * Group by BattleResult.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleResultGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BattleResultGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BattleResultGroupByArgs['orderBy'] }
+        : { orderBy?: BattleResultGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BattleResultGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBattleResultGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BattleResult model
+   */
+  readonly fields: BattleResultFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BattleResult.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BattleResultClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BattleResult model
+   */
+  interface BattleResultFieldRefs {
+    readonly id: FieldRef<"BattleResult", 'String'>
+    readonly player1Id: FieldRef<"BattleResult", 'String'>
+    readonly player2Id: FieldRef<"BattleResult", 'String'>
+    readonly winnerId: FieldRef<"BattleResult", 'String'>
+    readonly totalRounds: FieldRef<"BattleResult", 'Int'>
+    readonly player1Health: FieldRef<"BattleResult", 'Int'>
+    readonly player2Health: FieldRef<"BattleResult", 'Int'>
+    readonly player1MovesHistory: FieldRef<"BattleResult", 'Json'>
+    readonly player2MovesHistory: FieldRef<"BattleResult", 'Json'>
+    readonly createdAt: FieldRef<"BattleResult", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BattleResult findUnique
+   */
+  export type BattleResultFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * Filter, which BattleResult to fetch.
+     */
+    where: BattleResultWhereUniqueInput
+  }
+
+  /**
+   * BattleResult findUniqueOrThrow
+   */
+  export type BattleResultFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * Filter, which BattleResult to fetch.
+     */
+    where: BattleResultWhereUniqueInput
+  }
+
+  /**
+   * BattleResult findFirst
+   */
+  export type BattleResultFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * Filter, which BattleResult to fetch.
+     */
+    where?: BattleResultWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleResults to fetch.
+     */
+    orderBy?: BattleResultOrderByWithRelationInput | BattleResultOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BattleResults.
+     */
+    cursor?: BattleResultWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleResults from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleResults.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BattleResults.
+     */
+    distinct?: BattleResultScalarFieldEnum | BattleResultScalarFieldEnum[]
+  }
+
+  /**
+   * BattleResult findFirstOrThrow
+   */
+  export type BattleResultFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * Filter, which BattleResult to fetch.
+     */
+    where?: BattleResultWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleResults to fetch.
+     */
+    orderBy?: BattleResultOrderByWithRelationInput | BattleResultOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BattleResults.
+     */
+    cursor?: BattleResultWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleResults from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleResults.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BattleResults.
+     */
+    distinct?: BattleResultScalarFieldEnum | BattleResultScalarFieldEnum[]
+  }
+
+  /**
+   * BattleResult findMany
+   */
+  export type BattleResultFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * Filter, which BattleResults to fetch.
+     */
+    where?: BattleResultWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleResults to fetch.
+     */
+    orderBy?: BattleResultOrderByWithRelationInput | BattleResultOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BattleResults.
+     */
+    cursor?: BattleResultWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleResults from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleResults.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BattleResults.
+     */
+    distinct?: BattleResultScalarFieldEnum | BattleResultScalarFieldEnum[]
+  }
+
+  /**
+   * BattleResult create
+   */
+  export type BattleResultCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * The data needed to create a BattleResult.
+     */
+    data: XOR<BattleResultCreateInput, BattleResultUncheckedCreateInput>
+  }
+
+  /**
+   * BattleResult createMany
+   */
+  export type BattleResultCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BattleResults.
+     */
+    data: BattleResultCreateManyInput | BattleResultCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BattleResult createManyAndReturn
+   */
+  export type BattleResultCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * The data used to create many BattleResults.
+     */
+    data: BattleResultCreateManyInput | BattleResultCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BattleResult update
+   */
+  export type BattleResultUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * The data needed to update a BattleResult.
+     */
+    data: XOR<BattleResultUpdateInput, BattleResultUncheckedUpdateInput>
+    /**
+     * Choose, which BattleResult to update.
+     */
+    where: BattleResultWhereUniqueInput
+  }
+
+  /**
+   * BattleResult updateMany
+   */
+  export type BattleResultUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BattleResults.
+     */
+    data: XOR<BattleResultUpdateManyMutationInput, BattleResultUncheckedUpdateManyInput>
+    /**
+     * Filter which BattleResults to update
+     */
+    where?: BattleResultWhereInput
+    /**
+     * Limit how many BattleResults to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BattleResult updateManyAndReturn
+   */
+  export type BattleResultUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * The data used to update BattleResults.
+     */
+    data: XOR<BattleResultUpdateManyMutationInput, BattleResultUncheckedUpdateManyInput>
+    /**
+     * Filter which BattleResults to update
+     */
+    where?: BattleResultWhereInput
+    /**
+     * Limit how many BattleResults to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BattleResult upsert
+   */
+  export type BattleResultUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * The filter to search for the BattleResult to update in case it exists.
+     */
+    where: BattleResultWhereUniqueInput
+    /**
+     * In case the BattleResult found by the `where` argument doesn't exist, create a new BattleResult with this data.
+     */
+    create: XOR<BattleResultCreateInput, BattleResultUncheckedCreateInput>
+    /**
+     * In case the BattleResult was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BattleResultUpdateInput, BattleResultUncheckedUpdateInput>
+  }
+
+  /**
+   * BattleResult delete
+   */
+  export type BattleResultDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+    /**
+     * Filter which BattleResult to delete.
+     */
+    where: BattleResultWhereUniqueInput
+  }
+
+  /**
+   * BattleResult deleteMany
+   */
+  export type BattleResultDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BattleResults to delete
+     */
+    where?: BattleResultWhereInput
+    /**
+     * Limit how many BattleResults to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BattleResult without action
+   */
+  export type BattleResultDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleResult
+     */
+    select?: BattleResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleResult
+     */
+    omit?: BattleResultOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14911,12 +16101,35 @@ export namespace Prisma {
   export type VideoSlotHistoryScalarFieldEnum = (typeof VideoSlotHistoryScalarFieldEnum)[keyof typeof VideoSlotHistoryScalarFieldEnum]
 
 
+  export const BattleResultScalarFieldEnum: {
+    id: 'id',
+    player1Id: 'player1Id',
+    player2Id: 'player2Id',
+    winnerId: 'winnerId',
+    totalRounds: 'totalRounds',
+    player1Health: 'player1Health',
+    player2Health: 'player2Health',
+    player1MovesHistory: 'player1MovesHistory',
+    player2MovesHistory: 'player2MovesHistory',
+    createdAt: 'createdAt'
+  };
+
+  export type BattleResultScalarFieldEnum = (typeof BattleResultScalarFieldEnum)[keyof typeof BattleResultScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -14933,6 +16146,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -15113,6 +16335,20 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
   /**
    * Deep Input Types
    */
@@ -15175,11 +16411,11 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    username?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    username?: StringFilter<"User"> | string
     password?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     emailVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -15200,7 +16436,7 @@ export namespace Prisma {
     userSeed?: XOR<UserSeedNullableScalarRelationFilter, UserSeedWhereInput> | null
     emailVerifications?: XOR<UserEmailVerificationNullableScalarRelationFilter, UserEmailVerificationWhereInput> | null
     authProviders?: AuthProviderListRelationFilter
-  }, "id" | "username" | "email">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15962,6 +17198,85 @@ export namespace Prisma {
     totalWins?: DecimalWithAggregatesFilter<"VideoSlotHistory"> | Decimal | DecimalJsLike | number | string
     rtp?: FloatWithAggregatesFilter<"VideoSlotHistory"> | number
     createdAt?: DateTimeWithAggregatesFilter<"VideoSlotHistory"> | Date | string
+  }
+
+  export type BattleResultWhereInput = {
+    AND?: BattleResultWhereInput | BattleResultWhereInput[]
+    OR?: BattleResultWhereInput[]
+    NOT?: BattleResultWhereInput | BattleResultWhereInput[]
+    id?: StringFilter<"BattleResult"> | string
+    player1Id?: StringFilter<"BattleResult"> | string
+    player2Id?: StringFilter<"BattleResult"> | string
+    winnerId?: StringNullableFilter<"BattleResult"> | string | null
+    totalRounds?: IntFilter<"BattleResult"> | number
+    player1Health?: IntFilter<"BattleResult"> | number
+    player2Health?: IntFilter<"BattleResult"> | number
+    player1MovesHistory?: JsonFilter<"BattleResult">
+    player2MovesHistory?: JsonFilter<"BattleResult">
+    createdAt?: DateTimeFilter<"BattleResult"> | Date | string
+  }
+
+  export type BattleResultOrderByWithRelationInput = {
+    id?: SortOrder
+    player1Id?: SortOrder
+    player2Id?: SortOrder
+    winnerId?: SortOrderInput | SortOrder
+    totalRounds?: SortOrder
+    player1Health?: SortOrder
+    player2Health?: SortOrder
+    player1MovesHistory?: SortOrder
+    player2MovesHistory?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BattleResultWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BattleResultWhereInput | BattleResultWhereInput[]
+    OR?: BattleResultWhereInput[]
+    NOT?: BattleResultWhereInput | BattleResultWhereInput[]
+    player1Id?: StringFilter<"BattleResult"> | string
+    player2Id?: StringFilter<"BattleResult"> | string
+    winnerId?: StringNullableFilter<"BattleResult"> | string | null
+    totalRounds?: IntFilter<"BattleResult"> | number
+    player1Health?: IntFilter<"BattleResult"> | number
+    player2Health?: IntFilter<"BattleResult"> | number
+    player1MovesHistory?: JsonFilter<"BattleResult">
+    player2MovesHistory?: JsonFilter<"BattleResult">
+    createdAt?: DateTimeFilter<"BattleResult"> | Date | string
+  }, "id">
+
+  export type BattleResultOrderByWithAggregationInput = {
+    id?: SortOrder
+    player1Id?: SortOrder
+    player2Id?: SortOrder
+    winnerId?: SortOrderInput | SortOrder
+    totalRounds?: SortOrder
+    player1Health?: SortOrder
+    player2Health?: SortOrder
+    player1MovesHistory?: SortOrder
+    player2MovesHistory?: SortOrder
+    createdAt?: SortOrder
+    _count?: BattleResultCountOrderByAggregateInput
+    _avg?: BattleResultAvgOrderByAggregateInput
+    _max?: BattleResultMaxOrderByAggregateInput
+    _min?: BattleResultMinOrderByAggregateInput
+    _sum?: BattleResultSumOrderByAggregateInput
+  }
+
+  export type BattleResultScalarWhereWithAggregatesInput = {
+    AND?: BattleResultScalarWhereWithAggregatesInput | BattleResultScalarWhereWithAggregatesInput[]
+    OR?: BattleResultScalarWhereWithAggregatesInput[]
+    NOT?: BattleResultScalarWhereWithAggregatesInput | BattleResultScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BattleResult"> | string
+    player1Id?: StringWithAggregatesFilter<"BattleResult"> | string
+    player2Id?: StringWithAggregatesFilter<"BattleResult"> | string
+    winnerId?: StringNullableWithAggregatesFilter<"BattleResult"> | string | null
+    totalRounds?: IntWithAggregatesFilter<"BattleResult"> | number
+    player1Health?: IntWithAggregatesFilter<"BattleResult"> | number
+    player2Health?: IntWithAggregatesFilter<"BattleResult"> | number
+    player1MovesHistory?: JsonWithAggregatesFilter<"BattleResult">
+    player2MovesHistory?: JsonWithAggregatesFilter<"BattleResult">
+    createdAt?: DateTimeWithAggregatesFilter<"BattleResult"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -16883,6 +18198,97 @@ export namespace Prisma {
     totalBets?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalWins?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rtp?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BattleResultCreateInput = {
+    id?: string
+    player1Id: string
+    player2Id: string
+    winnerId?: string | null
+    totalRounds: number
+    player1Health: number
+    player2Health: number
+    player1MovesHistory: JsonNullValueInput | InputJsonValue
+    player2MovesHistory: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type BattleResultUncheckedCreateInput = {
+    id?: string
+    player1Id: string
+    player2Id: string
+    winnerId?: string | null
+    totalRounds: number
+    player1Health: number
+    player2Health: number
+    player1MovesHistory: JsonNullValueInput | InputJsonValue
+    player2MovesHistory: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type BattleResultUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    player1Id?: StringFieldUpdateOperationsInput | string
+    player2Id?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRounds?: IntFieldUpdateOperationsInput | number
+    player1Health?: IntFieldUpdateOperationsInput | number
+    player2Health?: IntFieldUpdateOperationsInput | number
+    player1MovesHistory?: JsonNullValueInput | InputJsonValue
+    player2MovesHistory?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BattleResultUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    player1Id?: StringFieldUpdateOperationsInput | string
+    player2Id?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRounds?: IntFieldUpdateOperationsInput | number
+    player1Health?: IntFieldUpdateOperationsInput | number
+    player2Health?: IntFieldUpdateOperationsInput | number
+    player1MovesHistory?: JsonNullValueInput | InputJsonValue
+    player2MovesHistory?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BattleResultCreateManyInput = {
+    id?: string
+    player1Id: string
+    player2Id: string
+    winnerId?: string | null
+    totalRounds: number
+    player1Health: number
+    player2Health: number
+    player1MovesHistory: JsonNullValueInput | InputJsonValue
+    player2MovesHistory: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type BattleResultUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    player1Id?: StringFieldUpdateOperationsInput | string
+    player2Id?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRounds?: IntFieldUpdateOperationsInput | number
+    player1Health?: IntFieldUpdateOperationsInput | number
+    player2Health?: IntFieldUpdateOperationsInput | number
+    player1MovesHistory?: JsonNullValueInput | InputJsonValue
+    player2MovesHistory?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BattleResultUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    player1Id?: StringFieldUpdateOperationsInput | string
+    player2Id?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRounds?: IntFieldUpdateOperationsInput | number
+    player1Health?: IntFieldUpdateOperationsInput | number
+    player2Health?: IntFieldUpdateOperationsInput | number
+    player1MovesHistory?: JsonNullValueInput | InputJsonValue
+    player2MovesHistory?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17823,6 +19229,102 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type BattleResultCountOrderByAggregateInput = {
+    id?: SortOrder
+    player1Id?: SortOrder
+    player2Id?: SortOrder
+    winnerId?: SortOrder
+    totalRounds?: SortOrder
+    player1Health?: SortOrder
+    player2Health?: SortOrder
+    player1MovesHistory?: SortOrder
+    player2MovesHistory?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BattleResultAvgOrderByAggregateInput = {
+    totalRounds?: SortOrder
+    player1Health?: SortOrder
+    player2Health?: SortOrder
+  }
+
+  export type BattleResultMaxOrderByAggregateInput = {
+    id?: SortOrder
+    player1Id?: SortOrder
+    player2Id?: SortOrder
+    winnerId?: SortOrder
+    totalRounds?: SortOrder
+    player1Health?: SortOrder
+    player2Health?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BattleResultMinOrderByAggregateInput = {
+    id?: SortOrder
+    player1Id?: SortOrder
+    player2Id?: SortOrder
+    winnerId?: SortOrder
+    totalRounds?: SortOrder
+    player1Health?: SortOrder
+    player2Health?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BattleResultSumOrderByAggregateInput = {
+    totalRounds?: SortOrder
+    player1Health?: SortOrder
+    player2Health?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type ProfileCreateNestedOneWithoutUserInput = {
@@ -18877,6 +20379,29 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type ProfileCreateWithoutUserInput = {

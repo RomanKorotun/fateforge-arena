@@ -15,7 +15,7 @@ enum AuthProviderType {
 
 model User {
   id            String    @id @default(uuid()) @map("id")
-  username      String    @unique 
+  username      String 
   email         String    @unique
   password      String? 
   role          UserRole  @default(USER)

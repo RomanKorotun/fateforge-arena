@@ -16,6 +16,7 @@ import { GeoIpModule } from './core/geoip/geo-ip.module';
 import { VideoslotModule } from './modules/videoslot/videoclot.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { JwtAuthModule } from './core/JwtAuth/jwt-auth.module';
+import { BattleModule } from './modules/battle/battle.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { JwtAuthModule } from './core/JwtAuth/jwt-auth.module';
     FinanceModule,
     VideoslotModule,
     ChatModule,
+    BattleModule,
   ],
 })
 export class AppModule {}

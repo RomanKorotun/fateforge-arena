@@ -38,7 +38,7 @@ export class ChatGateway implements OnGatewayDisconnect {
 
   // CONNECT
   async handleConnection(client: Socket) {
-    console.log('Client connected', client.id);
+    console.log('Client connected - chat', client.id);
   }
 
   // Приєднання користувача до кімнати
@@ -99,11 +99,9 @@ export class ChatGateway implements OnGatewayDisconnect {
     this.server.to(dto.room).emit('message:new', message);
   }
 
-  // DISCONNECT 
+  // DISCONNECT
 
   async handleDisconnect(client: Socket) {
-    console.log('Client disconnected', client.id);
+    console.log('Client disconnected - chat', client.id);
   }
 }
-
-

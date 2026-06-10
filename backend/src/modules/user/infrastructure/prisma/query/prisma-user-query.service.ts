@@ -42,4 +42,29 @@ export class UserQueryService {
       profile: { rating: user.profile?.rating, level: user.profile?.level },
     }));
   }
+
+  // інформація для побудови рейтингу користувачів в грі battle
+  async getBattleLeaderboard() {
+    const users = await this.prisma.user.findMany({
+      where: {
+        role: UserRole.USER,
+        isDeleted: false,
+      },
+      orderBy: {
+        profile: { rating: 'desc' },
+      },
+      select: {
+        id: true,
+        username: true,
+        profile: {
+          select: { rating: true },
+        },
+        address: {
+          select: { country: true },
+        },
+      },
+    });
+
+    return users;
+  }
 }

@@ -19,7 +19,7 @@ export class ChatRedisRepository {
     return `room:${room}:messages`;
   }
 
-    private safeParse<T>(value: string): T | null {
+  private safeParse<T>(value: string): T | null {
     try {
       return JSON.parse(value) as T;
     } catch (error) {
@@ -39,7 +39,7 @@ export class ChatRedisRepository {
 
   // Видаляємо користувача з кімнати
   async removeUser(room: string, userId: string) {
-     // Отримуємо ключ кімнати
+    // Отримуємо ключ кімнати
     const key = this.usersKey(room);
 
     // Отримуємо всіх користувачів кімнати
@@ -47,7 +47,6 @@ export class ChatRedisRepository {
 
     // Перебираємо всіх користувачів
     for (const raw of users) {
-
       // Парсимо JSON
       const parsedUser = this.safeParse<ChatUser>(raw);
 
@@ -56,7 +55,6 @@ export class ChatRedisRepository {
 
       // Якщо знайшли потрібного користувача
       if (parsedUser.id === userId) {
-
         // Видаляємо його
         await this.redis.srem(key, raw);
 
@@ -73,13 +71,12 @@ export class ChatRedisRepository {
 
     // Отримуємо всіх користувачів кімнати
     const users = await this.redis.smembers(key);
-    
+
     // Парсимо всі записи
     return users
       .map((raw) => this.safeParse<ChatUser>(raw))
       .filter((user) => user !== null);
   }
-
 
   // зберігаємо повідомлення
   async saveMessage(message: ChatMessage) {
@@ -98,14 +95,13 @@ export class ChatRedisRepository {
     // Формуємо ключ кімнати
     const key = this.messagesKey(room);
 
-     // Отримуємо повідомлення
+    // Отримуємо повідомлення
     const msgs = await this.redis.lrange(key, 0, -1);
 
     // Парсимо повідомленн
-    return msgs.map((raw) => this.safeParse<ChatMessage>(raw))
+    return msgs
+      .map((raw) => this.safeParse<ChatMessage>(raw))
       .filter((message) => message !== null)
       .reverse();
   }
 }
-
-

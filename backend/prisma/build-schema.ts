@@ -9,6 +9,7 @@ const FILES = [
   'roulette.prisma',
   'finance.prisma',
   'videoslot.prisma',
+  'battle.prisma',
 ];
 
 const SCHEMA_PATH = path.resolve('prisma', 'schema.prisma');

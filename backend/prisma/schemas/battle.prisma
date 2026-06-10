@@ -1,0 +1,21 @@
+model BattleResult {
+  id String @id @default(uuid())
+
+  player1Id String
+  player2Id String
+
+  winnerId String?
+
+  totalRounds Int
+
+  player1Health Int
+  player2Health Int
+
+  player1MovesHistory Json
+  player2MovesHistory Json
+
+  createdAt   DateTime      @default(now()) @map("created_at")
+
+  @@map("battle_results")
+  @@schema("battle")
+}

@@ -247,9 +247,26 @@ exports.Prisma.VideoSlotHistoryScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.BattleResultScalarFieldEnum = {
+  id: 'id',
+  player1Id: 'player1Id',
+  player2Id: 'player2Id',
+  winnerId: 'winnerId',
+  totalRounds: 'totalRounds',
+  player1Health: 'player1Health',
+  player2Health: 'player2Health',
+  player1MovesHistory: 'player1MovesHistory',
+  player2MovesHistory: 'player2MovesHistory',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -260,6 +277,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.UserRole = exports.$Enums.UserRole = {
   USER: 'USER',
@@ -319,7 +342,8 @@ exports.Prisma.ModelName = {
   RouletteBet: 'RouletteBet',
   Wallet: 'Wallet',
   Transaction: 'Transaction',
-  VideoSlotHistory: 'VideoSlotHistory'
+  VideoSlotHistory: 'VideoSlotHistory',
+  BattleResult: 'BattleResult'
 };
 
 /**
