@@ -10,7 +10,7 @@ import { FinishBattleUseCase } from '../battle/finish-battle.use-case';
 export class BattleTickService implements OnModuleInit {
   private server!: Server;
 
-  private readonly BATTLE_DURATION = 5 * 60 * 1000;
+  // private readonly BATTLE_DURATION = 5 * 60 * 1000;
 
   constructor(
     private readonly battleRepo: RedisBattleRepository,
@@ -36,10 +36,10 @@ export class BattleTickService implements OnModuleInit {
         this.server.to(`battle:${battle.id}`).emit('battle:timer', {
           battleId: battle.id,
           roundLeft: Math.max(0, battle.roundDeadline - now),
-          battleLeft: Math.max(
-            0,
-            battle.createdAt + this.BATTLE_DURATION - now,
-          ),
+          // battleLeft: Math.max(
+          //   0,
+          //   battle.createdAt + this.BATTLE_DURATION - now,
+          // ),
         });
 
         if (!(roundExpired || bothPlayed)) continue;
