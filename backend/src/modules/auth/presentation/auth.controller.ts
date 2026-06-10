@@ -108,14 +108,18 @@ export class AuthController {
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
     const geo = this.geoIpService.getLocation(ip);
-    const { accessToken } = await this.signinOauthUseCase.execute({
+    const result = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
       geo,
     });
 
-    this.authCookieService.setAuthCookie(res, accessToken);
+    if (result.status === 'blocked') {
+      return res.redirect(`${this.FRONTEND_URL}/blocked`);
+    }
+
+    this.authCookieService.setAuthCookie(res, result.accessToken);
     return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
   }
 
@@ -136,13 +140,18 @@ export class AuthController {
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
     const geo = this.geoIpService.getLocation(ip);
-    const { accessToken } = await this.signinOauthUseCase.execute({
+    const result = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
       geo,
     });
-    this.authCookieService.setAuthCookie(res, accessToken);
+
+    if (result.status === 'blocked') {
+      return res.redirect(`${this.FRONTEND_URL}/blocked`);
+    }
+
+    this.authCookieService.setAuthCookie(res, result.accessToken);
     return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
   }
 
@@ -163,13 +172,18 @@ export class AuthController {
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
     const geo = this.geoIpService.getLocation(ip);
-    const { accessToken } = await this.signinOauthUseCase.execute({
+    const result = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
       geo,
     });
-    this.authCookieService.setAuthCookie(res, accessToken);
+
+    if (result.status === 'blocked') {
+      return res.redirect(`${this.FRONTEND_URL}/blocked`);
+    }
+
+    this.authCookieService.setAuthCookie(res, result.accessToken);
     return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
   }
 
@@ -190,14 +204,18 @@ export class AuthController {
   ) {
     const { ip, device } = this.requestMetadataService.getMetadata(req);
     const geo = this.geoIpService.getLocation(ip);
-    const { accessToken } = await this.signinOauthUseCase.execute({
+    const result = await this.signinOauthUseCase.execute({
       oauthProfile: req.user,
       ip,
       device,
       geo,
     });
 
-    this.authCookieService.setAuthCookie(res, accessToken);
+    if (result.status === 'blocked') {
+      return res.redirect(`${this.FRONTEND_URL}/blocked`);
+    }
+
+    this.authCookieService.setAuthCookie(res, result.accessToken);
     return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
   }
 

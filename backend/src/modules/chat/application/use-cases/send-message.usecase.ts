@@ -9,12 +9,8 @@ import { ChatMessage } from '../../domain/interfaces/chat-message.interface';
 export class SendMessageUseCase {
   constructor(private readonly repo: ChatRedisRepository) {}
 
-  async execute(
-    user: ChatUser,
-    room: string,
-    content: string,
-  ) {
-    const message:ChatMessage = {
+  async execute(user: ChatUser, room: string, content: string) {
+    const message: ChatMessage = {
       id: crypto.randomUUID(),
       senderId: user.id,
       username: user.username,

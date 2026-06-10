@@ -1,194 +1,212 @@
-# Backend API
+# FateForge Arena — Backend API
 
 ---
 
-## Опис проєкту
+## Domains
 
-Модульний backend на NestJS з наступними доменами:
-
-- auth — автентифікація, OAuth, сесії
-- users — профіль користувача
-- admin — керування користувачами
-- finance — гаманці, транзакції, платежі
-- roulette — ігрова логіка
-- roulette — ігрова логіка рулетки, ставки та обробка раундів
-- videoslot — логіка слот-гри, спіни та розрахунок виграшів
-- chat - логіка для створення чат-кімнат, додавання та видалення користувачів до кімнат, збереження повідомлень
+- **auth** — authentication (JWT, OAuth, sessions)
+- **users** — user profile management
+- **admin** — user moderation (ban/unban)
+- **finance** — wallets, transactions, payments
+- **roulette** — roulette game logic, bets
+- **videoslot** — slot machine logic, spins, payouts
+- **chat** — real-time chat (rooms, messages, users management)
 
 ---
 
-## ТЕХНОЛОГІЇ
+## Environments
 
-Backend:
+### Production
+
+- API: https://fateforge-arena.duckdns.org
+- Frontend: https://fateforge-arena-frontend.netlify.app
+- Swagger: https://fateforge-arena.duckdns.org/swagger
+
+### Development
+
+- Swagger: http://localhost:3799/swagger
+
+---
+
+## Tech Stack
+
+### Backend
 
 - Node.js
 - NestJS
 - TypeScript
 
-Database:
+### Database
 
 - PostgreSQL
 - Redis
 
-ORM:
+### ORM
 
 - Prisma ORM
 
-Infra:
+### Infrastructure
 
 - Docker
 - Docker Compose
 
 ---
 
-## SWAGGER (API Documentation)
+## Authentication
 
-Проєкт використовує Swagger для документування API.
+### Authentication Methods
 
-### Доступ до Swagger:
+- OAuth authentication (Google, Discord, LinkedIn, Facebook)
+- Email & password authentication
 
-- **Development:**  
-  `http://localhost:3799/swagger`
+### Token Storage
 
-- **Production:**  
-  `https://fateforge-arena.duckdns.org/swagger`
-
----
-
-## АУТЕНТИФІКАЦІЯ
-
-Система автентифікації включає:
-
-### OAuth провайдери:
-
-- Google
-- Discord
-- LinkedIn
-- Facebook
-
-### Локальна авторизація:
-
-- email + password
+- Access token is stored in **httpOnly secure cookies**
+- Protected against XSS attacks
+- Automatically included in all API requests
 
 ---
 
-### Як передається токен:
+## Sessions
 
-- токен зберігається в **httpOnly cookie**
-
----
-
-## СЕСІЇ
-
-- сесії користувачів зберігаються в **Redis**
-- кожен логін створює нову сесію
-- підтримується:
-  - revoke конкретної сесії
-  - revoke всіх сесій (logout all devices)
-  - перегляд активних сесій
+- User sessions are stored in **Redis**
+- Each login creates a new session
+- Supports session management:
+  - Revoke specific session
+  - Revoke all sessions (logout from all devices)
+  - View active user sessions
 
 ---
 
-## БІЗНЕС ЛОГІКА
+## Business Logic
 
-### Finance:
+### Finance
 
-- створення депозитів
-- вивід коштів
-- транзакції
-- Stripe payments
-- баланс формується тільки через transactions
+- Deposits and withdrawals
+- Transactions-based balance system
+- Payment processing via Stripe
 
-### Roulette:
+### Games
 
-- створення ігрових сесій
-- ставки (bets)
-- розрахунок результатів гри
-- історія ігор
-- оновлення балансу через finance модуль
+#### Roulette
 
----
+- Game sessions with betting system
+- Round result calculation
+- Player history tracking
 
-## USER
+#### Video Slot
 
-- профіль користувача
-- список користувачів
-- avatar upload
-- адреси користувача
-- client seed (provably fair система)
-- soft delete акаунта
+- Slot spins
+- Win calculation system
+- Player history tracking
 
----
+### User
 
-## ADMIN
+- User profiles
+- Avatar management
+- Account soft delete
+- Account restoration
 
-- список користувачів
-- бан / розбан користувачів
-- доступ тільки для ролі ADMIN
+### Admin
 
----
+- User management
+- Ban / unban system
+- Role-based access control (ADMIN only)
 
-## CHAT
+### Chat
 
-Socket Events:
-
-Client → Server:
-
-- room:join // @SubscribeMessage('room:join') - зайти в кімнату, отримати users + history
-- room:leave // @SubscribeMessage('room:leave') - вийти з кімнати, оновити users
-- message:send // @SubscribeMessage('message:send') - відправити повідомлення
-
-Server → Client:
-
-- room:users // this.server.to(room).emit('room:users') - список онлайн користувачів
-- chat:init // client.emit('chat:init') - історія повідомлень після join
-- message:new // this.server.to(room).emit('message:new') - нове повідомлення всім
-
-## ENVIRONMENT
-
-Для локального запуску:
-
-- створити файл `.env.development`
-- базується на `.env.example`
+- Real-time chat rooms
+- Messaging system via WebSockets
+- Room-based communication
 
 ---
 
-## ЛОКАЛЬНИЙ ЗАПУСК
+## Local Setup
+
+### 1. Clone the repository
+
+git clone <repo-url>  
+cd fateforge-arena-backend
+
+### 2. Create environment file
+
+Inside the project root, create a `.env.development` file based on `.env.example`
+
+### 3. Run the project with Docker
+
+Open a terminal in the root of the project and execute the following command:
 
 ```bash
 docker compose --env-file .env.development -f docker-compose.dev.yml up --build -d
 ```
 
+### Result
+
+After running the command:
+
+- All services will be started in Docker containers
+- Backend API will be available locally
+- Database and other dependencies will be initialized automatically
+
+---
+
 ## DEPLOYMENT
 
-Проєкт **задеплоєний на власному VPS (Linux server)**.
+The project is deployed on a self-managed **VPS (Linux server)**.
 
-- Усі сервіси запущені в контейнерах через Docker Compose
-- Nginx reverse proxy
+- All services run in **Docker containers** using Docker Compose
+- **Nginx** is used as a reverse proxy for routing and handling incoming traffic
 
 ## CI/CD (GitHub Actions)
 
-Проєкт використовує автоматизований CI/CD пайплайн на базі **GitHub Actions**.
+The project uses an automated CI/CD pipeline based on **GitHub Actions**.
 
-Після кожного `push` у гілку `main` запускається CI/CD процес:
+After every `push` to the `main` branch, the CI/CD workflow is triggered automatically.
 
 ### CI (Continuous Integration)
 
-- встановлення залежностей
-- перевірка тестів
-- збірка проєкту
+- Install dependencies
+- Run tests
+- Build the project
 
 ### CD (Continuous Deployment)
 
-Після успішного CI автоматично виконується деплой на VPS:
+After a successful CI stage, the application is automatically deployed to the VPS:
 
-- підключення до VPS через SSH (GitHub Secrets)
-- `git pull` останніх змін
-- пересборка тільки Node.js API Docker контейнера
-- перезапуск API сервісу
-- застосування Prisma міграцій
-- очищення старих Docker image
+- Connect to the VPS via SSH (using GitHub Secrets)
+- Pull the latest changes from the repository
+- Rebuild only the Node.js API Docker container
+- Restart the API service
+- Run Prisma migrations
+- Clean up old Docker images
 
-### Результат
+### Result
 
-Після завершення pipeline нова версія backend автоматично розгортається на production сервері без ручного втручання.
+After the pipeline completes, the new version of the backend is automatically deployed to the production server without any manual intervention.
+
+---
+
+## Architecture
+
+### Application flow
+
+Frontend  
+↓  
+Nginx (Reverse Proxy)  
+↓  
+NestJS API  
+↓  
+PostgreSQL | Redis
+
+### Infrastructure
+
+VPS (Linux Server)  
+↓  
+Docker Compose  
+↓  
+Containers:
+
+- Nginx
+- NestJS API
+- PostgreSQL
+- Redis

@@ -37,6 +37,8 @@ import { CreateClientSeedUseCase } from '../application/use-cases/create-client-
 import { UpdateClientSeedUseCase } from '../application/use-cases/update-client-seed/update-client-seed.usecase';
 import { GetClientSeedUseCase } from '../application/use-cases/get-client-seed/get-client-seed.usecase';
 
+import { UserQueryService } from '../infrastructure/prisma/query/prisma-user-query.service';
+
 import { GetMeSwagger } from './swagger/get-me.swagger';
 import { AddAddressSwagger } from './swagger/add-address.swagger';
 import { UploadAvatarSwagger } from './swagger/upload-avatar.swagger';
@@ -59,6 +61,7 @@ export class UserController {
     private readonly createClientSeedUseCase: CreateClientSeedUseCase,
     private readonly updateClientSeedUseCase: UpdateClientSeedUseCase,
     private readonly getClientSeedUseCase: GetClientSeedUseCase,
+    private readonly userQueryService: UserQueryService,
   ) {}
 
   // Отримати інформацію про себе (повний профіль)
@@ -170,5 +173,12 @@ export class UserController {
   @Get('me/client-seed')
   async getClientSeed(@Req() req: AuthRequest) {
     return this.getClientSeedUseCase.execute(req.user.id);
+  }
+
+  // отримання списку користвачів + рейтинг (для гри battle)
+  @UseGuards(JwtAuthGuard)
+  @Get('battle-leaderboard')
+  async getBattleLeaderboard() {
+    return await this.userQueryService.getBattleLeaderboard();
   }
 }

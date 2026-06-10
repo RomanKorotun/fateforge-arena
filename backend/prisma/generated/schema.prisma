@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  schemas  = ["public", "users", "roulette", "finance", "videoslot"]
+  schemas  = ["public", "users", "roulette", "finance", "videoslot", "battle"]
 }
 
 enum UserRole {
@@ -26,7 +26,7 @@ enum AuthProviderType {
 
 model User {
   id              String    @id @default(uuid()) @map("id")
-  username        String    @unique
+  username        String
   email           String    @unique
   password        String?
   role            UserRole  @default(USER)
@@ -277,4 +277,26 @@ model VideoSlotHistory {
   @@index([gameId])
   @@index([userId, gameId])
   @@schema("videoslot")
+}
+
+model BattleResult {
+  id String @id @default(uuid())
+
+  player1Id String
+  player2Id String
+
+  winnerId String?
+
+  totalRounds Int
+
+  player1Health Int
+  player2Health Int
+
+  player1MovesHistory Json
+  player2MovesHistory Json
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("battle_results")
+  @@schema("battle")
 }

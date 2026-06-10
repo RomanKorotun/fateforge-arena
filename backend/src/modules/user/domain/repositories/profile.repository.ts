@@ -13,4 +13,5 @@ export interface IProfileRepository {
   createProfile(userId: string, tx?: unknown): Promise<ProfileEntity>;
   updateAvatar(data: UpdateAvatarData, tx?: unknown): Promise<void>;
   findByUserId(userId: string, tx?: unknown): Promise<ProfileEntity | null>;
+  incrementRating(userId: string, rating: number, tx?: unknown): Promise<void>;
 }

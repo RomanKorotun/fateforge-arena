@@ -1,5 +1,4 @@
 import {
-  ForbiddenException,
   Inject,
   Injectable,
   UnauthorizedException,
@@ -39,6 +38,10 @@ import type { IWalletRepository } from '../../../finance/domain/repositories/wal
 
 import { Currency } from '../../../finance/domain/enums/currency.enum';
 
+type SigninOauthResult =
+  | { status: 'blocked' }
+  | { status: 'ok'; accessToken: string };
+
 @Injectable()
 export class SigninOauthUseCase {
   constructor(
@@ -57,7 +60,12 @@ export class SigninOauthUseCase {
     private readonly tokenService: TokenService,
   ) {}
 
-  async execute({ oauthProfile, ip, device, geo }: SigninOauthCommand) {
+  async execute({
+    oauthProfile,
+    ip,
+    device,
+    geo,
+  }: SigninOauthCommand): Promise<SigninOauthResult> {
     // =========================================================
     // 1. USER + PROFILE + AVATAR + PROVIDER + EMAIL VERIFIED
     // =========================================================
@@ -78,7 +86,7 @@ export class SigninOauthUseCase {
     }
 
     if (user.isBanned) {
-      throw new ForbiddenException('ACCOUNT_BLOCKED');
+      return { status: 'blocked' };
     }
 
     // =========================================================
@@ -99,7 +107,7 @@ export class SigninOauthUseCase {
     // =========================================================
     // 6. Відповідь в контролер
     // =========================================================
-    return { accessToken };
+    return { status: 'ok', accessToken };
   }
 
   // =========================================================
