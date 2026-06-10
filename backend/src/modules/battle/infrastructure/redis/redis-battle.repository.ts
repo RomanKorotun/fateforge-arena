@@ -2,11 +2,20 @@ import { Injectable } from '@nestjs/common';
 
 import { BattleRoom } from '../../domain/entities/battle-room.entity';
 import { RedisService } from '../../../../core/redis/redis.service';
-import { BattleRepositoryInterface } from '../../domain/interfaces/battle-repository.interface';
+import { IBattleRepository } from '../../domain/repositories/battle/battle.repository';
 
 @Injectable()
-export class RedisBattleRepository implements BattleRepositoryInterface {
+export class RedisBattleRepository implements IBattleRepository {
   constructor(private readonly redis: RedisService) {}
+
+  private safeParse<T>(value: string | null): T | null {
+    if (!value) return null;
+    try {
+      return JSON.parse(value) as T;
+    } catch {
+      return null;
+    }
+  }
 
   // зберегти стан бою
   async save(room: BattleRoom): Promise<void> {
@@ -16,7 +25,7 @@ export class RedisBattleRepository implements BattleRepositoryInterface {
   // отримати бій
   async get(roomId: string): Promise<BattleRoom | null> {
     const data = await this.redis.get(`battle:${roomId}`);
-    return data ? JSON.parse(data) : null;
+    return this.safeParse<BattleRoom>(data);
   }
 
   // видалити бій
@@ -28,6 +37,8 @@ export class RedisBattleRepository implements BattleRepositoryInterface {
   async getAllActive(): Promise<BattleRoom[]> {
     const keys = await this.redis.keys('battle:*');
     const battles = await Promise.all(keys.map((k) => this.redis.get(k)));
-    return battles.filter(Boolean).map((b) => JSON.parse(b!));
+    return battles
+      .map((b) => this.safeParse<BattleRoom>(b))
+      .filter((b): b is BattleRoom => b !== null);
   }
 }

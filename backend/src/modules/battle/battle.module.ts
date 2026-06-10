@@ -27,6 +27,10 @@ import { RedisPlayerRepository } from './infrastructure/redis/redis-player.repos
 import { BattleGateway } from './presentation/battle.gateway';
 
 import { BattleEngine } from './domain/services/battle-engine';
+import { BATTLE_RESULT_REPOSITORY } from './domain/repositories/battle-result/battle-result.repository.token';
+import { BATTLE_REPOSITORY } from './domain/repositories/battle/battle.repository.token';
+import { DUEL_REPOSITORY } from './domain/repositories/duel/duel.repository.token';
+import { PLAYER_REPOSITORY } from './domain/repositories/player/player.repository.token';
 
 @Module({
   imports: [RedisModule, PrismaModule, AuthModule, UserModule],
@@ -42,12 +46,24 @@ import { BattleEngine } from './domain/services/battle-engine';
     GetActiveBattlesUseCase,
     MakeMoveUseCase,
     GetMyActiveBattleUseCase,
-    RedisBattleRepository,
-    RedisDuelRepository,
-    RedisPlayerRepository,
-    PrismaBattleResultRepository,
     BattleTickService,
     FinishBattleUseCase,
+    {
+      provide: BATTLE_RESULT_REPOSITORY,
+      useClass: PrismaBattleResultRepository,
+    },
+    {
+      provide: BATTLE_REPOSITORY,
+      useClass: RedisBattleRepository,
+    },
+    {
+      provide: DUEL_REPOSITORY,
+      useClass: RedisDuelRepository,
+    },
+    {
+      provide: PLAYER_REPOSITORY,
+      useClass: RedisPlayerRepository,
+    },
   ],
 })
 export class BattleModule {}

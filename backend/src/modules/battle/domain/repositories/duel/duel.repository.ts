@@ -1,7 +1,7 @@
-import { DuelRequest } from '../entities/duel-request.entity';
+import { DuelRequest } from '../../entities/duel-request.entity';
 
 // Це заявки, не battle
-export interface DuelRepositoryInterface {
+export interface IDuelRepository {
   // створити заявку на бій
   save(duel: DuelRequest): Promise<void>;
 
@@ -11,7 +11,7 @@ export interface DuelRepositoryInterface {
   // отримати одну заявку
   get(id: string): Promise<DuelRequest | null>;
 
-  // видалити заявку (accept / cancel)
+  // видалити заявку
   delete(duel: DuelRequest): Promise<void>;
 
   // список всіх WAITING заявок

@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 
 import { DuelRequest } from '../../domain/entities/duel-request.entity';
-import { DuelRepositoryInterface } from '../../domain/interfaces/duel.repository.interface';
+import { IDuelRepository } from '../../domain/repositories/duel/duel.repository';
 import { RedisService } from '../../../../core/redis/redis.service';
 
 @Injectable()
-export class RedisDuelRepository implements DuelRepositoryInterface {
+export class RedisDuelRepository implements IDuelRepository {
   constructor(private readonly redis: RedisService) {}
 
-  private safeParse<T>(value: string): T | null {
+  private safeParse<T>(value: string | null): T | null {
+    if (!value) return null;
     try {
       return JSON.parse(value) as T;
     } catch (error) {
@@ -34,7 +35,7 @@ export class RedisDuelRepository implements DuelRepositoryInterface {
   // отримати дуель по айді отримати по id
   async get(id: string): Promise<DuelRequest | null> {
     const data = await this.redis.get(`duel:${id}`);
-    return data ? JSON.parse(data) : null;
+    return this.safeParse<DuelRequest>(data);
   }
 
   // видалити заявку
@@ -51,7 +52,6 @@ export class RedisDuelRepository implements DuelRepositoryInterface {
       ids.map((id) => this.redis.get(`duel:${id}`)),
     );
     return data
-      .filter((item): item is string => item !== null)
       .map((item) => this.safeParse<DuelRequest>(item))
       .filter((item): item is DuelRequest => item !== null);
   }

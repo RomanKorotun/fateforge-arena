@@ -1,12 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
-import { RedisBattleRepository } from '../../infrastructure/redis/redis-battle.repository';
 import { Move } from '../../domain/entities/move.entity';
 import { Zone } from '../../domain/enums/zone.enum';
+import { BATTLE_REPOSITORY } from '../../domain/repositories/battle/battle.repository.token';
+import type { IBattleRepository } from '../../domain/repositories/battle/battle.repository';
 
 @Injectable()
 export class MakeMoveUseCase {
-  constructor(private readonly battleRepo: RedisBattleRepository) {}
+  constructor(
+    @Inject(BATTLE_REPOSITORY)
+    private readonly battleRepository: IBattleRepository,
+  ) {}
 
   async execute(dto: {
     roomId: string;
@@ -14,7 +18,7 @@ export class MakeMoveUseCase {
     attackZone: Zone;
     defenseZone: Zone;
   }) {
-    const room = await this.battleRepo.get(dto.roomId);
+    const room = await this.battleRepository.get(dto.roomId);
     if (!room) throw new NotFoundException('Battle not found');
 
     const round = room.currentRound;
@@ -36,7 +40,7 @@ export class MakeMoveUseCase {
       room.player2RoundMove = move;
     }
 
-    await this.battleRepo.save(room);
+    await this.battleRepository.save(room);
     return room;
   }
 }
