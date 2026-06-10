@@ -113,6 +113,10 @@
 - Ban / unban system
 - Role-based access control (ADMIN only)
 
+For testing admin functionality, use the following admin account:
+Email: admin@gmail.com
+Password: R1234567
+
 ### Chat
 
 - Real-time chat rooms
