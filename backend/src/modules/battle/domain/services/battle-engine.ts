@@ -5,7 +5,7 @@ import { Zone } from '../enums/zone.enum';
 
 export class BattleEngine {
   public readonly INITIAL_HEALTH = 10;
-  public readonly ROUND_DURATION = 3000;
+  public readonly ROUND_DURATION = 10000;
 
   private readonly BLOCK_REDUCTION = 1;
 
