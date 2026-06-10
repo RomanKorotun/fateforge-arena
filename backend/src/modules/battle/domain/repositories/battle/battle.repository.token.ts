@@ -1,0 +1,1 @@
+export const BATTLE_REPOSITORY = Symbol('BATTLE_REPOSITORY');

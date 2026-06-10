@@ -1,18 +1,15 @@
-import { BattleRoom } from '../entities/battle-room.entity';
+import { BattleRoom } from '../../entities/battle-room.entity';
 
-/**
- * Redis storage для live battle state
- * Це оперативний стан бою (RAM/Redis)
- */
-export interface BattleRepositoryInterface {
+export interface IBattleRepository {
   // зберегти стан бою після кожного ходу
   save(room: BattleRoom): Promise<void>;
 
-  // отримати бій по ID (для WS / reconnect)
+  // отримати бій по ID
   get(roomId: string): Promise<BattleRoom | null>;
 
   // видалити після FINISHED
   delete(roomId: string): Promise<void>;
 
+  // ьотмаи всі бої
   getAllActive(): Promise<BattleRoom[]>;
 }

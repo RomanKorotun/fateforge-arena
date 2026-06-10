@@ -1,11 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
-import { RedisPlayerRepository } from '../../../infrastructure/redis/redis-player.repository';
+import { PLAYER_REPOSITORY } from '../../../../battle/domain/repositories/player/player.repository.token';
+import type { IPlayerRepository } from '../../../../battle/domain/repositories/player/player.repository';
 
 // список онлайн гравців
 @Injectable()
 export class GetOnlineUsersUseCase {
-  constructor(private readonly playerRepo: RedisPlayerRepository) {}
+  constructor(
+    @Inject(PLAYER_REPOSITORY)
+    private readonly playerRepo: IPlayerRepository,
+  ) {}
 
   async execute() {
     return this.playerRepo.getOnlineUsers();

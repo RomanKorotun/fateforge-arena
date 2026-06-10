@@ -1,18 +1,23 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 
-import { RedisDuelRepository } from '../../infrastructure/redis/redis-duel.repository';
-import { RedisBattleRepository } from '../../infrastructure/redis/redis-battle.repository';
 import { BattleEngine } from '../../domain/services/battle-engine';
+import { DUEL_REPOSITORY } from '../../domain/repositories/duel/duel.repository.token';
+import { BATTLE_REPOSITORY } from '../../domain/repositories/battle/battle.repository.token';
+import type { IDuelRepository } from '../../domain/repositories/duel/duel.repository';
+import type { IBattleRepository } from '../../domain/repositories/battle/battle.repository';
 
 @Injectable()
 export class AcceptDuelUseCase {
   constructor(
-    private readonly duelRepository: RedisDuelRepository,
-    private readonly battleRepository: RedisBattleRepository,
+    @Inject(DUEL_REPOSITORY)
+    private readonly duelRepository: IDuelRepository,
+    @Inject(BATTLE_REPOSITORY)
+    private readonly battleRepository: IBattleRepository,
     private readonly battleEngine: BattleEngine,
   ) {}
 

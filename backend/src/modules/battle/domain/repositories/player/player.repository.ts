@@ -8,7 +8,7 @@ export interface getOnlineUsersResponse {
   username: string;
 }
 
-export interface PlayerRepositoryInterface {
+export interface IPlayerRepository {
   // користувач зайшов в гру
   setOnline(data: SetOnlineData): Promise<void>;
 

@@ -1,13 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
-import { RedisBattleRepository } from '../../infrastructure/redis/redis-battle.repository';
+import { BATTLE_REPOSITORY } from '../../domain/repositories/battle/battle.repository.token';
+import type { IBattleRepository } from '../../domain/repositories/battle/battle.repository';
 
 @Injectable()
 export class GetMyActiveBattleUseCase {
-  constructor(private readonly battleRepo: RedisBattleRepository) {}
+  constructor(
+    @Inject(BATTLE_REPOSITORY)
+    private readonly battleRepository: IBattleRepository,
+  ) {}
 
   async execute(userId: string) {
-    const battles = await this.battleRepo.getAllActive();
+    const battles = await this.battleRepository.getAllActive();
 
     return (
       battles.find(

@@ -1,12 +1,16 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 import { DuelStatus } from '../../domain/enums/duel-status.enum';
-import { RedisDuelRepository } from '../../infrastructure/redis/redis-duel.repository';
+import { DUEL_REPOSITORY } from '../../domain/repositories/duel/duel.repository.token';
+import type { IDuelRepository } from '../../domain/repositories/duel/duel.repository';
 
 // створити заявку на дуель
 @Injectable()
 export class CreateDuelUseCase {
-  constructor(private readonly duelRepo: RedisDuelRepository) {}
+  constructor(
+    @Inject(DUEL_REPOSITORY)
+    private readonly duelRepo: IDuelRepository,
+  ) {}
 
   async execute(challengerId: string, challengerUsername: string) {
     // перевірка чи вже є заявка

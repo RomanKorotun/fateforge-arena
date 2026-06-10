@@ -3,18 +3,19 @@ import { Injectable } from '@nestjs/common';
 import { RedisService } from '../../../../core/redis/redis.service';
 import {
   getOnlineUsersResponse,
-  PlayerRepositoryInterface,
+  IPlayerRepository,
   SetOnlineData,
-} from '../../domain/interfaces/player-repository.interface';
+} from '../../domain/repositories/player/player.repository';
 
 @Injectable()
-export class RedisPlayerRepository implements PlayerRepositoryInterface {
+export class RedisPlayerRepository implements IPlayerRepository {
   constructor(private readonly redis: RedisService) {}
 
-  private safeParse<T>(value: string): T | null {
+  private safeParse<T>(value: string | null | undefined): T | null {
+    if (!value) return null;
     try {
       return JSON.parse(value) as T;
-    } catch (error) {
+    } catch {
       return null;
     }
   }

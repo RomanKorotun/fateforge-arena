@@ -1,23 +1,27 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
-import { PrismaBattleResultRepository } from '../../infrastructure/prisma/battle-result.repository';
-import { RedisBattleRepository } from '../../infrastructure/redis/redis-battle.repository';
-
 import { PROFILE_REPOSITORY } from '../../../user/domain/repositories/profile.repository.token';
 import type { IProfileRepository } from '../../../user/domain/repositories/profile.repository';
+
+import { BATTLE_RESULT_REPOSITORY } from '../../domain/repositories/battle-result/battle-result.repository.token';
+import type { IBattleResultRepository } from '../../domain/repositories/battle-result/battle-result.repository';
+import { BATTLE_REPOSITORY } from '../../domain/repositories/battle/battle.repository.token';
+import type { IBattleRepository } from '../../domain/repositories/battle/battle.repository';
 
 // фінал бою
 @Injectable()
 export class FinishBattleUseCase {
   constructor(
-    private readonly battleRepo: RedisBattleRepository,
-    private readonly resultRepo: PrismaBattleResultRepository,
+    @Inject(BATTLE_REPOSITORY)
+    private readonly battleRepository: IBattleRepository,
+    @Inject(BATTLE_RESULT_REPOSITORY)
+    private readonly resultRepo: IBattleResultRepository,
     @Inject(PROFILE_REPOSITORY)
     private readonly profileRepository: IProfileRepository,
   ) {}
 
   async execute(roomId: string) {
-    const room = await this.battleRepo.get(roomId);
+    const room = await this.battleRepository.get(roomId);
 
     if (!room) {
       throw new NotFoundException();
@@ -51,7 +55,7 @@ export class FinishBattleUseCase {
     }
 
     await this.resultRepo.save(saveBattle);
-    await this.battleRepo.delete(roomId);
+    await this.battleRepository.delete(roomId);
 
     return room;
   }

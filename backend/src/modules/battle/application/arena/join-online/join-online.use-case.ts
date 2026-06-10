@@ -1,12 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
-import { RedisPlayerRepository } from '../../../infrastructure/redis/redis-player.repository';
 import { JoinOnlineCommand } from './join-online.command';
+import { PLAYER_REPOSITORY } from '../../../../battle/domain/repositories/player/player.repository.token';
+import type { IPlayerRepository } from '../../../../battle/domain/repositories/player/player.repository';
 
 // користувач заходить в гру → стає online
 @Injectable()
 export class JoinOnlineUseCase {
-  constructor(private readonly playerRepo: RedisPlayerRepository) {}
+  constructor(
+    @Inject(PLAYER_REPOSITORY)
+    private readonly playerRepo: IPlayerRepository,
+  ) {}
 
   async execute(command: JoinOnlineCommand): Promise<void> {
     await this.playerRepo.setOnline(command);
