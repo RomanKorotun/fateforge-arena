@@ -23,6 +23,7 @@ import { BattleModule } from './modules/battle/battle.module';
     JwtAuthModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
     }),
     AppConfigModule,
     DatabaseModule,
