@@ -44,7 +44,6 @@ import { SignoutUseCase } from '../application/signout/signout.usecase';
 import { RestoreUserUseCase } from '../application/restore-user/restore-user.usecase';
 import { ConfirmEmailUseCase } from '../application/confirm-email/confirm-email.usecase';
 import { ResendEmailVerificationUseCase } from '../application/resend-email-verification/resend-email-verification.usecase';
-import { SigninOauthUseCase } from '../application/signin-oauth/signin-oauth.usecase';
 import { DeleteAccountUseCase } from '../application/delete-account/delete-account.usecase';
 
 import { RestoreSwagger } from './swagger/restore.swagger';
@@ -67,6 +66,7 @@ import { CurrentResponseMapper } from './mappers/me-response.mapper';
 import type { OAuthRequest } from './types/oauth-request.type';
 
 import { GeoIpService } from '../../../core/geoip/geo-ip.service';
+import { OAuthHandlerService } from './services/oauth-handler.service';
 
 @Controller('auth')
 export class AuthController {
@@ -84,9 +84,9 @@ export class AuthController {
     private readonly restoreUserUseCase: RestoreUserUseCase,
     private readonly confirmEmailUseCase: ConfirmEmailUseCase,
     private readonly resendEmailVerificationUseCase: ResendEmailVerificationUseCase,
-    private readonly signinOauthUseCase: SigninOauthUseCase,
     private readonly geoIpService: GeoIpService,
     private readonly deleteAccountUseCase: DeleteAccountUseCase,
+    private readonly oAuthHandlerService: OAuthHandlerService,
   ) {
     this.FRONTEND_URL = this.configService.getOrThrow('FRONTEND_URL');
   }
@@ -106,21 +106,7 @@ export class AuthController {
     @Req() req: OAuthRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { ip, device } = this.requestMetadataService.getMetadata(req);
-    const geo = this.geoIpService.getLocation(ip);
-    const result = await this.signinOauthUseCase.execute({
-      oauthProfile: req.user,
-      ip,
-      device,
-      geo,
-    });
-
-    if (result.status === 'blocked') {
-      return res.redirect(`${this.FRONTEND_URL}/blocked`);
-    }
-
-    this.authCookieService.setAuthCookie(res, result.accessToken);
-    return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
+    return await this.oAuthHandlerService.handle( req, res );
   }
 
   // Редіректить користувача на Linkedin
@@ -138,21 +124,7 @@ export class AuthController {
     @Req() req: OAuthRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { ip, device } = this.requestMetadataService.getMetadata(req);
-    const geo = this.geoIpService.getLocation(ip);
-    const result = await this.signinOauthUseCase.execute({
-      oauthProfile: req.user,
-      ip,
-      device,
-      geo,
-    });
-
-    if (result.status === 'blocked') {
-      return res.redirect(`${this.FRONTEND_URL}/blocked`);
-    }
-
-    this.authCookieService.setAuthCookie(res, result.accessToken);
-    return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
+    return await this.oAuthHandlerService.handle( req, res );
   }
 
   // Редіректить користувача на Discord
@@ -170,21 +142,7 @@ export class AuthController {
     @Req() req: OAuthRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { ip, device } = this.requestMetadataService.getMetadata(req);
-    const geo = this.geoIpService.getLocation(ip);
-    const result = await this.signinOauthUseCase.execute({
-      oauthProfile: req.user,
-      ip,
-      device,
-      geo,
-    });
-
-    if (result.status === 'blocked') {
-      return res.redirect(`${this.FRONTEND_URL}/blocked`);
-    }
-
-    this.authCookieService.setAuthCookie(res, result.accessToken);
-    return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
+    return await this.oAuthHandlerService.handle( req, res );
   }
 
   // Редіректить користувача на Facebook
@@ -202,21 +160,7 @@ export class AuthController {
     @Req() req: OAuthRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { ip, device } = this.requestMetadataService.getMetadata(req);
-    const geo = this.geoIpService.getLocation(ip);
-    const result = await this.signinOauthUseCase.execute({
-      oauthProfile: req.user,
-      ip,
-      device,
-      geo,
-    });
-
-    if (result.status === 'blocked') {
-      return res.redirect(`${this.FRONTEND_URL}/blocked`);
-    }
-
-    this.authCookieService.setAuthCookie(res, result.accessToken);
-    return res.redirect(`${this.FRONTEND_URL}/oauth/success`);
+    return await this.oAuthHandlerService.handle( req, res );
   }
 
   // Реєстрація нового користувача

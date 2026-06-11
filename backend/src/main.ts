@@ -9,7 +9,7 @@ import { AppModule } from './app.module';
 import { swaggerConfig } from './core/swagger/swagger.config';
 import { AllExceptionFilter } from './common/filters/all-exception.filter';
 import { RedisService } from './core/redis/redis.service';
-import { RedisIoAdapter } from './infrastructure/websocket/redis-io.adapter';
+import { RedisIoAdapter } from './shared/infrastructure/websocket/redis-io.adapter';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');

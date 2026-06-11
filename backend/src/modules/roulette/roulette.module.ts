@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 
-import { DatabaseModule } from '../../infrastructure/database/database.module';
+import { DatabaseModule } from '../../shared/infrastructure/database/database.module';
 
 import { PrismaModule } from '../../core/prisma/prisma.module';
 
