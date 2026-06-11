@@ -25,6 +25,9 @@ export class HandleDepositWebhookUseCase {
   async execute(cmd: any) {
     const { orderId, transactionId, status } = cmd;
 
+    // 1. Якщо транзакція вже не PENDING — вихід без змін
+    // 2. wallet блокується через SELECT ... FOR UPDATE,щоб уникнути race condition при паралельних webhook запитах
+    // 3. баланс і статус транзакції оновлюються атомарно в межах однієї БД транзакції
     return this.unitOfWork.transaction(async (tx) => {
       const transaction = await this.transactionRepo.lockByOrderId(orderId, tx);
 

@@ -31,53 +31,76 @@ export class CreateDepositUseCase {
   ) {}
 
   async execute(params: DepositCommand) {
-    try {
-      const { idempotencyKey, walletId, userId, amount, currency, provider } =
-        params;
+    const {
+      idempotencyKey,
+      walletId,
+      userId,
+      amount,
+      currency,
+      provider,
+    } = params;
 
-      const wallet = await this.walletRepo.findByIdAndUserId(walletId, userId);
+    // 1. Перевіряємо існування гаманця і права доступу користувача
+    const wallet = await this.walletRepo.findByIdAndUserId(walletId, userId);
 
-      if (!wallet) {
-        throw new NotFoundException('Гаманець не знайдено');
-      }
+    if (!wallet) {
+      throw new NotFoundException('Гаманець не знайдено');
+    }
 
-      const existing =
-        await this.transactionRepo.findByIdempotencyKey(idempotencyKey);
+    // 2. Idempotency protection
+    //
+    // Захист від дублювання депозиту при:
+    // - double click
+    // - retry запитах
+    // - повторній відправці з фронта
+    //
+    // Один idempotencyKey = одна фінансова операція
+    const existing =
+      await this.transactionRepo.findByIdempotencyKey(idempotencyKey);
 
-      if (existing) {
-        return existing;
-      }
+    // якщо вже створено — просто повертаємо існуючу транзакцію
+    if (existing) {
+      return existing;
+    }
 
-      const orderId = randomUUID();
-      const description = `Deposit via ${provider}`;
+    // 3. Створюємо унікальний orderId для payment provider (Stripe)
+    // Це потрібно для зв’язки webhook → внутрішня транзакція
+    const orderId = randomUUID();
 
-      await this.transactionRepo.createTransaction({
-        walletId: wallet.id,
-        type: TransactionType.DEPOSIT,
-        status: TransactionStatus.PENDING,
+    const description = `Deposit via ${provider}`;
+
+    // 4. Створюємо PENDING транзакцію ДО виклику payment provider
+    //
+    // Це гарантує:
+    // - фінансова операція вже зафіксована в БД
+    // - webhook зможе її оновити
+    // - немає втрати стану між системами
+    await this.transactionRepo.createTransaction({
+      walletId: wallet.id,
+      type: TransactionType.DEPOSIT,
+      status: TransactionStatus.PENDING,
+      amount,
+      currency,
+      balanceBefore: wallet.balance,
+      provider,
+      orderId,
+      idempotencyKey,
+      description,
+    });
+
+    // 5. Виклик payment provider
+    if (provider === PaymentProvider.STRIPE) {
+      const result = await this.stripeProvider.createCheckoutSession({
         amount,
         currency,
-        balanceBefore: wallet.balance,
-        provider,
         orderId,
-        idempotencyKey,
         description,
       });
 
-      if (provider === PaymentProvider.STRIPE) {
-        const result = await this.stripeProvider.createCheckoutSession({
-          amount,
-          currency,
-          orderId,
-          description,
-        });
-
-        return result;
-      }
-
-      throw new BadRequestException('Unsupported provider');
-    } catch (err) {
-      throw err;
+      return result;
     }
+
+    // 6. Захист від непідтримуваних провайдерів
+    throw new BadRequestException('Unsupported provider');
   }
 }

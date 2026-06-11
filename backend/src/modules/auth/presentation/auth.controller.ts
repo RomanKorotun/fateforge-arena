@@ -106,7 +106,7 @@ export class AuthController {
     @Req() req: OAuthRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
-    return await this.oAuthHandlerService.handle( req, res );
+    return await this.oAuthHandlerService.handle(req, res);
   }
 
   // Редіректить користувача на Linkedin
@@ -124,7 +124,7 @@ export class AuthController {
     @Req() req: OAuthRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
-    return await this.oAuthHandlerService.handle( req, res );
+    return await this.oAuthHandlerService.handle(req, res);
   }
 
   // Редіректить користувача на Discord
@@ -142,7 +142,7 @@ export class AuthController {
     @Req() req: OAuthRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
-    return await this.oAuthHandlerService.handle( req, res );
+    return await this.oAuthHandlerService.handle(req, res);
   }
 
   // Редіректить користувача на Facebook
@@ -160,7 +160,7 @@ export class AuthController {
     @Req() req: OAuthRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
-    return await this.oAuthHandlerService.handle( req, res );
+    return await this.oAuthHandlerService.handle(req, res);
   }
 
   // Реєстрація нового користувача
