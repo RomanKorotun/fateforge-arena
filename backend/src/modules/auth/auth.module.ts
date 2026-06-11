@@ -13,6 +13,7 @@ import { GeoIpModule } from '../../core/geoip/geo-ip.module';
 import { AuthController } from './presentation/auth.controller';
 import { RequestMetadataService } from './presentation/services/request-metadata.service';
 import { AuthCookieService } from './presentation/services/auth-cookie-service';
+import { OAuthHandlerService } from './presentation/services/oauth-handler.service';
 
 import { SESSION_REPOSITORY } from './domain/repositories/session.repository.token';
 import { USER_EMAIL_VERIFICATION_REPOSITORY } from './domain/repositories/user-email-verification.repository.token';
@@ -27,7 +28,7 @@ import { GoogleStrategy } from './infrastructure/strategies/google.strategy';
 import { PrismaAuthProviderRepository } from './infrastructure/repositories/prisma/auth-provider.repository';
 import { LinkedinApi } from './infrastructure/oauth/ linkedin.api';
 import { LinkedinStrategy } from './infrastructure/strategies/linkedin.strategy';
-import { DatabaseModule } from '../../infrastructure/database/database.module';
+import { DatabaseModule } from '../../shared/infrastructure/database/database.module';
 
 import { SignoutUseCase } from './application/signout/signout.usecase';
 import { SignupUseCase } from './application/signup/signup.usecase';
@@ -79,6 +80,7 @@ import { ValidateUserService } from './application/services/validate-user.servic
     LinkedinApi,
     WsJwtGuard,
     ValidateUserService,
+    OAuthHandlerService,
     { provide: SESSION_REPOSITORY, useClass: RedisSessionRepository },
     {
       provide: USER_EMAIL_VERIFICATION_REPOSITORY,

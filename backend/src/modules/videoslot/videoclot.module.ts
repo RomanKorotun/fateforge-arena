@@ -16,7 +16,7 @@ import { GetVideoslotHistoryUseCase } from './application/use-case/get-videoslot
 
 import { PrismaVideoslotistoryRepository } from './infrastructure/prisma/prisma-videoslot-history.repository';
 import { RedisGameSessionRepository } from './infrastructure/redis/redis-game-session.repository';
-import { DatabaseModule } from '../../infrastructure/database/database.module';
+import { DatabaseModule } from '../../shared/infrastructure/database/database.module';
 
 import { GAME_SESSION_REPOSITORY } from './domain/repositories/game-session/game-session.repository.token';
 import { VIDEOSLOT_HISTORY_REPOSITORY } from './domain/repositories/videoslot-history/videosllot-history.repository.token';

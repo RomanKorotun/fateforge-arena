@@ -4,7 +4,7 @@ import { ServerOptions } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import Redis from 'ioredis';
 
-import { RedisService } from '../../core/redis/redis.service';
+import { RedisService } from '../../../core/redis/redis.service';
 
 export class RedisIoAdapter extends IoAdapter {
   private adapter!: ReturnType<typeof createAdapter>;

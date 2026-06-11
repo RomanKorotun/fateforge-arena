@@ -8,7 +8,7 @@ import { CreateDepositUseCase } from './application/create-deposit/create-deposi
 import { PrismaTransactionRepository } from './infrastructure/persistence/prisma/repositories/prisma-transaction.repository';
 import { TRANSACTION_REPOSITORY } from './domain/repositories/transaction/transaction.repository.token';
 import { PrismaModule } from '../../core/prisma/prisma.module';
-import { DatabaseModule } from '../../infrastructure/database/database.module';
+import { DatabaseModule } from '../../shared/infrastructure/database/database.module';
 import { HandleDepositWebhookUseCase } from './application/handle-deposit-webhook/handle-deposit-webhook.use-case';
 import { WithdrawUseCase } from './application/withdraw/withdraw.usecase';
 import { GetWalletUseCase } from './application/get-wallet/get-wallet.usecase';
