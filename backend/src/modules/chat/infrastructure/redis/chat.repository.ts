@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { RedisService } from '../../../../core/redis/redis.service';
 
@@ -22,8 +22,7 @@ export class ChatRedisRepository {
   private safeParse<T>(value: string): T | null {
     try {
       return JSON.parse(value) as T;
-    } catch (error) {
-      console.error('JSON parse error:', error);
+    } catch {
       return null;
     }
   }

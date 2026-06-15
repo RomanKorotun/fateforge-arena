@@ -20,7 +20,7 @@ import type { AuthRequest } from '../../../common/types/auth-request';
 import { NonEmptyBodyPipe } from '../../../common/pipes/non-empty-body.pipe';
 
 import { JwtAuthGuard } from '../../../core/security/guards/jwt-auth.guard';
-import { createMulterConfig } from '../../../core/multer/multer.config';
+import { createMulterConfig } from '../../../core/config/runtime/multer.config';
 
 import { AddAddressDto } from './dto/add-address/add-address-request.dto';
 import { CreateClientSeedRequestDto } from './dto/create-client-seed/create-client-seed-request.dto';

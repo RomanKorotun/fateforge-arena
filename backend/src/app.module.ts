@@ -2,20 +2,22 @@ import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
-import { AppConfigModule } from './core/config/config.module';
+import { DatabaseModule } from './shared/infrastructure/database/database.module';
+
+import { AppConfigModule } from './core/config/env/config.module';
 import { PrismaModule } from './core/prisma/prisma.module';
+import { JwtAuthModule } from './core/JwtAuth/jwt-auth.module';
+import { RedisModule } from './core/redis/redis.module';
+import { GeoIpModule } from './core/geoip/geo-ip.module';
+import { EmailModule } from './core/email/email.module';
+
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
-import { RedisModule } from './core/redis/redis.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { RouletteModule } from './modules/roulette/roulette.module';
-import { EmailModule } from './core/email/email.module';
-import { DatabaseModule } from './shared/infrastructure/database/database.module';
 import { FinanceModule } from './modules/finance/finance.module';
-import { GeoIpModule } from './core/geoip/geo-ip.module';
 import { VideoslotModule } from './modules/videoslot/videoclot.module';
 import { ChatModule } from './modules/chat/chat.module';
-import { JwtAuthModule } from './core/JwtAuth/jwt-auth.module';
 import { BattleModule } from './modules/battle/battle.module';
 
 @Module({

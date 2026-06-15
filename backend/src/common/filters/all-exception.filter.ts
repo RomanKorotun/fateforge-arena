@@ -7,6 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+
 import { DomainError } from '../../shared/domain/errors/domain-error';
 
 @Catch()
@@ -22,7 +23,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     let status = 500;
     let message: string | object = 'Server error';
 
-    // 1. DOMAIN ERROR
+    // DOMAIN ERROR
     if (exception instanceof DomainError) {
       status = exception.httpCode;
       message = exception.message;

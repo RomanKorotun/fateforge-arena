@@ -1,4 +1,4 @@
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import {
   WebSocketGateway,
   WebSocketServer,
@@ -7,8 +7,14 @@ import {
   ConnectedSocket,
   OnGatewayInit,
 } from '@nestjs/websockets';
-
 import { Server, Socket } from 'socket.io';
+
+import { corsConfig } from '../../../core/config/runtime/cors.config';
+
+import { Zone } from '../domain/enums/zone.enum';
+
+import { WsJwtGuard } from '../../auth/presentation/guards/ws-jwt.guard';
+
 import { JoinOnlineUseCase } from '../application/arena/join-online/join-online.use-case';
 import { LeaveOnlineUseCase } from '../application/arena/leave-online/leave-online.use-case';
 import { CreateDuelUseCase } from '../application/duel/create-duel.use-case';
@@ -16,8 +22,6 @@ import { AcceptDuelUseCase } from '../application/duel/accept-duel.use-case';
 import { GetPendingDuelsUseCase } from '../application/duel/get-pending-duels.use-case';
 import { MakeMoveUseCase } from '../application/battle/make-move.use-case';
 import { GetMyActiveBattleUseCase } from '../application/battle/get-my-active-battle.use-case';
-import { Zone } from '../domain/enums/zone.enum';
-import { WsJwtGuard } from '../../auth/presentation/guards/ws-jwt.guard';
 import { GetOnlineUsersUseCase } from '../application/arena/get-online-users/get-online-users.use-case';
 import { GetActiveBattlesUseCase } from '../application/battle/get-active-battles.usecase';
 import { BattleTickService } from '../application/services/battle-tick.service';
@@ -25,9 +29,10 @@ import { BattleTickService } from '../application/services/battle-tick.service';
 @UseGuards(WsJwtGuard)
 @WebSocketGateway({
   namespace: 'battle',
-  cors: { origin: '*' },
+  cors: corsConfig,
 })
 export class BattleGateway implements OnGatewayInit {
+  private readonly logger = new Logger(BattleGateway.name);
   @WebSocketServer()
   server!: Server;
 
@@ -49,7 +54,7 @@ export class BattleGateway implements OnGatewayInit {
 
   // CONNECT
   async handleConnection(client: Socket) {
-    console.log('Client connected - battle', client.id);
+    this.logger.log(`Client connected - battle ${client.id}`);
   }
 
   // користувач доєднується до онлайна
@@ -187,7 +192,7 @@ export class BattleGateway implements OnGatewayInit {
 
   // DISCONNECT
   async handleDisconnect(client: Socket) {
-    console.log('Client disconnected - battle', client.id);
+    this.logger.log(`Client disconnected - battle ${client.id}`);
   }
 
   afterInit(server: Server) {

@@ -57,7 +57,6 @@ export class StripeProvider {
         checkoutUrl: session.url!,
       };
     } catch (err) {
-      console.error('❌ STRIPE CHECKOUT ERROR:', err);
       throw err;
     }
   }

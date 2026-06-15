@@ -6,9 +6,13 @@ import { SwaggerModule } from '@nestjs/swagger';
 import * as express from 'express';
 
 import { AppModule } from './app.module';
-import { swaggerConfig } from './core/swagger/swagger.config';
-import { AllExceptionFilter } from './common/filters/all-exception.filter';
+
+import { swaggerConfig } from './core/config/runtime/swagger.config';
+import { corsConfig } from './core/config/runtime/cors.config';
 import { RedisService } from './core/redis/redis.service';
+
+import { AllExceptionFilter } from './common/filters/all-exception.filter';
+
 import { RedisIoAdapter } from './shared/infrastructure/websocket/redis-io.adapter';
 
 async function bootstrap() {
@@ -28,13 +32,7 @@ async function bootstrap() {
 
   const config = app.get(ConfigService);
 
-  app.enableCors({
-    origin: [
-      'http://localhost:5173',
-      'https://fateforge-arena-frontend.netlify.app',
-    ],
-    credentials: true,
-  });
+  app.enableCors(corsConfig);
 
   app.use(cookieParser());
 
