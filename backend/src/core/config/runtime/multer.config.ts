@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { UPLOAD_ROOT } from '../../common/constants/upload.constants';
+import { UPLOAD_ROOT } from '../../../common/constants/upload.constants';
 
 export const createMulterConfig = (folder: string) => ({
   storage: diskStorage({

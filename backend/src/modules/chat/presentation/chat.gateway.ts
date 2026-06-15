@@ -6,26 +6,30 @@ import {
   MessageBody,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
-
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
+
+import { corsConfig } from '../../../core/config/runtime/cors.config';
 
 import { WsJwtGuard } from '../../auth/presentation/guards/ws-jwt.guard';
 
 import { ChatRedisRepository } from '../infrastructure/redis/chat.repository';
+
 import { JoinRoomUseCase } from '../application/use-cases/join-room.usecase';
 import { LeaveRoomUseCase } from '../application/use-cases/leave-room.usecase';
 import { SendMessageUseCase } from '../application/use-cases/send-message.usecase';
+
 import { JoinRoomDto } from './dto/join-room.dto';
 import { LeaveRoomDto } from './dto/leave-room.dto';
 import { SendMessageDto } from './dto/send-message.dto';
 
 @UseGuards(WsJwtGuard)
 @WebSocketGateway({
-  namespace: 'chat',
-  cors: { origin: '*' },
+  namespace: 'battle',
+  cors: corsConfig,
 })
 export class ChatGateway implements OnGatewayDisconnect {
+  private readonly logger = new Logger(ChatGateway.name);
   @WebSocketServer()
   server!: Server;
 
@@ -38,17 +42,17 @@ export class ChatGateway implements OnGatewayDisconnect {
 
   // CONNECT
   async handleConnection(client: Socket) {
-    console.log('Client connected - chat', client.id);
+    this.logger.log(`Client connected - chat: ${client.id}`);
   }
 
   // Приєднання користувача до кімнати
-
   @SubscribeMessage('room:join')
   async join(
     @ConnectedSocket() client: Socket,
     @MessageBody() dto: JoinRoomDto,
   ) {
     const user = client.data.user;
+    console.log(user);
     if (!user) return;
 
     const room = dto.room;
@@ -58,6 +62,7 @@ export class ChatGateway implements OnGatewayDisconnect {
     await this.joinRoom.execute(room, user);
 
     const users = await this.chatRepositoty.getUsers(room);
+
     this.server.to(room).emit('room:users', users);
 
     const messages = await this.chatRepositoty.getLastMessages(room);
@@ -85,7 +90,6 @@ export class ChatGateway implements OnGatewayDisconnect {
   }
 
   // Повідомоення від користувача
-
   @SubscribeMessage('message:send')
   async send(
     @ConnectedSocket() client: Socket,
@@ -100,8 +104,7 @@ export class ChatGateway implements OnGatewayDisconnect {
   }
 
   // DISCONNECT
-
   async handleDisconnect(client: Socket) {
-    console.log('Client disconnected - chat', client.id);
+    this.logger.log(`Client disconnected - chat: ${client.id}`);
   }
 }

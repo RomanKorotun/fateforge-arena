@@ -12,7 +12,6 @@ export class GetUserWalletsUseCase {
 
   async execute(userId: string) {
     const wallets = await this.walletRepo.findAllByUserId(userId);
-    console.log(wallets);
     return {
       wallets: wallets.map((wallet) => ({
         id: wallet.id,

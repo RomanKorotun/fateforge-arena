@@ -35,6 +35,7 @@ export class WsJwtGuard implements CanActivate {
     try {
       payload = this.jwtService.verify(token, {
         secret: this.configService.getOrThrow('ACCESS_TOKEN_SECRET'),
+        ignoreExpiration: false,
       });
     } catch {
       throw new UnauthorizedException('Invalid token');

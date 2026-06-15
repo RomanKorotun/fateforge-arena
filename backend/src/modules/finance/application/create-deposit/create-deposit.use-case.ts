@@ -31,14 +31,8 @@ export class CreateDepositUseCase {
   ) {}
 
   async execute(params: DepositCommand) {
-    const {
-      idempotencyKey,
-      walletId,
-      userId,
-      amount,
-      currency,
-      provider,
-    } = params;
+    const { idempotencyKey, walletId, userId, amount, currency, provider } =
+      params;
 
     // 1. Перевіряємо існування гаманця і права доступу користувача
     const wallet = await this.walletRepo.findByIdAndUserId(walletId, userId);

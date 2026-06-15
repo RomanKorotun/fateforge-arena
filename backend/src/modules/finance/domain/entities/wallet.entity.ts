@@ -7,19 +7,4 @@ export class WalletEntity {
     public balance: number,
     public currency: Currency,
   ) {}
-
-  // canWithdraw(amount: number): boolean {
-  //   return this.balance >= amount;
-  // }
-
-  // debit(amount: number) {
-  //   if (!this.canWithdraw(amount)) {
-  //     throw new Error("Insufficient balance");
-  //   }
-  //   this.balance -= amount;
-  // }
-
-  // credit(amount: number) {
-  //   this.balance += amount;
-  // }
 }

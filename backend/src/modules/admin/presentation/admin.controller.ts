@@ -8,19 +8,24 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { GetAllUsersUseCase } from '../application/get-all-users/get-all-users.usecase';
-import { GetAdminUsersQueryDto } from './dto/get-users.query.dto';
+import { Roles } from '../../../core/security/decorators/roles.decorator';
 import { JwtAuthGuard } from '../../../core/security/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../core/security/guards/roles.guard';
+
+import { ParseUuidPipe } from '../../../common/pipes/parse-uuid.pipe';
+
 import { UserRole } from '../../user/domain/enums/user-role.enum';
-import { Roles } from '../../../core/security/decorators/roles.decorator';
+
+import { GetAllUsersUseCase } from '../application/get-all-users/get-all-users.usecase';
 import { BanUserUseCase } from '../application/ban-user/ban-user.usecase';
-import { BanUserDto } from './dto/ban-user/ban-user.request.dto';
 import { UnBanUserUseCase } from '../application/un-ban-user/un-ban-user.usecase';
+
+import { BanUserDto } from './dto/ban-user/ban-user.request.dto';
+import { GetAdminUsersQueryDto } from './dto/get-users.query.dto';
+
 import { GetAllUsersSwagger } from './swagger/get-all-users.swagger';
 import { BanUserSwagger } from './swagger/ban-user.swagger';
 import { UnBanUserSwagger } from './swagger/un-ban-user.swagger';
-import { ParseUuidPipe } from '../../../common/pipes/parse-uuid.pipe';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.ADMIN)

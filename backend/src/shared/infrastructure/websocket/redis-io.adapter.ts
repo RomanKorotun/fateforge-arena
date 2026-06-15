@@ -1,5 +1,5 @@
 import { IoAdapter } from '@nestjs/platform-socket.io';
-import { INestApplicationContext } from '@nestjs/common';
+import { INestApplicationContext, Logger } from '@nestjs/common';
 import { ServerOptions } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import Redis from 'ioredis';
@@ -7,6 +7,7 @@ import Redis from 'ioredis';
 import { RedisService } from '../../../core/redis/redis.service';
 
 export class RedisIoAdapter extends IoAdapter {
+  private readonly logger = new Logger(RedisIoAdapter.name);
   private adapter!: ReturnType<typeof createAdapter>;
 
   private pubClient!: Redis;
@@ -24,11 +25,11 @@ export class RedisIoAdapter extends IoAdapter {
     this.subClient = this.redisService.duplicate();
 
     this.pubClient.on('error', (err) => {
-      console.error('Redis PUB error:', err);
+      this.logger.error(`Redis PUB error: ${err.message}`, err.stack);
     });
 
     this.subClient.on('error', (err) => {
-      console.error('Redis SUB error:', err);
+      this.logger.error(`Redis SUB error: ${err.message}`, err.stack);
     });
 
     this.adapter = createAdapter(this.pubClient, this.subClient);
