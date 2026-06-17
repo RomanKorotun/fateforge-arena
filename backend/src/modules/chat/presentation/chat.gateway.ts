@@ -9,6 +9,11 @@ import {
 import { Logger, UseGuards } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 
+import { RateLimitService } from '../../../shared/infrastructure/rate-limit/rate-limit.service';
+
+import { WsRateLimitGuard } from '../../../common/guards/ws-rate-limit.guard';
+import { RateLimit } from '../../../common/decorators/rate-limit.decorator';
+
 import { corsConfig } from '../../../core/config/runtime/cors.config';
 
 import { WsJwtGuard } from '../../auth/presentation/guards/ws-jwt.guard';
@@ -23,9 +28,9 @@ import { JoinRoomDto } from './dto/join-room.dto';
 import { LeaveRoomDto } from './dto/leave-room.dto';
 import { SendMessageDto } from './dto/send-message.dto';
 
-@UseGuards(WsJwtGuard)
+@UseGuards(WsJwtGuard, WsRateLimitGuard)
 @WebSocketGateway({
-  namespace: 'battle',
+  namespace: 'chat',
   cors: corsConfig,
 })
 export class ChatGateway implements OnGatewayDisconnect {
@@ -35,6 +40,7 @@ export class ChatGateway implements OnGatewayDisconnect {
 
   constructor(
     private readonly chatRepositoty: ChatRedisRepository,
+    private readonly rateLimitService: RateLimitService,
     private readonly joinRoom: JoinRoomUseCase,
     private readonly leaveRoom: LeaveRoomUseCase,
     private readonly sendMessage: SendMessageUseCase,
@@ -42,7 +48,20 @@ export class ChatGateway implements OnGatewayDisconnect {
 
   // CONNECT
   async handleConnection(client: Socket) {
-    this.logger.log(`Client connected - chat: ${client.id}`);
+    const namespace = client.nsp.name;
+    const allowed = await this.rateLimitService.check(
+      `ratelimit:ws:connection:${namespace}:${client.handshake.address}`,
+      60,
+      60,
+    );
+
+    if (!allowed) {
+      this.logger.warn(`WS connection blocked ${namespace} ${client.handshake.address}`);
+      client.disconnect(true);
+      return;
+    }
+
+    this.logger.log(`Client connected - ${namespace} ${client.id}`);
   }
 
   // Приєднання користувача до кімнати
@@ -52,7 +71,7 @@ export class ChatGateway implements OnGatewayDisconnect {
     @MessageBody() dto: JoinRoomDto,
   ) {
     const user = client.data.user;
-    console.log(user);
+
     if (!user) return;
 
     const room = dto.room;
@@ -70,7 +89,6 @@ export class ChatGateway implements OnGatewayDisconnect {
   }
 
   // Вихід користувача з кімнати
-
   @SubscribeMessage('room:leave')
   async leave(
     @ConnectedSocket() client: Socket,
@@ -90,6 +108,7 @@ export class ChatGateway implements OnGatewayDisconnect {
   }
 
   // Повідомоення від користувача
+  @RateLimit(40, 60)
   @SubscribeMessage('message:send')
   async send(
     @ConnectedSocket() client: Socket,
