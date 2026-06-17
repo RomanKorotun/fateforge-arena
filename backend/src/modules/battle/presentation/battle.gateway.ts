@@ -16,8 +16,6 @@ import { corsConfig } from '../../../core/config/runtime/cors.config';
 import { WsRateLimitGuard } from '../../../common/guards/ws-rate-limit.guard';
 import { RateLimit } from '../../../common/decorators/rate-limit.decorator';
 
-import { Zone } from '../domain/enums/zone.enum';
-
 import { WsJwtGuard } from '../../auth/presentation/guards/ws-jwt.guard';
 
 import { JoinOnlineUseCase } from '../application/arena/join-online/join-online.use-case';
@@ -30,6 +28,9 @@ import { GetMyActiveBattleUseCase } from '../application/battle/get-my-active-ba
 import { GetOnlineUsersUseCase } from '../application/arena/get-online-users/get-online-users.use-case';
 import { GetActiveBattlesUseCase } from '../application/battle/get-active-battles.usecase';
 import { BattleTickService } from '../application/services/battle-tick.service';
+
+import { AcceptDuelRequestDto } from './dto/accept-duel-request.dto';
+import { BattleMoveRequestDto } from './dto/battle-move-request.dto';
 
 @UseGuards(WsJwtGuard, WsRateLimitGuard)
 @WebSocketGateway({
@@ -68,7 +69,9 @@ export class BattleGateway implements OnGatewayInit {
     );
 
     if (!allowed) {
-      this.logger.warn(`WS connection blocked ${namespace} ${client.handshake.address}`);
+      this.logger.warn(
+        `WS connection blocked ${namespace} ${client.handshake.address}`,
+      );
       client.disconnect(true);
       return;
     }
@@ -134,14 +137,14 @@ export class BattleGateway implements OnGatewayInit {
   @SubscribeMessage('duel:accept')
   async acceptHandler(
     @ConnectedSocket() client: Socket,
-    @MessageBody() data: { duelId: string },
+    @MessageBody() dto: AcceptDuelRequestDto,
   ) {
     const user = client.data.user;
     if (!user) return;
 
     try {
       const { duel, battle } = await this.acceptDuelUseCase.execute(
-        data.duelId,
+        dto.duelId,
         user.id,
       );
 
@@ -195,21 +198,17 @@ export class BattleGateway implements OnGatewayInit {
   async moveHandler(
     @ConnectedSocket() client: Socket,
     @MessageBody()
-    data: {
-      roomId: string;
-      attackZone: Zone;
-      defenseZone: Zone;
-    },
+    dto: BattleMoveRequestDto,
   ) {
     const user = client.data.user;
     if (!user) return;
 
     const room = await this.makeMove.execute({
-      ...data,
+      ...dto,
       userId: user.id,
     });
 
-    this.server.to(`battle:${data.roomId}`).emit('battle:updated', room);
+    this.server.to(`battle:${dto.roomId}`).emit('battle:updated', room);
   }
 
   // DISCONNECT

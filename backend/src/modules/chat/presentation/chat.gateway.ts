@@ -24,9 +24,9 @@ import { JoinRoomUseCase } from '../application/use-cases/join-room.usecase';
 import { LeaveRoomUseCase } from '../application/use-cases/leave-room.usecase';
 import { SendMessageUseCase } from '../application/use-cases/send-message.usecase';
 
-import { JoinRoomDto } from './dto/join-room.dto';
-import { LeaveRoomDto } from './dto/leave-room.dto';
-import { SendMessageDto } from './dto/send-message.dto';
+import { JoinRoomRequestDto } from './dto/join-room-request.dto';
+import { LeaveRoomRequestDto } from './dto/leave-room-request.dto';
+import { SendMessageRequestDto } from './dto/send-message-request.dto';
 
 @UseGuards(WsJwtGuard, WsRateLimitGuard)
 @WebSocketGateway({
@@ -56,7 +56,9 @@ export class ChatGateway implements OnGatewayDisconnect {
     );
 
     if (!allowed) {
-      this.logger.warn(`WS connection blocked ${namespace} ${client.handshake.address}`);
+      this.logger.warn(
+        `WS connection blocked ${namespace} ${client.handshake.address}`,
+      );
       client.disconnect(true);
       return;
     }
@@ -68,7 +70,7 @@ export class ChatGateway implements OnGatewayDisconnect {
   @SubscribeMessage('room:join')
   async join(
     @ConnectedSocket() client: Socket,
-    @MessageBody() dto: JoinRoomDto,
+    @MessageBody() dto: JoinRoomRequestDto,
   ) {
     const user = client.data.user;
 
@@ -92,7 +94,7 @@ export class ChatGateway implements OnGatewayDisconnect {
   @SubscribeMessage('room:leave')
   async leave(
     @ConnectedSocket() client: Socket,
-    @MessageBody() dto: LeaveRoomDto,
+    @MessageBody() dto: LeaveRoomRequestDto,
   ) {
     const user = client.data.user;
     if (!user) return;
@@ -112,7 +114,7 @@ export class ChatGateway implements OnGatewayDisconnect {
   @SubscribeMessage('message:send')
   async send(
     @ConnectedSocket() client: Socket,
-    @MessageBody() dto: SendMessageDto,
+    @MessageBody() dto: SendMessageRequestDto,
   ) {
     const user = client.data.user;
     if (!user) return;

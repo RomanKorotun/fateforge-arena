@@ -23,21 +23,14 @@ export class HttpRateLimitGuard implements CanActivate {
     const handler = context.getHandler();
     const controller = context.getClass().name;
 
-    const config = this.reflector.get(
-      RATE_LIMIT_KEY,
-      handler,
-    );
+    const config = this.reflector.get(RATE_LIMIT_KEY, handler);
 
     const limit = config?.limit ?? 100;
     const ttl = config?.ttl ?? 60;
 
-   const key = `ratelimit:http:${request.ip}:${controller}:${handler.name}`;
+    const key = `ratelimit:http:${request.ip}:${controller}:${handler.name}`;
 
-    const allowed = await this.rateLimitService.check(
-      key,
-      limit,
-      ttl,
-    );
+    const allowed = await this.rateLimitService.check(key, limit, ttl);
 
     if (!allowed) {
       throw new HttpException(
