@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 
+import { RateLimitModule } from '../../shared/infrastructure/rate-limit/rate-limit.module';
+
 import { RedisModule } from '../../core/redis/redis.module';
 import { PrismaModule } from '../../core/prisma/prisma.module';
 
@@ -33,7 +35,7 @@ import { DUEL_REPOSITORY } from './domain/repositories/duel/duel.repository.toke
 import { PLAYER_REPOSITORY } from './domain/repositories/player/player.repository.token';
 
 @Module({
-  imports: [RedisModule, PrismaModule, AuthModule, UserModule],
+  imports: [RedisModule, PrismaModule, AuthModule, UserModule, RateLimitModule],
   providers: [
     BattleGateway,
     BattleEngine,

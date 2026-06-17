@@ -1,8 +1,12 @@
+import { APP_GUARD } from '@nestjs/core';
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 import { DatabaseModule } from './shared/infrastructure/database/database.module';
+import { RateLimitModule } from './shared/infrastructure/rate-limit/rate-limit.module';
+
+import { HttpRateLimitGuard } from './common/guards/http-rate-limit.guard';
 
 import { AppConfigModule } from './core/config/env/config.module';
 import { PrismaModule } from './core/prisma/prisma.module';
@@ -41,6 +45,8 @@ import { BattleModule } from './modules/battle/battle.module';
     VideoslotModule,
     ChatModule,
     BattleModule,
+    RateLimitModule,
   ],
+  providers: [{ provide: APP_GUARD, useClass: HttpRateLimitGuard }],
 })
 export class AppModule {}

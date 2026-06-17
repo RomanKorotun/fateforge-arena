@@ -9,7 +9,12 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
+import { RateLimitService } from '../../../shared/infrastructure/rate-limit/rate-limit.service';
+
 import { corsConfig } from '../../../core/config/runtime/cors.config';
+
+import { WsRateLimitGuard } from '../../../common/guards/ws-rate-limit.guard';
+import { RateLimit } from '../../../common/decorators/rate-limit.decorator';
 
 import { Zone } from '../domain/enums/zone.enum';
 
@@ -26,7 +31,7 @@ import { GetOnlineUsersUseCase } from '../application/arena/get-online-users/get
 import { GetActiveBattlesUseCase } from '../application/battle/get-active-battles.usecase';
 import { BattleTickService } from '../application/services/battle-tick.service';
 
-@UseGuards(WsJwtGuard)
+@UseGuards(WsJwtGuard, WsRateLimitGuard)
 @WebSocketGateway({
   namespace: 'battle',
   cors: corsConfig,
@@ -38,6 +43,7 @@ export class BattleGateway implements OnGatewayInit {
 
   constructor(
     private readonly tick: BattleTickService,
+    private readonly rateLimitService: RateLimitService,
 
     private readonly joinOnlineUseCase: JoinOnlineUseCase,
     private readonly leaveOnlineUseCase: LeaveOnlineUseCase,
@@ -54,7 +60,20 @@ export class BattleGateway implements OnGatewayInit {
 
   // CONNECT
   async handleConnection(client: Socket) {
-    this.logger.log(`Client connected - battle ${client.id}`);
+    const namespace = client.nsp.name;
+    const allowed = await this.rateLimitService.check(
+      `ratelimit:ws:connection:${namespace}:${client.handshake.address}`,
+      60,
+      60,
+    );
+
+    if (!allowed) {
+      this.logger.warn(`WS connection blocked ${namespace} ${client.handshake.address}`);
+      client.disconnect(true);
+      return;
+    }
+
+    this.logger.log(`Client connected - ${namespace} ${client.id}`);
   }
 
   // користувач доєднується до онлайна
@@ -81,6 +100,7 @@ export class BattleGateway implements OnGatewayInit {
   }
 
   // заявка на створення дуелі
+  @RateLimit(20, 60)
   @SubscribeMessage('duel:create')
   async createDuelHandler(@ConnectedSocket() client: Socket) {
     const user = client.data.user;
@@ -110,6 +130,7 @@ export class BattleGateway implements OnGatewayInit {
   }
 
   // користувач приймає виклик на дуель
+  @RateLimit(30, 60)
   @SubscribeMessage('duel:accept')
   async acceptHandler(
     @ConnectedSocket() client: Socket,
@@ -169,6 +190,7 @@ export class BattleGateway implements OnGatewayInit {
   }
 
   // один хід в кімнаті (дуель)
+  @RateLimit(10, 10)
   @SubscribeMessage('battle:move')
   async moveHandler(
     @ConnectedSocket() client: Socket,
