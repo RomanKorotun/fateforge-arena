@@ -23,48 +23,37 @@ export class UserQueryService {
     });
   }
 
-  // Список користувачів з обмеженою інформацією (для рейтингу/статистики)
-  async getPublicUsers() {
-    const users = await this.prisma.user.findMany({
-      where: { role: UserRole.USER },
-      select: {
-        username: true,
-        createdAt: true,
-        profile: { select: { rating: true, level: true } },
-        address: { select: { country: true } },
-      },
-    });
+  // інформація про користувачів для побудови рейтингу користувачів в грі battle
+  async getBattleLeaderboard({ page, limit }: { page: number; limit: number }) {
+    const skip = (page - 1) * limit;
 
-    return users.map((user) => ({
-      username: user.username,
-      createdAt: user.createdAt,
-      country: user.address?.country || null,
-      profile: { rating: user.profile?.rating, level: user.profile?.level },
-    }));
-  }
+    const where = {
+      role: UserRole.USER,
+    };
 
-  // інформація для побудови рейтингу користувачів в грі battle
-  async getBattleLeaderboard() {
-    const users = await this.prisma.user.findMany({
-      where: {
-        role: UserRole.USER,
-        isDeleted: false,
-      },
-      orderBy: {
-        profile: { rating: 'desc' },
-      },
-      select: {
-        id: true,
-        username: true,
-        profile: {
-          select: { rating: true },
+    const [users, total] = await Promise.all([
+      this.prisma.user.findMany({
+        where,
+        orderBy: {
+          profile: { rating: 'desc' },
         },
-        address: {
-          select: { country: true },
+        skip,
+        take: limit,
+        select: {
+          id: true,
+          username: true,
+          profile: {
+            select: { rating: true },
+          },
+          address: {
+            select: { country: true },
+          },
         },
-      },
-    });
+      }),
 
-    return users;
+      this.prisma.user.count({ where }),
+    ]);
+
+    return { data: users, total };
   }
 }

@@ -5,6 +5,7 @@ import {
   Patch,
   Post,
   Put,
+  Query,
   Req,
   Res,
   UploadedFile,
@@ -26,10 +27,10 @@ import { AddAddressDto } from './dto/add-address/add-address-request.dto';
 import { CreateClientSeedRequestDto } from './dto/create-client-seed/create-client-seed-request.dto';
 import { UpdateAddressDto } from './dto/update-address/update-address.request.dto';
 import { UpdateClientSeedRequestDto } from './dto/update-client-seed/update-client-seed-request.dto';
+import { GetBattleLeaderboardQueryDto } from './dto/get-battle-leaderboard-query.dto';
 
 import { AddAddressUseCase } from '../application/use-cases/add-address/add-address.usecase';
 import { getMeUseCase } from '../application/use-cases/get-me/get-me.usecase';
-import { GetUsersUseCase } from '../application/use-cases/get-users/get-users.usecase';
 import { UploadAvatarUseCase } from '../application/use-cases/upload-avatar/upload-avatar.usecase';
 import { GetAddressUseCase } from '../application/use-cases/get-address/get-address.usecase';
 import { UpdateAddressUseCase } from '../application/use-cases/update-address/update-address.usecase';
@@ -37,17 +38,16 @@ import { CreateClientSeedUseCase } from '../application/use-cases/create-client-
 import { UpdateClientSeedUseCase } from '../application/use-cases/update-client-seed/update-client-seed.usecase';
 import { GetClientSeedUseCase } from '../application/use-cases/get-client-seed/get-client-seed.usecase';
 
-import { UserQueryService } from '../infrastructure/prisma/query/prisma-user-query.service';
-
 import { GetMeSwagger } from './swagger/get-me.swagger';
 import { AddAddressSwagger } from './swagger/add-address.swagger';
 import { UploadAvatarSwagger } from './swagger/upload-avatar.swagger';
-import { GetUserSwagger } from './swagger/get-useers.swagger';
+import { GetBattleLeaderBoardSwagger } from './swagger/get-battle-leader-board.swagger';
 import { GetAddressSwagger } from './swagger/get-address.swagger';
 import { UpdateAddressSwagger } from './swagger/update-address.swagger';
 import { CreateClientSeedSwagger } from './swagger/create-client-seed.swagger';
 import { UpdateClientSeedSwagger } from './swagger/update-client-seed.swagger';
 import { GetClientSeedSwagger } from './swagger/get-client-sed.swagger';
+import { GetBattleLeaderboardUseCase } from '../application/use-cases/get-battle-leader-board/get-battle-leader-board.usecase';
 
 @Controller('users')
 export class UserController {
@@ -56,12 +56,11 @@ export class UserController {
     private readonly addAddressUseCase: AddAddressUseCase,
     private readonly getAddressUseCase: GetAddressUseCase,
     private readonly updateAddressUseCase: UpdateAddressUseCase,
-    private readonly getUsersUseCase: GetUsersUseCase,
     private readonly uploadAvatarUseCase: UploadAvatarUseCase,
     private readonly createClientSeedUseCase: CreateClientSeedUseCase,
     private readonly updateClientSeedUseCase: UpdateClientSeedUseCase,
     private readonly getClientSeedUseCase: GetClientSeedUseCase,
-    private readonly userQueryService: UserQueryService,
+    private readonly getBattleLeaderboardUseCase: GetBattleLeaderboardUseCase,
   ) {}
 
   // Отримати інформацію про себе (повний профіль)
@@ -121,24 +120,6 @@ export class UserController {
     return res.json(address);
   }
 
-  // Список користувачів з обмеженою інформацією (для рейтингу/статистики)
-  @GetUserSwagger()
-  @UseGuards(JwtAuthGuard)
-  @Get()
-  async getUsers() {
-    return await this.getUsersUseCase.execute();
-  }
-
-  // // видаляє акаунт користувача (SOFT DELETE)
-  // @DeleteMeSwagger()
-  // @UseGuards(JwtAuthGuard)
-  // @Delete('me')
-  // async deleteMe(@Req() req: AuthRequest, @Res({ passthrough: true }) res: Response,) {
-  //   const response = await this.deleteUserUseCase.execute(req.user.id);
-  //   this.authCookieService.clearAuthCookie(res);
-  //   return response;
-  // }
-
   // створює клієнтський сід
   @CreateClientSeedSwagger()
   @UseGuards(JwtAuthGuard)
@@ -176,9 +157,10 @@ export class UserController {
   }
 
   // отримання списку користвачів + рейтинг (для гри battle)
+  @GetBattleLeaderBoardSwagger()
   @UseGuards(JwtAuthGuard)
   @Get('battle-leaderboard')
-  async getBattleLeaderboard() {
-    return await this.userQueryService.getBattleLeaderboard();
+  async getBattleLeaderboard(@Query() query: GetBattleLeaderboardQueryDto) {
+    return await this.getBattleLeaderboardUseCase.execute(query);
   }
 }

@@ -23,42 +23,25 @@ export class PrismaRouletteBetRepository implements IRouletteBetRepository {
     tx?: PrismaTx,
   ): Promise<void> {
     const client = this.getClient(tx);
-    await client.rouletteBet.createMany({
-      data,
-    });
+    await client.rouletteBet.createMany({ data });
   }
 
-  async findMany({
-    userId,
-    gameSessionId,
-    betType,
-    from,
-    to,
-    page,
-    limit,
-  }: GetRouletteBetsParams) {
+  // отримати список ставок
+  async findMany(params: GetRouletteBetsParams) {
+    const { userId, gameSessionId, betType, from, to, page, limit } = params;
     const skip = (page - 1) * limit;
 
-    const where: any = {};
-
-    if (userId !== undefined) {
-      where.userId = userId;
-    }
-
-    if (gameSessionId) {
-      where.gameSessionId = gameSessionId;
-    }
-
-    if (betType) {
-      where.betType = betType;
-    }
-
-    if (from || to) {
-      where.createdAt = {
-        ...(from && { gte: from }),
-        ...(to && { lte: to }),
-      };
-    }
+    const where = {
+      ...(userId && { userId }),
+      ...(gameSessionId && { gameSessionId }),
+      ...(betType && { betType }),
+      ...((from || to) && {
+        createdAt: {
+          ...(from && { gte: from }),
+          ...(to && { lte: to }),
+        },
+      }),
+    };
 
     const [bets, total] = await Promise.all([
       this.prisma.rouletteBet.findMany({

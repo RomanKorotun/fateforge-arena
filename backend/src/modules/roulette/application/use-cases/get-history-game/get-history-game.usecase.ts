@@ -1,5 +1,6 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 
+import { createPagination } from '../../../../../common/helpers/pagination.helper';
 import { UserRole } from '../../../../user/domain/enums/user-role.enum';
 import { ROULETTE_BET_REPOSITORY } from '../../../domain/repositories/roulette-bet.repository.token';
 import type { IRouletteBetRepository } from '../../../domain/repositories/roulette-bet.repository';
@@ -11,10 +12,9 @@ import { GetHistoryGameCommand } from './get-history-game.command';
 export class GetHistoryGameUseCase {
   constructor(
     @Inject(ROULETTE_BET_REPOSITORY)
-    private readonly rouletteBetRepository: IRouletteBetRepository,
-
+    private readonly rouletteBetRepo: IRouletteBetRepository,
     @Inject(GAME_SESSION_REPOSITORY)
-    private readonly gameSessionRepository: IGameSessionRepository,
+    private readonly gameSessionRepo: IGameSessionRepository,
   ) {}
 
   async execute(command: GetHistoryGameCommand) {
@@ -32,6 +32,9 @@ export class GetHistoryGameUseCase {
 
     const isAdmin = requesterRole === UserRole.ADMIN;
 
+    const fromDate = from ? new Date(from) : undefined;
+    const toDate = to ? new Date(to) : undefined;
+
     let finalUserId: string | undefined;
 
     if (!isAdmin) {
@@ -44,8 +47,7 @@ export class GetHistoryGameUseCase {
       finalUserId = requesterId;
 
       if (gameSessionId) {
-        const session =
-          await this.gameSessionRepository.findById(gameSessionId);
+        const session = await this.gameSessionRepo.findById(gameSessionId);
 
         if (!session || session.userId !== requesterId) {
           throw new ForbiddenException('Немає доступу до цієї ігрової сесії');
@@ -55,25 +57,18 @@ export class GetHistoryGameUseCase {
       finalUserId = userId;
     }
 
-    const result = await this.rouletteBetRepository.findMany({
+    const { data, total } = await this.rouletteBetRepo.findMany({
       userId: finalUserId,
       gameSessionId,
       betType,
-      from: from ? new Date(from + 'T00:00:00') : undefined,
-      to: to ? new Date(to + 'T23:59:59.999') : undefined,
+      from: fromDate,
+      to: toDate,
       page,
       limit,
     });
 
-    return {
-      data: result.data,
-      pagination: {
-        page,
-        totalItems: result.total,
-        totalPages: Math.max(1, Math.ceil(result.total / limit)),
-        hasNextPage: page * limit < result.total,
-        hasPrevPage: page > 1,
-      },
-    };
+    const pagination = createPagination({ page, limit, totalItems: total });
+
+    return { bets: data, pagination };
   }
 }

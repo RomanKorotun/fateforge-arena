@@ -1,5 +1,7 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 
+import { createPagination } from '../../../../common/helpers/pagination.helper';
+
 import { UserRole } from '../../../user/domain/enums/user-role.enum';
 
 import type { ITransactionRepository } from '../../domain/repositories/transaction/transaction.repository';
@@ -13,10 +15,9 @@ import { GetTransactionsCommand } from './get-transactions.command';
 export class GetTransactionsUseCase {
   constructor(
     @Inject(TRANSACTION_REPOSITORY)
-    private readonly transactionRepository: ITransactionRepository,
-
+    private readonly transactionRepo: ITransactionRepository,
     @Inject(WALLET_REPOSITORY)
-    private readonly walletRepository: IWalletRepository,
+    private readonly walletRepo: IWalletRepository,
   ) {}
 
   async execute(command: GetTransactionsCommand) {
@@ -25,49 +26,47 @@ export class GetTransactionsUseCase {
       requesterRole,
       userId,
       walletId,
+      type,
+      status,
+      provider,
+      currency,
       from,
       to,
       page,
       limit,
-      ...filters
     } = command;
 
     // чи адмін
     const isAdmin = requesterRole === UserRole.ADMIN;
 
-    const fromDate = from ? new Date(from + 'T00:00:00') : undefined;
-
-    const toDate = to ? new Date(to + 'T23:59:59.999') : undefined;
+    const fromDate = from ? new Date(from) : undefined;
+    const toDate = to ? new Date(to) : undefined;
 
     let finalUserId: string | undefined;
     let finalWalletId: string | undefined;
 
     // USER
     if (!isAdmin) {
-      // USER не може
-      // дивитися чужі транзакції
+      // USER не може дивитися чужі транзакції
 
       if (userId && userId !== requesterId) {
         throw new ForbiddenException(
-          'You cannot access other users transactions',
+          'Доступ до транзакцій інших користувачів заборонено',
         );
       }
 
-      // USER бачить
-      // тільки свої транзакції
-
+      // USER бачить тільки свої транзакції
       finalUserId = requesterId;
 
-      // якщо є walletId
-      // перевіряємо що гаманець належить юзеру
+      // якщо є walletId перевіряємо що гаманець належить юзеру
       if (walletId) {
-        const wallet = await this.walletRepository.findByIdAndUserId(
+        const wallet = await this.walletRepo.findByIdAndUserId(
           walletId,
           requesterId,
         );
 
         if (!wallet) {
-          throw new ForbiddenException('You cannot access this wallet');
+          throw new ForbiddenException('Доступ до цього гаманця заборонено');
         }
 
         finalWalletId = walletId;
@@ -85,18 +84,21 @@ export class GetTransactionsUseCase {
       finalWalletId = walletId;
     }
 
-    // ОТРИМАННЯ ТРАНЗАКЦІЙ
-    const result = await this.transactionRepository.findMany({
-      ...filters,
+    // отримання транзакцій
+    const { data, total } = await this.transactionRepo.findMany({
       userId: finalUserId,
       walletId: finalWalletId,
+      type,
+      status,
+      provider,
+      currency,
       from: fromDate,
       to: toDate,
       page,
       limit,
     });
 
-    const transactions = result.data.map((transaction) => ({
+    const transactions = data.map((transaction) => ({
       id: transaction.id,
       walletId: transaction.walletId,
       type: transaction.type,
@@ -110,17 +112,8 @@ export class GetTransactionsUseCase {
       createdAt: transaction.createdAt,
     }));
 
-    const totalPages = Math.max(1, Math.ceil(result.total / limit));
+    const pagination = createPagination({ page, limit, totalItems: total });
 
-    return {
-      data: transactions,
-      pagination: {
-        page,
-        totalItems: result.total,
-        totalPages,
-        hasNextPage: page < totalPages,
-        hasPrevPage: page > 1,
-      },
-    };
+    return { transactions, pagination };
   }
 }

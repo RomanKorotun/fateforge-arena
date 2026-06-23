@@ -24,24 +24,20 @@ export class PrismaVideoslotistoryRepository implements IVideoslotHistoryReposit
   }
 
   async findMany(filters: GetVideoslotHistoryParams) {
-    const { page, limit, from, to, userId, gameId, ...data } = filters;
+    const { userId, gameId, currency, from, to, page, limit } = filters;
 
     const skip = (page - 1) * limit;
 
     const where = {
-      ...data,
-
-      ...(userId ? { userId } : {}),
-      ...(gameId ? { gameId } : {}),
-
-      ...(from || to
-        ? {
-            createdAt: {
-              ...(from ? { gte: new Date(from) } : {}),
-              ...(to ? { lte: new Date(to) } : {}),
-            },
-          }
-        : {}),
+      ...(userId && { userId }),
+      ...(gameId && { gameId }),
+      ...(currency && { currency }),
+      ...((from || to) && {
+        createdAt: {
+          ...(from && { gte: from }),
+          ...(to && { lte: to }),
+        },
+      }),
     };
 
     const [items, total] = await Promise.all([

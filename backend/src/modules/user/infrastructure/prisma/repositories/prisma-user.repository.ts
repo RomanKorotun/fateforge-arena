@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../../core/prisma/prisma.service';
+import { PrismaTx } from '../../../../../core/prisma/prisma.types';
 
 import type {
   CreateUserData,
@@ -12,7 +13,6 @@ import { UserEntity } from '../../../domain/entities/user.entity';
 import { UserEntityWithPassword } from '../../../domain/entities/user-with-password.type';
 
 import { PrismaUserMapper } from '../mappers/prisma-user.mapper';
-import { PrismaTx } from '../../../../../core/prisma/prisma.types';
 
 @Injectable()
 export class PrismaUserRepository implements IUserRepository {
@@ -80,20 +80,35 @@ export class PrismaUserRepository implements IUserRepository {
 
   // отримати список всіх користувачів
   async findAllUsers(
-    { skip, limit: take, role, isBanned, isDeleted }: FindAllUsersData,
+    { page, limit, role, isBanned, isDeleted }: FindAllUsersData,
     tx?: PrismaTx,
-  ): Promise<UserEntity[]> {
+  ): Promise<{
+    data: UserEntity[];
+    total: number;
+  }> {
     const client = this.getClient(tx);
-    const users = await client.user.findMany({
-      skip,
-      take,
-      where: {
-        ...(role !== undefined && { role }),
-        ...(isBanned !== undefined && { isBanned }),
-        ...(isDeleted !== undefined && { isDeleted }),
-      },
-      orderBy: { createdAt: 'desc' },
-    });
-    return users.map(PrismaUserMapper.toDomain);
+
+    const skip = (page - 1) * limit;
+
+    const where = {
+      ...(role && { role }),
+      ...(isBanned && { isBanned }),
+      ...(isDeleted && { isDeleted }),
+    };
+
+    const [users, total] = await Promise.all([
+      client.user.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      client.user.count({ where }),
+    ]);
+
+    return {
+      data: users.map(PrismaUserMapper.toDomain),
+      total,
+    };
   }
 }

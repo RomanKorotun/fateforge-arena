@@ -71,24 +71,38 @@ export class PrismaTransactionRepository implements ITransactionRepository {
     });
   }
 
-  async findMany(filters: GetTransactionsParams, tx?: PrismaTx) {
+  // отримати список транзакцій
+  async findMany(params: GetTransactionsParams, tx?: PrismaTx) {
     const client = this.getClient(tx);
 
-    const { page, limit, from, to, userId, ...data } = filters;
+    const {
+      userId,
+      walletId,
+      type,
+      status,
+      provider,
+      currency,
+      from,
+      to,
+      page,
+      limit,
+    } = params;
 
     const skip = (page - 1) * limit;
 
     const where = {
-      ...data,
-      ...(from || to
-        ? {
-            createdAt: {
-              ...(from ? { gte: from } : {}),
-              ...(to ? { lte: to } : {}),
-            },
-          }
-        : {}),
-      ...(userId ? { wallet: { userId } } : {}),
+      ...(userId && { wallet: { userId } }),
+      ...(walletId && { walletId }),
+      ...(type && { type }),
+      ...(status && { status }),
+      ...(provider && { provider }),
+      ...(currency && { currency }),
+      ...((from || to) && {
+        createdAt: {
+          ...(from && { gte: from }),
+          ...(to && { lte: to }),
+        },
+      }),
     };
 
     const [transactions, total] = await Promise.all([

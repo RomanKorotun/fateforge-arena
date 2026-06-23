@@ -1,17 +1,14 @@
+import { ApiPropertyOptional, IntersectionType } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsOptional, IsBoolean, IsNumber } from 'class-validator';
+import { IsOptional, IsBoolean } from 'class-validator';
 
-export class GetAdminUsersQueryDto {
-  @Transform(({ value }) => Number(value))
-  @IsNumber()
-  @IsOptional()
-  page: number = 1;
+import { PaginationDto } from '../../../../common/dto/pagination.dto';
 
-  @Transform(({ value }) => Number(value))
-  @IsNumber()
-  @IsOptional()
-  limit: number = 20;
-
+export class GetAdminUsersQueryDto extends IntersectionType(PaginationDto) {
+  @ApiPropertyOptional({
+    description: 'Фільтр по заблокованих користувачах',
+    example: false,
+  })
   @Transform(({ value }) =>
     value === undefined ? undefined : value === 'true',
   )
@@ -19,6 +16,10 @@ export class GetAdminUsersQueryDto {
   @IsOptional()
   isBanned?: boolean;
 
+  @ApiPropertyOptional({
+    description: 'Фільтр по видалених користувачах',
+    example: false,
+  })
   @Transform(({ value }) =>
     value === undefined ? undefined : value === 'true',
   )
