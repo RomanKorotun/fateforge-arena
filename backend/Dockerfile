@@ -43,4 +43,4 @@ CMD ["yarn", "prisma:deploy"]
 # SEED
 FROM migration AS seed
 COPY --from=build /app/dist/prisma/seeds ./seeds
-CMD ["node", "/seeds/admin.seed.js"]
+CMD ["node", "/app/seeds/admin.seed.js"]
