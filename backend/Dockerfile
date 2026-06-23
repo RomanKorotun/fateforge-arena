@@ -26,7 +26,6 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --production
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma/generated ./dist/prisma/generated
-COPY --from=build /app/prisma/seeds ./dist/prisma/seeds
 ENV NODE_ENV=production
 CMD ["yarn", "start:prod"]
 
@@ -40,3 +39,8 @@ COPY --from=build /app/prisma ./prisma
 COPY --from=build /app/prisma.config.ts ./prisma.config.ts
 ENV NODE_ENV=production
 CMD ["yarn", "prisma:deploy"]
+
+# SEED
+FROM migration AS seed
+COPY --from=build /app/dist/prisma/seeds ./seeds
+CMD ["node", "/seeds/admin.seed.js"]
