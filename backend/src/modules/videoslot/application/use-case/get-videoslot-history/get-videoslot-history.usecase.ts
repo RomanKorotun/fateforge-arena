@@ -1,5 +1,7 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 
+import { createPagination } from '../../../../../common/helpers/pagination.helper';
+
 import { UserRole } from '../../../../user/domain/enums/user-role.enum';
 
 import { GetVideoslotHistoryCommand } from './get-videoslot-history.command';
@@ -47,17 +49,10 @@ export class GetVideoslotHistoryUseCase {
       ? userId // якщо передано userId → фільтруємо по ньому
       : requesterId; // користувач бачить тільки свої дані
 
-    // нормалізація дат
-    const fromDate = from
-      ? new Date(new Date(from).setHours(0, 0, 0, 0))
-      : undefined;
+    const fromDate = from ? new Date(from) : undefined;
+    const toDate = to ? new Date(to) : undefined;
 
-    const toDate = to
-      ? new Date(new Date(to).setHours(23, 59, 59, 999))
-      : undefined;
-
-    // 3. ОТРИМАННЯ ДАНИХ З РЕПОЗИТОРІЮ
-    const result = await this.videoslotHistoryRepository.findMany({
+    const { data, total } = await this.videoslotHistoryRepository.findMany({
       userId: finalUserId,
       gameId,
       currency,
@@ -67,18 +62,8 @@ export class GetVideoslotHistoryUseCase {
       limit,
     });
 
-    // 4. РОЗРАХУНОК ПАГІНАЦІЇ
-    const totalPages = Math.ceil(result.total / limit);
+    const pagination = createPagination({ page, limit, totalItems: total });
 
-    return {
-      data: result.data,
-      pagination: {
-        page,
-        totalItems: result.total,
-        totalPages,
-        hasNextPage: page < totalPages,
-        hasPrevPage: page > 1,
-      },
-    };
+    return { data, pagination };
   }
 }

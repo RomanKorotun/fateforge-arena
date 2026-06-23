@@ -9,7 +9,7 @@ export interface CreateUserData {
 }
 
 export interface FindAllUsersData {
-  skip: number;
+  page: number;
   limit: number;
   role?: UserRole;
   isBanned?: boolean;
@@ -48,5 +48,8 @@ export interface IUserRepository {
     data: UpdateUserData,
     tx?: unknown,
   ): Promise<UserEntity>;
-  findAllUsers(params: FindAllUsersData, tx?: unknown): Promise<UserEntity[]>;
+  findAllUsers(
+    params: FindAllUsersData,
+    tx?: unknown,
+  ): Promise<{ data: UserEntity[]; total: number }>;
 }

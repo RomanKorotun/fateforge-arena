@@ -1,13 +1,16 @@
 import * as Joi from 'joi';
 
 export const envValidationSchema = Joi.object({
-  PORT: Joi.number().required(),
   NODE_ENV: Joi.string().valid('development', 'production').required(),
+  PORT: Joi.number().required(),
   FRONTEND_URL: Joi.string().required(),
+  POSTGRES_USER: Joi.string().required(),
+  POSTGRES_PASSWORD: Joi.string().required(),
+  POSTGRES_DB: Joi.string().required(),
   DATABASE_URL: Joi.string().required(),
   ACCESS_TOKEN_SECRET: Joi.string().required(),
   ACCESS_TOKEN_TIME: Joi.number().required(),
-  REDIS_URL_AUTH: Joi.string().required(),
+  REDIS_URL: Joi.string().required(),
   ADMIN_USERNAME: Joi.string().required(),
   ADMIN_EMAIL: Joi.string().required(),
   ADMIN_PASSWORD: Joi.string().required(),

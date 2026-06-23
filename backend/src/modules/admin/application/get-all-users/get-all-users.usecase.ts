@@ -1,5 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
+import { createPagination } from '../../../../common/helpers/pagination.helper';
+
 import { USER_REPOSITORY } from '../../../user/domain/repositories/user.repository.token';
 import type { IUserRepository } from '../../../user/domain/repositories/user.repository';
 import { UserRole } from '../../../user/domain/enums/user-role.enum';
@@ -14,13 +16,16 @@ export class GetAllUsersUseCase {
   ) {}
 
   async execute({ page, limit, isBanned, isDeleted }: GetAllUsersCommand) {
-    const skip = (page - 1) * limit;
-    return await this.userRepository.findAllUsers({
-      skip,
+    const { data, total } = await this.userRepository.findAllUsers({
+      page,
       limit,
       role: UserRole.USER,
       isBanned,
       isDeleted,
     });
+
+    const pagination = createPagination({ page, limit, totalItems: total });
+
+    return { users: data, pagination };
   }
 }

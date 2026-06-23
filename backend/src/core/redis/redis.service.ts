@@ -6,7 +6,7 @@ import Redis from 'ioredis';
 export class RedisService extends Redis implements OnModuleDestroy {
   private readonly logger = new Logger(RedisService.name);
   constructor(config: ConfigService) {
-    const url = config.getOrThrow<string>('REDIS_URL_AUTH');
+    const url = config.getOrThrow<string>('REDIS_URL');
 
     // super(url);
     super(url);
