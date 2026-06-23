@@ -80,9 +80,9 @@ jobs:
             EOF
 
             # Перевіряємо, чи немає змінних без значення
-            if grep -qE '=$' .env.production; then
+            if grep -qE '^[A-Za-z_][A-Za-z0-9_]*=[[:space:]]*$' .env.production; then
               echo "Empty environment variable detected:"
-              grep -E '=$' .env.production
+              grep -E '^[A-Za-z_][A-Za-z0-9_]*=[[:space:]]*$' .env.production
               exit 1
             fi
 
