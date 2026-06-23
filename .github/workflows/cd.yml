@@ -86,17 +86,17 @@ jobs:
               exit 1
             fi
 
-            # перебудовуємо образи
-            docker compose -f docker-compose.prod.yml build api migration
+            # build
+            docker compose -f docker-compose.prod.yml build
 
-            # виконуємо міграції
+            # migrations
             docker compose -f docker-compose.prod.yml run --rm migration
 
-            # перезапускаємо api
-            docker compose -f docker-compose.prod.yml up -d api
+            # seed
+            docker compose -f docker-compose.prod.yml run --rm seed
 
-            # створення адміна
-            docker exec api_prod node dist/prisma/seeds/admin.seed.js
+            # api
+            docker compose -f docker-compose.prod.yml up -d api
 
             # очищення старих Docker image шарів
             docker image prune -f
